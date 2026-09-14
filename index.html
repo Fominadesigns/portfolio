@@ -463,7 +463,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 .review.is-gone{transform:translateX(-115%) rotate(-4deg);opacity:0;pointer-events:none}
 .review:not(.is-front) > *{visibility:hidden;transition:visibility 0s .2s}
 .review.is-front > *{visibility:visible}
-.review__top{display:grid;grid-template-columns:minmax(150px,.55fr) minmax(0,1.6fr);gap:clamp(16px,2.6vw,40px);padding-bottom:clamp(18px,2.6vw,34px);border-bottom:1px solid var(--blue)}
+.review__top{display:grid;grid-template-columns:minmax(150px,.55fr) minmax(0,1.6fr);gap:clamp(16px,2.6vw,40px)}
 .review__photo{border-right:1px solid var(--blue);padding-right:clamp(16px,2.6vw,40px);display:grid}
 .review__photo .ph{min-height:clamp(200px,24vw,340px);background-color:color-mix(in srgb,var(--blue) 10%,#fff)}
 .review__quote{margin:0;background:var(--blue) var(--grid-l);color:#fff;border-radius:var(--r);padding:clamp(22px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
@@ -509,7 +509,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 .qb-solid{fill:var(--blue);stroke:none}
 .qb-txt{fill:var(--blue);stroke:none;font-family:var(--head);font-weight:800;text-transform:uppercase}
 .qb-pop,.qb-lens{transform-box:fill-box;transform-origin:center}
-.qb-lens{animation:qbLens 2.6s ease-in-out infinite}
+.qb-arrow{stroke:var(--blue)}
 @keyframes qbLens{50%{transform:scale(1.08)}}
 .js .qb-draw{stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 2.2s cubic-bezier(.6,0,.2,1) .3s}
 .js .qb-area{opacity:0}
@@ -519,7 +519,6 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 .js .in .qb-pop{opacity:1;transform:none}
 @media (max-width:900px){.qbanner__grid{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){
-  .qb-lens{animation:none}
   .js .qb-draw{stroke-dashoffset:0;transition:none}
   .js .qb-area,.js .qb-pop{opacity:1;transform:none;transition:none}
 }
@@ -784,11 +783,6 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
             </footer>
           </blockquote>
         </div>
-        <div class="review__results">
-          <span class="h review__label">Результат</span>
-          <div class="review__res"><b class="h">—</b><span>цифра від клієнта</span></div>
-          <div class="review__res"><b class="h">—</b><span>цифра від клієнта</span></div>
-        </div>
       </article>
       <article class="review" style="--k:1" aria-roledescription="відгук">
         <div class="review__top">
@@ -801,11 +795,6 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
             </footer>
           </blockquote>
         </div>
-        <div class="review__results">
-          <span class="h review__label">Результат</span>
-          <div class="review__res"><b class="h">—</b><span>цифра від клієнта</span></div>
-          <div class="review__res"><b class="h">—</b><span>цифра від клієнта</span></div>
-        </div>
       </article>
       <article class="review" style="--k:2" aria-roledescription="відгук">
         <div class="review__top">
@@ -817,11 +806,6 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
               <span class="review__logo">Лого</span>
             </footer>
           </blockquote>
-        </div>
-        <div class="review__results">
-          <span class="h review__label">Результат</span>
-          <div class="review__res"><b class="h">—</b><span>цифра від клієнта</span></div>
-          <div class="review__res"><b class="h">—</b><span>цифра від клієнта</span></div>
         </div>
       </article>
     </div>
@@ -852,7 +836,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
           <path class="qb-thin" d="M170 300V222M292 300V222M420 300V124"/>
           <path class="qb-draw" d="M30 280L100 238L170 222L230 168L292 222L352 150L420 124L492 58"/>
           <g class="qb-pop">
-            <circle class="qb-solid" cx="492" cy="58" r="7"/>
+            <path class="qb-arrow" d="M-18 -11L0 0L-18 11" stroke-width="3.4" transform="translate(492 58) rotate(-42.5)"/>
             <rect x="370" y="10" width="112" height="36" rx="4" stroke-width="1.6"/>
             <text class="qb-txt" x="426" y="36" text-anchor="middle" font-size="20">+ заявки?</text>
           </g>
@@ -1485,6 +1469,68 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       c.addEventListener('mouseleave', function () { peek.classList.remove('on'); });
     });
+  }
+
+  /* --- банер квізу: графік піднімається й опускається ----------------------
+     Спершу лінія малюється (CSS), далі точки плавно ходять між «низом» і
+     «верхом» — раз на ~6 секунд. Кожна точка трохи запізнюється за попередньою,
+     тож графік не стрибає цілком, а ніби хвилею йде вгору. Стрілочка, підпис,
+     лупа й пунктири їдуть разом із лінією. Лише поки банер видно. */
+  var qbSvg = $('.qbanner__art svg');
+  if (qbSvg && !reduce) {
+    var HIGH = [[30, 280], [100, 238], [170, 222], [230, 168], [292, 222], [352, 150], [420, 124], [492, 58]];
+    var LOW  = [[30, 288], [100, 270], [170, 262], [230, 238], [292, 262], [352, 232], [420, 220], [492, 196]];
+    var qLine = $('.qb-draw', qbSvg), qArea = $('.qb-area', qbSvg), qThin = $('.qb-thin', qbSvg);
+    var qArrow = $('.qb-arrow', qbSvg), qTag = $('.qb-pop rect', qbSvg), qTagText = $('.qb-pop text', qbSvg);
+    var qLens = $('.qb-lens', qbSvg), qBanner = qbSvg.closest('.qbanner');
+    var qVisible = false, qRaf = 0, qT0 = 0, qReady = false;
+    var PERIOD = 6000;
+
+    function qShape(phase) {
+      return HIGH.map(function (p, i) {
+        // хвиля: права частина графіка трохи запізнюється
+        var t = (1 + Math.cos(2 * Math.PI * (phase - i * 0.018))) / 2;
+        return [p[0], LOW[i][1] + (p[1] - LOW[i][1]) * t];
+      });
+    }
+    function qDraw(pts) {
+      var d = 'M' + pts.map(function (p) { return p[0] + ' ' + p[1].toFixed(1); }).join('L');
+      qLine.setAttribute('d', d);
+      qArea.setAttribute('d', d + 'V300H30Z');
+      qThin.setAttribute('d', 'M170 300V' + pts[2][1].toFixed(1) + 'M292 300V' + pts[4][1].toFixed(1) + 'M420 300V' + pts[6][1].toFixed(1));
+      var a = pts[7], b = pts[6];
+      var ang = Math.atan2(a[1] - b[1], a[0] - b[0]) * 180 / Math.PI;
+      qArrow.setAttribute('transform', 'translate(' + a[0] + ' ' + a[1].toFixed(1) + ') rotate(' + ang.toFixed(1) + ')');
+      qTag.setAttribute('y', (a[1] - 48).toFixed(1));
+      qTagText.setAttribute('y', (a[1] - 22).toFixed(1));
+      // лупа тримається над провалом
+      qLens.setAttribute('transform', 'translate(0 ' + (pts[4][1] - 222).toFixed(1) + ')');
+    }
+    function qTick(now) {
+      qRaf = 0;
+      if (!qVisible || !qReady) return;
+      if (!qT0) qT0 = now;
+      qDraw(qShape((now - qT0) / PERIOD));
+      qRaf = requestAnimationFrame(qTick);
+    }
+    function qStart() { if (qVisible && qReady && !qRaf) qRaf = requestAnimationFrame(qTick); }
+
+    // рух починається, коли лінія домалювалась після появи банера
+    var qWait = setInterval(function () {
+      if (!qBanner.classList.contains('in')) return;
+      clearInterval(qWait);
+      setTimeout(function () {
+        qLine.style.strokeDasharray = 'none';
+        qLine.style.transition = 'none';
+        qReady = true; qT0 = 0;
+        qStart();
+      }, 2900);
+    }, 200);
+
+    new IntersectionObserver(function (es) {
+      qVisible = es[0].isIntersecting;
+      if (qVisible) qStart();
+    }).observe(qBanner);
   }
 
   /* --- відгуки: гортання стосу -------------------------------------------- */
