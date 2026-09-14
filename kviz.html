@@ -114,8 +114,8 @@ a:hover .roll>span+span,button:hover:not(:disabled) .roll>span+span{transform:no
 .qcard__hint{margin:12px 0 0;font:500 13px var(--body);text-transform:uppercase;letter-spacing:.08em;opacity:.7;min-height:1.2em}
 .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:clamp(18px,3vh,28px)}
 .opt{
-  position:relative;display:grid;grid-template-columns:32px minmax(0,1fr) 22px;align-items:center;gap:14px;
-  min-height:74px;padding:14px 16px;border:1px solid var(--blue);border-radius:var(--r);cursor:pointer;
+  position:relative;display:grid;grid-template-columns:46px minmax(0,1fr) 22px;align-items:center;gap:16px;
+  min-height:84px;padding:14px 16px;border:1px solid var(--blue);border-radius:var(--r);cursor:pointer;
   /* вибір заливається синім зліва направо — як список на головній */
   background:linear-gradient(90deg,var(--blue) 50%,#fff 50%) 100% 0 / 200% 100% no-repeat;
   transition:background-position .55s var(--ease),color .3s;
@@ -126,6 +126,10 @@ a:hover .roll>span+span,button:hover:not(:disabled) .roll>span+span{transform:no
 .opt.is-on{background-position:0 0;color:#fff}
 .opt:focus-within{outline:2px solid var(--orange);outline-offset:2px}
 .opt__n{width:32px;height:32px;border:1px solid currentColor;display:grid;place-items:center;font:800 14px var(--head)}
+/* Іконки квізу: тонкі лінії в квадратній рамці, колір — як у тексту,
+   тож на синій заливці вони стають білими разом із ним */
+.opt__i{width:46px;height:46px;border:1px solid currentColor;border-radius:4px;display:grid;place-items:center}
+.opt__i svg{width:26px;height:26px}
 .opt__tick{width:22px;height:22px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center}
 .opt--many .opt__tick{border-radius:4px}
 .opt__tick svg{opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--out)}
@@ -287,21 +291,70 @@ document.addEventListener('DOMContentLoaded', function () {
   function pad(n) { return ('0' + n).slice(-2); }
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
+  /* --- іконки відповідей: власні, у стилі сайту (24×24, лінія 1.6) --------- */
+  function coins(n) {
+    var d = '';
+    for (var k = 0; k < n; k++) {
+      var t = 16 - k * 3.5;
+      d += '<path d="M5 ' + t + 'v3a7 2.5 0 0 0 14 0v-3"/>';
+      if (k === n - 1) d += '<ellipse cx="12" cy="' + t + '" rx="7" ry="2.5"/>';
+    }
+    return d;
+  }
+  function bars(n) {
+    var d = '<path d="M3 21h18"/>';
+    for (var k = 0; k < n; k++) {
+      var h = 4 + k * 4.5;
+      d += '<rect x="' + (4 + k * 4.2) + '" y="' + (19 - h) + '" width="2.6" height="' + h + '" rx=".6"/>';
+    }
+    return d;
+  }
+  var ICONS = {
+    down: '<path d="M3 7l6 6 4-4 8 8"/><path d="M21 11v6h-6"/>',
+    up: '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+    sparkle: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16v4M17 18h4"/>',
+    nosite: '<rect x="3" y="4.5" width="18" height="15" rx="1.5"/><path d="M3 8.5h18"/><path d="M10 12l4 4M14 12l-4 4"/>',
+    insta: '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><path d="M17 7h.01"/>',
+    megaphone: '<path d="M3 10v4h3l7 4.5v-13L6 10z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a7.5 7.5 0 0 1 0 11"/>',
+    chat: '<path d="M3.5 4.5h11v8h-6l-3 3v-3h-2z"/><path d="M17 8.5h3.5v8h-2v3l-3-3h-5v-2"/>',
+    nobody: '<circle cx="12" cy="8" r="3.5" stroke-dasharray="2.2 2.2"/><path d="M5 20.5c1-4 4-6 7-6s6 2 7 6" stroke-dasharray="2.2 2.2"/>',
+    service: '<circle cx="14" cy="5.5" r="2.5"/><path d="M2.5 13h3l4 1.5H14a1.5 1.5 0 0 1 0 3h-4"/><path d="M5.5 20h8.5l6.5-4.5a1.6 1.6 0 0 0-2-2.5l-4 2.5"/>',
+    box: '<path d="M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5z"/><path d="M3 7.5l9 4.5 9-4.5"/><path d="M12 12v9"/><path d="M7.5 5.2l9 4.5"/>',
+    person: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 4.5-6.5 8-6.5s6.5 2 8 6.5"/>',
+    dots: '<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
+    coin1: coins(1), coin2: coins(2), coin3: coins(3),
+    diamond: '<path d="M6.5 3.5h11L22 9.5 12 21 2 9.5z"/><path d="M2 9.5h20"/><path d="M9 3.5l3 6 3-6"/><path d="M8 9.5l4 11.5 4-11.5"/>',
+    bar1: bars(1), bar2: bars(2), bar3: bars(3), bar4: bars(4),
+    plus: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+    double: '<path d="M7 20V6M3 10l4-4 4 4"/><path d="M17 20V4M13 8l4-4 4 4"/>',
+    fire: '<path d="M12 21.5c3.9 0 7-2.8 7-6.8 0-4.2-3-6.3-4.2-10.2-1.9 1.7-2.8 3.7-2.8 5.6-1-.8-1.8-2.1-2-3.6C7.5 8.3 5 10.9 5 14.7c0 4 3.1 6.8 7 6.8z"/><path d="M12 21.5c-1.9 0-3-1.3-3-3 0-2 1.6-3 3-4.8 1.4 1.8 3 2.8 3 4.8 0 1.7-1.1 3-3 3z"/>',
+    rocket: '<path d="M9.5 14.5l-3-3C8 6 12 3 20.5 3.5 21 12 18 16 12.5 17.5z"/><circle cx="15" cy="9" r="1.8"/><path d="M6.5 11.5L3 12l2.5-3.5h4"/><path d="M12.5 17.5L12 21l3.5-2.5v-4"/><path d="M6 15c-1.5 1-2.5 3.5-2.5 5.5 2 0 4.5-1 5.5-2.5"/>'
+  };
+  function icon(name) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || '') + '</svg>';
+  }
+
   /* --- питання: ті самі, що в старому квізі --------------------------------
      many: можна кілька відповідей; only — варіант, що знімає решту. */
   var QUESTIONS = [
     { id: 'site', label: 'Сайт', q: 'Чи є у вас зараз сайт?',
-      opts: ['Так, але він не приносить клієнтів', 'Так, і він приносить заявки', 'Так, але хочу його покращити', 'Ні, поки що немає'] },
+      opts: ['Так, але він не приносить клієнтів', 'Так, і він приносить заявки', 'Так, але хочу його покращити', 'Ні, поки що немає'],
+      icons: ['down', 'up', 'sparkle', 'nosite'] },
     { id: 'source', label: 'Звідки клієнти', q: 'Звідки зараз приходять ваші клієнти?', many: true, only: 3,
-      opts: ['Instagram / соціальні мережі', 'Реклама', 'Сарафанне радіо', 'Клієнтів майже немає'] },
+      opts: ['Instagram / соціальні мережі', 'Реклама', 'Сарафанне радіо', 'Клієнтів майже немає'],
+      icons: ['insta', 'megaphone', 'chat', 'nobody'] },
     { id: 'niche', label: 'Напрямок', q: 'Чим ви займаєтесь?',
-      opts: ['Послуги', 'Товари', 'Особистий бренд', 'Інше'] },
+      opts: ['Послуги', 'Товари', 'Особистий бренд', 'Інше'],
+      icons: ['service', 'box', 'person', 'dots'] },
     { id: 'check', label: 'Середній чек', q: 'Середній чек ваших послуг або товарів?',
-      opts: ['До $50', '$50–200', '$200–1000', '$1000+'] },
+      opts: ['До $50', '$50–200', '$200–1000', '$1000+'],
+      icons: ['coin1', 'coin2', 'coin3', 'diamond'] },
     { id: 'leads', label: 'Заявок зараз', q: 'Скільки заявок на місяць ви отримуєте зараз?',
-      opts: ['До 10', '10–30', '30–100', '100+'] },
+      opts: ['До 10', '10–30', '30–100', '100+'],
+      icons: ['bar1', 'bar2', 'bar3', 'bar4'] },
     { id: 'want', label: 'Хочу', q: 'Скільки заявок ви хотіли б отримувати?',
-      opts: ['Трохи більше', 'У 2 рази більше', 'У 3–5 разів більше', 'У 5–10 разів більше'] }
+      opts: ['Трохи більше', 'У 2 рази більше', 'У 3–5 разів більше', 'У 5–10 разів більше'],
+      icons: ['plus', 'double', 'fire', 'rocket'] }
   ];
 
   /* --- висновки: залежать від відповіді на перше питання -------------------
@@ -349,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var on = chosen.indexOf(k) >= 0;
       return '<label class="opt' + (q.many ? ' opt--many' : '') + (on ? ' is-on' : '') + '">' +
         '<input type="' + (q.many ? 'checkbox' : 'radio') + '" name="' + q.id + '" value="' + k + '"' + (on ? ' checked' : '') + '>' +
-        '<span class="opt__n">' + pad(k + 1) + '</span><span>' + esc(o) + '</span>' +
+        '<span class="opt__i">' + icon(q.icons[k]) + '</span><span>' + esc(o) + '</span>' +
         '<span class="opt__tick" aria-hidden="true"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3.5 3.5L11 1"/></svg></span>' +
         '</label>';
     }).join('');
