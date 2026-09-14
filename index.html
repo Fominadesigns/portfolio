@@ -134,10 +134,12 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   --ht:clamp(72px,10vh,120px);
   --hg:clamp(14px,2.5vh,40px);
   --hb:clamp(14px,2.5vh,28px);
-  --hc:max(220px,min(44vw,calc((100svh - var(--ht) - 1.72 * var(--hf) - var(--hg) - var(--hb) - 13px - 6px) / 1.02)));
+  --hc:max(220px,min(44vw,calc((100svh - var(--ht) - 1.8 * var(--hf) - var(--hg) - var(--hb) - 13px - 6px) / 1.02)));
   padding:var(--ht) clamp(16px,4vw,60px) var(--hb);display:flex;flex-direction:column;overflow:hidden;
 }
 .hero__title{font-size:var(--hf);text-align:center;line-height:.86}
+/* на комп'ютері рядки не переносяться: скрипт підганяє розмір під ширину */
+@media (min-width:641px){.hero__title .ln>span{white-space:nowrap}}
 .ln{display:block;overflow:hidden;padding:.1em 0 .04em;margin:-.1em 0 -.04em}
 .ln>span{display:inline-block;transition:transform 1s var(--out) calc(var(--d,0) * 1s)}
 .js .ln>span{transform:translateY(108%)}
@@ -171,7 +173,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-1deg)}}
 
 /* --- піксельний перехід із синього в сірий ------------------------------- */
-.px{position:relative;height:150vh;z-index:1;pointer-events:none}
+.px{position:relative;height:130vh;z-index:1;pointer-events:none}
 .px__stick{position:sticky;top:0;height:100vh}
 .px canvas{display:block;width:100%;height:100%}
 
@@ -918,7 +920,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function pxDraw() {
     var rect = pxSec.getBoundingClientRect();
-    pxProgress = clamp(-rect.top / Math.max(1, rect.height - vh), 0, 1);
+    // старт, коли верх переходу на середині екрана, тобто перший екран прокручено наполовину
+    pxProgress = clamp((vh * 0.5 - rect.top) / Math.max(1, rect.height - vh * 0.5), 0, 1);
     if (rect.bottom < 0 || rect.top > vh) return;
     var q = Math.round(pxProgress * 240);
     if (q === pxLast) return;
@@ -1284,6 +1287,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* --- заголовок першого екрана на всю ширину -------------------------------
+     Міряємо найдовший рядок і збільшуємо шрифт, доки він не дістане країв —
+     тих самих, що й лінії під заголовком. Висоту обмежуємо, щоб квадрат із
+     відео все одно вміщався на екрані. На телефоні лишаємо розмір із CSS. */
+  var heroEl = $('.hero'), heroTitle = $('.hero__title');
+  function fitTitle() {
+    heroEl.style.removeProperty('--hf');
+    heroEl.style.removeProperty('--hc');
+    if (window.innerWidth <= 640) return;
+    var base = parseFloat(getComputedStyle(heroTitle).fontSize);
+    var widest = 0;
+    $$('.ln > span', heroTitle).forEach(function (sp) { widest = Math.max(widest, sp.getBoundingClientRect().width); });
+    if (!widest) return;
+    var size = base * heroTitle.clientWidth / widest * 0.995;
+    size = Math.min(size, window.innerHeight * 0.19, 240);
+    heroEl.style.setProperty('--hf', size.toFixed(2) + 'px');
+
+    // 13 px — сіра рамка над першим екраном, коли сторінка вгорі
+    var row = $('.hero__row', heroEl);
+    var rowTop = row.getBoundingClientRect().top - heroEl.getBoundingClientRect().top;
+    var bottom = parseFloat(getComputedStyle(heroEl).paddingBottom) || 0;
+    var side = (window.innerHeight - 13 - rowTop - bottom) / 1.02;
+    side = Math.max(220, Math.min(side, window.innerWidth * 0.44));
+    heroEl.style.setProperty('--hc', side.toFixed(1) + 'px');
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+
   /* --- один обробник прокрутки на все -------------------------------------- */
   function frame() {
     var sy = window.scrollY;
@@ -1301,11 +1331,12 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function () {
     vh = window.innerHeight; vw = window.innerWidth;
     if (vw !== lastW) { lastW = vw; pxResize(); } else { pxLast = -1; }
+    fitTitle();
     belts.forEach(function (b) { b._half = 0; });
     jarResize(); frame();
   });
 
-  pxResize(); jarResize(); frame();
+  fitTitle(); pxResize(); jarResize(); frame();
 });
 </script>
 </body>
