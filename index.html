@@ -372,7 +372,8 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 .qa__a>div{overflow:hidden}
 .qa__a p{margin:0;padding:0 clamp(24px,12vw,120px) 26px clamp(56px,8vw,80px);font-size:clamp(16px,1.4vw,18px);line-height:1.6}
 .freebie{margin:26px 0 0 auto;width:min(330px,100%);display:grid;grid-template-columns:116px minmax(0,1fr);gap:16px;background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:6px}
-.freebie .ph{background-color:var(--blue);min-height:124px}
+.freebie__cover{position:relative;min-height:124px;border-radius:4px;overflow:hidden;background:var(--blue)}
+.freebie__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .freebie h3{font-size:19px;margin:8px 0 6px}
 .freebie p{margin:0 0 12px;font-size:14px;line-height:1.4}
 .freebie .btn{font-size:11px;padding:8px 10px}
@@ -1178,8 +1179,9 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
     </div>
 
     <aside class="freebie fade">
-      <!-- ГРАФІКА — ЗАГЛУШКА: обкладинка квізу -->
-      <div class="ph ph--w"><span>Обкладинка</span></div>
+      <!-- Обкладинка квізу: знак питання обертається. Відео вантажиться, лише коли блок
+           близько, до того й без скриптів — картинка-обкладинка. -->
+      <div class="freebie__cover"><video class="freebie__video" muted loop playsinline preload="none" poster="video/kviz-cover.webp" data-src="video/kviz-cover.mp4" aria-hidden="true"></video></div>
       <div>
         <h3 class="h">Квіз за&nbsp;3 хвилини</h3>
         <p>Чи&nbsp;втрачає ваш бізнес клієнтів без&nbsp;сайту?</p>
@@ -1729,7 +1731,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* --- відео в блоці «Ви ведете бізнес»: вантажимо, коли близько -------- */
+  /* --- відео («Ви ведете бізнес», обкладинка квізу): вантажимо, коли близько */
   $$('video[data-src]').forEach(function (v) {
     new IntersectionObserver(function (es) {
       if (es[0].isIntersecting) {
