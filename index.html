@@ -606,6 +606,24 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   .love__corner{position:static;justify-self:end}
   .love .card--video{justify-self:start;width:min(100%,420px)}
 }
+
+/* --- «Ви ведете бізнес»: синій блок, відео по центру, текст праворуч ----- */
+.love{background:var(--blue) var(--grid-l);color:#fff}
+.love__t{color:#fff}
+.love .box{color:var(--blue)}
+.love__side p{color:#fff}
+.love__grid{grid-template-columns:minmax(0,1.2fr) auto minmax(0,.85fr)}
+.love__t{order:1}
+.love .card--video{order:2;justify-self:center}
+.love__side{order:3}
+.love .corner{
+  color:#fff;border-color:#fff;
+  background:linear-gradient(to top right,transparent calc(50% - .6px),#fff 50%,transparent calc(50% + .6px));
+}
+@media (max-width:900px){
+  .love__grid{grid-template-columns:minmax(0,1fr)}
+  .love .card--video{justify-self:start}
+}
 </style>
 </head>
 <body>
@@ -840,7 +858,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 </section>
 
 <!-- ========================= ВИ ВЕДЕТЕ БІЗНЕС ============================ -->
-<section class="love" id="love" data-nav="light">
+<section class="love" id="love" data-nav="dark">
   <!-- Сердечка спливають угору від курсора. Клік по секції — цілий оберемок.
        На телефоні точка, звідки вони летять, сама кружляє по секції. Малює скрипт. -->
   <div class="hearts" aria-hidden="true"></div>
