@@ -675,9 +675,11 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 }
 
 /* --- стрічка логотипів: світлі логотипи клієнтів на темних плитках --------- */
-.tile{background:#141416;border-color:#141416;color:#77777c}
+.tile{background:#08090a;border-color:#08090a;color:#77777c} /* колір фону логотипа «Порядок» — щоб не було видно плашки */
 .tile small{color:#fff;opacity:.4}
-.tile img{display:block;width:auto;height:auto;max-width:58%;max-height:66%;object-fit:contain}
+.tile img{display:block;width:auto;height:auto;max-width:150px;max-height:60px;object-fit:contain;align-self:center;justify-self:center}
+.tile img[src*="tempdnipra"]{max-height:72px}
+.tile img[src*="gbgym"]{max-height:60px;height:60px}
 </style>
 </head>
 <body>
@@ -1020,12 +1022,12 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   <!-- ЛОГОТИПИ — ЗАГЛУШКИ: замінити назви на файли логотипів -->
   <div class="logos" aria-label="Клієнти">
     <div class="logos__track">
-      <div class="logos__group"><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><div>IBP<small>логотип</small></div></div><div class="tile"><div>G&amp;B GYM<small>логотип</small></div></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><div>Порядок<small>логотип</small></div></div></div>
-      <div class="logos__group" aria-hidden="true"><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><div>IBP<small>логотип</small></div></div><div class="tile"><div>G&amp;B GYM<small>логотип</small></div></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><div>Порядок<small>логотип</small></div></div></div>
+      <div class="logos__group"><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><img src="images/logos/ibp.png" alt="IBP Consulting" width="206" height="200" loading="lazy"></div><div class="tile"><img src="images/logos/gbgym.png" alt="G&amp;B GYM" width="60" height="60" loading="lazy"></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><img src="images/logos/poryadok.png" alt="Порядок" width="239" height="82" loading="lazy"></div></div>
+      <div class="logos__group" aria-hidden="true"><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><img src="images/logos/ibp.png" alt="IBP Consulting" width="206" height="200" loading="lazy"></div><div class="tile"><img src="images/logos/gbgym.png" alt="G&amp;B GYM" width="60" height="60" loading="lazy"></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><img src="images/logos/poryadok.png" alt="Порядок" width="239" height="82" loading="lazy"></div></div>
     </div>
     <div class="logos__track logos__track--rev" aria-hidden="true">
-      <div class="logos__group"><div class="tile"><div>Порядок<small>логотип</small></div></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><div>G&amp;B GYM<small>логотип</small></div></div><div class="tile"><div>IBP<small>логотип</small></div></div></div>
-      <div class="logos__group"><div class="tile"><div>Порядок<small>логотип</small></div></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><div>G&amp;B GYM<small>логотип</small></div></div><div class="tile"><div>IBP<small>логотип</small></div></div></div>
+      <div class="logos__group"><div class="tile"><img src="images/logos/poryadok.png" alt="Порядок" width="239" height="82" loading="lazy"></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><img src="images/logos/gbgym.png" alt="G&amp;B GYM" width="60" height="60" loading="lazy"></div><div class="tile"><img src="images/logos/ibp.png" alt="IBP Consulting" width="206" height="200" loading="lazy"></div></div>
+      <div class="logos__group"><div class="tile"><img src="images/logos/poryadok.png" alt="Порядок" width="239" height="82" loading="lazy"></div><div class="tile"><img src="images/logos/tempdnipra.webp" alt="Темп Дніпра" width="360" height="270" loading="lazy"></div><div class="tile"><img src="images/logos/clg.svg" alt="CLG" width="139" height="61" loading="lazy"></div><div class="tile"><img src="images/logos/gbgym.png" alt="G&amp;B GYM" width="60" height="60" loading="lazy"></div><div class="tile"><img src="images/logos/ibp.png" alt="IBP Consulting" width="206" height="200" loading="lazy"></div></div>
     </div>
   </div>
 
