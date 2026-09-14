@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Чернетка: не показувати в пошуку, як і головну. Прибрати разом із головною. -->
+<meta name="robots" content="noindex, nofollow">
+<script>document.documentElement.classList.add('js')</script>
+<title>Квіз: чи втрачає ваш бізнес клієнтів без сайту? — Fomina.Designs</title>
+<meta name="description" content="Шість коротких питань — і ви побачите, де бізнес може втрачати заявки та що з цим робити.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* Токени — ті самі, що на головній (див. design-system.md) */
+:root{
+  --grey:#D3D3D3;
+  --blue:#1F00FF;
+  --orange:#FF622B;
+  --dark:#212121;
+  --gap:13px;
+  --r:6px;
+  --ease:cubic-bezier(.7,0,.2,1);
+  --out:cubic-bezier(.2,.8,.2,1);
+  --head:'Roboto Condensed','Arial Narrow',sans-serif;
+  --body:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --grid-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M79.5 0V80M0 79.5H80' fill='none' stroke='%23000' stroke-opacity='.13' stroke-dasharray='2 3'/%3E%3C/svg%3E");
+  --grid-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M79.5 0V80M0 79.5H80' fill='none' stroke='%23fff' stroke-opacity='.2' stroke-dasharray='2 3'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--grey) var(--grid-d);color:var(--blue);
+  font-family:var(--body);font-size:17px;line-height:1.5;overflow-x:clip;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+[hidden]{display:none!important}
+.h{font-family:var(--head);font-weight:800;text-transform:uppercase;line-height:.88;letter-spacing:-.004em;margin:0}
+
+/* --- кнопки --- */
+.roll{display:inline-grid;overflow:hidden;line-height:1.25}
+.roll>span{grid-area:1/1;transition:transform .5s var(--ease)}
+.roll>span+span{transform:translateY(105%)}
+a:hover .roll>span:first-child,button:hover:not(:disabled) .roll>span:first-child{transform:translateY(-105%)}
+a:hover .roll>span+span,button:hover:not(:disabled) .roll>span+span{transform:none}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;
+  font:800 13px var(--head);text-transform:uppercase;letter-spacing:.02em;
+  padding:10px 16px;border-radius:5px;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;
+  transition:opacity .3s,filter .3s;
+}
+.btn--big{font-size:17px;padding:15px 24px}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.ghost{
+  background:none;border:1px solid currentColor;color:inherit;border-radius:5px;cursor:pointer;
+  font:800 14px var(--head);text-transform:uppercase;letter-spacing:.02em;padding:13px 18px;text-decoration:none;
+}
+
+/* --- шапка --- */
+.top{position:fixed;inset:0 0 auto;z-index:60;height:0}
+.logo{
+  position:absolute;left:clamp(20px,4vw,52px);top:30px;
+  font:800 22px/1 var(--head);text-transform:uppercase;letter-spacing:.01em;color:#fff;text-decoration:none;
+}
+.logo i{font-style:normal;opacity:.55}
+.bar{
+  position:absolute;right:clamp(20px,2.7vw,34px);top:28px;display:flex;align-items:center;gap:4px;
+  background:#fff;border:1px solid #fff;border-radius:var(--r);padding:3px;
+}
+.bar__home{font:800 13px var(--head);text-transform:uppercase;text-decoration:none;padding:10px 12px;color:var(--blue)}
+
+/* --- синя сцена квізу --- */
+.quiz{
+  position:relative;margin:var(--gap);min-height:calc(100svh - 2 * var(--gap));
+  background:var(--blue) var(--grid-l);border-radius:var(--r);color:#fff;overflow:hidden;
+  display:grid;place-items:center;padding:clamp(96px,13vh,130px) clamp(16px,4vw,60px) clamp(28px,5vh,56px);
+}
+.hearts{position:absolute;inset:0;z-index:1;pointer-events:none}
+.heart{position:absolute;left:0;top:0;width:60px;height:55px;color:var(--orange);will-change:transform}
+.heart svg{display:block;width:100%;height:100%}
+.screen{position:relative;z-index:2;width:100%}
+.js .screen.enter{animation:enter .7s var(--out) both}
+@keyframes enter{from{opacity:0;transform:translateY(24px)}}
+
+/* --- вступ --- */
+.intro{text-align:center;display:grid;justify-items:center;gap:clamp(18px,3vh,30px)}
+.tag{
+  display:inline-flex;gap:10px;align-items:center;margin:0;
+  font:800 14px var(--head);text-transform:uppercase;letter-spacing:.04em;
+  border:1px solid rgba(255,255,255,.45);border-radius:4px;padding:7px 12px;
+}
+.intro__title{font-size:clamp(40px,min(7.6vw,12.5vh),140px)}
+.ln{display:block;overflow:hidden;padding:.1em 0 .04em;margin:-.1em 0 -.04em}
+.ln>span{display:inline-block;transition:transform 1s var(--out) calc(var(--d,0) * 1s)}
+.js .ln>span{transform:translateY(108%)}
+.js .in .ln>span{transform:none}
+.box{display:inline-block;background:#fff;color:var(--blue);border-radius:var(--r);padding:0 .12em;transition:clip-path .9s var(--ease) .5s}
+.js .box{clip-path:inset(0 100% 0 0 round 6px)}
+.js .in .box{clip-path:inset(0 0 0 0 round 6px)}
+.intro__lead{margin:0;max-width:34em;font-size:clamp(17px,1.6vw,21px);line-height:1.5}
+
+/* --- картка питання --- */
+.qcard{width:min(900px,100%);margin:0 auto;background:#fff;color:var(--blue);border-radius:var(--r);overflow:hidden}
+.qcard__head{display:grid;grid-template-columns:minmax(0,1fr) auto;border-bottom:1px solid var(--blue)}
+.qcard__head .h{font-size:22px;line-height:1;padding:15px 20px}
+.qcard__count{border-left:1px solid var(--blue)}
+.qcard__body{padding:clamp(22px,4vw,44px) clamp(18px,4vw,44px) clamp(20px,3vw,32px);transition:opacity .22s,transform .3s var(--ease)}
+.qcard__body.out{opacity:0;transform:translateY(-14px)}
+.qcard__body.pre{opacity:0;transform:translateY(14px);transition:none}
+.qcard__q{font-size:clamp(32px,4.4vw,60px);line-height:.92;max-width:15em}
+.qcard__hint{margin:12px 0 0;font:500 13px var(--body);text-transform:uppercase;letter-spacing:.08em;opacity:.7;min-height:1.2em}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:clamp(18px,3vh,28px)}
+.opt{
+  position:relative;display:grid;grid-template-columns:32px minmax(0,1fr) 22px;align-items:center;gap:14px;
+  min-height:74px;padding:14px 16px;border:1px solid var(--blue);border-radius:var(--r);cursor:pointer;
+  /* вибір заливається синім зліва направо — як список на головній */
+  background:linear-gradient(90deg,var(--blue) 50%,#fff 50%) 100% 0 / 200% 100% no-repeat;
+  transition:background-position .55s var(--ease),color .3s;
+  font-size:clamp(16px,1.5vw,19px);line-height:1.3;
+}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.opt:hover{background-position:92% 0}
+.opt.is-on{background-position:0 0;color:#fff}
+.opt:focus-within{outline:2px solid var(--orange);outline-offset:2px}
+.opt__n{width:32px;height:32px;border:1px solid currentColor;display:grid;place-items:center;font:800 14px var(--head)}
+.opt__tick{width:22px;height:22px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center}
+.opt--many .opt__tick{border-radius:4px}
+.opt__tick svg{opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--out)}
+.opt.is-on .opt__tick svg{opacity:1;transform:none}
+.qcard__foot{
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;
+  border-top:1px solid var(--blue);padding:14px clamp(14px,3vw,24px);
+}
+.dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.dots i{
+  font-style:normal;width:36px;height:28px;border:1px solid var(--blue);border-radius:4px;
+  display:grid;place-items:center;font:800 12px var(--head);transition:background .4s,color .4s;
+}
+.dots i.done{background:var(--blue);color:#fff}
+
+/* --- результат --- */
+.rcard{
+  width:min(1040px,100%);margin:0 auto;background:#fff;color:var(--blue);border-radius:var(--r);overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+}
+.rcard__main{padding:clamp(22px,4vw,46px);border-right:1px solid var(--blue)}
+.rcard__label{margin:0 0 18px;font:800 14px var(--head);text-transform:uppercase;letter-spacing:.04em;display:flex;gap:10px;align-items:center}
+.rcard__label b{background:var(--orange);color:#fff;padding:5px 9px;border-radius:4px}
+.rcard__title{font-size:clamp(34px,4.6vw,66px);line-height:.92}
+.rcard__text{margin:18px 0 0;font-size:clamp(16px,1.45vw,19px);line-height:1.55}
+.rcard__list{list-style:none;margin:22px 0 0;padding:0;display:grid}
+.rcard__list li{display:grid;grid-template-columns:22px 1fr;gap:12px;padding:12px 0;border-top:1px solid rgba(31,0,255,.2);font-size:clamp(15px,1.35vw,18px);line-height:1.4}
+.rcard__list li::before{content:"+";font:800 20px/1 var(--head)}
+.rcard__side{padding:clamp(22px,4vw,46px);display:flex;flex-direction:column;gap:18px;background:var(--blue) var(--grid-l);color:#fff}
+.rcard__side .h{font-size:clamp(28px,2.8vw,40px);line-height:.92}
+.rcard__side p{margin:0;font-size:16px;line-height:1.5}
+.field{display:grid;gap:6px}
+.field span{font:800 13px var(--head);text-transform:uppercase;letter-spacing:.04em}
+.field input{
+  font:500 18px var(--body);color:var(--blue);background:#fff;border:0;border-radius:5px;padding:13px 14px;width:100%;
+}
+.rcard__side .btn{justify-content:center}
+.rcard__note{font-size:14px!important;opacity:.85;min-height:3em}
+.rcard__side .ghost{align-self:flex-start;border-color:rgba(255,255,255,.6)}
+
+/* --- підвал --- */
+.fbar{
+  margin:0 var(--gap) var(--gap);background:var(--dark);color:#fff;border-radius:var(--r);
+  padding:16px clamp(20px,3vw,40px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font:600 11px var(--body);text-transform:uppercase;letter-spacing:.08em;
+}
+.fbar a{text-decoration:none}
+.noscript{position:relative;z-index:2;background:#fff;color:var(--blue);padding:24px;border-radius:var(--r);max-width:560px;text-align:center}
+
+@media (max-width:760px){
+  .opts{grid-template-columns:minmax(0,1fr)}
+  .opt{min-height:60px}
+  .qcard__foot{grid-template-columns:auto auto;justify-content:space-between}
+  .dots{grid-column:1 / -1;order:-1}
+  .rcard{grid-template-columns:minmax(0,1fr)}
+  .rcard__main{border-right:0;border-bottom:1px solid var(--blue)}
+}
+@media (max-width:640px){
+  .logo{top:37px;font-size:15px}
+  .bar__home{display:none}
+  .bar .btn{font-size:11px;padding:8px 10px}
+  .qcard__head .h{font-size:17px;padding:12px 14px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ln>span,.box,.opt,.qcard__body{transition:none!important}
+  .js .ln>span{transform:none!important}
+  .js .box{clip-path:none!important}
+  .js .screen.enter{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="logo" href="index.html">Fomina<i>.</i>Designs</a>
+  <div class="bar">
+    <a class="bar__home" href="index.html"><span class="roll"><span>На сайт</span><span>На сайт</span></span></a>
+    <a class="btn" href="https://t.me/fominadesigns" target="_blank" rel="noopener"><span class="roll"><span>Написати в Telegram</span><span>Написати в Telegram</span></span></a>
+  </div>
+</header>
+
+<main class="quiz" id="quiz">
+  <!-- Лайки від курсора — як на першому екрані головної -->
+  <div class="hearts" aria-hidden="true"></div>
+
+  <noscript>
+    <div class="noscript">
+      <p>Квіз працює з увімкненими скриптами. Можна просто написати мені — розберемо ваш бізнес разом.</p>
+      <p><a href="https://t.me/fominadesigns">Написати в Telegram</a></p>
+    </div>
+  </noscript>
+
+  <!-- ВСТУП -->
+  <section class="screen intro" data-screen="intro" data-reveal>
+    <p class="tag">Квіз · 6 питань · 3 хвилини</p>
+    <h1 class="h intro__title">
+      <span class="ln"><span>Чи втрачає ваш бізнес</span></span>
+      <span class="ln"><span>клієнтів <span class="box">без сайту?</span></span></span>
+    </h1>
+    <p class="intro__lead">Шість коротких питань — і ви побачите, де бізнес може втрачати заявки та що з цим робити.</p>
+    <button class="btn btn--big" type="button" id="start"><span class="roll"><span>Дізнатись за 3 хвилини</span><span>Дізнатись за 3 хвилини</span></span></button>
+  </section>
+
+  <!-- ПИТАННЯ: текст і варіанти підставляє скрипт із масиву QUESTIONS -->
+  <section class="screen" data-screen="question" hidden>
+    <div class="qcard">
+      <div class="qcard__head">
+        <span class="h">Квіз — питання</span>
+        <span class="h qcard__count"><b id="qNum">01</b> / 06</span>
+      </div>
+      <div class="qcard__body" id="qBody">
+        <h2 class="h qcard__q" id="qText"></h2>
+        <p class="qcard__hint" id="qHint"></p>
+        <div class="opts" id="opts"></div>
+      </div>
+      <div class="qcard__foot">
+        <button class="ghost" type="button" id="back">← Назад</button>
+        <div class="dots" id="dots" aria-hidden="true"></div>
+        <button class="btn btn--big" type="button" id="next" disabled><span class="roll"><span>Далі</span><span>Далі</span></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- РЕЗУЛЬТАТ: заголовок, текст і пункти — з масиву RESULTS -->
+  <section class="screen" data-screen="result" hidden>
+    <div class="rcard">
+      <div class="rcard__main">
+        <p class="rcard__label"><b>Результат</b><span>за вашими відповідями</span></p>
+        <h2 class="h rcard__title" id="rTitle"></h2>
+        <p class="rcard__text" id="rText"></p>
+        <p class="rcard__text" id="rExtra" hidden></p>
+        <ul class="rcard__list" id="rList"></ul>
+      </div>
+      <div class="rcard__side">
+        <h3 class="h">Отримайте план дій для свого сайту</h3>
+        <p>Надішліть відповіді мені в Telegram — подивлюся ваш бізнес і підкажу, з чого почати.</p>
+        <label class="field"><span>Як вас звати</span><input id="name" type="text" autocomplete="given-name" maxlength="60"></label>
+        <a class="btn btn--big" id="send" href="https://t.me/fominadesigns" target="_blank" rel="noopener"><span class="roll"><span>Надіслати в Telegram ↗</span><span>Надіслати в Telegram ↗</span></span></a>
+        <p class="rcard__note" id="note">Відкриється чат зі мною, а повідомлення з вашими відповідями вже буде написане — лишиться натиснути «Надіслати».</p>
+        <button class="ghost" type="button" id="again">Пройти ще раз</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="fbar">
+  <a href="index.html">← Fomina.Designs</a>
+  <span>© 2026</span>
+  <a href="https://t.me/fominadesigns" target="_blank" rel="noopener">Telegram</a>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function pad(n) { return ('0' + n).slice(-2); }
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  /* --- питання: ті самі, що в старому квізі --------------------------------
+     many: можна кілька відповідей; only — варіант, що знімає решту. */
+  var QUESTIONS = [
+    { id: 'site', label: 'Сайт', q: 'Чи є у вас зараз сайт?',
+      opts: ['Так, але він не приносить клієнтів', 'Так, і він приносить заявки', 'Так, але хочу його покращити', 'Ні, поки що немає'] },
+    { id: 'source', label: 'Звідки клієнти', q: 'Звідки зараз приходять ваші клієнти?', many: true, only: 3,
+      opts: ['Instagram / соціальні мережі', 'Реклама', 'Сарафанне радіо', 'Клієнтів майже немає'] },
+    { id: 'niche', label: 'Напрямок', q: 'Чим ви займаєтесь?',
+      opts: ['Послуги', 'Товари', 'Особистий бренд', 'Інше'] },
+    { id: 'check', label: 'Середній чек', q: 'Середній чек ваших послуг або товарів?',
+      opts: ['До $50', '$50–200', '$200–1000', '$1000+'] },
+    { id: 'leads', label: 'Заявок зараз', q: 'Скільки заявок на місяць ви отримуєте зараз?',
+      opts: ['До 10', '10–30', '30–100', '100+'] },
+    { id: 'want', label: 'Хочу', q: 'Скільки заявок ви хотіли б отримувати?',
+      opts: ['Трохи більше', 'У 2 рази більше', 'У 3–5 разів більше', 'У 5–10 разів більше'] }
+  ];
+
+  /* --- висновки: залежать від відповіді на перше питання -------------------
+     ЧЕРНЕТКА ТЕКСТІВ — перевірити Каті. Без цифр і обіцянок результату. */
+  var RESULTS = [
+    { title: 'Сайт є, але заявки втікають',
+      text: 'Люди доходять до сайту, але не залишають заявку. Найчастіше справа не в дизайні як такому, а в тому, що відвідувачу не одразу зрозуміло, чим ви кращі й де натиснути, щоб написати.',
+      list: ['Перевірити, що людина бачить на першому екрані', 'Скоротити шлях до заявки до одного-двох кроків', 'Додати докази: кейси, відгуки, реальні фото'] },
+    { title: 'Сайт працює — можна рости далі',
+      text: 'Основа вже є, і вона приносить заявки. Наступний крок — посилити те, що працює, і не загубити клієнтів на етапі, коли їх стане більше.',
+      list: ['Зрозуміти, з яких сторінок приходять найкращі заявки', 'Зробити окремі сторінки під ключові послуги чи рекламу', 'Налаштувати, щоб заявки одразу потрапляли в Telegram або CRM'] },
+    { title: 'Час оновити упаковку',
+      text: 'Ви вже відчуваєте, що сайт можна зробити сильнішим. Добра новина: з наявного сайту легко побачити, що саме заважає, — і почати з цього, а не переробляти все навмання.',
+      list: ['Розібрати сайт очима клієнта: що незрозуміло й що відштовхує', 'Оновити структуру й тексти під вашу сильну сторону', 'Зробити сучасний дизайн, який гарно виглядає з телефона'] },
+    { title: 'Без сайту частина клієнтів іде повз',
+      text: 'Судячи з ваших відповідей, бізнес уже готовий до росту, але поточна упаковка не дожимає клієнтів. Найімовірніше, ви втрачаєте частину заявок через відсутність зрозумілого сайту.',
+      list: ['Зібрати на одній сторінці, чим ви займаєтесь і чому вам варто довіряти', 'Дати людині простий спосіб написати вам', 'Почати з лендингу, а не з великого сайту'] }
+  ];
+  var NO_CLIENTS_NOTE = 'Ви відмітили, що клієнтів майже немає. Тоді варто подумати й про те, звідки люди взагалі дізнаються про вас: сайт найкраще працює в парі з рекламою або Instagram.';
+
+  var answers = {}, step = 0;
+  var screens = $$('[data-screen]');
+  var qBody = $('#qBody'), optsBox = $('#opts'), nextBtn = $('#next'), dots = $('#dots');
+  var autoTimer = 0;
+
+  dots.innerHTML = QUESTIONS.map(function (_, i) { return '<i>' + pad(i + 1) + '</i>'; }).join('');
+
+  function show(name) {
+    screens.forEach(function (s) {
+      var on = s.getAttribute('data-screen') === name;
+      s.hidden = !on;
+      if (on) { s.classList.remove('enter'); void s.offsetWidth; s.classList.add('enter'); }
+    });
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  function fill(i) {
+    var q = QUESTIONS[i], chosen = answers[q.id] || [];
+    $('#qNum').textContent = pad(i + 1);
+    $('#qText').textContent = q.q;
+    $('#qHint').textContent = q.many ? 'Можна обрати кілька варіантів' : '';
+    optsBox.setAttribute('role', q.many ? 'group' : 'radiogroup');
+    optsBox.setAttribute('aria-label', q.q);
+    optsBox.innerHTML = q.opts.map(function (o, k) {
+      var on = chosen.indexOf(k) >= 0;
+      return '<label class="opt' + (q.many ? ' opt--many' : '') + (on ? ' is-on' : '') + '">' +
+        '<input type="' + (q.many ? 'checkbox' : 'radio') + '" name="' + q.id + '" value="' + k + '"' + (on ? ' checked' : '') + '>' +
+        '<span class="opt__n">' + pad(k + 1) + '</span><span>' + esc(o) + '</span>' +
+        '<span class="opt__tick" aria-hidden="true"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5l3.5 3.5L11 1"/></svg></span>' +
+        '</label>';
+    }).join('');
+    $$('#dots i').forEach(function (d, k) { d.classList.toggle('done', k < i || (k === i && chosen.length > 0)); });
+    nextBtn.disabled = chosen.length === 0;
+    $('#next .roll').innerHTML = i === QUESTIONS.length - 1
+      ? '<span>До результату</span><span>До результату</span>' : '<span>Далі</span><span>Далі</span>';
+  }
+
+  function goTo(i) {
+    clearTimeout(autoTimer);
+    if (reduce) { step = i; fill(i); return; }
+    qBody.classList.add('out');
+    setTimeout(function () {
+      step = i; fill(i);
+      qBody.classList.remove('out'); qBody.classList.add('pre');
+      void qBody.offsetWidth;
+      qBody.classList.remove('pre');
+    }, 220);
+  }
+
+  optsBox.addEventListener('change', function (e) {
+    var q = QUESTIONS[step], input = e.target, k = +input.value;
+    var inputs = $$('input', optsBox);
+    if (q.many && input.checked && q.only !== undefined) {
+      // «Клієнтів майже немає» не поєднується з іншими джерелами
+      inputs.forEach(function (x) {
+        if (x !== input && (k === q.only || +x.value === q.only)) x.checked = false;
+      });
+    }
+    answers[q.id] = inputs.filter(function (x) { return x.checked; }).map(function (x) { return +x.value; });
+    inputs.forEach(function (x) { x.parentNode.classList.toggle('is-on', x.checked); });
+    nextBtn.disabled = answers[q.id].length === 0;
+    $$('#dots i')[step].classList.toggle('done', answers[q.id].length > 0);
+    // одна відповідь — переходимо далі самі, щойно заливка встигне пройти
+    if (!q.many && input.checked) {
+      clearTimeout(autoTimer);
+      autoTimer = setTimeout(next, reduce ? 150 : 520);
+    }
+  });
+
+  function next() {
+    var q = QUESTIONS[step];
+    if (!answers[q.id] || !answers[q.id].length) return;
+    if (step < QUESTIONS.length - 1) goTo(step + 1);
+    else showResult();
+  }
+  nextBtn.addEventListener('click', next);
+
+  $('#back').addEventListener('click', function () {
+    if (step === 0) { show('intro'); return; }
+    goTo(step - 1);
+  });
+
+  $('#start').addEventListener('click', function () {
+    step = 0; fill(0); show('question');
+  });
+
+  /* --- результат і повідомлення в Telegram --------------------------------- */
+  var current = null;
+
+  function message() {
+    var name = $('#name').value.trim();
+    var lines = ['Вітаю! Ось мої відповіді з квізу на сайті Fomina.Designs:'];
+    if (name) lines.push('Ім’я: ' + name);
+    QUESTIONS.forEach(function (q) {
+      var a = (answers[q.id] || []).map(function (k) { return q.opts[k]; }).join(', ');
+      lines.push(q.label + ': ' + (a || '—'));
+    });
+    if (current) lines.push('Результат: ' + current.title);
+    return lines.join('\n');
+  }
+  function updateLink() {
+    $('#send').href = 'https://t.me/fominadesigns?text=' + encodeURIComponent(message());
+  }
+
+  function showResult() {
+    current = RESULTS[(answers.site || [3])[0]];
+    $('#rTitle').textContent = current.title;
+    $('#rText').textContent = current.text;
+    var noClients = (answers.source || []).indexOf(3) >= 0;
+    $('#rExtra').hidden = !noClients;
+    $('#rExtra').textContent = noClients ? NO_CLIENTS_NOTE : '';
+    $('#rList').innerHTML = current.list.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+    updateLink();
+    show('result');
+    if (trail) trail.burst(14);
+  }
+
+  $('#name').addEventListener('input', updateLink);
+
+  $('#send').addEventListener('click', function () {
+    updateLink();
+    var text = message();
+    // запасний варіант: текст також у буфері обміну
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        $('#note').textContent = 'Відкриваємо Telegram. Текст також скопійовано — якщо повідомлення не з’явилося, просто вставте його в чат.';
+      }, function () {});
+    }
+  });
+
+  $('#again').addEventListener('click', function () {
+    answers = {}; step = 0; current = null; $('#name').value = '';
+    show('intro');
+  });
+
+  /* --- поява заголовка вступу --------------------------------------------- */
+  $$('[data-reveal] .ln').forEach(function (l, i) { l.style.setProperty('--d', (i * 0.09).toFixed(2)); });
+  function reveal() { $$('[data-reveal]').forEach(function (el) { el.classList.add('in'); }); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(reveal);
+  setTimeout(reveal, 1200);
+
+  /* --- лайки від курсора (той самий ефект, що на головній) ----------------- */
+  var LIKE = '<svg viewBox="-1.5 -1.5 35 32" fill="currentColor" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"><rect x="1" y="12" width="7" height="16" rx="1.5"/><path d="M10 13L15 4.5C15.8 3 17 2 18.6 2.4 20.3 2.9 20.8 4.6 20.4 6.3L19.3 11h8.3c2 0 3.4 1.7 3 3.6l-2.2 10.7c-.3 1.7-1.7 2.7-3.4 2.7H10z"/></svg>';
+  var trail = reduce ? null : likeTrail($('#quiz'));
+
+  function likeTrail(sec) {
+    var box = $('.hearts', sec), items = [], raf = 0, prev = 0, acc = 0, lx = -1, ly = -1;
+    var pointer = { x: -1, y: -1 }, canHover = window.matchMedia('(hover: hover)').matches;
+    window.addEventListener('mousemove', function (e) { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+
+    function spawn(x, y, burst) {
+      var el = document.createElement('span');
+      el.className = 'heart'; el.innerHTML = LIKE; box.appendChild(el);
+      items.push({ el: el, x: x, y: y, t: 0, vx: (Math.random() - 0.5) * (burst ? 520 : 240), vy: burst ? -140 - Math.random() * 180 : -30,
+        size: 0.45 + Math.random() * 1.05, rot: (Math.random() - 0.5) * 30, ph: Math.random() * 6.28, life: 700 + Math.random() * 600 });
+      if (items.length > 80) items.shift().el.remove();
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+    function tick(now) {
+      var dt = prev ? Math.min(now - prev, 250) : 16; prev = now;
+      var rect = sec.getBoundingClientRect();
+      if (canHover && pointer.x >= 0) {
+        if (lx < 0) { lx = pointer.x; ly = pointer.y; }
+        var speed = Math.hypot(pointer.x - lx, pointer.y - ly);
+        lx += (pointer.x - lx) * 0.2; ly += (pointer.y - ly) * 0.2;
+        var px = lx - rect.left, py = ly - rect.top;
+        if (px > 0 && px < rect.width && py > 0 && py < rect.height) {
+          acc += dt * (0.25 + speed / rect.width * 60);
+          if (acc > 200) { spawn(px + (Math.random() - 0.5) * 16, py + (Math.random() - 0.5) * 16); acc -= 200 * (0.5 + Math.random()); }
+        }
+      }
+      var sc = dt / 1000;
+      for (var i = items.length - 1; i >= 0; i--) {
+        var h = items[i];
+        h.t += dt;
+        if (h.t > h.life + 500) { h.el.remove(); items.splice(i, 1); continue; }
+        h.vy -= 300 / h.size * sc;
+        h.vx += 90 * Math.sin(h.ph + h.t / 200) * sc; h.vx *= 1 - 0.9 * sc;
+        h.x += h.vx * sc; h.y += h.vy * sc; h.rot += h.vx * 0.12 * sc;
+        var k = h.t < h.life ? 1 - Math.pow(1 - h.t / h.life, 3) : 1 - Math.pow((h.t - h.life) / 500, 3);
+        h.el.style.transform = 'translate3d(' + (h.x - 30).toFixed(1) + 'px,' + (h.y - 27).toFixed(1) + 'px,0) rotate(' + h.rot.toFixed(1) + 'deg) scale(' + (k * h.size).toFixed(3) + ')';
+      }
+      raf = (items.length || canHover) ? requestAnimationFrame(tick) : 0;
+      if (!raf) prev = 0;
+    }
+    if (canHover) raf = requestAnimationFrame(tick);
+    return {
+      burst: function (n) {
+        var r = sec.getBoundingClientRect();
+        for (var i = 0; i < n; i++) spawn(r.width * (0.15 + Math.random() * 0.7), r.height * (0.55 + Math.random() * 0.35), true);
+      }
+    };
+  }
+});
+</script>
+</body>
+</html>
