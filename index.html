@@ -139,7 +139,9 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 }
 .hero__title{font-size:var(--hf);text-align:center;line-height:.86}
 /* на комп'ютері рядки не переносяться: скрипт підганяє розмір під ширину */
-@media (min-width:641px){.hero__title .ln>span{white-space:nowrap}}
+.hero__title .ln>span{white-space:nowrap}
+/* на телефоні «працюють / на продажі» — окремими рядками, щоб заголовок був крупним */
+@media (min-width:641px){.hero__br{display:none}}
 .ln{display:block;overflow:hidden;padding:.1em 0 .04em;margin:-.1em 0 -.04em}
 .ln>span{display:inline-block;transition:transform 1s var(--out) calc(var(--d,0) * 1s)}
 .js .ln>span{transform:translateY(108%)}
@@ -653,6 +655,24 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 /* --- «Ви ведете бізнес»: текст праворуч на білій плашці, синім --- */
 .love__side{background:#ffffff!important;border-radius:var(--r);padding:clamp(18px,1.8vw,30px);gap:14px}
 .love__side p{color:var(--blue)}
+
+/* --- телефон і планшет: ілюстрація до списку плаває квадратним віконцем ---- */
+@media (max-width:900px){
+  .js .side .card--art{
+    position:fixed;left:auto;right:14px;top:0;z-index:30;margin:0;
+    width:min(50vw,260px);height:auto;min-height:0;max-height:none;aspect-ratio:1/1;
+    box-shadow:0 14px 36px rgba(0,0,0,.2);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transform:translate3d(0,var(--fy,60vh),0) scale(.85);
+    transition:transform .55s var(--out),opacity .3s,visibility 0s linear .3s;
+  }
+  .js .side .card--art.is-float{
+    opacity:1;visibility:visible;transform:translate3d(0,var(--fy,60vh),0);
+    transition:transform .55s var(--out),opacity .3s;
+  }
+  .side .card--art .art__slide{padding:10px 10px 28px}
+  .side .card--art .art__count{left:8px;bottom:7px;font-size:12px;padding:4px 6px}
+}
 </style>
 </head>
 <body>
@@ -697,7 +717,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   <div class="hearts" aria-hidden="true"></div>
   <h1 class="h hero__title">
     <span class="ln"><span>Сайти, які</span></span>
-    <span class="ln"><span>працюють на&nbsp;продажі</span></span>
+    <span class="ln"><span>працюють <br class="hero__br">на&nbsp;продажі</span></span>
   </h1>
 
   <div class="hero__row">
@@ -1373,6 +1393,26 @@ document.addEventListener('DOMContentLoaded', function () {
       goals.forEach(function (g) { g.classList.toggle('is-on', g === best); });
       showArt(goals.indexOf(best));
     }
+    floatArt(best);
+  }
+
+  /* На телефоні й планшеті картка з ілюстрацією «плаває»: поки видно список,
+     вона висить квадратним віконцем праворуч унизу. Якщо активний рядок туди
+     дістає — перепливає нагору, щоб не закривати його. */
+  var artCard = artTrack ? artTrack.parentNode : null, goalsList = $('.goals');
+  function floatArt(best) {
+    if (!artCard || !goalsList) return;
+    if (window.innerWidth > 900) { artCard.classList.remove('is-float'); return; }
+    var lr = goalsList.getBoundingClientRect();
+    var on = !!best && lr.top < vh * 0.6 && lr.bottom > vh * 0.5;
+    if (on) {
+      var h = artCard.offsetHeight, top = 92, low = vh - h - 14;
+      var r = best.getBoundingClientRect();
+      var y = r.bottom > low - 10 ? top : low;
+      if (y === top && r.top < top + h + 10) y = low; // рядок на весь екран — лишаємо внизу
+      artCard.style.setProperty('--fy', Math.round(y) + 'px');
+    }
+    artCard.classList.toggle('is-float', on);
   }
 
   /* --- типографіка: короткі слова не висять у кінці рядка ---------------- */
@@ -1852,7 +1892,15 @@ document.addEventListener('DOMContentLoaded', function () {
   function fitTitle() {
     heroEl.style.removeProperty('--hf');
     heroEl.style.removeProperty('--hc');
-    if (window.innerWidth <= 640) return;
+    if (window.innerWidth <= 640) {
+      // На телефоні три рядки, найдовший — на ширину квадрата з відео (88% ширини).
+      var wMob = 0;
+      $$('.ln > span', heroTitle).forEach(function (sp) { wMob = Math.max(wMob, sp.getBoundingClientRect().width); });
+      if (!wMob) return;
+      var fMob = parseFloat(getComputedStyle(heroTitle).fontSize) * heroTitle.clientWidth * 0.88 / wMob;
+      heroEl.style.setProperty('--hf', Math.min(fMob, 120).toFixed(2) + 'px');
+      return;
+    }
     var base = parseFloat(getComputedStyle(heroTitle).fontSize);
     var widest = 0;
     $$('.ln > span', heroTitle).forEach(function (sp) { widest = Math.max(widest, sp.getBoundingClientRect().width); });
