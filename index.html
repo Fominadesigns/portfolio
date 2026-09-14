@@ -292,17 +292,18 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 .case:hover .case__name{transform:translateX(14px)}
 .case:hover .arrow{background:var(--orange);border-color:var(--orange);color:#fff;transform:rotate(-45deg)}
 .peek{
-  --x:0px;--y:0px;--r:0deg;
-  position:fixed;left:0;top:0;z-index:40;pointer-events:none;width:clamp(260px,26vw,400px);
-  /* положення й нахил задає скрипт: нахил — від швидкості руху миші */
-  transform:translate3d(var(--x),var(--y),0) translate(-50%,-50%) rotate(var(--r));
+  --x:0px;--y:0px;
+  position:fixed;left:0;top:0;z-index:40;pointer-events:none;width:clamp(180px,17vw,270px);
+  /* положення задає скрипт: картка плавно наздоганяє курсор, без нахилу */
+  transform:translate3d(var(--x),var(--y),0) translate(-50%,-50%);
 }
-.peek img{
-  display:block;width:100%;border-radius:var(--r);border:1px solid var(--blue);background:#fff;
-  box-shadow:0 24px 60px rgba(0,0,0,.28);
+.peek__frame{
+  /* квадрат у білій рамці — як відео на сайті */
+  background:#fff;padding:8px;border-radius:var(--r);box-shadow:0 18px 44px rgba(0,0,0,.28);
   opacity:0;transform:scale(.94);transition:opacity .3s ease,transform .35s var(--out);
 }
-.peek.on img{opacity:1;transform:scale(1)}
+.peek img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 0;border-radius:3px;background:#f2f2f2}
+.peek.on .peek__frame{opacity:1;transform:scale(1)}
 
 /* --- клієнти ------------------------------------------------------------- */
 .people{padding:clamp(100px,16vh,170px) var(--gap) clamp(60px,10vh,110px)}
@@ -624,6 +625,25 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   .love__grid{grid-template-columns:minmax(0,1fr)}
   .love .card--video{justify-self:start}
 }
+
+/* --- «Ви ведете бізнес»: великий заголовок, верхні краї на одній лінії ---
+   Ліворуч заголовок на ~половину ширини, у центрі відео, праворуч квадрат «02»,
+   під ним текст. Заголовок, відео й квадрат починаються з однієї висоти;
+   -0.07em прибирає порожнечу над великими літерами, щоб вони стали врівень із рамкою відео. */
+.love__grid{
+  grid-template-columns:minmax(0,1.55fr) auto minmax(0,.7fr);
+  grid-template-areas:"title video corner" "title video text";
+  grid-template-rows:auto 1fr;
+  align-items:start;column-gap:clamp(24px,3.5vw,64px);row-gap:18px;
+}
+.love__t{grid-area:title;font-size:clamp(48px,8vw,170px);margin-top:calc(23px - .07em)}
+.love .card--video{grid-area:video;justify-self:center}
+.love__corner{grid-area:corner;position:static;justify-self:end;top:auto}
+.love__side{grid-area:text}
+@media (max-width:900px){
+  .love__grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"title" "video" "corner" "text";grid-template-rows:auto}
+  .love__t{font-size:clamp(44px,12vw,80px);margin-top:0}
+}
 </style>
 </head>
 <body>
@@ -941,8 +961,8 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   </div>
 </section>
 
-<!-- Прев’ю за курсором на кейсах: головний екран сайту, нахиляється за рухом миші -->
-<div class="peek" aria-hidden="true"><img src="images/cases/clg.webp" alt=""></div>
+<!-- Прев’ю за курсором на кейсах: квадратний скрін головного екрана сайту в білій рамці -->
+<div class="peek" aria-hidden="true"><div class="peek__frame"><img src="images/cases/clg.webp" alt=""></div></div>
 
 <!-- =============================== КЛІЄНТИ =============================== -->
 <section class="people" data-nav="light">
@@ -1658,22 +1678,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* --- прев’ю за курсором на кейсах ----------------------------------------
-     Картка не стрибає за мишею, а плавно її наздоганяє; нахил рахуємо з того,
-     наскільки швидко вона зараз їде вбік, і він сам повертається в нуль.
-     Той самий рух, що був на першій версії сайту. Лише для справжнього курсора. */
+     Картка не стрибає за мишею, а плавно її наздоганяє. Без нахилу — так вирішила Катя.
+     Лише для справжнього курсора. */
   var peek = $('.peek'), peekImg = peek && $('img', peek);
   if (peek && window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
-    var tX = 0, tY = 0, cX = 0, cY = 0, tilt = 0, peekRaf = 0;
+    var tX = 0, tY = 0, cX = 0, cY = 0, peekRaf = 0;
     var followPeek = function () {
       peekRaf = 0;
       var dx = tX - cX, dy = tY - cY;
       cX += dx * 0.12; cY += dy * 0.12;
-      var wanted = Math.max(-12, Math.min(12, dx * 0.14));
-      tilt += (wanted - tilt) * 0.08;
       peek.style.setProperty('--x', cX.toFixed(1) + 'px');
       peek.style.setProperty('--y', cY.toFixed(1) + 'px');
-      peek.style.setProperty('--r', tilt.toFixed(2) + 'deg');
-      if (peek.classList.contains('on') || Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5 || Math.abs(tilt) > 0.05) {
+      if (peek.classList.contains('on') || Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
         peekRaf = requestAnimationFrame(followPeek);
       }
     };
@@ -1690,10 +1706,9 @@ document.addEventListener('DOMContentLoaded', function () {
         peekImg.src = src;
         if (!peek.classList.contains('on')) {
           // при першій появі ставимо картку одразу під курсор
-          tX = cX = e.clientX + 40; tY = cY = e.clientY; tilt = 0;
+          tX = cX = e.clientX + 40; tY = cY = e.clientY;
           peek.style.setProperty('--x', cX + 'px');
           peek.style.setProperty('--y', cY + 'px');
-          peek.style.setProperty('--r', '0deg');
         }
         peek.classList.add('on');
         startPeek();
