@@ -268,7 +268,7 @@ a:hover .roll>span+span,button:hover:not(:disabled) .roll>span+span{transform:no
         <p>Надішліть відповіді мені в&nbsp;Telegram&nbsp;— подивлюся ваш бізнес і&nbsp;підкажу, з&nbsp;чого почати.</p>
         <label class="field"><span>Як&nbsp;вас звати</span><input id="name" type="text" autocomplete="given-name" maxlength="60"></label>
         <a class="btn btn--big" id="send" href="https://t.me/fominadesigns" target="_blank" rel="noopener"><span class="roll"><span>Надіслати в&nbsp;Telegram ↗</span><span>Надіслати в&nbsp;Telegram ↗</span></span></a>
-        <p class="rcard__note" id="note">Відкриється чат зі&nbsp;мною, а&nbsp;повідомлення з&nbsp;вашими відповідями вже&nbsp;буде написане&nbsp;— лишиться натиснути «Надіслати».</p>
+        <p class="rcard__note" id="note">Відкриється чат зі&nbsp;мною, а&nbsp;повідомлення з&nbsp;вашими відповідями вже буде написане&nbsp;— лишиться натиснути «Надіслати».</p>
         <button class="ghost" type="button" id="again">Пройти ще&nbsp;раз</button>
       </div>
     </div>
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* --- типографіка: короткі слова не висять у кінці рядка ---------------- */
-  var NB_SHORT = new RegExp('(^|[\\s(«"„“])(і|й|а|в|у|з|о|та|на|до|за|по|від|під|над|для|про|при|без|із|зі|що|як|не|ні|чи|це|ці|ми|ви|я|ти|же|б|би|ж|або|але|чим|ще|вже|їх|її)\\s+(?=\\S)', 'giu');
+  var NB_SHORT = new RegExp('(^|[\\s(«"„“])(і|й|а|в|у|з|о|та|на|до|за|по|від|під|над|для|про|при|без|із|зі|що|як|не|ні|чи|це|ці|ми|ви|я|ти|же|б|би|ж|або|але|чим|ще|їх|її)\\s+(?=\\S)', 'giu');
   function nb(t) {
     var prev;
     t = String(t);
