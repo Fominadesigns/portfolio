@@ -692,9 +692,100 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 
 /* --- логотип у підвалі: крапка після FOMINA, як у шапці — рядки майже однакові за шириною */
 .foot__logo i{font-style:normal;color:var(--orange)}
+
+/* --- заставка: глянцевий помаранчевий логотип обертається ------------------ */
+.pl{display:none}
+.js .pl{
+  display:grid;place-items:center;position:fixed;inset:0;z-index:1000;
+  background:var(--blue) var(--grid-l);
+  transition:opacity .6s ease,visibility 0s linear .6s;
+}
+.js.is-loading,.js.is-loading body{overflow:hidden}
+.pl.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.pl__scene{position:relative;display:grid;place-items:center;perspective:1000px;transition:transform .7s var(--out)}
+.pl.is-done .pl__scene{transform:scale(1.12)}
+.pl__logo{
+  display:grid;transform-style:preserve-3d;
+  font:800 clamp(58px,15vw,124px)/.86 var(--head);text-transform:uppercase;letter-spacing:.01em;
+  animation:plSpin 4s infinite;
+}
+.pl__l{grid-area:1 / 1;display:block;white-space:nowrap;transform:translateZ(calc(var(--k) * -1.1px))}
+.pl__l i{font-style:normal}
+/* передня й задня грані: глянець — світлий блиск угорі кожного рядка, насичений низ */
+.pl__face{
+  color:transparent;
+  background:linear-gradient(180deg,#FFF1E6 0%,#FFC49C 9%,#FF8645 24%,#FF622B 46%,#E84C14 66%,#B73606 86%,#FF8A4F 100%) 0 0 / 100% 50% repeat-y;
+  -webkit-background-clip:text;background-clip:text;
+}
+/* відблиск пробігає по передній грані, коли вона повернута до нас */
+.pl__shine{
+  color:transparent;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.95) 47%,rgba(255,255,255,.35) 52%,transparent 60%) 100% 0 / 300% 100% no-repeat;
+  -webkit-background-clip:text;background-clip:text;
+  animation:plShine 4s linear infinite;
+}
+.pl__floor{
+  position:absolute;left:15%;right:15%;bottom:-34px;height:22px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(8,16,70,.5),transparent);
+  animation:plFloor 4s infinite;
+}
+/* повільно гойдається вправо → швидкий повний оберт → повільно назад. Дзеркальний
+   бік видно лише мить, поки логотип крутиться */
+@keyframes plSpin{
+  0%{transform:rotateX(8deg) rotateY(-22deg);animation-timing-function:ease-in-out}
+  38%{transform:rotateX(8deg) rotateY(22deg);animation-timing-function:cubic-bezier(.65,0,.35,1)}
+  70%{transform:rotateX(8deg) rotateY(382deg);animation-timing-function:ease-in-out}
+  100%{transform:rotateX(8deg) rotateY(338deg)}
+}
+/* відблиск пробігає під час кожного погойдування */
+@keyframes plShine{0%{background-position:100% 0}38%,69.9%{background-position:0 0}70%{background-position:100% 0}100%{background-position:0 0}}
+@keyframes plFloor{
+  0%,38%{transform:scaleX(1);animation-timing-function:ease-in}
+  45%{transform:scaleX(.32)}54%{transform:scaleX(.95)}62%{transform:scaleX(.32);animation-timing-function:ease-out}
+  70%,100%{transform:scaleX(1)}
+}
+@media (prefers-reduced-motion:reduce){.pl__logo,.pl__shine,.pl__floor{animation:none}}
 </style>
 </head>
 <body>
+
+<!-- ================================ ЗАСТАВКА =============================
+     Об'ємний глянцевий помаранчевий логотип обертається, поки вантажиться сайт.
+     Намальований кодом: шари тексту один за одним дають товщину, передній —
+     з глянцевим переливом і відблиском. Лише зі скриптом; без нього сайт
+     відкривається одразу. -->
+<div class="pl" id="pl" aria-hidden="true">
+  <div class="pl__scene">
+    <div class="pl__logo" id="plLogo"></div>
+    <div class="pl__floor"></div>
+  </div>
+</div>
+<script>
+(function () {
+  var d = document.documentElement, box = document.getElementById('plLogo');
+  var txt = 'Fomina<i>.</i><br>Designs', N = 28, html = '';
+  // бічні шари: від насиченого помаранчевого до темного, як тінь на гранях
+  var A = [224, 72, 15], B = [118, 33, 4];
+  for (var k = N - 1; k >= 0; k--) {
+    var cls = 'pl__side', style = '--k:' + k;
+    if (k === 0) cls = 'pl__face';
+    else if (k === N - 1) cls = 'pl__face pl__back';
+    else {
+      var t = (k - 1) / (N - 3);
+      style += ';color:rgb(' + A.map(function (a, j) { return Math.round(a + (B[j] - a) * t); }).join(',') + ')';
+    }
+    html += '<span class="pl__l ' + cls + '" style="' + style + '">' + txt + '</span>';
+  }
+  html += '<span class="pl__l pl__shine" style="--k:-0.6">' + txt + '</span>';
+  box.innerHTML = html;
+  d.classList.add('is-loading');
+  // запобіжник: навіть якщо щось піде не так, заставка не лишиться назавжди
+  setTimeout(function () {
+    var p = document.getElementById('pl');
+    if (p) { p.classList.add('is-done'); d.classList.remove('is-loading'); }
+  }, 7000);
+})();
+</script>
 
 <!-- ================================ ШАПКА ================================ -->
 <header class="top on-blue" id="top">
@@ -1295,6 +1386,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!reduce && !touch && window.Lenis) {
     lenis = new window.Lenis({ lerp: 0.1 });
     (function loop(t) { lenis.raf(t); requestAnimationFrame(loop); })(0);
+    if (document.getElementById('pl')) lenis.stop(); // під заставкою сторінка не гортається
   }
 
   document.addEventListener('click', function (e) {
@@ -1340,8 +1432,28 @@ document.addEventListener('DOMContentLoaded', function () {
   // чекаємо шрифт, інакше заголовок першого екрана виїде системним шрифтом і перестрибне
   var started = false;
   function go() { if (!started) { started = true; startReveal(); } }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
-  setTimeout(go, 1500);
+
+  /* --- заставка: ховаємо, коли сайт і шрифт завантажились. Уперше за візит —
+     не раніше ніж за 1,6 с (щоб логотип встиг обернутись), далі — одразу.
+     Не пізніше ніж за 4 с. Перший екран виїжджає вже після неї. */
+  var pl = $('#pl'), plSeen = false;
+  try { plSeen = sessionStorage.getItem('pl') === '1'; sessionStorage.setItem('pl', '1'); } catch (e) {}
+  function hidePl() {
+    if (!pl || pl.classList.contains('is-done')) { go(); return; }
+    var wait = Math.max(0, (plSeen ? 300 : 1600) - performance.now());
+    setTimeout(function () {
+      if (pl.classList.contains('is-done')) return;
+      pl.classList.add('is-done');
+      root.classList.remove('is-loading');
+      if (lenis) lenis.start();
+      setTimeout(go, 200);
+      setTimeout(function () { if (pl.parentNode) pl.parentNode.removeChild(pl); }, 900);
+    }, wait);
+  }
+  var fontsReady = (document.fonts && document.fonts.ready) || Promise.resolve();
+  var pageLoaded = new Promise(function (r) { if (document.readyState === 'complete') r(); else window.addEventListener('load', r); });
+  Promise.all([fontsReady, pageLoaded]).then(hidePl);
+  setTimeout(hidePl, 4000);
 
   function blueNow() {
     return getComputedStyle(root).getPropertyValue('--blue').trim() || '#3346C4';
