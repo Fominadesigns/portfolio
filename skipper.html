@@ -245,6 +245,19 @@ section{padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(52px,7vw,96px)}
 .panel.dark .card,.panel.blue .card{background:transparent;border-color:rgba(255,255,255,.4);
                                     color:#fff}
 
+/* Синя картка з відео. Відео нічого не додає до висоти: колонка
+   розтягується рівно по сусідній, а кадр обрізається по центру. */
+.cta{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.75fr);
+     gap:clamp(20px,3vw,44px);align-items:stretch}
+.cta__txt{min-width:0;align-self:center}
+.cta__video{position:relative;min-height:220px;border-radius:var(--r);overflow:hidden;
+            border:1px solid rgba(255,255,255,.45)}
+.cta__video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:860px){
+  .cta{grid-template-columns:1fr}
+  .cta__video{min-height:200px;order:2}
+}
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -590,16 +603,27 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     приймати клієнтів через систему. Коли почне, вони зʼявляться.
   </p>
 
-  <div class="panel blue">
-    <h3 style="font-size:clamp(24px,4vw,46px)">Потрібна така&nbsp;ж система?</h3>
-    <p style="margin-top:12px;max-width:52ch">
-      Сайт, облік і&nbsp;кабінет клієнта, які справді звʼязані між&nbsp;собою,
-      роблю під&nbsp;конкретний бізнес&nbsp;— від&nbsp;бази відпочинку
-      до&nbsp;станції обслуговування.
-    </p>
-    <div style="display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:22px">
-      <a class="btn wh" href="./#contact">Написати мені</a>
-      <a class="btn g" style="border-color:#fff;color:#fff" href="./">Інші роботи</a>
+  <div class="panel blue cta">
+    <div class="cta__txt">
+      <h3 style="font-size:clamp(24px,4vw,46px)">Потрібна така&nbsp;ж система?</h3>
+      <p style="margin-top:12px;max-width:46ch">
+        Сайт, облік і&nbsp;кабінет клієнта, які справді звʼязані між&nbsp;собою,
+        роблю під&nbsp;конкретний бізнес&nbsp;— від&nbsp;бази відпочинку
+        до&nbsp;станції обслуговування.
+      </p>
+      <div style="display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:22px">
+        <a class="btn wh" href="./#contact">Написати мені</a>
+        <a class="btn g" style="border-color:#fff;color:#fff" href="./">Інші роботи</a>
+      </div>
+    </div>
+
+    <!-- Відео з першого екрана головної. Висоту картки воно не змінює:
+         колонка розтягується по сусідній, а кадр обрізається по центру. -->
+    <div class="cta__video">
+      <video autoplay muted loop playsinline preload="none"
+             poster="video/hero-card.webp" aria-hidden="true">
+        <source src="video/hero-card.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 </section>
