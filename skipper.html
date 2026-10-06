@@ -13,9 +13,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* Токени — ті самі, що на головній портфоліо (див. design-system.md).
-   Кейс живе в системі Fomina.Designs, а не в кольорах Skipper:
-   усередині рамок показано чужий продукт, а сторінка лишається моєю. */
+/* Структура сторінки взята з driveberry.fr: герой, біжучий рядок болів,
+   поворот «тепер», нумеровані кроки з екраном на кожному, великий підвал
+   колонками. Кольори, шрифти й сітка — свої, з design-system.md:
+   ультрамарин, помаранчевий, пунктирна сітка 80px, Roboto Condensed
+   і Golos Text. Усередині рамок показано чужий продукт, але сторінка
+   лишається моєю. */
 :root{
   --grey:#D3D3D3; --light:#ECECEC;
   --blue:#3346C4; --orange:#FF622B; --dark:#212121;
@@ -33,9 +36,7 @@ body{margin:0;background:var(--grey) var(--grid-d);color:var(--blue);
 a{color:inherit}
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 img{max-width:100%;display:block}
-
 .wrap{max-width:1240px;margin:0 auto;padding:0 var(--gap)}
-
 h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
             line-height:.9;letter-spacing:-.01em;margin:0}
 
@@ -48,32 +49,57 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .bar .sp{flex:1}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
      font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:15px;
-     letter-spacing:.01em;text-decoration:none;cursor:pointer;border:1px solid var(--blue);
+     text-decoration:none;cursor:pointer;border:1px solid var(--blue);
      background:#fff;color:var(--blue);padding:12px 20px;border-radius:var(--r);
-     transition:transform .18s,background .18s,color .18s}
+     transition:transform .18s,background .18s}
 .btn:hover{transform:translateY(-2px)}
 .btn.o{background:var(--orange);border-color:var(--orange);color:#fff}
 .btn.o:hover{background:#ff7846}
-.btn.g{background:transparent;color:var(--blue)}
+.btn.g{background:transparent}
 .btn.sm{padding:9px 14px;font-size:13px}
+.btn.wh{background:#fff;border-color:#fff}
 
-/* ── перший екран ──────────────────────────────────────────────────── */
-.hero{padding:58px 0 34px}
+/* ── 1. герой ──────────────────────────────────────────────────────── */
+.hero{padding:62px 0 40px}
 .tagline{font-family:var(--head);font-weight:700;text-transform:uppercase;
          font-size:14px;letter-spacing:.14em;opacity:.8}
-.hero h1{font-size:clamp(42px,9.2vw,124px);margin-top:14px}
-.hero p{max-width:50ch;margin-top:20px;font-size:clamp(17px,2vw,21px)}
-.hero-cta{display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:26px}
-
-.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:38px}
-.meta div{background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:15px 17px;
-          min-width:0}
+.hero h1{font-size:clamp(52px,13vw,190px);margin-top:12px}
+.hero .say{max-width:46ch;margin-top:20px;font-size:clamp(18px,2.2vw,25px);font-weight:500}
+.hero-cta{display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:28px}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:40px}
+.meta div{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+          padding:15px 17px;min-width:0}
 .meta dt{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:12px;
          letter-spacing:.1em;opacity:.65;margin:0}
 .meta dd{margin:5px 0 0;font-weight:600;font-size:16px}
 
-/* ── розділи ───────────────────────────────────────────────────────── */
-section{padding:46px 0}
+/* ── 2. біль, що біжить ────────────────────────────────────────────── */
+.pains{background:var(--dark) var(--grid-l);color:#fff;padding:40px 0 46px;overflow:hidden}
+.pains h2{font-size:clamp(40px,8vw,110px);padding:0 var(--gap);max-width:1240px;margin:0 auto}
+.pains h2 em{font-style:normal;color:var(--orange)}
+.lane{display:flex;gap:10px;margin-top:26px;width:max-content;
+      animation:run var(--sp,46s) linear infinite}
+.lane.back{animation-direction:reverse;--sp:54s;margin-top:10px}
+.lane span{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);
+           padding:12px 22px;white-space:nowrap;font-family:var(--head);font-weight:800;
+           text-transform:uppercase;font-size:clamp(17px,2.2vw,29px)}
+.lane span.hot{background:var(--orange);border-color:var(--orange)}
+@keyframes run{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.lane{animation:none}}
+
+/* ── 3. поворот ────────────────────────────────────────────────────── */
+.turn{background:var(--blue) var(--grid-l);color:#fff;padding:64px 0}
+.turn h2{font-size:clamp(32px,5.6vw,80px);max-width:17ch}
+.turn p{max-width:54ch;margin-top:22px;font-size:clamp(17px,1.9vw,21px)}
+.turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:34px}
+.turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:20px 22px;
+                 min-width:0}
+.turn .three b{display:block;font-family:var(--head);font-size:clamp(28px,4vw,50px);
+               text-transform:uppercase}
+.turn .three span{display:block;margin-top:7px;font-size:15.5px}
+
+/* ── 4. кроки ──────────────────────────────────────────────────────── */
+section{padding:52px 0}
 .sq{width:80px;height:80px;border:1px solid var(--blue);border-radius:var(--r);
     position:relative;flex:none;background:#fff}
 .sq::before{content:'';position:absolute;inset:0;
@@ -81,21 +107,19 @@ section{padding:46px 0}
             rgba(51,70,196,.45) 50%,transparent calc(50% + .5px))}
 .sq b{position:absolute;left:9px;bottom:6px;font-family:var(--head);font-size:17px}
 .sec-head{display:flex;gap:var(--gap);align-items:flex-start}
-.sec-head h2{font-size:clamp(32px,5.6vw,76px);flex:1;min-width:0}
+.sec-head h2{font-size:clamp(34px,6.2vw,96px);flex:1;min-width:0}
 .sec-lead{max-width:58ch;margin-top:18px;font-size:clamp(16px,1.7vw,19px)}
 
-.panel{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
-       padding:clamp(18px,3vw,34px);margin-top:26px}
-.panel.blue{background:var(--blue) var(--grid-l);color:#fff;border-color:var(--blue)}
-.panel.dark{background:var(--dark) var(--grid-l);color:#fff;border-color:var(--dark)}
-
-.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:var(--gap)}
-.card{background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:18px 20px;
-      min-width:0}
-.card h3{font-size:19px;margin-bottom:9px}
-.card p{margin:0;font-size:15.5px}
-.panel.blue .card,.panel.dark .card{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+.step{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,46px);
+      align-items:center;padding:34px 0;border-top:1px solid rgba(51,70,196,.3)}
+.step:nth-child(even) .txt{order:2}
+.step .no{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:var(--r);
+          background:var(--orange);color:#fff;font-family:var(--head);font-size:21px}
+.step h3{font-size:clamp(24px,3.4vw,46px);margin-top:14px}
+.step p{margin-top:14px;max-width:46ch;font-size:16.5px}
+.step .who{display:inline-block;margin-top:16px;font-family:var(--head);font-weight:700;
+           text-transform:uppercase;font-size:12.5px;letter-spacing:.12em;
+           border:1px solid var(--blue);border-radius:999px;padding:5px 13px}
 
 /* ── рамки пристроїв ───────────────────────────────────────────────── */
 .browser{border:1px solid var(--blue);border-radius:var(--r);overflow:hidden;background:#fff}
@@ -104,54 +128,65 @@ section{padding:46px 0}
 .dots{display:flex;gap:5px}
 .dots i{width:9px;height:9px;border-radius:50%;background:rgba(51,70,196,.3)}
 .url{flex:1;min-width:0;background:var(--light);border-radius:999px;padding:5px 12px;
-     font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-     font-family:var(--body);opacity:.75}
-.browser iframe{width:100%;height:clamp(380px,56vw,620px);border:0;display:block;background:#fff}
+     font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.75}
+.browser iframe{width:100%;height:clamp(330px,42vw,470px);border:0;display:block;background:#fff}
 
-.phones{display:flex;gap:clamp(14px,3vw,40px);align-items:flex-start;flex-wrap:wrap;
-        justify-content:center;margin-top:26px}
-.phone{width:316px;max-width:100%;flex:none}
+.phone{width:316px;max-width:100%;margin:0 auto}
 .phone .screen{border:10px solid var(--dark);border-radius:34px;overflow:hidden;
                background:var(--dark);box-shadow:0 18px 40px rgba(33,33,33,.3)}
+.phone .holder{width:296px;height:591px;overflow:hidden}
 .phone iframe{width:390px;height:780px;border:0;display:block;
               transform:scale(.758);transform-origin:top left}
-.phone .holder{width:296px;height:591px;overflow:hidden}
-.phone figcaption{margin-top:12px;text-align:center;font-size:14.5px;font-weight:600}
+.phone figcaption{margin-top:11px;text-align:center;font-size:14px;font-weight:600;opacity:.8}
 
-/* ── список рішень ─────────────────────────────────────────────────── */
+/* ── рішення ───────────────────────────────────────────────────────── */
 .rules{list-style:none;margin:var(--gap) 0 0;padding:0;display:flex;
        flex-direction:column;gap:var(--gap)}
 .rules li{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
           padding:18px 20px;display:flex;gap:16px;align-items:flex-start}
 .num{width:32px;height:32px;flex:none;border:1px solid var(--blue);border-radius:var(--r);
      display:grid;place-items:center;font-family:var(--head);font-size:15px}
-.rules b{display:block;font-family:var(--head);text-transform:uppercase;font-size:18px;
-         letter-spacing:-.01em}
+.rules b{display:block;font-family:var(--head);text-transform:uppercase;font-size:18px}
 .rules p{margin:6px 0 0;font-size:15.5px}
 
-/* ── стрічка ───────────────────────────────────────────────────────── */
-.ticker{background:var(--dark) var(--grid-l);color:#fff;padding:22px 0;overflow:hidden;
-        margin:46px 0}
-.ticker div{display:flex;gap:28px;white-space:nowrap;font-family:var(--head);
-            font-weight:800;text-transform:uppercase;font-size:clamp(20px,3vw,38px);
-            animation:run 26s linear infinite}
-@keyframes run{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.ticker div{animation:none}}
+.panel{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+       padding:clamp(18px,3vw,34px);margin-top:26px}
+.panel.dark{background:var(--dark) var(--grid-l);color:#fff;border-color:var(--dark)}
+.panel.blue{background:var(--blue) var(--grid-l);color:#fff;border-color:var(--blue)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:var(--gap)}
+.card{background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:18px 20px;
+      min-width:0}
+.card h3{font-size:19px;margin-bottom:9px}
+.card p{margin:0;font-size:15.5px}
+.panel.dark .card,.panel.blue .card{background:transparent;border-color:rgba(255,255,255,.4);
+                                    color:#fff}
 
-/* ── підвал ────────────────────────────────────────────────────────── */
-footer{background:var(--dark) var(--grid-l);color:#fff;padding:34px 0;margin-top:40px}
-.foot{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;
-      justify-content:space-between;font-size:14.5px}
-.foot a{opacity:.8;text-decoration:none;border-bottom:1px solid transparent}
-.foot a:hover{opacity:1;border-bottom-color:currentColor}
+/* ── великий підвал ────────────────────────────────────────────────── */
+footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
+.fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
+.fcols h4{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:12.5px;
+          letter-spacing:.12em;opacity:.6;margin:0 0 12px}
+.fcols a,.fcols p{display:block;font-size:15px;margin:0 0 9px;text-decoration:none;opacity:.85}
+.fcols a:hover{opacity:1;text-decoration:underline}
+.fbrand{font-family:var(--head);font-weight:800;text-transform:uppercase;
+        font-size:clamp(28px,4vw,46px);line-height:.9}
+.fbrand+p{margin-top:12px;max-width:34ch;opacity:.7;font-size:15px}
+.fbot{display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;
+      margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);
+      font-size:14px;opacity:.75}
 
+@media (max-width:980px){
+  .step{grid-template-columns:1fr}
+  .step:nth-child(even) .txt{order:0}
+  .fcols{grid-template-columns:1fr 1fr}
+}
 @media (max-width:900px){
   .meta{grid-template-columns:repeat(2,1fr)}
-  .cards{grid-template-columns:1fr}
-  .two{grid-template-columns:1fr}
+  .cards,.turn .three{grid-template-columns:1fr}
   .sq{width:56px;height:56px}
   .sq b{font-size:14px;left:7px;bottom:4px}
 }
+@media (max-width:560px){ .fcols{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -169,276 +204,294 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:34px 0;margin-top
 
 <main>
 
-<!-- ── перший екран ──────────────────────────────────────────────── -->
+<!-- ── 1. герой ──────────────────────────────────────────────────── -->
 <div class="wrap hero">
   <p class="tagline">Кейс · 2026 · човнова станція</p>
   <h1>Skipper</h1>
-  <p>
-    Станція під&nbsp;Вишгородом зберігає човни на&nbsp;воді, на&nbsp;суші
-    й&nbsp;у&nbsp;критому ангарі. Облік вели в&nbsp;зошиті, а&nbsp;за&nbsp;оплатою
-    щоразу дзвонили й&nbsp;диктували реквізити. Я&nbsp;зробила не&nbsp;сайт,
-    а&nbsp;систему: сайт, CRM і&nbsp;кабінет клієнта в&nbsp;Telegram,
-    які працюють з&nbsp;однієї бази.
+  <p class="say">
+    Сайт, облік і&nbsp;кабінет клієнта в&nbsp;Telegram, які працюють
+    з&nbsp;однієї бази. Я&nbsp;зробила не&nbsp;сайт&nbsp;— систему.
   </p>
   <div class="hero-cta">
     <a class="btn o" href="https://skipper-site-three.vercel.app/" target="_blank" rel="noopener">
       Живий сайт
     </a>
-    <a class="btn" href="#apps">Подивитись додатки</a>
+    <a class="btn" href="#how">Як це працює</a>
   </div>
 
   <dl class="meta">
     <div><dt>Що зробила</dt><dd>продукт, дизайн, код</dd></div>
-    <div><dt>Складові</dt><dd>сайт · CRM · кабінет</dd></div>
+    <div><dt>Складові</dt><dd>сайт · CRM · кабінет · бот</dd></div>
     <div><dt>Термін</dt><dd>вересень — жовтень 2026</dd></div>
     <div><dt>Стан</dt><dd>готова до запуску</dd></div>
   </dl>
 </div>
 
-<!-- ── 01 задача ─────────────────────────────────────────────────── -->
-<section class="wrap" id="task">
-  <div class="sec-head">
-    <span class="sq"><b>01</b></span>
-    <h2>Що боліло</h2>
-  </div>
-  <p class="sec-lead">
-    Проблема була не&nbsp;в&nbsp;тому, що&nbsp;немає сайту. Проблема була
-    в&nbsp;тому, що&nbsp;кожна оплата коштувала двох дзвінків.
-  </p>
+<!-- ── 2. біль, що біжить ────────────────────────────────────────── -->
+<section class="pains" style="padding-top:40px">
+  <h2>Більше<br>не&nbsp;треба<em>…</em></h2>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Хто скільки винен</h3>
-      <p>Облік у&nbsp;зошиті. Щоб&nbsp;дізнатись борг, треба було згадати,
-        з&nbsp;якого місяця човен стоїть, і&nbsp;порахувати в&nbsp;голові.</p>
-    </div>
-    <div class="card">
-      <h3>Оплата</h3>
-      <p>Клієнт дзвонив по&nbsp;реквізити, переписував їх&nbsp;у&nbsp;банк
-        і&nbsp;помилявся в&nbsp;сумі. Потім дзвонив ще&nbsp;раз.</p>
-    </div>
-    <div class="card">
-      <h3>Вільні місця</h3>
-      <p>На&nbsp;питання «чи&nbsp;є&nbsp;місце на&nbsp;жовтень» відповідали
-        по&nbsp;пам&apos;яті. Іноді помилялись.</p>
+  <div class="lane" aria-hidden="true">
+    <span>рахувати борг у голові</span><span class="hot">дзвонити по реквізити</span>
+    <span>диктувати IBAN у трубку</span><span>згадувати, хто оплатив</span>
+    <span class="hot">вести зошит</span><span>вгадувати вільні місця</span>
+    <span>рахувати борг у голові</span><span class="hot">дзвонити по реквізити</span>
+    <span>диктувати IBAN у трубку</span><span>згадувати, хто оплатив</span>
+    <span class="hot">вести зошит</span><span>вгадувати вільні місця</span>
+  </div>
+
+  <div class="lane back" aria-hidden="true">
+    <span>переписувати суму в банк</span><span>шукати, за який місяць платіж</span>
+    <span class="hot">дзвонити двічі за однією оплатою</span><span>тримати ціни в голові</span>
+    <span>переписувати суму в банк</span><span>шукати, за який місяць платіж</span>
+    <span class="hot">дзвонити двічі за однією оплатою</span><span>тримати ціни в голові</span>
+  </div>
+</section>
+
+<!-- ── 3. поворот ────────────────────────────────────────────────── -->
+<section class="turn">
+  <div class="wrap">
+    <h2>Тепер рахунок приходить сам, а&nbsp;гроші видно в&nbsp;касі</h2>
+    <p>
+      Станція під&nbsp;Вишгородом зберігає човни на&nbsp;воді, на&nbsp;суші
+      й&nbsp;у&nbsp;критому ангарі. Облік вели в&nbsp;зошиті, а&nbsp;за&nbsp;кожну
+      оплату дзвонили двічі: спершу продиктувати реквізити, потім перепитати,
+      чи&nbsp;пройшло.
+    </p>
+    <div class="three">
+      <div><b>50</b><span>місць: 20&nbsp;на&nbsp;воді, 20&nbsp;на&nbsp;суші,
+        10&nbsp;в&nbsp;ангарі</span></div>
+      <div><b>3</b><span>екрани однієї системи: сайт, CRM, кабінет клієнта</span></div>
+      <div><b>1</b><span>бот, який веде два різні міні-додатки</span></div>
     </div>
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true">
-  <div>
-    <span>Сайт ✦ CRM ✦ Кабінет клієнта ✦ Одна база ✦ Рахунок у Telegram ✦ QR за стандартом НБУ ✦</span>
-    <span>Сайт ✦ CRM ✦ Кабінет клієнта ✦ Одна база ✦ Рахунок у Telegram ✦ QR за стандартом НБУ ✦</span>
-  </div>
-</div>
-
-<!-- ── 02 сайт ───────────────────────────────────────────────────── -->
-<section class="wrap" id="site">
-  <div class="sec-head">
-    <span class="sq"><b>02</b></span>
-    <h2>Сайт</h2>
-  </div>
-  <p class="sec-lead">
-    Нижче — <b>справжній сайт</b>, а&nbsp;не&nbsp;знімок екрана: гортайте
-    просто тут. Числа вільних місць у&nbsp;ньому живі, вони приходять
-    із&nbsp;тієї самої бази, у&nbsp;якій станція веде облік.
-  </p>
-
-  <div class="panel">
-    <div class="browser">
-      <div class="bbar">
-        <span class="dots"><i></i><i></i><i></i></span>
-        <span class="url">skipper-site-three.vercel.app</span>
-      </div>
-      <iframe src="https://skipper-site-three.vercel.app/" loading="lazy"
-              title="Сайт човнової станції Skipper"></iframe>
-    </div>
-    <div style="margin-top:var(--gap);display:flex;gap:var(--gap);flex-wrap:wrap">
-      <a class="btn o" href="https://skipper-site-three.vercel.app/" target="_blank" rel="noopener">
-        Відкрити в новій вкладці
-      </a>
-    </div>
-  </div>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Калькулятор</h3>
-      <p>Повзунок довжини й&nbsp;строк на&nbsp;вибір. Для&nbsp;човнів поза
-        таблицею показує «за&nbsp;домовленістю», а&nbsp;не&nbsp;вигадану суму.</p>
-    </div>
-    <div class="card">
-      <h3>Живі місця</h3>
-      <p>Скільки вільно просто зараз. Якщо звʼязку з&nbsp;базою немає, блок
-        ховається: «0&nbsp;вільних» і&nbsp;«ми&nbsp;не&nbsp;знаємо»&nbsp;—
-        різні речі.</p>
-    </div>
-    <div class="card">
-      <h3>Заявка</h3>
-      <p>Йде просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками.
-        Бронювання вона не&nbsp;створює: місце закріплює людина.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── 03 додатки ────────────────────────────────────────────────── -->
-<section class="wrap" id="apps">
-  <div class="sec-head">
-    <span class="sq"><b>03</b></span>
-    <h2>Два додатки<br>в одному боті</h2>
-  </div>
-  <p class="sec-lead">
-    Клієнт і&nbsp;станція відкривають того самого бота й&nbsp;бачать різне.
-    Кнопка меню ставиться окремо для&nbsp;кожного чату, тож один бот веде
-    два різні міні-додатки. Обидва нижче — <b>клікабельні</b>:
-    перемикайте вкладки просто в&nbsp;рамці.
-  </p>
-  <p class="sec-lead" style="margin-top:10px">
-    Дані в&nbsp;демонстрації вигадані. У&nbsp;справжній CRM&nbsp;— прізвища,
-    телефони й&nbsp;борги клієнтів станції, і&nbsp;таке в&nbsp;портфоліо
-    не&nbsp;виносять.
-  </p>
-
-  <div class="panel blue">
-    <div class="phones">
-      <figure class="phone" style="margin:0">
-        <div class="screen"><div class="holder">
-          <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
-        </div></div>
-        <figcaption>Кабінет клієнта</figcaption>
-      </figure>
-      <figure class="phone" style="margin:0">
-        <div class="screen"><div class="holder">
-          <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
-        </div></div>
-        <figcaption>CRM станції</figcaption>
-      </figure>
-    </div>
-  </div>
-
-  <div class="two" style="margin-top:var(--gap)">
-    <div class="panel" style="margin-top:0">
-      <h3 style="font-size:23px">Клієнт бачить</h3>
-      <p style="margin-top:10px">
-        Свій човен, місце й&nbsp;до&nbsp;якого місяця оплачено. Рахунок
-        рядками, QR&nbsp;за&nbsp;стандартом НБУ з&nbsp;уже вписаною сумою
-        і&nbsp;кнопку «Я&nbsp;оплатив». Вільні місця&nbsp;— якщо захоче
-        поставити другий човен.
-      </p>
-    </div>
-    <div class="panel" style="margin-top:0">
-      <h3 style="font-size:23px">Станція бачить</h3>
-      <p style="margin-top:10px">
-        Касу за&nbsp;місяць із&nbsp;готівкою й&nbsp;безготівкою, календар
-        по&nbsp;місяцях, де&nbsp;видно оплачене й&nbsp;борг кольором,
-        і&nbsp;список човнів, розкладений за&nbsp;тим, що&nbsp;з&nbsp;ним
-        робити: спершу ті, кому не&nbsp;вказано тариф, далі боржники.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ── 04 рішення ────────────────────────────────────────────────── -->
+<!-- ── 4. як це працює ───────────────────────────────────────────── -->
 <section class="wrap" id="how">
   <div class="sec-head">
-    <span class="sq"><b>04</b></span>
+    <span class="sq"><b>01</b></span>
+    <h2>Як це працює</h2>
+  </div>
+  <p class="sec-lead">
+    Шість кроків від&nbsp;першого дотику до&nbsp;грошей у&nbsp;касі. Усі екрани
+    нижче&nbsp;— <b>живі</b>: сайт відкривається просто в&nbsp;рамці,
+    а&nbsp;додатки клікаються.
+  </p>
+
+  <!-- крок 1 -->
+  <div class="step">
+    <div class="txt">
+      <span class="no">1</span>
+      <h3>Знаходить станцію</h3>
+      <p>
+        Сайт відповідає на&nbsp;перше питання власника човна&nbsp;— «скільки
+        коштує й&nbsp;чи&nbsp;є&nbsp;місце». Повзунок довжини рахує суму
+        за&nbsp;справжньою таблицею, а&nbsp;вільні місця приходять
+        із&nbsp;тієї&nbsp;ж бази, у&nbsp;якій станція веде облік.
+      </p>
+      <span class="who">клієнт</span>
+    </div>
+    <div class="browser">
+      <div class="bbar"><span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">skipper-site-three.vercel.app</span></div>
+      <iframe src="https://skipper-site-three.vercel.app/" loading="lazy"
+              title="Сайт човнової станції"></iframe>
+    </div>
+  </div>
+
+  <!-- крок 2 -->
+  <div class="step">
+    <div class="txt">
+      <span class="no">2</span>
+      <h3>Лишає заявку</h3>
+      <p>
+        Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками,
+        поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона
+        не&nbsp;створює: місце закріплює людина після дзвінка&nbsp;— сервіс
+        не&nbsp;вирішує за&nbsp;станцію, кого ставити.
+      </p>
+      <span class="who">клієнт → станція</span>
+    </div>
+    <figure class="phone">
+      <div class="screen"><div class="holder">
+        <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
+      </div></div>
+      <figcaption>CRM станції · вкладка «Каса»</figcaption>
+    </figure>
+  </div>
+
+  <!-- крок 3 -->
+  <div class="step">
+    <div class="txt">
+      <span class="no">3</span>
+      <h3>Підключається до бота</h3>
+      <p>
+        Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить
+        бронь за&nbsp;телефоном. Відтепер рахунки приходять у&nbsp;цей чат.
+        Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить
+        кабінет, станція&nbsp;— CRM.
+      </p>
+      <span class="who">клієнт</span>
+    </div>
+    <figure class="phone">
+      <div class="screen"><div class="holder">
+        <iframe src="demo/telegram.html" loading="lazy" title="Бот у Telegram"></iframe>
+      </div></div>
+      <figcaption>Telegram · чат із ботом</figcaption>
+    </figure>
+  </div>
+
+  <!-- крок 4 -->
+  <div class="step">
+    <div class="txt">
+      <span class="no">4</span>
+      <h3>Отримує рахунок</h3>
+      <p>
+        З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками,
+        з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк
+        з&nbsp;<b>уже&nbsp;вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ:
+        переписувати IBAN у&nbsp;трубку більше не&nbsp;треба.
+      </p>
+      <span class="who">станція → клієнт</span>
+    </div>
+    <figure class="phone">
+      <div class="screen"><div class="holder">
+        <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
+      </div></div>
+      <figcaption>Кабінет клієнта · рахунок і QR</figcaption>
+    </figure>
+  </div>
+
+  <!-- крок 5 -->
+  <div class="step">
+    <div class="txt">
+      <span class="no">5</span>
+      <h3>Платить і каже про це</h3>
+      <p>
+        Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка
+        <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити
+        надходження. Сервіс не&nbsp;бачить банківського рахунку
+        й&nbsp;не&nbsp;має права казати, що&nbsp;гроші прийшли.
+      </p>
+      <span class="who">клієнт → станція</span>
+    </div>
+    <figure class="phone">
+      <div class="screen"><div class="holder">
+        <iframe src="demo/telegram.html" loading="lazy" title="Кнопка «Я оплатив»"></iframe>
+      </div></div>
+      <figcaption>Натисніть «Я оплатив» у&nbsp;рамці</figcaption>
+    </figure>
+  </div>
+
+  <!-- крок 6 -->
+  <div class="step">
+    <div class="txt">
+      <span class="no">6</span>
+      <h3>Гроші видно в касі</h3>
+      <p>
+        Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі.
+        Готівка й&nbsp;безготівка окремо, витрати теж. Список човнів
+        розкладений не&nbsp;за&nbsp;номером місця, а&nbsp;за&nbsp;тим,
+        що&nbsp;з&nbsp;ним робити: спершу ті, кому не&nbsp;вказано тариф,
+        далі боржники.
+      </p>
+      <span class="who">станція</span>
+    </div>
+    <figure class="phone">
+      <div class="screen"><div class="holder">
+        <iframe src="demo/admin.html" loading="lazy" title="Календар і каса"></iframe>
+      </div></div>
+      <figcaption>Перемикайте вкладки в&nbsp;рамці</figcaption>
+    </figure>
+  </div>
+
+  <p class="sec-lead" style="margin-top:28px">
+    Дані в&nbsp;демонстраціях вигадані, а&nbsp;тексти бота&nbsp;— дослівні.
+    У&nbsp;справжній CRM прізвища, телефони й&nbsp;борги клієнтів станції,
+    і&nbsp;таке в&nbsp;портфоліо не&nbsp;виносять. QR&nbsp;у&nbsp;демонстрації
+    навмисно неплатіжний.
+  </p>
+</section>
+
+<!-- ── 5. рішення ────────────────────────────────────────────────── -->
+<section class="wrap">
+  <div class="sec-head">
+    <span class="sq"><b>02</b></span>
     <h2>Чотири рішення,<br>які видно в роботі</h2>
   </div>
 
   <ol class="rules">
-    <li>
-      <span class="num">1</span>
-      <div>
-        <b>Сервіс нічого не вирішує за людину</b>
-        <p>Він не&nbsp;підтверджує бронь і&nbsp;не&nbsp;зараховує оплату: він
-          не&nbsp;бачить банківського рахунку. «Я&nbsp;оплатив»&nbsp;—
-          це&nbsp;сигнал звірити надходження, а&nbsp;не&nbsp;сама оплата.</p>
-      </div>
-    </li>
-    <li>
-      <span class="num">2</span>
-      <div>
-        <b>Невідоме показуємо як невідоме</b>
+    <li><span class="num">1</span>
+      <div><b>Сервіс нічого не вирішує за людину</b>
+        <p>Він не&nbsp;підтверджує бронь і&nbsp;не&nbsp;зараховує оплату:
+          він не&nbsp;бачить банківського рахунку.</p></div></li>
+    <li><span class="num">2</span>
+      <div><b>Невідоме показуємо як невідоме</b>
         <p>Якщо тариф не&nbsp;названий, борг не&nbsp;рахується, і&nbsp;місяць
-          отримує свій, сірий колір. Нуль на&nbsp;цьому місці означав&nbsp;би
-          «усе гаразд», а&nbsp;правда&nbsp;— «ми&nbsp;не&nbsp;знаємо».</p>
-      </div>
-    </li>
-    <li>
-      <span class="num">3</span>
-      <div>
-        <b>Оплата важливіша за календар</b>
+          отримує свій, сірий колір. Нуль тут означав&nbsp;би «усе гаразд»,
+          а&nbsp;правда&nbsp;— «ми&nbsp;не&nbsp;знаємо».</p></div></li>
+    <li><span class="num">3</span>
+      <div><b>Оплата важливіша за календар</b>
         <p>Місяць, оплачений наперед, зелений уже зараз. Спершу колір залежав
           від&nbsp;того, минув місяць чи&nbsp;ні&nbsp;— і&nbsp;той, хто
-          розрахувався до&nbsp;нового року, виглядав так само, як боржник.</p>
-      </div>
-    </li>
-    <li>
-      <span class="num">4</span>
-      <div>
-        <b>Суми — цілими копійками</b>
-        <p>Дробові числа дають похибку округлення, а&nbsp;це&nbsp;рахунок
-          живої людини. Ціна, якої не&nbsp;знаємо,&nbsp;— це&nbsp;не&nbsp;нуль,
-          а&nbsp;окремий стан «ціну уточнити».</p>
-      </div>
-    </li>
+          розрахувався до&nbsp;нового року, виглядав як боржник.</p></div></li>
+    <li><span class="num">4</span>
+      <div><b>Суми — цілими копійками</b>
+        <p>Дробові числа дають похибку округлення, а&nbsp;це&nbsp;рахунок живої
+          людини. Ціна, якої не&nbsp;знаємо,&nbsp;— не&nbsp;нуль,
+          а&nbsp;окремий стан «ціну уточнити».</p></div></li>
   </ol>
 </section>
 
-<!-- ── 05 з чого зроблено ────────────────────────────────────────── -->
-<section class="wrap" id="stack">
+<!-- ── 6. з чого зроблено ────────────────────────────────────────── -->
+<section class="wrap">
   <div class="sec-head">
-    <span class="sq"><b>05</b></span>
+    <span class="sq"><b>03</b></span>
     <h2>З чого зроблено</h2>
   </div>
 
   <div class="panel dark">
     <div class="cards" style="margin-top:0">
-      <div class="card">
-        <h3>Сайт</h3>
-        <p>Статична сторінка без&nbsp;фреймворків. Шрифт Fixel від&nbsp;MacPaw.
-          Структуровані дані для&nbsp;пошуку, оферта й&nbsp;політика
-          конфіденційності.</p>
-      </div>
-      <div class="card">
-        <h3>Система</h3>
+      <div class="card"><h3>Сайт</h3>
+        <p>Статична сторінка без&nbsp;фреймворків. Шрифт Fixel від&nbsp;MacPaw,
+          структуровані дані для&nbsp;пошуку, оферта й&nbsp;політика
+          конфіденційності.</p></div>
+      <div class="card"><h3>Система</h3>
         <p>Next.js і&nbsp;Postgres. Один проєкт, двоє дверей: CRM
-          у&nbsp;корені, кабінет клієнта на&nbsp;/client.</p>
-      </div>
-      <div class="card">
-        <h3>Telegram</h3>
+          у&nbsp;корені, кабінет клієнта на&nbsp;/client.</p></div>
+      <div class="card"><h3>Telegram</h3>
         <p>Офіційний Bot&nbsp;API, вебхук без&nbsp;окремого сервера. Вхід
-          персоналу&nbsp;— натисканням «Старт», без&nbsp;паролів
-          і&nbsp;переписування номерів.</p>
-      </div>
+          персоналу&nbsp;— натисканням «Старт», без&nbsp;паролів.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ── 06 стан ───────────────────────────────────────────────────── -->
-<section class="wrap" id="state">
+<!-- ── 7. стан і заклик ──────────────────────────────────────────── -->
+<section class="wrap">
   <div class="sec-head">
-    <span class="sq"><b>06</b></span>
+    <span class="sq"><b>04</b></span>
     <h2>Де воно зараз</h2>
   </div>
   <p class="sec-lead">
     Система розгорнута й&nbsp;працює на&nbsp;справжній базі станції:
-    сім&nbsp;човнів, їхні місця, оплати й&nbsp;борги вже всередині.
-    Сайт показує вільні місця з&nbsp;неї&nbsp;ж.
+    сім&nbsp;човнів, їхні місця, оплати й&nbsp;борги вже всередині. Сайт
+    показує вільні місця з&nbsp;неї&nbsp;ж.
   </p>
   <p class="sec-lead" style="margin-top:12px">
     Цифр продажів тут немає навмисно&nbsp;— станція ще&nbsp;не&nbsp;почала
-    приймати клієнтів через систему. Коли почне, вони&nbsp;зʼявляться.
+    приймати клієнтів через систему. Коли почне, вони зʼявляться.
   </p>
 
   <div class="panel blue">
-    <h3 style="font-size:clamp(22px,3.4vw,38px)">Потрібна така&nbsp;ж система?</h3>
+    <h3 style="font-size:clamp(24px,4vw,46px)">Потрібна така&nbsp;ж система?</h3>
     <p style="margin-top:12px;max-width:52ch">
       Сайт, облік і&nbsp;кабінет клієнта, які справді звʼязані між&nbsp;собою,
       роблю під&nbsp;конкретний бізнес&nbsp;— від&nbsp;бази відпочинку
       до&nbsp;станції обслуговування.
     </p>
-    <div style="display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:20px">
-      <a class="btn o" href="./#contact">Написати мені</a>
+    <div style="display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:22px">
+      <a class="btn wh" href="./#contact">Написати мені</a>
       <a class="btn g" style="border-color:#fff;color:#fff" href="./">Інші роботи</a>
     </div>
   </div>
@@ -447,9 +500,38 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:34px 0;margin-top
 </main>
 
 <footer>
-  <div class="wrap foot">
-    <span>© 2026. Fomina.Designs. Усі права захищені</span>
-    <span><a href="https://skipper-site-three.vercel.app/" target="_blank" rel="noopener">Живий сайт проєкту</a></span>
+  <div class="wrap">
+    <div class="fcols">
+      <div>
+        <span class="fbrand">Fomina.<br>Designs</span>
+        <p>Сайти й&nbsp;системи під&nbsp;ключ: від&nbsp;першого екрана
+          до&nbsp;обліку грошей.</p>
+      </div>
+      <div>
+        <h4>Проєкт</h4>
+        <a href="https://skipper-site-three.vercel.app/" target="_blank" rel="noopener">Живий сайт</a>
+        <a href="https://skipper-site-three.vercel.app/oferta.html" target="_blank" rel="noopener">Договір оферти</a>
+        <a href="https://skipper-site-three.vercel.app/pryvatnist.html" target="_blank" rel="noopener">Конфіденційність</a>
+      </div>
+      <div>
+        <h4>Демонстрації</h4>
+        <a href="demo/client.html">Кабінет клієнта</a>
+        <a href="demo/admin.html">CRM станції</a>
+        <a href="demo/telegram.html">Бот у Telegram</a>
+      </div>
+      <div>
+        <h4>Ще</h4>
+        <a href="./">Усі роботи</a>
+        <a href="kviz.html">Квіз за&nbsp;3&nbsp;хвилини</a>
+        <a href="https://t.me/fominadesigns" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://www.instagram.com/fominadesigns/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+
+    <div class="fbot">
+      <span>© 2026. Fomina.Designs. Усі права захищені</span>
+      <span>Човнова станція під&nbsp;Вишгородом</span>
+    </div>
   </div>
 </footer>
 
