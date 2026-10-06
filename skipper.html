@@ -80,7 +80,21 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
            align-items:center}
 .hero-txt{min-width:0}
 .hero-site{min-width:0}
-.browser.tall iframe{height:clamp(420px,62vh,620px)}
+/* Ноутбук. Кришка, екран 16:10 і підставка — більше деталей тут зайві:
+   увага має лишитись на самому сайті. */
+.laptop{--deskw:1440}
+.lid{background:#212121;border-radius:14px 14px 5px 5px;padding:14px 13px 15px;
+     box-shadow:0 22px 48px rgba(33,33,33,.35)}
+.cam{display:block;width:6px;height:6px;border-radius:50%;background:#3d3d3d;
+     margin:-7px auto 8px}
+.pane{position:relative;overflow:hidden;background:#fff;border-radius:3px;aspect-ratio:16/10}
+.pane iframe{position:absolute;top:0;left:0;border:0;display:block;
+             width:1440px;height:900px;transform-origin:top left}
+.base{height:13px;margin:0 -16px;border-radius:0 0 13px 13px;
+      background:linear-gradient(180deg,#2e2e2e,#1b1b1b);position:relative;
+      box-shadow:0 10px 22px rgba(33,33,33,.3)}
+.base::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+             width:16%;height:4px;background:#141414;border-radius:0 0 6px 6px}
 .frame-cap{margin-top:10px;text-align:center;font-size:13.5px;opacity:.65}
 
 /* На «повороті» телефон займає третину: головне там — слова. */
@@ -92,7 +106,6 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 
 @media (max-width:980px){
   .hero-grid,.turn-grid{grid-template-columns:1fr}
-  .browser.tall iframe{height:clamp(360px,54vh,520px)}
 }
 
 /* ── 2. біль, що біжить ────────────────────────────────────────────── */
@@ -253,13 +266,17 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <!-- Праворуч не знімок, а сам сайт: гортається просто тут, і числа
          вільних місць у ньому справжні. -->
     <div class="hero-site">
-      <div class="browser tall">
-        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span>
-          <span class="url">skipper-site-three.vercel.app</span></div>
-        <iframe src="https://skipper-site-three.vercel.app/"
-                title="Сайт човнової станції — гортайте"></iframe>
+      <div class="laptop">
+        <div class="lid">
+          <span class="cam"></span>
+          <div class="pane">
+            <iframe src="https://skipper-site-three.vercel.app/"
+                    title="Сайт човнової станції — гортайте й натискайте"></iframe>
+          </div>
+        </div>
+        <div class="base"></div>
       </div>
-      <p class="frame-cap">Гортайте — це справжній сайт</p>
+      <p class="frame-cap">Справжній сайт: гортайте й&nbsp;натискайте просто тут</p>
     </div>
   </div>
 
@@ -493,6 +510,23 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 </section>
 
 </main>
+
+<script>
+/* Десктопна сторінка (1440px) вписується в екран ноутбука цілою.
+   Перераховуємо при кожній зміні розміру: без цього після повороту
+   телефона сайт вилазив би за край кришки. */
+(function () {
+  const panes = [...document.querySelectorAll('.pane')];
+  if (!panes.length) return;
+  const fit = () => panes.forEach((p) => {
+    const f = p.querySelector('iframe');
+    if (f) f.style.transform = 'scale(' + (p.clientWidth / 1440) + ')';
+  });
+  fit();
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(panes[0]);
+  else window.addEventListener('resize', fit);
+})();
+</script>
 
 <footer>
   <div class="wrap">

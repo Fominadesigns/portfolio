@@ -13,27 +13,31 @@
    Тема ФІКСОВАНА: не залежить від теми телефона чи Telegram. */
 
 [data-skin="client"]{
-  --bg:#141d42; --card:#172248; --sunk:#101838;
-  --lift:#22306a; --drop:rgba(3,6,20,.70); --drop-soft:rgba(3,6,20,.55);
-  --navy:#141d42; --on:#141d42;           /* текст на білому й жовтому */
-  --blue:#141d42; --blue-hi:#ffffff;
-  --yellow:#f5c21b;
-  --grad:linear-gradient(145deg,#ffffff 0%,#e2e7f7 100%);   /* «оплачено» */
-  --navy-grad:var(--grad);
-  --yellow-grad:linear-gradient(145deg,#ffd84d 0%,#f5c21b 100%);
-  --sand:#f5c21b; --sand-grad:var(--yellow-grad);
-  --ink:#ffffff; --muted:#a9b2d6; --ok:#ffffff; --warn:#f5c21b;
+  --bg:#e6e9ee; --card:#eaedf2; --sunk:#dfe3ea; --lift:#ffffff;
+  --drop:rgba(0,0,0,.24); --drop-soft:rgba(0,0,0,.17);
+  --blue:#1e3a63; --blue-hi:#35699f;
+  --grad:linear-gradient(145deg,#35699f 0%,#1a3153 100%);
+  --sand:#e9a63b; --sand-grad:linear-gradient(145deg,#f3bb58 0%,#c6801c 100%);
+  --ink:#141a26; --muted:#5d6675; --ok:#1d6150; --warn:#8a5b10;
+
+  /* Назви, які лишились від темної теми. Щоб не правити сотню місць,
+     вони просто вказують на відповідники світлої. */
+  --on:#ffffff;                       /* текст на синій плашці */
+  --navy:#1e3a63; --navy-grad:var(--grad);
+  --yellow:#b47c17;                   /* сума до сплати */
+  --yellow-grad:linear-gradient(145deg,#e0a93f 0%,#b47c17 100%);
+
   --r-lg:20px; --r-md:14px; --r-sm:10px;
-  --out:8px 8px 16px var(--drop), -8px -8px 16px var(--lift);
-  --out-sm:5px 5px 10px var(--drop-soft), -5px -5px 10px var(--lift);
-  --out-lg:12px 12px 24px var(--drop), -10px -10px 20px var(--lift);
-  --in:inset 5px 5px 10px var(--drop-soft), inset -5px -5px 10px var(--lift);
-  --cast:0 7px 16px rgba(0,0,0,.45);
-  --cast-sm:0 4px 10px rgba(0,0,0,.40);
+  --out:7px 7px 12px var(--drop), -6px -6px 11px var(--lift);
+  --out-sm:4px 4px 8px var(--drop-soft), -4px -4px 8px var(--lift);
+  --out-lg:12px 12px 22px var(--drop), -9px -9px 18px var(--lift);
+  --in:inset 5px 5px 9px var(--drop-soft), inset -4px -4px 8px var(--lift);
+  --cast:0 7px 15px rgba(0,0,0,.30);
+  --cast-sm:0 4px 10px rgba(0,0,0,.26);
 }
 
 [data-skin="client"] *, [data-skin="client"]{box-sizing:border-box;margin:0;padding:0}
-[data-skin="client"]{color-scheme:dark;background:#141d42;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+[data-skin="client"]{color-scheme:light;background:#e6e9ee;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 [data-skin="client"], [data-skin="client"]{overscroll-behavior-y:none}
 [data-skin="client"]{
   background:var(--bg);color:var(--ink);
@@ -137,9 +141,9 @@
 [data-skin="client"] .cell.on.debt{background:var(--yellow-grad);color:var(--on)}
 [data-skin="client"] .cell.on.future{
   background:transparent;color:var(--ink);text-shadow:none;
-  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);
+  box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.22);
 }
-[data-skin="client"] .cell.now{outline:1.5px solid rgba(255,255,255,.55);outline-offset:1px}
+[data-skin="client"] .cell.now{outline:1.5px solid rgba(0,0,0,.30);outline-offset:1px}
 
 [data-skin="client"] .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;
         font-size:12.5px;color:var(--muted);font-weight:600}
@@ -148,7 +152,7 @@
 [data-skin="client"] .legend i.p{background:var(--grad)}
 [data-skin="client"] .legend i.d{background:var(--yellow-grad)}
 [data-skin="client"] .legend i.f{background:var(--sunk);box-shadow:var(--in)}
-[data-skin="client"] .legend i.u{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+[data-skin="client"] .legend i.u{box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.26)}
 
 [data-skin="client"] /* ── список ──────────────────────────────────────────────────────────── */
 .row-card{background:var(--card);border-radius:var(--r-md);box-shadow:var(--out-sm);
@@ -190,7 +194,7 @@
 [data-skin="client"] .note.warn{color:var(--warn)}
 
 [data-skin="client"] .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);
-       background:#ffffff;color:var(--on);padding:13px 22px;border-radius:14px;
+       background:var(--grad);color:#fff;padding:13px 22px;border-radius:14px;
        font-size:14px;font-weight:700;box-shadow:0 12px 28px rgba(0,0,0,.4);
        opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:90vw;
        text-align:center}
@@ -216,7 +220,7 @@
        box-shadow:inset 2px 2px 5px var(--drop-soft), inset -2px -2px 4px var(--lift)}
 [data-skin="client"] .mcell.on{background:var(--grad);color:var(--on);box-shadow:var(--cast-sm)}
 [data-skin="client"] .mcell.on.debt{background:var(--yellow-grad)}
-[data-skin="client"] .mcell.now{outline:1.5px solid rgba(255,255,255,.55);outline-offset:2px}
+[data-skin="client"] .mcell.now{outline:1.5px solid rgba(0,0,0,.30);outline-offset:2px}
 
 @media (max-width:700px){
   [data-skin="client"] .wrap{padding:14px 14px calc(96px + env(safe-area-inset-bottom))}
@@ -249,7 +253,7 @@
 [data-skin="client"] .due-v{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
 [data-skin="client"] .due-go{font-weight:800;font-size:14px;white-space:nowrap}
 [data-skin="client"] .bill-sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;
-          padding-top:14px;border-top:1px solid rgba(255,255,255,.12);
+          padding-top:14px;border-top:1px solid rgba(0,0,0,.12);
           font-weight:800;font-size:15px}
 [data-skin="client"] .bill-sum span:last-child{font-size:24px;color:var(--yellow)}
 [data-skin="client"] /* QR на білому: камера й банк мають бачити контрастний код. */
@@ -265,3 +269,9 @@
 /* Обгортка займає весь екран: інакше крізь неї світився б світлий
    фон адмінки, який лишається на body. */
 [data-skin="client"]{min-height:100vh}
+
+/* Мапа у вкладці «Причал». Висота фіксована: карта не має чим себе
+   виміряти, тож без неї вона схлопнулась би в нуль. */
+[data-skin="client"] .map-box{margin-top:14px;border-radius:var(--r-md);overflow:hidden;
+         height:230px;box-shadow:var(--in);background:var(--sunk)}
+[data-skin="client"] .map-box iframe{width:100%;height:100%;border:0;display:block}
