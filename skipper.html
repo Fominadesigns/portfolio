@@ -87,9 +87,9 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
      box-shadow:0 22px 48px rgba(33,33,33,.35)}
 .cam{display:block;width:6px;height:6px;border-radius:50%;background:#3d3d3d;
      margin:-7px auto 8px}
-.pane{position:relative;overflow:hidden;background:#fff;border-radius:3px;aspect-ratio:32/15}
+.pane{position:relative;overflow:hidden;background:#fff;border-radius:3px;aspect-ratio:128/59}
 .pane iframe{position:absolute;top:0;left:0;border:0;display:block;
-             width:1920px;height:900px;transform-origin:top left}
+             width:1280px;height:590px;transform-origin:top left}
 .base{height:13px;margin:0 -16px;border-radius:0 0 13px 13px;
       background:linear-gradient(180deg,#2e2e2e,#1b1b1b);position:relative;
       box-shadow:0 10px 22px rgba(33,33,33,.3)}
@@ -582,7 +582,9 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 </main>
 
 <script>
-/* Десктопна сторінка (1920px) вписується в екран ноутбука цілою.
+/* Сторінка малюється в 1280 умовних пікселів — стільки бачить браузер
+   на ноутбуці з екраном 1920 і збільшенням 150%, тобто рівно той вигляд,
+   який має людина.
    Перераховуємо при кожній зміні розміру: без цього після повороту
    телефона сайт вилазив би за край кришки. */
 /* Стос карток: передня видима, решта лежать позаду зі зсувом.
@@ -628,7 +630,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   if (!panes.length) return;
   const fit = () => panes.forEach((p) => {
     const f = p.querySelector('iframe');
-    if (f) f.style.transform = 'scale(' + (p.clientWidth / 1920) + ')';
+    if (f) f.style.transform = 'scale(' + (p.clientWidth / 1280) + ')';
   });
   fit();
   if (window.ResizeObserver) new ResizeObserver(fit).observe(panes[0]);
