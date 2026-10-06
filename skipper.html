@@ -247,9 +247,21 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
 .panel.dark .card,.panel.blue .card{background:transparent;border-color:rgba(255,255,255,.4);
                                     color:#fff}
 
+/* «Де воно зараз»: заголовок стовпчиком ліворуч, текст праворуч.
+   Верхні краї вирівняні — обидві колонки починаються з одного рядка. */
+.state-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+            gap:clamp(20px,3.4vw,56px);align-items:start}
+.state-txt{min-width:0;padding-top:clamp(10px,1.6vw,22px)}
+.state-txt .sec-lead{margin-top:0}
+.state-txt .sec-lead + .sec-lead{margin-top:14px}
+@media (max-width:860px){
+  .state-grid{grid-template-columns:1fr;gap:16px}
+  .state-txt{padding-top:0}
+}
+
 /* Синя картка з відео. Відео нічого не додає до висоти: колонка
    розтягується рівно по сусідній, а кадр обрізається по центру. */
-.cta{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.75fr);
+.cta{margin-top:clamp(30px,4.4vw,64px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.75fr);
      gap:clamp(20px,3vw,44px);align-items:stretch}
 .cta__txt{min-width:0;align-self:center}
 .cta__video{position:relative;min-height:150px;border-radius:var(--r);overflow:hidden;
@@ -591,19 +603,23 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
 <!-- ── 7. стан і заклик ──────────────────────────────────────────── -->
 <section class="wrap">
-  <div class="sec-head">
-    <span class="sq"><b>04</b></span>
-    <h2>Де воно зараз</h2>
+  <div class="state-grid">
+    <div class="sec-head">
+      <span class="sq"><b>04</b></span>
+      <h2>Де<br>воно<br>зараз</h2>
+    </div>
+    <div class="state-txt">
+      <p class="sec-lead">
+        Система розгорнута й&nbsp;працює на&nbsp;справжній базі станції:
+        сім&nbsp;човнів, їхні місця, оплати й&nbsp;борги вже всередині. Сайт
+        показує вільні місця з&nbsp;неї&nbsp;ж.
+      </p>
+      <p class="sec-lead">
+        Цифр продажів тут немає навмисно&nbsp;— станція ще&nbsp;не&nbsp;почала
+        приймати клієнтів через систему. Коли почне, вони зʼявляться.
+      </p>
+    </div>
   </div>
-  <p class="sec-lead">
-    Система розгорнута й&nbsp;працює на&nbsp;справжній базі станції:
-    сім&nbsp;човнів, їхні місця, оплати й&nbsp;борги вже всередині. Сайт
-    показує вільні місця з&nbsp;неї&nbsp;ж.
-  </p>
-  <p class="sec-lead" style="margin-top:12px">
-    Цифр продажів тут немає навмисно&nbsp;— станція ще&nbsp;не&nbsp;почала
-    приймати клієнтів через систему. Коли почне, вони зʼявляться.
-  </p>
 
   <div class="panel blue cta">
     <div class="cta__txt">
