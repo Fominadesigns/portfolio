@@ -36,7 +36,7 @@ body{margin:0;background:var(--grey) var(--grid-d);color:var(--blue);
 a{color:inherit}
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 img{max-width:100%;display:block}
-.wrap{max-width:1240px;margin:0 auto;padding:0 var(--gap)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3.4vw,48px)}
 h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
             line-height:.9;letter-spacing:-.01em;margin:0}
 
@@ -83,13 +83,13 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 /* Ноутбук. Кришка, екран 16:10 і підставка — більше деталей тут зайві:
    увага має лишитись на самому сайті. */
 .laptop{--deskw:1440}
-.lid{background:#212121;border-radius:14px 14px 5px 5px;padding:14px 13px 15px;
+.lid{background:#212121;border-radius:13px 13px 4px 4px;padding:11px 10px 12px;
      box-shadow:0 22px 48px rgba(33,33,33,.35)}
 .cam{display:block;width:6px;height:6px;border-radius:50%;background:#3d3d3d;
      margin:-7px auto 8px}
-.pane{position:relative;overflow:hidden;background:#fff;border-radius:3px;aspect-ratio:16/10}
+.pane{position:relative;overflow:hidden;background:#fff;border-radius:3px;aspect-ratio:32/15}
 .pane iframe{position:absolute;top:0;left:0;border:0;display:block;
-             width:1440px;height:900px;transform-origin:top left}
+             width:1920px;height:900px;transform-origin:top left}
 .base{height:13px;margin:0 -16px;border-radius:0 0 13px 13px;
       background:linear-gradient(180deg,#2e2e2e,#1b1b1b);position:relative;
       box-shadow:0 10px 22px rgba(33,33,33,.3)}
@@ -537,7 +537,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 </main>
 
 <script>
-/* Десктопна сторінка (1440px) вписується в екран ноутбука цілою.
+/* Десктопна сторінка (1920px) вписується в екран ноутбука цілою.
    Перераховуємо при кожній зміні розміру: без цього після повороту
    телефона сайт вилазив би за край кришки. */
 (function () {
@@ -545,7 +545,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   if (!panes.length) return;
   const fit = () => panes.forEach((p) => {
     const f = p.querySelector('iframe');
-    if (f) f.style.transform = 'scale(' + (p.clientWidth / 1440) + ')';
+    if (f) f.style.transform = 'scale(' + (p.clientWidth / 1920) + ')';
   });
   fit();
   if (window.ResizeObserver) new ResizeObserver(fit).observe(panes[0]);
