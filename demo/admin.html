@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="admin.css?v=2">
 <style>
   /* Клікабельна демонстрація CRM: календар, картка стоянки, внесення
      оплати й каса працюють по-справжньому — просто над вигаданими
@@ -128,7 +128,7 @@
 </div>
 
 <!-- ── вікна ─────────────────────────────────────────────────────── -->
-<div class="veil" id="veil" hidden><div class="modal" id="modal"></div></div>
+<div class="veil" id="veil" style="display:none"><div class="modal" id="modal"></div></div>
 
 <script>
 /* ══════════════════════════════════════════════════════════════════════
@@ -280,8 +280,8 @@ function paintInbox() {
 const paintAll = () => { paintCash(); paintCal(); paintList(); paintInbox(); };
 
 /* ── вікна ──────────────────────────────────────────────────────── */
-function open(html) { $('#modal').innerHTML = html; $('#veil').hidden = false; }
-function close() { $('#veil').hidden = true; }
+function open(html) { $('#modal').innerHTML = html; $('#veil').style.display = 'flex'; }
+function close() { $('#veil').style.display = 'none'; }
 $('#veil').addEventListener('click', (e) => { if (e.target.id === 'veil') close(); });
 
 let toastT;
