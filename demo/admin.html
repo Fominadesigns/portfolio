@@ -25,6 +25,15 @@
   .hint{margin-top:10px;font-size:12.5px;color:var(--muted)}
   .modal .two .btn{width:100%}
   .pick{max-height:184px;overflow:auto;margin-top:8px}
+  .req-btns{display:flex;gap:8px;flex:none}
+  /* У вузькій рамці кнопки переходять під текст, інакше вони
+     стискають його в стовпчик по одній літері. */
+  @media (max-width:560px){
+    #inbox .row-card{flex-wrap:wrap}
+    #inbox .body{flex:1 1 100%}
+    .req-btns{flex:1 1 100%;margin-top:10px}
+    .req-btns .btn{flex:1}
+  }
 </style>
 </head>
 <body>
@@ -259,9 +268,9 @@ function paintInbox() {
            text-shadow:none;font-size:11px;min-width:58px">нова</div>
       <div class="body">
         <div class="n">Заявка · ${request.kind} · ${request.len}</div>
-        <div class="m">${request.phone} · з ${request.from} · ${request.months} міс · із сайту</div>
+        <div class="m">${request.phone} · з ${request.from}<br>${request.months} міс · із сайту</div>
       </div>
-      <div style="display:flex;gap:8px">
+      <div class="req-btns">
         <button class="btn sm" data-req="take">Оформити</button>
         <button class="btn sm" data-req="drop">Прибрати</button>
       </div>
