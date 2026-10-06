@@ -251,21 +251,24 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
 /* «Де воно зараз» — біла картка на всю ширину, як картка квізу
    на головній: ліворуч третина з предметом на синьому смугастому тлі,
    праворуч номер, заголовок і текст. */
-.statecard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);
+.statecard{display:grid;grid-template-columns:minmax(0,1fr) minmax(165px,.78fr) minmax(0,1.7fr);
            gap:clamp(16px,2.4vw,32px);background:#fff;border:1px solid var(--blue);
            border-radius:var(--r);padding:8px}
 .statecard__cover{position:relative;min-height:clamp(220px,24vw,330px);
                   border-radius:4px;overflow:hidden;background:var(--blue)}
 .statecard__video{position:absolute;inset:0;width:100%;height:100%;
                   object-fit:cover;display:block}
-.statecard__body{min-width:0;padding:clamp(12px,1.8vw,24px) clamp(14px,2vw,28px)
-                 clamp(16px,2.2vw,28px) 0;align-self:center}
-.statecard__body h2{font-size:clamp(28px,4.4vw,62px);margin-top:16px}
-.statecard__body p{margin-top:14px;font-size:clamp(15px,1.6vw,18px);max-width:58ch}
+.statecard__head{min-width:0;padding:clamp(12px,1.8vw,24px) 0 clamp(16px,2.2vw,28px)}
+.statecard__head h2{font-size:clamp(26px,3.4vw,52px);margin-top:16px}
+.statecard__txt{min-width:0;padding:clamp(12px,1.8vw,24px) clamp(14px,2vw,28px)
+                clamp(16px,2.2vw,28px) 0}
+.statecard__txt p{font-size:clamp(15px,1.6vw,18px);max-width:52ch}
+.statecard__txt p + p{margin-top:14px}
 @media (max-width:760px){
   .statecard{grid-template-columns:1fr}
   .statecard__cover{min-height:200px}
-  .statecard__body{padding:0 14px 16px}
+  .statecard__head{padding:14px 14px 0}
+  .statecard__txt{padding:12px 14px 16px}
 }
 
 /* Синя картка з відео./* Синя картка з відео. Відео нічого не додає до висоти: колонка
@@ -548,10 +551,107 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </p>
 </section>
 
+
+<!-- ── з боку станції ────────────────────────────────────────────── -->
+<section class="wrap" id="crm">
+  <div class="sec-head">
+    <span class="sq"><b>02</b></span>
+    <h2>Як це бачить станція</h2>
+  </div>
+  <p class="sec-lead">
+    Той самий шлях, але з іншого боку стійки. Усе в&nbsp;рамках нижче
+    <b>працює</b>: відкрийте заявку, заведіть стоянку, провальтесь
+    у&nbsp;картку човна, внесіть гроші в&nbsp;касу&nbsp;— числа
+    перерахуються.
+  </p>
+
+  <div class="steps" data-steps>
+    <div class="steps__nav">
+      <button class="rv-btn" type="button" data-st="prev" aria-label="Попередній крок" disabled>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="rv-btn" type="button" data-st="next" aria-label="Наступний крок">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="steps__deck" aria-live="polite">
+      <article class="sstep" style="--k:0">
+        <div class="sstep__quote">
+          <span class="no">1</span>
+          <h3>Бачить заявку</h3>
+          <p>Заявка з&nbsp;сайту лежить угорі, над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Видно тип місця, довжину судна, телефон і&nbsp;строк. Натисніть «Оформити»&nbsp;— дані вже підставлені.</p>
+          <span class="who">станція</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/admin.html" loading="lazy" title="Заявка з сайту"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Заявка з сайту</figcaption>
+        </figure>
+      </article>
+      <article class="sstep" style="--k:1">
+        <div class="sstep__quote">
+          <span class="no">2</span>
+          <h3>Заводить стоянку</h3>
+          <p>Імʼя, телефон, човен, довжина, тариф і&nbsp;строк. Тариф можна лишити порожнім&nbsp;— тоді CRM покаже «ціну уточнити», а&nbsp;не&nbsp;нуль, і&nbsp;не&nbsp;рахуватиме борг із&nbsp;вигаданої суми.</p>
+          <span class="who">станція</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/admin.html" loading="lazy" title="Нова стоянка"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Нова стоянка</figcaption>
+        </figure>
+      </article>
+      <article class="sstep" style="--k:2">
+        <div class="sstep__quote">
+          <span class="no">3</span>
+          <h3>Відкриває картку човна</h3>
+          <p>Натисніть на&nbsp;стоянку в&nbsp;календарі&nbsp;— відкриється картка: клієнт, телефон, тариф і&nbsp;борг. Колір місяця каже те&nbsp;саме без&nbsp;слів: зелений&nbsp;— оплачено, медовий&nbsp;— час платити, сірий&nbsp;— тарифу немає.</p>
+          <span class="who">станція</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/admin.html" loading="lazy" title="Картка стоянки"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Картка стоянки</figcaption>
+        </figure>
+      </article>
+      <article class="sstep" style="--k:3">
+        <div class="sstep__quote">
+          <span class="no">4</span>
+          <h3>Вносить гроші в касу</h3>
+          <p>«Записати в&nbsp;касу»&nbsp;— сума, дата, готівка чи&nbsp;рахунок. Можна прив&apos;язати до&nbsp;клієнта: тоді гроші зменшать його борг і&nbsp;зеленять місяць у&nbsp;календарі. Касу перерахує одразу.</p>
+          <span class="who">станція</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/admin.html" loading="lazy" title="Запис у касу"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Запис у касу</figcaption>
+        </figure>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ── 5. рішення ────────────────────────────────────────────────── -->
 <section class="wrap">
   <div class="sec-head">
-    <span class="sq"><b>02</b></span>
+    <span class="sq"><b>03</b></span>
     <h2>Чотири рішення,<br>які видно в роботі</h2>
   </div>
 
@@ -589,7 +689,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <!-- ── 6. з чого зроблено ────────────────────────────────────────── -->
 <section class="wrap">
   <div class="sec-head">
-    <span class="sq"><b>03</b></span>
+    <span class="sq"><b>04</b></span>
     <h2>З чого зроблено</h2>
   </div>
 
@@ -618,9 +718,11 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <source src="video/boat.mp4" type="video/mp4">
       </video>
     </div>
-    <div class="statecard__body">
-      <span class="sq"><b>04</b></span>
-      <h2>Де воно зараз</h2>
+    <div class="statecard__head">
+      <span class="sq"><b>05</b></span>
+      <h2>Де<br>воно<br>зараз</h2>
+    </div>
+    <div class="statecard__txt">
       <p>
         Система розгорнута й&nbsp;працює на&nbsp;справжній базі станції:
         сім&nbsp;човнів, їхні місця, оплати й&nbsp;борги вже всередині. Сайт
@@ -669,8 +771,9 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 /* Стос карток: передня видима, решта лежать позаду зі зсувом.
    Логіка та сама, що у відгуках на головній, щоб поведінка збігалась. */
 (function () {
-  const box = document.querySelector('[data-steps]');
-  if (!box) return;
+  document.querySelectorAll('[data-steps]').forEach(setup);
+
+  function setup(box) {
   const cards = [...box.querySelectorAll('.sstep')];
   const prev = box.querySelector('[data-st="prev"]');
   const next = box.querySelector('[data-st="next"]');
@@ -702,6 +805,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     if (Math.abs(dx) > 48) go(dx < 0 ? 1 : -1);
   });
   paint();
+  }
 })();
 
 (function () {

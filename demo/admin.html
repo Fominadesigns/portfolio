@@ -10,13 +10,21 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="admin.css">
 <style>
-  /* Усі човни, імена й суми тут вигадані. Справжня CRM містить прізвища,
-     телефони й борги клієнтів станції — таке на публічну сторінку
-     не виносять. */
+  /* Клікабельна демонстрація CRM: календар, картка стоянки, внесення
+     оплати й каса працюють по-справжньому — просто над вигаданими
+     даними, які живуть у памʼяті сторінки.
+
+     Усі імена, телефони, човни й суми вигадані. Телефони зроблені
+     візерунком (100-20-30), щоб їх не можна було сплутати
+     зі справжніми: у CRM станції лежать номери живих людей,
+     і їм не місце в портфоліо. */
   .demo-tag{display:inline-block;background:var(--sand-grad);color:#2a1a02;
             font-size:10.5px;font-weight:800;letter-spacing:.08em;
             text-transform:uppercase;padding:4px 10px;border-radius:999px}
   .mgrid{min-width:0}
+  .hint{margin-top:10px;font-size:12.5px;color:var(--muted)}
+  .modal .two .btn{width:100%}
+  .pick{max-height:184px;overflow:auto;margin-top:8px}
 </style>
 </head>
 <body>
@@ -41,6 +49,9 @@
     </div>
   </div>
 
+  <!-- ── заявка з сайту ──────────────────────────────────────────── -->
+  <div id="inbox"></div>
+
   <!-- ── каса ────────────────────────────────────────────────────── -->
   <section data-tab="cash">
     <div class="top" style="margin-bottom:12px">
@@ -50,40 +61,18 @@
     </div>
 
     <div class="kpi">
-      <div class="k"><div class="l">Готівка</div><div class="v ok">12 500 ₴</div></div>
-      <div class="k"><div class="l">Безготівка</div><div class="v ok">21 000 ₴</div></div>
-      <div class="k"><div class="l">Витрати</div><div class="v">2 400 ₴</div></div>
-      <div class="k"><div class="l">Разом у касі</div><div class="v">31 100 ₴</div></div>
+      <div class="k"><div class="l">Готівка</div><div class="v ok" id="kCash">—</div></div>
+      <div class="k"><div class="l">Безготівка</div><div class="v ok" id="kBank">—</div></div>
+      <div class="k"><div class="l">Витрати</div><div class="v" id="kOut">—</div></div>
+      <div class="k"><div class="l">Разом у касі</div><div class="v" id="kNet">—</div></div>
     </div>
 
-    <button class="btn solid" style="width:100%;margin-top:14px" data-say="Надходження записано">
+    <button class="btn solid" style="width:100%;margin-top:14px" id="addCash">
       Записати в касу
     </button>
 
-    <div class="sect">Рух грошей · 5</div>
-
-    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">₴</div>
-      <div class="body"><div class="n">Стоянка · «Ладога-21»</div>
-        <div class="m">Олег · A-07 · 04.10.2026</div></div>
-      <div class="v ok">+3 000 ₴</div></div>
-
-    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">б/г</div>
-      <div class="body"><div class="n">Стоянка · «Онега»</div>
-        <div class="m">Марина · B-03 · 03.10.2026</div></div>
-      <div class="v ok">+4 000 ₴</div></div>
-
-    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">₴</div>
-      <div class="body"><div class="n">Мийка човна</div><div class="m">02.10.2026</div></div>
-      <div class="v ok">+800 ₴</div></div>
-
-    <div class="row-card"><div class="bchip debt">₴</div>
-      <div class="body"><div class="n">Пальне для мотопомпи</div><div class="m">02.10.2026</div></div>
-      <div class="v debt">−1 200 ₴</div></div>
-
-    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">б/г</div>
-      <div class="body"><div class="n">Стоянка · «Сапсан»</div>
-        <div class="m">Тарас · C-02 · 01.10.2026</div></div>
-      <div class="v ok">+2 500 ₴</div></div>
+    <div class="sect">Рух грошей · <span id="moveCount">0</span></div>
+    <div id="moves"></div>
   </section>
 
   <!-- ── календар ────────────────────────────────────────────────── -->
@@ -109,93 +98,408 @@
       <span><i class="u"></i>попереду, ще не нараховано</span>
       <span><i class="f"></i>вільно · натисніть, щоб додати</span>
     </div>
+    <div class="hint">Натисніть на стоянку — відкриється картка з телефоном і боргом.</div>
   </section>
 
   <!-- ── човни ───────────────────────────────────────────────────── -->
   <section data-tab="list" hidden>
     <div class="kpi">
-      <div class="k"><div class="l">Борг усього</div><div class="v debt">11 000 ₴</div></div>
-      <div class="k"><div class="l">Не оплатили</div><div class="v debt">3</div></div>
-      <div class="k"><div class="l">Оплачено</div><div class="v ok">4</div></div>
-      <div class="k"><div class="l">Тариф не вказано</div><div class="v" style="color:var(--muted)">1</div></div>
-      <div class="k"><div class="l">Вільних місць</div><div class="v">42</div></div>
-      <div class="k"><div class="l">Місяць, якщо всі заплатять</div><div class="v">23 500 ₴</div></div>
+      <div class="k"><div class="l">Борг усього</div><div class="v debt" id="sDebt">—</div></div>
+      <div class="k"><div class="l">Не оплатили</div><div class="v debt" id="sDebtors">—</div></div>
+      <div class="k"><div class="l">Оплачено</div><div class="v ok" id="sPaid">—</div></div>
+      <div class="k"><div class="l">Тариф не вказано</div>
+        <div class="v" style="color:var(--muted)" id="sNoFee">—</div></div>
+      <div class="k"><div class="l">Вільних місць</div><div class="v">44</div></div>
+      <div class="k"><div class="l">Місяць, якщо всі заплатять</div><div class="v" id="sMonth">—</div></div>
     </div>
-
-    <div class="sect">Треба уточнити тариф · 1</div>
-    <div class="note" style="margin-bottom:10px">
-      Для цього клієнта борг не рахується: невідомо, скільки він платить.
-    </div>
-    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#b6b0a4,#8d8779)">B-11</div>
-      <div class="body"><div class="n">«Без назви» · Руслан</div>
-        <div class="m">телефон не вказано · 5,2 м</div></div>
-      <div class="v" style="color:var(--muted)">тариф?</div></div>
-
-    <div class="sect">Є борг · 3</div>
-    <div class="row-card"><div class="bchip debt">B-03</div>
-      <div class="body"><div class="n">«Онега» · Марина</div>
-        <div class="m">+380 •• ••• •• •• · 8,1 м · 4 000 ₴/міс</div></div>
-      <div class="v debt">4 000 ₴</div></div>
-    <div class="row-card"><div class="bchip debt">A-12</div>
-      <div class="body"><div class="n">«Чайка» · Богдан</div>
-        <div class="m">+380 •• ••• •• •• · 5,8 м · 2 500 ₴/міс</div></div>
-      <div class="v debt">5 000 ₴</div></div>
-    <div class="row-card"><div class="bchip debt">C-05</div>
-      <div class="body"><div class="n">«Веспа» · Ігор</div>
-        <div class="m">+380 •• ••• •• •• · 4,6 м · 2 500 ₴/міс</div></div>
-      <div class="v debt">2 000 ₴</div></div>
-
-    <div class="sect">Усе оплачено · 4</div>
-    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">A-07</div>
-      <div class="body"><div class="n">«Ладога-21» · Олег</div>
-        <div class="m">+380 •• ••• •• •• · 6,4 м · 3 000 ₴/міс</div></div>
-      <div class="v ok">✓</div></div>
-    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">C-02</div>
-      <div class="body"><div class="n">«Сапсан» · Тарас</div>
-        <div class="m">+380 •• ••• •• •• · 5,0 м · 2 500 ₴/міс</div></div>
-      <div class="v ok">✓</div></div>
+    <div id="groups"></div>
   </section>
 
   <div class="toast" id="toast"></div>
 </div>
 
+<!-- ── вікна ─────────────────────────────────────────────────────── -->
+<div class="veil" id="veil" hidden><div class="modal" id="modal"></div></div>
+
 <script>
-/* Сітка календаря: шість місяців і сім місць. Стани ті самі, що
-   в справжній CRM, — зелений, медовий, блідий, сірий. */
-const ROWS = [
-  ['A-07', ['paid','paid','paid','paid','future','future'], '«Ладога-21»'],
-  ['A-12', ['debt','debt','debt','future','future','future'], '«Чайка»'],
-  ['B-03', ['paid','paid','debt','future','future','future'], '«Онега»'],
-  ['B-11', ['unknown','unknown','unknown','unknown','unknown','unknown'], '«Без назви»'],
-  ['C-02', ['paid','paid','paid','paid','paid','paid'], '«Сапсан»'],
-  ['C-05', ['debt','debt','debt','future','future','future'], '«Веспа»'],
-  ['A-03', [null,null,null,null,null,null], ''],
+/* ══════════════════════════════════════════════════════════════════════
+   Демонстрація працює над вигаданими даними в памʼяті сторінки.
+   Нікуди не звертається, нічого не зберігає: перезавантажили — усе
+   як було.
+
+   Правила справжньої системи тут збережені, бо саме вони й цікаві:
+   сервіс не підтверджує заявку сам, оплату зараховує людина,
+   а тариф, якого не знають, лишається порожнім і не перетворюється
+   на нуль.
+   ══════════════════════════════════════════════════════════════════ */
+
+const MONTHS = ['сер', 'вер', 'жов', 'лис', 'гру', 'січ'];
+const NOW = 2;                       // жовтень — третій стовпчик
+
+const money = (n) => n.toLocaleString('uk-UA').replace(/ /g, ' ') + ' ₴';
+
+/* Стоянки. Телефони — візерунком, щоб їх не можна було сплутати
+   зі справжніми номерами клієнтів станції. */
+const boats = [
+  { slot: 'A-07', boat: '«Ладога-21»', name: 'Олег Кравченко',  phone: '+380 67 100 20 30',
+    len: '6,4 м', fee: 3000, paid: 4, debt: 0 },
+  { slot: 'A-12', boat: '«Чайка»',     name: 'Богдан Мельник',  phone: '+380 50 200 30 40',
+    len: '5,8 м', fee: 2500, paid: 0, debt: 5000 },
+  { slot: 'B-03', boat: '«Онега»',     name: 'Марина Гриценко', phone: '+380 97 300 40 50',
+    len: '8,1 м', fee: 4000, paid: 2, debt: 4000 },
+  { slot: 'B-11', boat: 'Без назви',   name: 'Руслан Дідух',    phone: '—',
+    len: '5,2 м', fee: null, paid: 0, debt: null },
+  { slot: 'C-02', boat: '«Сапсан»',    name: 'Тарас Бойко',     phone: '+380 63 400 50 60',
+    len: '5,0 м', fee: 2500, paid: 6, debt: 0 },
+  { slot: 'C-05', boat: '«Веспа»',     name: 'Ігор Савчук',     phone: '+380 95 500 60 70',
+    len: '4,6 м', fee: 2500, paid: 0, debt: 2000 },
 ];
 
-document.getElementById('rows').innerHTML = ROWS.map(([slot, states, name]) => {
-  const cells = states.map((s, i) => {
-    if (!s) return '<td class="m"><div class="cell free"></div></td>';
-    const now = i === 2 ? ' now' : '';
-    return '<td class="m"><div class="cell on ' + s + now + '">' +
-           (i === 0 ? name : '') + '</div></td>';
-  }).join('');
-  return '<tr><td class="slot"><span class="sn">' + slot + '</span></td>' + cells + '</tr>';
-}).join('');
+/* Рух грошей за жовтень. */
+let moves = [
+  { t: 'Стоянка · «Ладога-21»', s: 'Олег Кравченко · A-07', day: '04.10.2026', sum: 3000, how: 'cash', out: false },
+  { t: 'Стоянка · «Онега»',     s: 'Марина Гриценко · B-03', day: '03.10.2026', sum: 4000, how: 'bank', out: false },
+  { t: 'Мийка човна',           s: null,                     day: '02.10.2026', sum: 800,  how: 'cash', out: false },
+  { t: 'Пальне для мотопомпи',  s: null,                     day: '02.10.2026', sum: 1200, how: 'cash', out: true },
+  { t: 'Стоянка · «Сапсан»',    s: 'Тарас Бойко · C-02',     day: '01.10.2026', sum: 2500, how: 'bank', out: false },
+];
 
+/* Заявка з сайту — перше, що бачить станція, і те, чого сервіс
+   не вирішує сам. */
+let request = { kind: 'на воді', len: '7,2 м', phone: '+380 68 600 70 80',
+                from: '01.11.2026', months: 3 };
+
+/* ── малювання ──────────────────────────────────────────────────── */
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+function paintCash() {
+  const sum = (f) => moves.filter(f).reduce((a, m) => a + m.sum, 0);
+  const cash = sum((m) => !m.out && m.how === 'cash');
+  const bank = sum((m) => !m.out && m.how !== 'cash');
+  const out  = sum((m) => m.out);
+  $('#kCash').textContent = money(cash);
+  $('#kBank').textContent = money(bank);
+  $('#kOut').textContent = money(out);
+  $('#kOut').style.color = out ? 'var(--warn)' : '';
+  $('#kNet').textContent = money(cash + bank - out);
+  $('#moveCount').textContent = moves.length;
+
+  $('#moves').innerHTML = moves.map((m) => `
+    <div class="row-card" style="cursor:default">
+      <div class="bchip${m.out ? ' debt' : ''}"${m.out ? '' :
+        ' style="background:linear-gradient(145deg,#3f9b7f,#1d6150)"'}>
+        ${m.how === 'cash' ? '₴' : 'б/г'}</div>
+      <div class="body">
+        <div class="n">${esc(m.t)}</div>
+        <div class="m">${m.s ? esc(m.s) + ' · ' : ''}${m.day}</div>
+      </div>
+      <div class="v ${m.out ? 'debt' : 'ok'}">${m.out ? '−' : '+'}${money(m.sum)}</div>
+    </div>`).join('');
+}
+
+function state(b, i) {
+  if (b.fee === null) return 'unknown';
+  if (i < b.paid) return 'paid';
+  return i <= NOW ? 'debt' : 'future';
+}
+
+function paintCal() {
+  $('#rows').innerHTML = boats.map((b, bi) => {
+    const cells = MONTHS.map((_, i) =>
+      `<td class="m"><div class="cell on ${state(b, i)}${i === NOW ? ' now' : ''}"
+            data-boat="${bi}">${i === 0 ? esc(b.boat) : ''}</div></td>`).join('');
+    return `<tr><td class="slot"><span class="sn">${b.slot}</span></td>${cells}</tr>`;
+  }).join('') +
+  `<tr><td class="slot"><span class="sn">A-03</span></td>` +
+   MONTHS.map(() => '<td class="m"><div class="cell free" data-new="1"></div></td>').join('') +
+  `</tr>`;
+}
+
+function paintList() {
+  const noFee = boats.filter((b) => b.fee === null);
+  const debtors = boats.filter((b) => b.debt > 0);
+  const ok = boats.filter((b) => b.fee !== null && !b.debt);
+  $('#sDebt').textContent = money(debtors.reduce((a, b) => a + b.debt, 0));
+  $('#sDebtors').textContent = debtors.length;
+  $('#sPaid').textContent = ok.length;
+  $('#sNoFee').textContent = noFee.length;
+  $('#sMonth').textContent = money(boats.reduce((a, b) => a + (b.fee || 0), 0));
+
+  const row = (b) => {
+    const i = boats.indexOf(b);
+    const chip = b.fee === null ? 'style="background:linear-gradient(145deg,#b6b0a4,#8d8779)"'
+               : b.debt ? 'class="bchip debt"'
+               : 'style="background:linear-gradient(145deg,#3f9b7f,#1d6150)"';
+    return `<div class="row-card" data-boat="${i}">
+      <div class="bchip" ${chip}>${b.slot}</div>
+      <div class="body">
+        <div class="n">${esc(b.boat)} · ${esc(b.name)}</div>
+        <div class="m">${esc(b.phone)} · ${b.len}${b.fee ? ' · ' + money(b.fee) + '/міс' : ''}</div>
+      </div>
+      <div class="v ${b.debt ? 'debt' : b.fee ? 'ok' : ''}"
+           ${b.fee === null ? 'style="color:var(--muted)"' : ''}>
+        ${b.fee === null ? 'тариф?' : b.debt ? money(b.debt) : '✓'}</div>
+    </div>`;
+  };
+
+  $('#groups').innerHTML =
+    (noFee.length ? `<div class="sect">Треба уточнити тариф · ${noFee.length}</div>
+      <div class="note" style="margin-bottom:10px">Для цього клієнта борг не рахується:
+      невідомо, скільки він платить.</div>${noFee.map(row).join('')}` : '') +
+    `<div class="sect">Є борг · ${debtors.length}</div>` +
+    (debtors.length ? debtors.map(row).join('') : '<div class="note">Боржників немає.</div>') +
+    (ok.length ? `<div class="sect">Усе оплачено · ${ok.length}</div>${ok.map(row).join('')}` : '');
+}
+
+function paintInbox() {
+  $('#inbox').innerHTML = !request ? '' : `
+    <div class="row-card" style="cursor:default;margin-bottom:16px">
+      <div class="bchip" style="background:var(--sand-grad);color:#2a1a02;
+           text-shadow:none;font-size:11px;min-width:58px">нова</div>
+      <div class="body">
+        <div class="n">Заявка · ${request.kind} · ${request.len}</div>
+        <div class="m">${request.phone} · з ${request.from} · ${request.months} міс · із сайту</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn sm" data-req="take">Оформити</button>
+        <button class="btn sm" data-req="drop">Прибрати</button>
+      </div>
+    </div>`;
+}
+
+const paintAll = () => { paintCash(); paintCal(); paintList(); paintInbox(); };
+
+/* ── вікна ──────────────────────────────────────────────────────── */
+function open(html) { $('#modal').innerHTML = html; $('#veil').hidden = false; }
+function close() { $('#veil').hidden = true; }
+$('#veil').addEventListener('click', (e) => { if (e.target.id === 'veil') close(); });
+
+let toastT;
+function say(t) {
+  const el = $('#toast');
+  el.textContent = t; el.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('on'), 2600);
+}
+
+function bookingCard(i) {
+  const b = boats[i];
+  open(`
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <div style="flex:1"><h2>${esc(b.boat)}</h2>
+        <div class="sub">${b.slot} · ${b.len}</div></div>
+      <button class="btn sm" data-close>×</button>
+    </div>
+    <div class="card" style="margin-top:16px"><div class="rows">
+      <div class="row"><span class="k">Клієнт</span><span class="v">${esc(b.name)}</span></div>
+      <div class="row"><span class="k">Телефон</span><span class="v">${esc(b.phone)}</span></div>
+      <div class="row"><span class="k">Тариф</span>
+        <span class="v">${b.fee ? money(b.fee) + ' / міс' : 'ціну уточнити'}</span></div>
+      <div class="row"><span class="k">Борг</span>
+        <span class="v" style="color:${b.debt ? 'var(--warn)' : 'var(--ok)'}">
+          ${b.fee === null ? 'не порахувати' : b.debt ? money(b.debt) : 'немає'}</span></div>
+    </div></div>
+    ${b.fee === null
+      ? `<div class="note">Тариф не вказаний, тож борг не рахується й рахунок
+           не виставиш. Впишіть суму — і все порахується саме.</div>`
+      : `<div class="two" style="margin-top:14px">
+           <button class="btn solid" data-pay="${i}:cash">Готівка</button>
+           <button class="btn solid" data-pay="${i}:bank">Безнал</button>
+         </div>
+         <div class="note">Оплату зараховує людина, звіривши з банком.
+           Сервіс не бачить рахунку й сам цього не робить.</div>`}
+  `);
+}
+
+function payCard(i, how) {
+  const b = boats[i];
+  open(`
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <div style="flex:1"><h2>Внести оплату</h2>
+        <div class="sub">${esc(b.boat)} · ${b.slot} · ${how === 'cash' ? 'готівкою' : 'на рахунок'}</div></div>
+      <button class="btn sm" data-close>×</button>
+    </div>
+    <div style="margin-top:16px">
+      <div class="lbl">Сума, грн</div>
+      <input class="field" id="paySum" inputmode="decimal" value="${b.debt || b.fee}">
+    </div>
+    <div class="note">Борг зараз: <b>${b.debt ? money(b.debt) : 'немає'}</b>.
+      Можна внести частину — решта лишиться боргом.</div>
+    <button class="btn solid" style="width:100%;margin-top:14px"
+            data-dopay="${i}:${how}">Записати оплату</button>
+  `);
+}
+
+function cashCard() {
+  open(`
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <div style="flex:1"><h2>Записати в касу</h2>
+        <div class="sub">Жовтень 2026</div></div>
+      <button class="btn sm" data-close>×</button>
+    </div>
+    <div class="two" style="margin-top:16px">
+      <div><div class="lbl">Сума, грн</div>
+        <input class="field" id="cSum" inputmode="decimal" placeholder="500"></div>
+      <div><div class="lbl">Дата</div>
+        <input class="field" id="cDay" value="07.10.2026"></div>
+    </div>
+    <div class="two" style="margin-top:12px">
+      <div><div class="lbl">Що це</div>
+        <select class="field" id="cKind">
+          <option value="in">надходження</option>
+          <option value="out">витрата</option>
+        </select></div>
+      <div><div class="lbl">Як</div>
+        <select class="field" id="cHow">
+          <option value="cash">готівкою</option>
+          <option value="bank">на рахунок</option>
+        </select></div>
+    </div>
+    <div style="margin-top:12px">
+      <div class="lbl">Чия це оплата · не обовʼязково</div>
+      <select class="field" id="cWho">
+        <option value="">нічия — просто надходження</option>
+        ${boats.map((b, i) => `<option value="${i}">${esc(b.boat)} · ${esc(b.name)} · ${b.slot}</option>`).join('')}
+      </select>
+    </div>
+    <div style="margin-top:12px">
+      <div class="lbl">За що</div>
+      <input class="field" id="cNote" placeholder="мийка човна, пальне, ключі…">
+    </div>
+    <button class="btn solid" style="width:100%;margin-top:14px" id="cSave">Записати</button>
+    <div class="note">Вибрали стоянку — гроші підуть їй як оплата й зменшать борг.
+      Лишили порожнім — це просто надходження в касу.</div>
+  `);
+}
+
+function newCard(from) {
+  open(`
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <div style="flex:1"><h2>Нова стоянка</h2>
+        <div class="sub">${from ? 'із заявки з сайту' : 'місце A-03 · на воді'}</div></div>
+      <button class="btn sm" data-close>×</button>
+    </div>
+    <div class="two" style="margin-top:16px">
+      <div><div class="lbl">Клієнт</div>
+        <input class="field" id="nName" placeholder="Імʼя та прізвище"></div>
+      <div><div class="lbl">Телефон</div>
+        <input class="field" id="nPhone" value="${from ? request.phone : ''}" placeholder="+380"></div>
+    </div>
+    <div class="two" style="margin-top:12px">
+      <div><div class="lbl">Човен</div>
+        <input class="field" id="nBoat" placeholder="назва або опис"></div>
+      <div><div class="lbl">Довжина, м</div>
+        <input class="field" id="nLen" value="${from ? request.len.replace(' м', '') : ''}" placeholder="6,4"></div>
+    </div>
+    <div class="two" style="margin-top:12px">
+      <div><div class="lbl">Тариф, грн/міс</div>
+        <input class="field" id="nFee" placeholder="порожньо = уточнити"></div>
+      <div><div class="lbl">На скільки</div>
+        <select class="field" id="nMon">
+          <option>1 місяць</option><option selected>3 місяці</option><option>6 місяців</option>
+        </select></div>
+    </div>
+    <button class="btn solid" style="width:100%;margin-top:14px" id="nSave">Створити стоянку</button>
+    <div class="note">Тариф можна лишити порожнім — тоді CRM чесно покаже
+      «ціну уточнити», а не нуль.</div>
+  `);
+}
+
+/* ── натискання ─────────────────────────────────────────────────── */
 document.addEventListener('click', (e) => {
-  const b = e.target.closest('[data-go]');
-  if (b) {
-    document.querySelectorAll('[data-tab]').forEach(s => { s.hidden = s.dataset.tab !== b.dataset.go; });
-    document.querySelectorAll('.nav button').forEach(x => x.classList.toggle('on', x === b));
+  const t = e.target;
+
+  const tab = t.closest('[data-go]');
+  if (tab) {
+    document.querySelectorAll('[data-tab]').forEach((s) => { s.hidden = s.dataset.tab !== tab.dataset.go; });
+    document.querySelectorAll('.nav button').forEach((x) => x.classList.toggle('on', x === tab));
+    return;
   }
-  const s = e.target.closest('[data-say]');
-  if (s) {
-    const el = document.getElementById('toast');
-    el.textContent = s.dataset.say;
-    el.classList.add('on');
-    setTimeout(() => el.classList.remove('on'), 2400);
+
+  if (t.closest('[data-close]')) return close();
+
+  const cell = t.closest('[data-boat]');
+  if (cell) return bookingCard(Number(cell.dataset.boat));
+
+  if (t.closest('[data-new]')) return newCard(false);
+  if (t.id === 'addCash') return cashCard();
+
+  const req = t.closest('[data-req]');
+  if (req) {
+    if (req.dataset.req === 'take') return newCard(true);
+    request = null; paintInbox(); say('Заявку прибрано');
+    return;
+  }
+
+  const pay = t.closest('[data-pay]');
+  if (pay) {
+    const [i, how] = pay.dataset.pay.split(':');
+    return payCard(Number(i), how);
+  }
+
+  const dopay = t.closest('[data-dopay]');
+  if (dopay) {
+    const [i, how] = dopay.dataset.dopay.split(':');
+    const b = boats[Number(i)];
+    const sum = Math.round(parseFloat(($('#paySum').value || '').replace(',', '.'))) || 0;
+    if (sum <= 0) return say('Впишіть суму');
+    const left = Math.max(0, b.debt - sum);
+    b.debt = left;
+    if (!left) b.paid = Math.max(b.paid, NOW + 1);
+    moves.unshift({ t: 'Стоянка · ' + b.boat, s: b.name + ' · ' + b.slot,
+                    day: '07.10.2026', sum, how, out: false });
+    paintAll(); close();
+    say(left ? `Внесено ${money(sum)} · лишився борг ${money(left)}`
+             : `Внесено ${money(sum)} · борг закрито`);
+    return;
+  }
+
+  if (t.id === 'cSave') {
+    const sum = Math.round(parseFloat(($('#cSum').value || '').replace(',', '.'))) || 0;
+    if (sum <= 0) return say('Впишіть суму');
+    const out = $('#cKind').value === 'out';
+    const how = $('#cHow').value;
+    const who = $('#cWho').value;
+    const note = $('#cNote').value.trim();
+
+    if (who !== '' && !out) {
+      const b = boats[Number(who)];
+      const left = Math.max(0, (b.debt || 0) - sum);
+      b.debt = left;
+      if (!left) b.paid = Math.max(b.paid, NOW + 1);
+      moves.unshift({ t: 'Стоянка · ' + b.boat, s: b.name + ' · ' + b.slot,
+                      day: $('#cDay').value, sum, how, out: false });
+      say(left ? `Внесено ${money(sum)} · лишився борг ${money(left)}` : 'Борг закрито');
+    } else {
+      moves.unshift({ t: note || (out ? 'Витрата' : 'Надходження'), s: null,
+                      day: $('#cDay').value, sum, how, out });
+      say(out ? 'Витрату записано' : 'Надходження записано');
+    }
+    paintAll(); close();
+    return;
+  }
+
+  if (t.id === 'nSave') {
+    const name = $('#nName').value.trim() || 'Без імені';
+    const feeRaw = $('#nFee').value.trim();
+    boats.push({
+      slot: 'A-03',
+      boat: $('#nBoat').value.trim() || 'Без назви',
+      name,
+      phone: $('#nPhone').value.trim() || '—',
+      len: ($('#nLen').value.trim() || '—') + ' м',
+      fee: feeRaw ? Math.round(parseFloat(feeRaw.replace(',', '.'))) : null,
+      paid: 0,
+      debt: feeRaw ? Math.round(parseFloat(feeRaw.replace(',', '.'))) : null,
+    });
+    request = null;
+    paintAll(); close();
+    say('Стоянку створено · місце A-03');
+    return;
   }
 });
+
+paintAll();
 </script>
 </body>
 </html>
