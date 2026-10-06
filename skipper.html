@@ -73,6 +73,28 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
          letter-spacing:.1em;opacity:.65;margin:0}
 .meta dd{margin:5px 0 0;font-weight:600;font-size:16px}
 
+/* Герой на дві колонки: ліворуч слова, праворуч сам продукт. Рамка
+   висока й вузька — так видно, що це сторінка, яку гортають, а не
+   картинка. */
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3.4vw,46px);
+           align-items:center}
+.hero-txt{min-width:0}
+.hero-site{min-width:0}
+.browser.tall iframe{height:clamp(420px,62vh,620px)}
+.frame-cap{margin-top:10px;text-align:center;font-size:13.5px;opacity:.65}
+
+/* На «повороті» телефон займає третину: головне там — слова. */
+.turn-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(20px,3.4vw,46px);
+           align-items:center}
+.turn-txt{min-width:0}
+.phone.light .screen{box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.phone.light figcaption{color:#fff;opacity:.85}
+
+@media (max-width:980px){
+  .hero-grid,.turn-grid{grid-template-columns:1fr}
+  .browser.tall iframe{height:clamp(360px,54vh,520px)}
+}
+
 /* ── 2. біль, що біжить ────────────────────────────────────────────── */
 .pains{background:var(--dark) var(--grid-l);color:#fff;padding:40px 0 46px;overflow:hidden}
 .pains h2{font-size:clamp(40px,8vw,110px);padding:0 var(--gap);max-width:1240px;margin:0 auto}
@@ -110,15 +132,18 @@ section{padding:52px 0}
 .sec-head h2{font-size:clamp(34px,6.2vw,96px);flex:1;min-width:0}
 .sec-lead{max-width:58ch;margin-top:18px;font-size:clamp(16px,1.7vw,19px)}
 
-.step{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,46px);
-      align-items:center;padding:34px 0;border-top:1px solid rgba(51,70,196,.3)}
-.step:nth-child(even) .txt{order:2}
-.step .no{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:var(--r);
-          background:var(--orange);color:#fff;font-family:var(--head);font-size:21px}
-.step h3{font-size:clamp(24px,3.4vw,46px);margin-top:14px}
-.step p{margin-top:14px;max-width:46ch;font-size:16.5px}
-.step .who{display:inline-block;margin-top:16px;font-family:var(--head);font-weight:700;
-           text-transform:uppercase;font-size:12.5px;letter-spacing:.12em;
+/* Два кроки на екран. Картка, а не рядок на всю ширину: шість рядків
+   розтягували розділ на пів сторінки, і зв'язок між кроками губився. */
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:26px}
+.step{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+      padding:clamp(18px,2.4vw,28px);min-width:0;display:flex;flex-direction:column}
+.step .no{display:inline-grid;place-items:center;width:42px;height:42px;
+          border-radius:var(--r);background:var(--orange);color:#fff;
+          font-family:var(--head);font-size:19px}
+.step h3{font-size:clamp(21px,2.4vw,30px);margin-top:13px}
+.step p{margin-top:11px;font-size:15.5px}
+.step .who{align-self:flex-start;margin-top:14px;font-family:var(--head);font-weight:700;
+           text-transform:uppercase;font-size:12px;letter-spacing:.12em;
            border:1px solid var(--blue);border-radius:999px;padding:5px 13px}
 
 /* ── рамки пристроїв ───────────────────────────────────────────────── */
@@ -137,6 +162,10 @@ section{padding:52px 0}
 .phone .holder{width:296px;height:591px;overflow:hidden}
 .phone iframe{width:390px;height:780px;border:0;display:block;
               transform:scale(.758);transform-origin:top left}
+.phone.sm{width:232px;margin:20px auto 0}
+.phone.sm .screen{border-width:8px;border-radius:26px}
+.phone.sm .holder{width:216px;height:432px}
+.phone.sm iframe{transform:scale(.5538)}
 .phone figcaption{margin-top:11px;text-align:center;font-size:14px;font-weight:600;opacity:.8}
 
 /* ── рішення ───────────────────────────────────────────────────────── */
@@ -176,8 +205,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       font-size:14px;opacity:.75}
 
 @media (max-width:980px){
-  .step{grid-template-columns:1fr}
-  .step:nth-child(even) .txt{order:0}
+  .steps-grid{grid-template-columns:1fr}
   .fcols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
@@ -206,17 +234,33 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
 <!-- ── 1. герой ──────────────────────────────────────────────────── -->
 <div class="wrap hero">
-  <p class="tagline">Кейс · 2026 · човнова станція</p>
-  <h1>Skipper</h1>
-  <p class="say">
-    Сайт, облік і&nbsp;кабінет клієнта в&nbsp;Telegram, які працюють
-    з&nbsp;однієї бази. Я&nbsp;зробила не&nbsp;сайт&nbsp;— систему.
-  </p>
-  <div class="hero-cta">
-    <a class="btn o" href="https://skipper-site-three.vercel.app/" target="_blank" rel="noopener">
-      Живий сайт
-    </a>
-    <a class="btn" href="#how">Як це працює</a>
+  <div class="hero-grid">
+    <div class="hero-txt">
+      <p class="tagline">Кейс · 2026 · човнова станція</p>
+      <h1>Skipper</h1>
+      <p class="say">
+        Сайт, облік і&nbsp;кабінет клієнта в&nbsp;Telegram, які працюють
+        з&nbsp;однієї бази. Я&nbsp;зробила не&nbsp;сайт&nbsp;— систему.
+      </p>
+      <div class="hero-cta">
+        <a class="btn o" href="https://skipper-site-three.vercel.app/" target="_blank" rel="noopener">
+          Живий сайт
+        </a>
+        <a class="btn" href="#how">Як це працює</a>
+      </div>
+    </div>
+
+    <!-- Праворуч не знімок, а сам сайт: гортається просто тут, і числа
+         вільних місць у ньому справжні. -->
+    <div class="hero-site">
+      <div class="browser tall">
+        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span>
+          <span class="url">skipper-site-three.vercel.app</span></div>
+        <iframe src="https://skipper-site-three.vercel.app/"
+                title="Сайт човнової станції — гортайте"></iframe>
+      </div>
+      <p class="frame-cap">Гортайте — це справжній сайт</p>
+    </div>
   </div>
 
   <dl class="meta">
@@ -250,20 +294,29 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
 <!-- ── 3. поворот ────────────────────────────────────────────────── -->
 <section class="turn">
-  <div class="wrap">
-    <h2>Тепер рахунок приходить сам, а&nbsp;гроші видно в&nbsp;касі</h2>
-    <p>
-      Станція під&nbsp;Вишгородом зберігає човни на&nbsp;воді, на&nbsp;суші
-      й&nbsp;у&nbsp;критому ангарі. Облік вели в&nbsp;зошиті, а&nbsp;за&nbsp;кожну
-      оплату дзвонили двічі: спершу продиктувати реквізити, потім перепитати,
-      чи&nbsp;пройшло.
-    </p>
-    <div class="three">
-      <div><b>50</b><span>місць: 20&nbsp;на&nbsp;воді, 20&nbsp;на&nbsp;суші,
-        10&nbsp;в&nbsp;ангарі</span></div>
-      <div><b>3</b><span>екрани однієї системи: сайт, CRM, кабінет клієнта</span></div>
-      <div><b>1</b><span>бот, який веде два різні міні-додатки</span></div>
+  <div class="wrap turn-grid">
+    <div class="turn-txt">
+      <h2>Тепер рахунок приходить сам, а&nbsp;гроші видно в&nbsp;касі</h2>
+      <p>
+        Станція під&nbsp;Вишгородом зберігає човни на&nbsp;воді, на&nbsp;суші
+        й&nbsp;у&nbsp;критому ангарі. Облік вели в&nbsp;зошиті, а&nbsp;за&nbsp;кожну
+        оплату дзвонили двічі: спершу продиктувати реквізити, потім перепитати,
+        чи&nbsp;пройшло.
+      </p>
+      <div class="three">
+        <div><b>50</b><span>місць: 20&nbsp;на&nbsp;воді, 20&nbsp;на&nbsp;суші,
+          10&nbsp;в&nbsp;ангарі</span></div>
+        <div><b>3</b><span>екрани однієї системи: сайт, CRM, кабінет клієнта</span></div>
+        <div><b>1</b><span>бот, який веде два різні міні-додатки</span></div>
+      </div>
     </div>
+
+    <figure class="phone light">
+      <div class="screen"><div class="holder">
+        <iframe src="demo/admin.html" loading="lazy" title="CRM станції — гортайте"></iframe>
+      </div></div>
+      <figcaption>CRM станції — гортайте й&nbsp;перемикайте вкладки</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -279,131 +332,73 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     а&nbsp;додатки клікаються.
   </p>
 
-  <!-- крок 1 -->
-  <div class="step">
-    <div class="txt">
+  <div class="steps-grid">
+    <article class="step">
       <span class="no">1</span>
       <h3>Знаходить станцію</h3>
-      <p>
-        Сайт відповідає на&nbsp;перше питання власника човна&nbsp;— «скільки
-        коштує й&nbsp;чи&nbsp;є&nbsp;місце». Повзунок довжини рахує суму
-        за&nbsp;справжньою таблицею, а&nbsp;вільні місця приходять
-        із&nbsp;тієї&nbsp;ж бази, у&nbsp;якій станція веде облік.
-      </p>
+      <p>Сайт відповідає на&nbsp;перше питання власника човна&nbsp;— «скільки коштує й&nbsp;чи&nbsp;є&nbsp;місце». Він угорі цієї сторінки, у&nbsp;рамці: повзунок довжини рахує суму за&nbsp;справжньою таблицею, а&nbsp;вільні місця приходять із&nbsp;тієї&nbsp;ж бази, у&nbsp;якій станція веде облік.</p>
       <span class="who">клієнт</span>
-    </div>
-    <div class="browser">
-      <div class="bbar"><span class="dots"><i></i><i></i><i></i></span>
-        <span class="url">skipper-site-three.vercel.app</span></div>
-      <iframe src="https://skipper-site-three.vercel.app/" loading="lazy"
-              title="Сайт човнової станції"></iframe>
-    </div>
-  </div>
-
-  <!-- крок 2 -->
-  <div class="step">
-    <div class="txt">
+    </article>
+    <article class="step">
       <span class="no">2</span>
       <h3>Лишає заявку</h3>
-      <p>
-        Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками,
-        поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона
-        не&nbsp;створює: місце закріплює людина після дзвінка&nbsp;— сервіс
-        не&nbsp;вирішує за&nbsp;станцію, кого ставити.
-      </p>
+      <p>Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона не&nbsp;створює: місце закріплює людина після дзвінка.</p>
       <span class="who">клієнт → станція</span>
-    </div>
-    <figure class="phone">
-      <div class="screen"><div class="holder">
-        <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
-      </div></div>
-      <figcaption>CRM станції · вкладка «Каса»</figcaption>
-    </figure>
-  </div>
-
-  <!-- крок 3 -->
-  <div class="step">
-    <div class="txt">
+      <figure class="phone sm">
+        <div class="screen"><div class="holder">
+          <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
+        </div></div>
+        <figcaption>CRM станції</figcaption>
+      </figure>
+    </article>
+    <article class="step">
       <span class="no">3</span>
       <h3>Підключається до бота</h3>
-      <p>
-        Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить
-        бронь за&nbsp;телефоном. Відтепер рахунки приходять у&nbsp;цей чат.
-        Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить
-        кабінет, станція&nbsp;— CRM.
-      </p>
+      <p>Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить бронь за&nbsp;телефоном. Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить кабінет, станція&nbsp;— CRM.</p>
       <span class="who">клієнт</span>
-    </div>
-    <figure class="phone">
-      <div class="screen"><div class="holder">
-        <iframe src="demo/telegram.html" loading="lazy" title="Бот у Telegram"></iframe>
-      </div></div>
-      <figcaption>Telegram · чат із ботом</figcaption>
-    </figure>
-  </div>
-
-  <!-- крок 4 -->
-  <div class="step">
-    <div class="txt">
+      <figure class="phone sm">
+        <div class="screen"><div class="holder">
+          <iframe src="demo/telegram.html" loading="lazy" title="Чат із ботом"></iframe>
+        </div></div>
+        <figcaption>Чат із ботом</figcaption>
+      </figure>
+    </article>
+    <article class="step">
       <span class="no">4</span>
       <h3>Отримує рахунок</h3>
-      <p>
-        З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками,
-        з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк
-        з&nbsp;<b>уже&nbsp;вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ:
-        переписувати IBAN у&nbsp;трубку більше не&nbsp;треба.
-      </p>
+      <p>З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками, з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк із&nbsp;<b>уже вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ.</p>
       <span class="who">станція → клієнт</span>
-    </div>
-    <figure class="phone">
-      <div class="screen"><div class="holder">
-        <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
-      </div></div>
-      <figcaption>Кабінет клієнта · рахунок і QR</figcaption>
-    </figure>
-  </div>
-
-  <!-- крок 5 -->
-  <div class="step">
-    <div class="txt">
+      <figure class="phone sm">
+        <div class="screen"><div class="holder">
+          <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
+        </div></div>
+        <figcaption>Кабінет клієнта</figcaption>
+      </figure>
+    </article>
+    <article class="step">
       <span class="no">5</span>
       <h3>Платить і каже про це</h3>
-      <p>
-        Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка
-        <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити
-        надходження. Сервіс не&nbsp;бачить банківського рахунку
-        й&nbsp;не&nbsp;має права казати, що&nbsp;гроші прийшли.
-      </p>
+      <p>Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити надходження. Сервіс не&nbsp;бачить банківського рахунку.</p>
       <span class="who">клієнт → станція</span>
-    </div>
-    <figure class="phone">
-      <div class="screen"><div class="holder">
-        <iframe src="demo/telegram.html" loading="lazy" title="Кнопка «Я оплатив»"></iframe>
-      </div></div>
-      <figcaption>Натисніть «Я оплатив» у&nbsp;рамці</figcaption>
-    </figure>
-  </div>
-
-  <!-- крок 6 -->
-  <div class="step">
-    <div class="txt">
+      <figure class="phone sm">
+        <div class="screen"><div class="holder">
+          <iframe src="demo/telegram.html" loading="lazy" title="Натисніть «Я оплатив»"></iframe>
+        </div></div>
+        <figcaption>Натисніть «Я оплатив»</figcaption>
+      </figure>
+    </article>
+    <article class="step">
       <span class="no">6</span>
       <h3>Гроші видно в касі</h3>
-      <p>
-        Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі.
-        Готівка й&nbsp;безготівка окремо, витрати теж. Список човнів
-        розкладений не&nbsp;за&nbsp;номером місця, а&nbsp;за&nbsp;тим,
-        що&nbsp;з&nbsp;ним робити: спершу ті, кому не&nbsp;вказано тариф,
-        далі боржники.
-      </p>
+      <p>Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі. Готівка й&nbsp;безготівка окремо. Список човнів розкладений за&nbsp;тим, що&nbsp;з&nbsp;ним робити, а&nbsp;не&nbsp;за&nbsp;номером місця.</p>
       <span class="who">станція</span>
-    </div>
-    <figure class="phone">
-      <div class="screen"><div class="holder">
-        <iframe src="demo/admin.html" loading="lazy" title="Календар і каса"></iframe>
-      </div></div>
-      <figcaption>Перемикайте вкладки в&nbsp;рамці</figcaption>
-    </figure>
+      <figure class="phone sm">
+        <div class="screen"><div class="holder">
+          <iframe src="demo/admin.html" loading="lazy" title="Календар і каса"></iframe>
+        </div></div>
+        <figcaption>Календар і каса</figcaption>
+      </figure>
+    </article>
   </div>
 
   <p class="sec-lead" style="margin-top:28px">
