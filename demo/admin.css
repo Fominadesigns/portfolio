@@ -208,3 +208,7 @@ a{color:inherit}
    ні з оплаченим: це не гроші, а прохання передзвонити. */
 .bchip.sand-chip{background:var(--sand-grad);color:#2a1a02;
                  text-shadow:none;font-size:11px;min-width:58px}
+
+/* Атрибут hidden мусить вигравати: інакше елемент із власним
+   display (наприклад .veil із display:flex) лишається видимим. */
+[hidden]{display:none !important}
