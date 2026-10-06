@@ -279,3 +279,11 @@
 /* Атрибут hidden мусить вигравати: інакше елемент із власним
    display (наприклад .veil із display:flex) лишається видимим. */
 [hidden]{display:none !important}
+
+/* Смужка прокрутки — тонка й ледь помітна: у рамці телефона вона
+   не частина інтерфейсу, а службовий елемент браузера. */
+*{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.22) transparent}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.34)}
