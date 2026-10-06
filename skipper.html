@@ -36,7 +36,8 @@ body{margin:0;background:var(--grey) var(--grid-d);color:var(--blue);
 a{color:inherit}
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 img{max-width:100%;display:block}
-.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3.4vw,48px)}
+.wrap{max-width:1240px;margin:0 auto;
+      padding-left:clamp(16px,3.4vw,48px);padding-right:clamp(16px,3.4vw,48px)}
 h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
             line-height:.9;letter-spacing:-.01em;margin:0}
 
@@ -167,8 +168,8 @@ section{padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(52px,7vw,96px)}
 .sstep{grid-area:1/1;background:#fff;border:1px solid var(--blue);border-radius:var(--r);
        padding:clamp(18px,2.6vw,38px);color:var(--blue);
        display:grid;grid-template-columns:minmax(0,1.6fr) minmax(150px,.55fr);
-       gap:clamp(18px,2.6vw,38px);align-items:center;
-       transform:translate(calc(var(--k,0) * 22px),calc(var(--k,0) * 40px));
+       gap:clamp(18px,2.6vw,38px);align-items:stretch;
+       transform:translate(calc(var(--k,0) * 22px),calc(var(--k,0) * 13px));
        z-index:calc(10 - var(--k,0));
        transition:transform .5s cubic-bezier(.5,0,.25,1),opacity .45s}
 .sstep.is-gone{transform:translateX(-115%);opacity:0;pointer-events:none}
@@ -189,7 +190,8 @@ section{padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(52px,7vw,96px)}
 
 /* Риска-роздільник, як між фото й цитатою на головній. */
 .sstep__shot{margin:0;min-width:0;border-left:1px solid var(--blue);
-             padding-left:clamp(16px,2.6vw,40px);display:grid;justify-items:center}
+             padding-left:clamp(16px,2.6vw,40px);display:grid;justify-items:center;
+             align-content:center}
 .sstep__shot figcaption{margin-top:11px;font-size:12.5px;text-align:center;opacity:.75}
 
 @media (max-width:860px){
