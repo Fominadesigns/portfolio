@@ -218,6 +218,10 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
 .phone .holder{width:296px;height:591px;overflow:hidden}
 .phone iframe{width:390px;height:780px;border:0;display:block;
               transform:scale(.758);transform-origin:top left}
+@supports (zoom:1){
+  .phone iframe{zoom:.758;transform:none}
+  .phone.sm iframe{zoom:.4923}
+}
 .phone.sm{width:206px;margin:0}
 .phone.sm .screen{border-width:7px;border-radius:24px}
 .phone.sm .holder{width:192px;height:384px}
@@ -765,7 +769,12 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   if (!panes.length) return;
   const fit = () => panes.forEach((p) => {
     const f = p.querySelector('iframe');
-    if (f) f.style.transform = 'scale(' + (p.clientWidth / 1280) + ')';
+    if (!f) return;
+    const s = p.clientWidth / 1280;
+    /* zoom верстає сторінку меншою, а transform лише розтягує вже
+       намальоване — через те на зменшених рамках лишались білі смуги. */
+    if (CSS.supports('zoom', '0.5')) { f.style.zoom = s; f.style.transform = 'none'; }
+    else { f.style.transform = 'scale(' + s + ')'; }
   });
   fit();
   if (window.ResizeObserver) new ResizeObserver(fit).observe(panes[0]);
