@@ -43,7 +43,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 /* ── шапка ─────────────────────────────────────────────────────────── */
 .bar{position:sticky;top:0;z-index:20;background:rgba(211,211,211,.86);
      backdrop-filter:blur(8px);border-bottom:1px solid rgba(51,70,196,.25)}
-.bar-in{display:flex;align-items:center;gap:var(--gap);padding:11px 0}
+.bar-in{display:flex;align-items:center;gap:var(--gap);padding-top:11px;padding-bottom:11px}
 .logo{font-family:var(--head);font-weight:800;font-size:19px;text-transform:uppercase;
       text-decoration:none;letter-spacing:-.01em}
 .bar .sp{flex:1}
@@ -60,7 +60,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .btn.wh{background:#fff;border-color:#fff}
 
 /* ── 1. герой ──────────────────────────────────────────────────────── */
-.hero{padding:62px 0 40px}
+.hero{padding-top:62px;padding-bottom:40px}
 .tagline{font-family:var(--head);font-weight:700;text-transform:uppercase;
          font-size:14px;letter-spacing:.14em;opacity:.8}
 .hero h1{font-size:clamp(52px,13vw,190px);margin-top:12px}
@@ -110,9 +110,9 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 
 /* ── 2. біль, що біжить ────────────────────────────────────────────── */
 .pains{background:var(--dark) var(--grid-l);color:#fff;padding:40px 0 46px;overflow:hidden}
-.pains h2{font-size:clamp(40px,8vw,110px);padding:0 var(--gap);max-width:1240px;margin:0 auto}
+.pains h2{font-size:clamp(40px,8vw,110px);padding:0 clamp(16px,3.4vw,48px);max-width:1240px;margin:0 auto}
 .pains h2 em{font-style:normal;color:var(--orange)}
-.lane{display:flex;gap:10px;margin-top:26px;width:max-content;
+.lane{display:flex;gap:10px;margin-top:26px;padding:0 clamp(16px,3.4vw,48px);width:max-content;
       animation:run var(--sp,46s) linear infinite}
 .lane.back{animation-direction:reverse;--sp:54s;margin-top:10px}
 .lane span{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);
@@ -134,7 +134,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .turn .three span{display:block;margin-top:7px;font-size:15.5px}
 
 /* ── 4. кроки ──────────────────────────────────────────────────────── */
-section{padding:52px 0}
+section{padding-top:52px;padding-bottom:52px}
 .sq{width:80px;height:80px;border:1px solid var(--blue);border-radius:var(--r);
     position:relative;flex:none;background:#fff}
 .sq::before{content:'';position:absolute;inset:0;
