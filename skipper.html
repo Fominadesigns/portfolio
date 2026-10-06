@@ -339,7 +339,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <a class="btn o" href="https://skipper-site-three.vercel.app/" target="_blank" rel="noopener">
           Живий сайт
         </a>
-        <a class="btn" href="#how">Як це працює</a>
+        <a class="btn" href="#how">Увесь шлях</a>
       </div>
     </div>
 
@@ -421,12 +421,13 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <section class="wrap" id="how">
   <div class="sec-head">
     <span class="sq"><b>01</b></span>
-    <h2>Як це працює</h2>
+    <h2>Увесь шлях</h2>
   </div>
   <p class="sec-lead">
-    Шість кроків від&nbsp;першого дотику до&nbsp;грошей у&nbsp;касі. Усі екрани
-    нижче&nbsp;— <b>живі</b>: сайт відкривається просто в&nbsp;рамці,
-    а&nbsp;додатки клікаються.
+    Девʼять кроків від&nbsp;першого дотику до&nbsp;грошей у&nbsp;касі. Хід щоразу
+    переходить через стійку&nbsp;— біля кожного кроку видно, хто діє: клієнт
+    чи&nbsp;станція. Усі екрани <b>живі</b>: сайт гортається, додатки клікаються,
+    у&nbsp;CRM можна завести стоянку й&nbsp;внести гроші.
   </p>
 
   <div class="steps" data-steps>
@@ -464,141 +465,37 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <div class="sstep__quote">
           <span class="no">2</span>
           <h3>Лишає заявку</h3>
-          <p>Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона не&nbsp;створює: місце закріплює людина після дзвінка.</p>
-          <span class="who">клієнт → станція</span>
-        </div>
-        <figure class="sstep__shot">
-          <div class="phone sm">
-            <div class="screen"><div class="holder">
-              <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
-            </div></div>
-          </div>
-          <figcaption>CRM станції</figcaption>
-        </figure>
-      </article>
-      <article class="sstep" style="--k:2">
-        <div class="sstep__quote">
-          <span class="no">3</span>
-          <h3>Підключається до бота</h3>
-          <p>Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить бронь за&nbsp;телефоном. Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить кабінет, станція&nbsp;— CRM.</p>
+          <p>Дата, довжина судна, строк і&nbsp;телефон. Заявка не&nbsp;бронює місце: це&nbsp;звернення, а&nbsp;не&nbsp;домовленість. Далі хід переходить на&nbsp;той бік стійки.</p>
           <span class="who">клієнт</span>
         </div>
         <figure class="sstep__shot">
           <div class="phone sm">
             <div class="screen"><div class="holder">
-              <iframe src="demo/telegram.html" loading="lazy" title="Чат із ботом"></iframe>
+              <iframe src="https://skipper-site-three.vercel.app/" loading="lazy" title="Форма на сайті"></iframe>
             </div></div>
           </div>
-          <figcaption>Чат із ботом</figcaption>
+          <figcaption>Форма на сайті</figcaption>
+        </figure>
+      </article>
+      <article class="sstep" style="--k:2">
+        <div class="sstep__quote">
+          <span class="no">3</span>
+          <h3>Станція бачить заявку</h3>
+          <p>Вона лежить угорі CRM, над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили: тип місця, довжина, телефон, строк. Натисніть «Оформити»&nbsp;— дані вже підставлені.</p>
+          <span class="who">станція</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/admin.html" loading="lazy" title="Заявка в CRM"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Заявка в CRM</figcaption>
         </figure>
       </article>
       <article class="sstep" style="--k:3">
         <div class="sstep__quote">
           <span class="no">4</span>
-          <h3>Отримує рахунок</h3>
-          <p>З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками, з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк із&nbsp;<b>уже вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ.</p>
-          <span class="who">станція → клієнт</span>
-        </div>
-        <figure class="sstep__shot">
-          <div class="phone sm">
-            <div class="screen"><div class="holder">
-              <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
-            </div></div>
-          </div>
-          <figcaption>Кабінет клієнта</figcaption>
-        </figure>
-      </article>
-      <article class="sstep" style="--k:4">
-        <div class="sstep__quote">
-          <span class="no">5</span>
-          <h3>Платить і каже про це</h3>
-          <p>Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити надходження. Сервіс не&nbsp;бачить банківського рахунку.</p>
-          <span class="who">клієнт → станція</span>
-        </div>
-        <figure class="sstep__shot">
-          <div class="phone sm">
-            <div class="screen"><div class="holder">
-              <iframe src="demo/telegram.html" loading="lazy" title="Натисніть «Я оплатив»"></iframe>
-            </div></div>
-          </div>
-          <figcaption>Натисніть «Я оплатив»</figcaption>
-        </figure>
-      </article>
-      <article class="sstep" style="--k:5">
-        <div class="sstep__quote">
-          <span class="no">6</span>
-          <h3>Гроші видно в касі</h3>
-          <p>Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі. Готівка й&nbsp;безготівка окремо, витрати станції&nbsp;— теж там. Список човнів розкладений за&nbsp;тим, що&nbsp;з&nbsp;ним робити, а&nbsp;не&nbsp;за&nbsp;номером місця.</p>
-          <span class="who">станція</span>
-        </div>
-        <figure class="sstep__shot">
-          <div class="phone sm">
-            <div class="screen"><div class="holder">
-              <iframe src="demo/admin.html" loading="lazy" title="Календар і каса"></iframe>
-            </div></div>
-          </div>
-          <figcaption>Календар і каса</figcaption>
-        </figure>
-      </article>
-    </div>
-  </div>
-
-  <p class="sec-lead" style="margin-top:28px">
-    Дані в&nbsp;демонстраціях вигадані, а&nbsp;тексти бота&nbsp;— дослівні.
-    У&nbsp;справжній CRM прізвища, телефони й&nbsp;борги клієнтів станції,
-    і&nbsp;таке в&nbsp;портфоліо не&nbsp;виносять. QR&nbsp;у&nbsp;демонстрації
-    навмисно неплатіжний.
-  </p>
-</section>
-
-
-<!-- ── з боку станції ────────────────────────────────────────────── -->
-<section class="wrap" id="crm">
-  <div class="sec-head">
-    <span class="sq"><b>02</b></span>
-    <h2>Як це бачить станція</h2>
-  </div>
-  <p class="sec-lead">
-    Той самий шлях, але з іншого боку стійки. Усе в&nbsp;рамках нижче
-    <b>працює</b>: відкрийте заявку, заведіть стоянку, провальтесь
-    у&nbsp;картку човна, внесіть гроші в&nbsp;касу&nbsp;— числа
-    перерахуються.
-  </p>
-
-  <div class="steps" data-steps>
-    <div class="steps__nav">
-      <button class="rv-btn" type="button" data-st="prev" aria-label="Попередній крок" disabled>
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M19 12H5M11 5l-7 7 7 7"/></svg>
-      </button>
-      <button class="rv-btn" type="button" data-st="next" aria-label="Наступний крок">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </button>
-    </div>
-
-    <div class="steps__deck" aria-live="polite">
-      <article class="sstep" style="--k:0">
-        <div class="sstep__quote">
-          <span class="no">1</span>
-          <h3>Бачить заявку</h3>
-          <p>Заявка з&nbsp;сайту лежить угорі, над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Видно тип місця, довжину судна, телефон і&nbsp;строк. Натисніть «Оформити»&nbsp;— дані вже підставлені.</p>
-          <span class="who">станція</span>
-        </div>
-        <figure class="sstep__shot">
-          <div class="phone sm">
-            <div class="screen"><div class="holder">
-              <iframe src="demo/admin.html" loading="lazy" title="Заявка з сайту"></iframe>
-            </div></div>
-          </div>
-          <figcaption>Заявка з сайту</figcaption>
-        </figure>
-      </article>
-      <article class="sstep" style="--k:1">
-        <div class="sstep__quote">
-          <span class="no">2</span>
           <h3>Заводить стоянку</h3>
           <p>Імʼя, телефон, човен, довжина, тариф і&nbsp;строк. Тариф можна лишити порожнім&nbsp;— тоді CRM покаже «ціну уточнити», а&nbsp;не&nbsp;нуль, і&nbsp;не&nbsp;рахуватиме борг із&nbsp;вигаданої суми.</p>
           <span class="who">станція</span>
@@ -612,11 +509,59 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
           <figcaption>Нова стоянка</figcaption>
         </figure>
       </article>
-      <article class="sstep" style="--k:2">
+      <article class="sstep" style="--k:4">
         <div class="sstep__quote">
-          <span class="no">3</span>
-          <h3>Відкриває картку човна</h3>
-          <p>Натисніть на&nbsp;стоянку в&nbsp;календарі&nbsp;— відкриється картка: клієнт, телефон, тариф і&nbsp;борг. Колір місяця каже те&nbsp;саме без&nbsp;слів: зелений&nbsp;— оплачено, медовий&nbsp;— час платити, сірий&nbsp;— тарифу немає.</p>
+          <span class="no">5</span>
+          <h3>Клієнт підключається до бота</h3>
+          <p>Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить бронь за&nbsp;телефоном. Відтепер рахунки приходять у&nbsp;цей чат. Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить кабінет, станція&nbsp;— CRM.</p>
+          <span class="who">клієнт</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/telegram.html" loading="lazy" title="Чат із ботом"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Чат із ботом</figcaption>
+        </figure>
+      </article>
+      <article class="sstep" style="--k:5">
+        <div class="sstep__quote">
+          <span class="no">6</span>
+          <h3>Отримує рахунок</h3>
+          <p>З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками, з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк із&nbsp;<b>уже вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ: переписувати IBAN у&nbsp;трубку більше не&nbsp;треба.</p>
+          <span class="who">станція → клієнт</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Кабінет клієнта</figcaption>
+        </figure>
+      </article>
+      <article class="sstep" style="--k:6">
+        <div class="sstep__quote">
+          <span class="no">7</span>
+          <h3>Платить і каже про це</h3>
+          <p>Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити надходження. Сервіс не&nbsp;бачить банківського рахунку й&nbsp;не&nbsp;має права казати, що&nbsp;гроші прийшли.</p>
+          <span class="who">клієнт → станція</span>
+        </div>
+        <figure class="sstep__shot">
+          <div class="phone sm">
+            <div class="screen"><div class="holder">
+              <iframe src="demo/telegram.html" loading="lazy" title="Натисніть «Я оплатив»"></iframe>
+            </div></div>
+          </div>
+          <figcaption>Натисніть «Я оплатив»</figcaption>
+        </figure>
+      </article>
+      <article class="sstep" style="--k:7">
+        <div class="sstep__quote">
+          <span class="no">8</span>
+          <h3>Станція звіряє й зараховує</h3>
+          <p>Натисніть на&nbsp;стоянку в&nbsp;календарі&nbsp;— відкриється картка: клієнт, телефон, тариф і&nbsp;борг. Кнопки «Готівка» й&nbsp;«Безнал» вносять оплату, зокрема часткову: решта лишиться боргом.</p>
           <span class="who">станція</span>
         </div>
         <figure class="sstep__shot">
@@ -628,30 +573,37 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
           <figcaption>Картка стоянки</figcaption>
         </figure>
       </article>
-      <article class="sstep" style="--k:3">
+      <article class="sstep" style="--k:8">
         <div class="sstep__quote">
-          <span class="no">4</span>
-          <h3>Вносить гроші в касу</h3>
-          <p>«Записати в&nbsp;касу»&nbsp;— сума, дата, готівка чи&nbsp;рахунок. Можна прив&apos;язати до&nbsp;клієнта: тоді гроші зменшать його борг. Тим самим вікном вносять і&nbsp;<b>витрати</b>&nbsp;— пальне, матеріали, ремонт: інакше «разом у&nbsp;касі» показувало&nbsp;б не&nbsp;те, що&nbsp;насправді лишилось.</p>
+          <span class="no">9</span>
+          <h3>Гроші видно в касі</h3>
+          <p>Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі. Готівка й&nbsp;безготівка окремо, витрати станції&nbsp;— тим самим вікном: пальне, матеріали, ремонт. Інакше «разом у&nbsp;касі» показувало&nbsp;б не&nbsp;те, що&nbsp;насправді лишилось.</p>
           <span class="who">станція</span>
         </div>
         <figure class="sstep__shot">
           <div class="phone sm">
             <div class="screen"><div class="holder">
-              <iframe src="demo/admin.html" loading="lazy" title="Запис у касу"></iframe>
+              <iframe src="demo/admin.html" loading="lazy" title="Каса за місяць"></iframe>
             </div></div>
           </div>
-          <figcaption>Запис у касу</figcaption>
+          <figcaption>Каса за місяць</figcaption>
         </figure>
       </article>
     </div>
   </div>
+
+  <p class="sec-lead" style="margin-top:28px">
+    Дані в&nbsp;демонстраціях вигадані, а&nbsp;тексти бота&nbsp;— дослівні.
+    У&nbsp;справжній CRM прізвища, телефони й&nbsp;борги клієнтів станції,
+    і&nbsp;таке в&nbsp;портфоліо не&nbsp;виносять. QR&nbsp;у&nbsp;демонстрації
+    навмисно неплатіжний.
+  </p>
 </section>
 
 <!-- ── 5. рішення ────────────────────────────────────────────────── -->
 <section class="wrap">
   <div class="sec-head">
-    <span class="sq"><b>03</b></span>
+    <span class="sq"><b>02</b></span>
     <h2>Чотири рішення,<br>які видно в роботі</h2>
   </div>
 
@@ -689,7 +641,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <!-- ── 6. з чого зроблено ────────────────────────────────────────── -->
 <section class="wrap">
   <div class="sec-head">
-    <span class="sq"><b>04</b></span>
+    <span class="sq"><b>03</b></span>
     <h2>З чого зроблено</h2>
   </div>
 
@@ -719,7 +671,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </video>
     </div>
     <div class="statecard__head">
-      <span class="sq"><b>05</b></span>
+      <span class="sq"><b>04</b></span>
       <h2>Де<br>воно<br>зараз</h2>
     </div>
     <div class="statecard__txt">
