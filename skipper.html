@@ -141,25 +141,49 @@ section{padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(52px,7vw,96px)}
             background:linear-gradient(to bottom right,transparent calc(50% - .5px),
             rgba(51,70,196,.45) 50%,transparent calc(50% + .5px))}
 .sq b{position:absolute;left:9px;bottom:6px;font-family:var(--head);font-size:17px}
-.sec-head{display:flex;gap:var(--gap);align-items:flex-start}
+.sec-head{display:flex;gap:var(--gap);align-items:flex-start;padding-top:clamp(8px,1.4vw,20px)}
 .sec-head h2{font-size:clamp(34px,6.2vw,96px);flex:1;min-width:0}
 .sec-lead{max-width:58ch;margin-top:18px;font-size:clamp(16px,1.7vw,19px)}
 
-/* Два кроки на екран. Картка, а не рядок на всю ширину: шість рядків
-   розтягували розділ на пів сторінки, і зв'язок між кроками губився. */
-.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:26px}
-.step{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
-      padding:clamp(16px,2vw,24px);min-width:0;
-      display:grid;grid-template-columns:1fr 206px;gap:clamp(14px,1.8vw,24px);
-      align-items:start}
-.step-txt{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
-.step .no{display:grid;place-items:center;width:40px;height:40px;border-radius:var(--r);
-          background:var(--orange);color:#fff;font-family:var(--head);font-size:18px}
-.step h3{font-size:clamp(19px,2vw,26px);margin-top:12px}
-.step p{margin-top:10px;font-size:15px}
-.step .who{margin-top:13px;font-family:var(--head);font-weight:700;text-transform:uppercase;
-           font-size:11.5px;letter-spacing:.12em;border:1px solid var(--blue);
-           border-radius:999px;padding:5px 12px}
+/* ── кроки слайдером ────────────────────────────────────────────────────
+   Той самий прийом, що у відгуках на головній: стос карток, передня
+   відлітає ліворуч, стрілки праворуч угорі. Шість карток поруч
+   розтягували розділ на кілька екранів — слайдер лишає на екрані
+   рівно один крок, і його справді читають. */
+.steps{position:relative;margin-top:clamp(34px,5vw,64px)}
+.steps__nav{position:absolute;right:0;top:calc(-1 * clamp(52px,5vw,72px) - 18px);
+            display:flex;gap:13px;z-index:20}
+.rv-btn{width:clamp(52px,5vw,72px);height:clamp(52px,5vw,72px);border:0;
+        border-radius:var(--r);cursor:pointer;display:grid;place-items:center;
+        background:var(--blue);color:#fff;transition:background .3s}
+.rv-btn:hover:not(:disabled){background:var(--dark)}
+.rv-btn:disabled{background:color-mix(in srgb,var(--blue) 30%,#fff);cursor:default}
+
+.steps__deck{display:grid;padding:0 clamp(26px,5vw,70px) 46px 0;touch-action:pan-y}
+.sstep{grid-area:1/1;background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+       padding:clamp(24px,3vw,40px);color:var(--blue);
+       display:grid;grid-template-columns:206px 1fr;gap:clamp(22px,3.4vw,52px);
+       align-items:center;
+       transform:translate(calc(var(--k,0) * 18px),calc(var(--k,0) * 26px));
+       z-index:calc(10 - var(--k,0));
+       transition:transform .5s cubic-bezier(.5,0,.25,1),opacity .45s}
+.sstep.is-gone{transform:translateX(-115%) rotate(-4deg);opacity:0;pointer-events:none}
+.sstep:not(.is-front) > *{visibility:hidden;transition:visibility 0s .2s}
+.sstep.is-front > *{visibility:visible}
+.sstep__txt{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.sstep .no{display:grid;place-items:center;width:44px;height:44px;border-radius:var(--r);
+           background:var(--orange);color:#fff;font-family:var(--head);font-size:20px}
+.sstep h3{font-size:clamp(24px,3.2vw,42px);margin-top:16px}
+.sstep p{margin-top:14px;font-size:clamp(15px,1.6vw,18px);max-width:46ch}
+.sstep .who{margin-top:18px;font-family:var(--head);font-weight:700;text-transform:uppercase;
+            font-size:12px;letter-spacing:.12em;border:1px solid var(--blue);
+            border-radius:999px;padding:6px 14px}
+
+@media (max-width:760px){
+  .sstep{grid-template-columns:1fr;gap:20px;justify-items:center;text-align:left}
+  .sstep__txt{width:100%}
+  .steps__nav{position:static;margin-bottom:16px;justify-content:flex-end}
+}
 
 /* ── рамки пристроїв ───────────────────────────────────────────────── */
 .browser{border:1px solid var(--blue);border-radius:var(--r);overflow:hidden;background:#fff}
@@ -222,13 +246,8 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);
       font-size:14px;opacity:.75}
 
-@media (max-width:620px){
-  .step{grid-template-columns:1fr}
-  .phone.sm{margin:4px auto 0}
-}
 @media (max-width:1080px){ .rules{grid-template-columns:1fr 1fr} }
 @media (max-width:980px){
-  .steps-grid{grid-template-columns:1fr}
   .fcols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
@@ -359,91 +378,106 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     а&nbsp;додатки клікаються.
   </p>
 
-  <div class="steps-grid">
-    <article class="step">
-      <div class="step-txt">
-        <span class="no">1</span>
-        <h3>Знаходить станцію</h3>
-        <p>Сайт відповідає на&nbsp;перше питання власника човна&nbsp;— «скільки коштує й&nbsp;чи&nbsp;є&nbsp;місце». Повзунок довжини рахує суму за&nbsp;справжньою таблицею, а&nbsp;вільні місця приходять із&nbsp;тієї&nbsp;ж бази, у&nbsp;якій станція веде облік.</p>
-        <span class="who">клієнт</span>
-      </div>
-      <figure class="phone sm">
-        <div class="screen"><div class="holder">
-          <iframe src="https://skipper-site-three.vercel.app/" loading="lazy" title="Сайт із телефона"></iframe>
-        </div></div>
-        <figcaption>Сайт із телефона</figcaption>
-      </figure>
-    </article>
-    <article class="step">
-      <div class="step-txt">
-        <span class="no">2</span>
-        <h3>Лишає заявку</h3>
-        <p>Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона не&nbsp;створює: місце закріплює людина після дзвінка.</p>
-        <span class="who">клієнт → станція</span>
-      </div>
-      <figure class="phone sm">
-        <div class="screen"><div class="holder">
-          <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
-        </div></div>
-        <figcaption>CRM станції</figcaption>
-      </figure>
-    </article>
-    <article class="step">
-      <div class="step-txt">
-        <span class="no">3</span>
-        <h3>Підключається до бота</h3>
-        <p>Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить бронь за&nbsp;телефоном. Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить кабінет, станція&nbsp;— CRM.</p>
-        <span class="who">клієнт</span>
-      </div>
-      <figure class="phone sm">
-        <div class="screen"><div class="holder">
-          <iframe src="demo/telegram.html" loading="lazy" title="Чат із ботом"></iframe>
-        </div></div>
-        <figcaption>Чат із ботом</figcaption>
-      </figure>
-    </article>
-    <article class="step">
-      <div class="step-txt">
-        <span class="no">4</span>
-        <h3>Отримує рахунок</h3>
-        <p>З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками, з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк із&nbsp;<b>уже вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ.</p>
-        <span class="who">станція → клієнт</span>
-      </div>
-      <figure class="phone sm">
-        <div class="screen"><div class="holder">
-          <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
-        </div></div>
-        <figcaption>Кабінет клієнта</figcaption>
-      </figure>
-    </article>
-    <article class="step">
-      <div class="step-txt">
-        <span class="no">5</span>
-        <h3>Платить і каже про це</h3>
-        <p>Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити надходження. Сервіс не&nbsp;бачить банківського рахунку.</p>
-        <span class="who">клієнт → станція</span>
-      </div>
-      <figure class="phone sm">
-        <div class="screen"><div class="holder">
-          <iframe src="demo/telegram.html" loading="lazy" title="Натисніть «Я оплатив»"></iframe>
-        </div></div>
-        <figcaption>Натисніть «Я оплатив»</figcaption>
-      </figure>
-    </article>
-    <article class="step">
-      <div class="step-txt">
-        <span class="no">6</span>
-        <h3>Гроші видно в касі</h3>
-        <p>Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі. Готівка й&nbsp;безготівка окремо. Список човнів розкладений за&nbsp;тим, що&nbsp;з&nbsp;ним робити, а&nbsp;не&nbsp;за&nbsp;номером місця.</p>
-        <span class="who">станція</span>
-      </div>
-      <figure class="phone sm">
-        <div class="screen"><div class="holder">
-          <iframe src="demo/admin.html" loading="lazy" title="Календар і каса"></iframe>
-        </div></div>
-        <figcaption>Календар і каса</figcaption>
-      </figure>
-    </article>
+  <div class="steps" data-steps>
+    <div class="steps__nav">
+      <button class="rv-btn" type="button" data-st="prev" aria-label="Попередній крок" disabled>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="rv-btn" type="button" data-st="next" aria-label="Наступний крок">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="steps__deck" aria-live="polite">
+      <article class="sstep" style="--k:0">
+        <figure class="phone sm">
+          <div class="screen"><div class="holder">
+            <iframe src="https://skipper-site-three.vercel.app/" loading="lazy" title="Сайт із телефона"></iframe>
+          </div></div>
+          <figcaption>Сайт із телефона</figcaption>
+        </figure>
+        <div class="sstep__txt">
+          <span class="no">1</span>
+          <h3>Знаходить станцію</h3>
+          <p>Сайт відповідає на&nbsp;перше питання власника човна&nbsp;— «скільки коштує й&nbsp;чи&nbsp;є&nbsp;місце». Повзунок довжини рахує суму за&nbsp;справжньою таблицею, а&nbsp;вільні місця приходять із&nbsp;тієї&nbsp;ж бази, у&nbsp;якій станція веде облік.</p>
+          <span class="who">клієнт</span>
+        </div>
+      </article>
+      <article class="sstep" style="--k:1">
+        <figure class="phone sm">
+          <div class="screen"><div class="holder">
+            <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
+          </div></div>
+          <figcaption>CRM станції</figcaption>
+        </figure>
+        <div class="sstep__txt">
+          <span class="no">2</span>
+          <h3>Лишає заявку</h3>
+          <p>Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона не&nbsp;створює: місце закріплює людина після дзвінка.</p>
+          <span class="who">клієнт → станція</span>
+        </div>
+      </article>
+      <article class="sstep" style="--k:2">
+        <figure class="phone sm">
+          <div class="screen"><div class="holder">
+            <iframe src="demo/telegram.html" loading="lazy" title="Чат із ботом"></iframe>
+          </div></div>
+          <figcaption>Чат із ботом</figcaption>
+        </figure>
+        <div class="sstep__txt">
+          <span class="no">3</span>
+          <h3>Підключається до бота</h3>
+          <p>Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить бронь за&nbsp;телефоном. Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить кабінет, станція&nbsp;— CRM.</p>
+          <span class="who">клієнт</span>
+        </div>
+      </article>
+      <article class="sstep" style="--k:3">
+        <figure class="phone sm">
+          <div class="screen"><div class="holder">
+            <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
+          </div></div>
+          <figcaption>Кабінет клієнта</figcaption>
+        </figure>
+        <div class="sstep__txt">
+          <span class="no">4</span>
+          <h3>Отримує рахунок</h3>
+          <p>З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками, з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк із&nbsp;<b>уже вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ.</p>
+          <span class="who">станція → клієнт</span>
+        </div>
+      </article>
+      <article class="sstep" style="--k:4">
+        <figure class="phone sm">
+          <div class="screen"><div class="holder">
+            <iframe src="demo/telegram.html" loading="lazy" title="Натисніть «Я оплатив»"></iframe>
+          </div></div>
+          <figcaption>Натисніть «Я оплатив»</figcaption>
+        </figure>
+        <div class="sstep__txt">
+          <span class="no">5</span>
+          <h3>Платить і каже про це</h3>
+          <p>Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити надходження. Сервіс не&nbsp;бачить банківського рахунку.</p>
+          <span class="who">клієнт → станція</span>
+        </div>
+      </article>
+      <article class="sstep" style="--k:5">
+        <figure class="phone sm">
+          <div class="screen"><div class="holder">
+            <iframe src="demo/admin.html" loading="lazy" title="Календар і каса"></iframe>
+          </div></div>
+          <figcaption>Календар і каса</figcaption>
+        </figure>
+        <div class="sstep__txt">
+          <span class="no">6</span>
+          <h3>Гроші видно в касі</h3>
+          <p>Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі. Готівка й&nbsp;безготівка окремо. Список човнів розкладений за&nbsp;тим, що&nbsp;з&nbsp;ним робити, а&nbsp;не&nbsp;за&nbsp;номером місця.</p>
+          <span class="who">станція</span>
+        </div>
+      </article>
+    </div>
   </div>
 
   <p class="sec-lead" style="margin-top:28px">
@@ -551,6 +585,44 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 /* Десктопна сторінка (1920px) вписується в екран ноутбука цілою.
    Перераховуємо при кожній зміні розміру: без цього після повороту
    телефона сайт вилазив би за край кришки. */
+/* Стос карток: передня видима, решта лежать позаду зі зсувом.
+   Логіка та сама, що у відгуках на головній, щоб поведінка збігалась. */
+(function () {
+  const box = document.querySelector('[data-steps]');
+  if (!box) return;
+  const cards = [...box.querySelectorAll('.sstep')];
+  const prev = box.querySelector('[data-st="prev"]');
+  const next = box.querySelector('[data-st="next"]');
+  let cur = 0;
+
+  function paint() {
+    cards.forEach((c, i) => {
+      const k = i - cur;
+      c.style.setProperty('--k', Math.max(k, 0));
+      c.classList.toggle('is-gone', k < 0);
+      c.classList.toggle('is-front', k === 0);
+      c.setAttribute('aria-hidden', k === 0 ? 'false' : 'true');
+    });
+    prev.disabled = cur === 0;
+    next.disabled = cur === cards.length - 1;
+  }
+  const go = (d) => { cur = Math.max(0, Math.min(cards.length - 1, cur + d)); paint(); };
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+
+  /* На телефоні — свайп. Пальцем гортати звичніше, ніж цілитись
+     у стрілку. */
+  const deck = box.querySelector('.steps__deck');
+  let sx = null;
+  deck.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') sx = e.clientX; });
+  deck.addEventListener('pointerup', (e) => {
+    if (sx === null) return;
+    const dx = e.clientX - sx; sx = null;
+    if (Math.abs(dx) > 48) go(dx < 0 ? 1 : -1);
+  });
+  paint();
+})();
+
 (function () {
   const panes = [...document.querySelectorAll('.pane')];
   if (!panes.length) return;

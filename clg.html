@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Чернетка портфоліо: не показувати в пошуку, як і головну. -->
+<meta name="robots" content="noindex, nofollow">
+<title>CLG Logistic&nbsp;— сайт, таргет, розсилка й&nbsp;презентація для&nbsp;логістики | Fomina.Designs</title>
+<meta name="description" content="Кейс: міжнародний логістичний оператор із Києва. Сайт із 3D і анімаціями, 33 креативи для таргету, 8 листів розсилки й презентація для продажів — в одному стилі.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* Каркас той самий, що в skipper.html (структура з driveberry.fr: герой,
+   біжучий рядок, поворот, нумеровані розділи, великий підвал). Кольори,
+   шрифти й сітка — свої, з design-system.md. Бірюза CLG живе лише
+   всередині рамок: це продукт клієнта, а сторінка — моя. */
+:root{
+  --grey:#D3D3D3; --light:#ECECEC;
+  --blue:#3346C4; --orange:#FF622B; --dark:#212121;
+  --gap:13px; --r:6px;
+  --head:'Roboto Condensed','Arial Narrow',sans-serif;
+  --body:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --grid-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M79.5 0V80M0 79.5H80' fill='none' stroke='%23000' stroke-opacity='.13' stroke-dasharray='2 3'/%3E%3C/svg%3E");
+  --grid-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M79.5 0V80M0 79.5H80' fill='none' stroke='%23fff' stroke-opacity='.2' stroke-dasharray='2 3'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--grey) var(--grid-d);color:var(--blue);
+     font-family:var(--body);font-size:17px;line-height:1.5;overflow-x:clip;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+img{max-width:100%;display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3.4vw,48px)}
+h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
+            line-height:.9;letter-spacing:-.01em;margin:0}
+
+/* ── шапка ─────────────────────────────────────────────────────────── */
+.bar{position:sticky;top:0;z-index:20;background:rgba(211,211,211,.86);
+     backdrop-filter:blur(8px);border-bottom:1px solid rgba(51,70,196,.25)}
+.bar-in{display:flex;align-items:center;gap:var(--gap);padding:11px 0}
+.logo{font-family:var(--head);font-weight:800;font-size:19px;text-transform:uppercase;
+      text-decoration:none;letter-spacing:-.01em}
+.bar .sp{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+     font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:15px;
+     text-decoration:none;cursor:pointer;border:1px solid var(--blue);
+     background:#fff;color:var(--blue);padding:12px 20px;border-radius:var(--r);
+     transition:transform .18s,background .18s}
+.btn:hover{transform:translateY(-2px)}
+.btn.o{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.o:hover{background:#ff7846}
+.btn.g{background:transparent}
+.btn.sm{padding:9px 14px;font-size:13px}
+.btn.wh{background:#fff;border-color:#fff}
+@media (max-width:520px){ .bar .btn.g{display:none} }
+
+/* ── 1. герой ──────────────────────────────────────────────────────── */
+.hero{padding-top:62px;padding-bottom:40px}
+.tagline{font-family:var(--head);font-weight:700;text-transform:uppercase;
+         font-size:14px;letter-spacing:.14em;opacity:.8}
+.hero h1{font-size:clamp(60px,15vw,210px);margin-top:12px}
+.hero h1 small{display:block;font-size:.3em;letter-spacing:.02em;margin-top:.15em}
+.hero .say{max-width:46ch;margin-top:20px;font-size:clamp(18px,2.2vw,25px);font-weight:500}
+.hero-cta{display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:28px}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:40px}
+.meta div{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+          padding:15px 17px;min-width:0}
+.meta dt{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:12px;
+         letter-spacing:.1em;opacity:.65;margin:0}
+.meta dd{margin:5px 0 0;font-weight:600;font-size:16px}
+
+.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(20px,3.4vw,46px);
+           align-items:center}
+.hero-txt,.hero-site{min-width:0}
+/* Ноутбук: кришка, екран і підставка. Усередині — справжній сайт. */
+.lid{background:#212121;border-radius:13px 13px 4px 4px;padding:11px 10px 12px;
+     box-shadow:0 22px 48px rgba(33,33,33,.35)}
+.cam{display:block;width:6px;height:6px;border-radius:50%;background:#3d3d3d;
+     margin:-7px auto 8px}
+.pane{position:relative;overflow:hidden;background:#fff;border-radius:3px;aspect-ratio:32/18}
+.pane img{width:100%;height:100%;object-fit:cover;object-position:top}
+.pane iframe{position:absolute;top:0;left:0;border:0;display:block;
+             width:1920px;height:1080px;transform-origin:top left;background:#fff}
+.base{height:13px;margin:0 clamp(-16px,-1.2vw,-6px);border-radius:0 0 13px 13px;
+      background:linear-gradient(180deg,#2e2e2e,#1b1b1b);position:relative;
+      box-shadow:0 10px 22px rgba(33,33,33,.3)}
+.base::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+             width:16%;height:4px;background:#141414;border-radius:0 0 6px 6px}
+.frame-cap{margin-top:10px;text-align:center;font-size:13.5px;opacity:.65}
+
+@media (max-width:980px){ .hero-grid,.turn-grid{grid-template-columns:1fr} }
+
+/* ── 2. біжучий рядок: що всередині ────────────────────────────────── */
+.pains{background:var(--dark) var(--grid-l);color:#fff;padding:40px 0 46px;overflow:hidden}
+.pains h2{font-size:clamp(40px,8vw,110px);padding:0 clamp(16px,3.4vw,48px);
+          max-width:1240px;margin:0 auto}
+.pains h2 em{font-style:normal;color:var(--orange)}
+.lane{display:flex;align-items:center;gap:10px;margin-top:26px;width:max-content;
+      animation:run var(--sp,46s) linear infinite}
+.lane.back{animation-direction:reverse;--sp:54s;margin-top:10px}
+.lane span{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);
+           padding:12px 22px;white-space:nowrap;font-family:var(--head);font-weight:800;
+           text-transform:uppercase;font-size:clamp(17px,2.2vw,29px)}
+.lane span.hot{background:var(--orange);border-color:var(--orange)}
+/* 3D-транспорт із сайту CLG їде разом із фразами — як на самому сайті,
+   де вантажівка виїжджає на прокрутку. */
+.lane img{height:clamp(44px,5.4vw,72px);width:auto;flex:none}
+.lane.back img{transform:scaleX(-1)}
+@keyframes run{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.lane{animation:none}}
+
+/* ── 3. поворот ────────────────────────────────────────────────────── */
+.turn{background:var(--blue) var(--grid-l);color:#fff;padding:64px 0}
+.turn-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(20px,3.4vw,46px);
+           align-items:center}
+.turn-txt{min-width:0}
+.turn h2{font-size:clamp(32px,5.6vw,80px);max-width:17ch}
+.turn p{max-width:54ch;margin-top:22px;font-size:clamp(17px,1.9vw,21px)}
+.turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:34px}
+.turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:20px 22px;
+                 min-width:0}
+.turn .three b{display:block;font-family:var(--head);font-size:clamp(34px,4.6vw,60px);
+               text-transform:uppercase;line-height:.95}
+.turn .three span{display:block;margin-top:7px;font-size:15.5px}
+.turn .three s{opacity:.7}
+
+/* ── розділи ───────────────────────────────────────────────────────── */
+section{padding:52px 0}
+section[id]{scroll-margin-top:64px}
+.sq{width:80px;height:80px;border:1px solid var(--blue);border-radius:var(--r);
+    position:relative;flex:none;background:#fff}
+.sq::before{content:'';position:absolute;inset:0;
+            background:linear-gradient(to bottom right,transparent calc(50% - .5px),
+            rgba(51,70,196,.45) 50%,transparent calc(50% + .5px))}
+.sq b{position:absolute;left:9px;bottom:6px;font-family:var(--head);font-size:17px}
+.sec-head{display:flex;gap:var(--gap);align-items:flex-start}
+.sec-head h2{font-size:clamp(34px,6.2vw,96px);flex:1;min-width:0}
+.sec-lead{max-width:60ch;margin-top:18px;font-size:clamp(16px,1.7vw,19px)}
+.sub{font-family:var(--head);font-weight:800;text-transform:uppercase;
+     font-size:clamp(22px,2.6vw,34px);margin-top:44px}
+
+/* ── телефон із живим сайтом (на «повороті») ───────────────────────── */
+.phone{width:316px;max-width:100%;margin:0 auto}
+.phone .screen{border:10px solid var(--dark);border-radius:34px;overflow:hidden;
+               background:var(--dark);box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.phone .holder{width:296px;height:591px;overflow:hidden;position:relative;background:#fff}
+.phone .holder img{width:100%;height:auto}
+.phone iframe{position:absolute;top:0;left:0;width:390px;height:780px;border:0;display:block;
+              transform:scale(.758);transform-origin:top left;background:#fff}
+.phone figcaption{margin-top:11px;text-align:center;font-size:14px;font-weight:600;
+                  color:#fff;opacity:.85}
+
+/* ── 01. сайт: кадри з підписами ───────────────────────────────────── */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:26px}
+.shot{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+      padding:clamp(12px,1.5vw,18px);min-width:0;display:flex;flex-direction:column}
+.shot h3{font-size:clamp(19px,2vw,26px);margin-top:16px}
+.shot p{margin:9px 0 0;font-size:15.5px}
+.browser{border:1px solid rgba(51,70,196,.35);border-radius:var(--r);overflow:hidden;background:#fff}
+.browser .bbar{display:flex;align-items:center;gap:9px;padding:8px 11px;
+               border-bottom:1px solid rgba(51,70,196,.2)}
+.dots{display:flex;gap:5px}
+.dots i{width:9px;height:9px;border-radius:50%;background:rgba(51,70,196,.3)}
+.url{flex:1;min-width:0;background:var(--light);border-radius:999px;padding:4px 12px;
+     font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.75}
+.browser a{display:block;aspect-ratio:16/10;overflow:hidden}
+.browser a img{width:100%;height:100%;object-fit:cover;object-position:top;
+               transition:transform .5s}
+.browser a:hover img{transform:scale(1.03)}
+
+/* Було / стало: справжні числа з Lighthouse, нічого не округлено. */
+.speed{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(18px,3vw,40px);align-items:start}
+.speed table{width:100%;border-collapse:collapse;font-size:16px}
+.speed th,.speed td{text-align:left;padding:11px 8px;border-bottom:1px dashed rgba(51,70,196,.35)}
+.speed th{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:12.5px;
+          letter-spacing:.1em;opacity:.65}
+.speed td:last-child{font-weight:700}
+.speed td.up{color:var(--orange)}
+.speed .note{font-size:15px;margin:0}
+.speed .note+.note{margin-top:10px}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:var(--gap)}
+.card{background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:18px 20px;
+      min-width:0}
+.card h3{font-size:19px;margin-bottom:9px}
+.card p{margin:0;font-size:15.5px}
+.panel{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+       padding:clamp(18px,3vw,34px);margin-top:26px}
+.panel.dark{background:var(--dark) var(--grid-l);color:#fff;border-color:var(--dark)}
+.panel.blue{background:var(--blue) var(--grid-l);color:#fff;border-color:var(--blue)}
+.panel.dark .card,.panel.blue .card{background:transparent;border-color:rgba(255,255,255,.4);
+                                    color:#fff}
+
+/* ── 02. креативи ──────────────────────────────────────────────────── */
+.ads{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:clamp(18px,3vw,40px);
+     margin-top:28px;align-items:start}
+.lead-creo{position:sticky;top:84px}
+.story{display:block;border-radius:14px;overflow:hidden;background:var(--dark);
+       border:4px solid var(--dark);aspect-ratio:9/16;
+       box-shadow:0 10px 26px rgba(33,33,33,.22);transition:transform .25s}
+.story img{width:100%;height:100%;object-fit:cover}
+.story:hover{transform:translateY(-4px)}
+.lead-creo .story{border-width:8px;border-radius:26px}
+.cap{font-size:14px;margin-top:9px;line-height:1.4}
+.cap b{font-family:var(--head);text-transform:uppercase;font-size:13px;letter-spacing:.06em;
+       display:block;margin-bottom:2px}
+.series+.series{margin-top:30px}
+.series h3{font-size:clamp(19px,2vw,25px)}
+.series>p{margin:6px 0 0;font-size:15.5px;max-width:56ch}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:14px}
+.row figure{margin:0;min-width:0}
+.formula{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.formula span{border:1px solid var(--blue);border-radius:999px;padding:6px 14px;
+              font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:13px;
+              letter-spacing:.06em;background:#fff}
+.formula i{font-style:normal;align-self:center;opacity:.6}
+
+.ab{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:clamp(14px,2.4vw,30px);align-items:center}
+.ab figure{margin:0;min-width:0;position:relative}
+.ab .tag{position:absolute;top:10px;left:10px;z-index:1;background:var(--orange);color:#fff;
+         font-family:var(--head);font-weight:800;font-size:18px;width:36px;height:36px;
+         display:grid;place-items:center;border-radius:var(--r)}
+.ab h3{font-size:clamp(24px,3.2vw,42px)}
+.ab p{margin:12px 0 0;font-size:16px}
+
+/* ── 03. листи: кожен гортається у своїй рамці ────────────────────── */
+.mails{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:26px}
+.mail{margin:0;min-width:0}
+.mail .win{background:#fff;border:1px solid var(--blue);border-radius:var(--r);overflow:hidden}
+.mail .top{display:flex;gap:8px;align-items:center;padding:9px 12px;font-size:12.5px;
+           border-bottom:1px solid rgba(51,70,196,.2)}
+.mail .top b{font-family:var(--head);text-transform:uppercase;letter-spacing:.06em}
+.mail .scroll{height:clamp(380px,40vw,520px);overflow-y:auto;overscroll-behavior:contain;
+              scrollbar-width:thin}
+.mail figcaption{font-size:14.5px;margin-top:9px;line-height:1.4}
+.flow{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.flow span{background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:7px 12px;
+           font-size:14px;font-weight:600}
+.flow i{font-style:normal;align-self:center;opacity:.55}
+
+/* ── 04. презентація: стрічка слайдів ─────────────────────────────── */
+/* Без скрипта це звичайна стрічка, яку гортають пальцем або колесом;
+   скрипт лише додає стрілки й лічильник. */
+.deck{margin-top:26px;position:relative}
+.track{display:flex;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;
+       scroll-behavior:smooth;padding-bottom:14px;scrollbar-width:thin;
+       -webkit-overflow-scrolling:touch}
+.slide{flex:0 0 min(86%,900px);scroll-snap-align:start;margin:0;min-width:0}
+.slide a{display:block;border:1px solid var(--blue);border-radius:var(--r);overflow:hidden;
+         background:#0d3b3b;aspect-ratio:16/9}
+.slide img{width:100%;height:100%;object-fit:cover}
+.slide figcaption{font-size:14.5px;margin-top:8px}
+.deck-nav{display:none;align-items:center;gap:var(--gap);margin-top:10px}
+.js .deck-nav{display:flex}
+.deck-nav button{width:48px;height:48px;border:1px solid var(--blue);border-radius:var(--r);
+                 background:#fff;color:var(--blue);cursor:pointer;display:grid;place-items:center}
+.deck-nav button:hover{background:var(--blue);color:#fff}
+.deck-nav button:disabled{opacity:.35;cursor:default;background:#fff;color:var(--blue)}
+.deck-nav .count{font-family:var(--head);font-weight:800;font-size:20px;min-width:80px}
+
+/* ── 05. підсумок ──────────────────────────────────────────────────── */
+.rules{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+       gap:var(--gap)}
+.rules li{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
+          padding:18px 20px;display:flex;gap:16px;align-items:flex-start}
+.num{width:32px;height:32px;flex:none;border:1px solid var(--blue);border-radius:var(--r);
+     display:grid;place-items:center;font-family:var(--head);font-size:15px}
+.rules b{display:block;font-family:var(--head);text-transform:uppercase;font-size:18px}
+.rules p{margin:6px 0 0;font-size:15.5px}
+
+/* ── перегляд картинки на весь екран ───────────────────────────────── */
+.lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;
+    width:100vw;height:100vh;margin:0}
+.lb::backdrop{background:rgba(20,20,20,.9)}
+.lb[open]{display:grid;place-items:center}
+.lb img{max-width:min(94vw,1600px);max-height:86vh;width:auto;height:auto;border-radius:var(--r)}
+.lb .x,.lb .pv,.lb .nx{position:fixed;width:48px;height:48px;border-radius:var(--r);
+       border:1px solid rgba(255,255,255,.5);background:rgba(33,33,33,.6);color:#fff;
+       cursor:pointer;display:grid;place-items:center;font-size:22px}
+.lb .x{top:16px;right:16px}
+.lb .pv{left:16px;top:50%;transform:translateY(-50%)}
+.lb .nx{right:16px;top:50%;transform:translateY(-50%)}
+.lb p{position:fixed;bottom:14px;left:0;right:0;text-align:center;color:#fff;
+      font-size:14px;margin:0;opacity:.8;padding:0 70px}
+
+/* ── великий підвал ────────────────────────────────────────────────── */
+footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
+.fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
+.fcols h4{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:12.5px;
+          letter-spacing:.12em;opacity:.6;margin:0 0 12px}
+.fcols a,.fcols p{display:block;font-size:15px;margin:0 0 9px;text-decoration:none;opacity:.85}
+.fcols a:hover{opacity:1;text-decoration:underline}
+.fbrand{font-family:var(--head);font-weight:800;text-transform:uppercase;
+        font-size:clamp(28px,4vw,46px);line-height:.9}
+.fbrand+p{margin-top:12px;max-width:34ch;opacity:.7;font-size:15px}
+.fbot{display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;
+      margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);
+      font-size:14px;opacity:.75}
+
+/* ── адаптив ───────────────────────────────────────────────────────── */
+@media (max-width:1100px){ .mails{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:980px){
+  .fcols{grid-template-columns:1fr 1fr}
+  .ads{grid-template-columns:1fr}
+  .lead-creo{position:static;max-width:320px}
+  .speed{grid-template-columns:1fr}
+  .ab{grid-template-columns:1fr 1fr}
+  .ab>div{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .meta{grid-template-columns:repeat(2,1fr)}
+  .cards,.turn .three,.shots,.rules{grid-template-columns:1fr}
+  .sq{width:56px;height:56px}
+  .sq b{font-size:14px;left:7px;bottom:4px}
+}
+/* На телефоні ряд креативів стає стрічкою, яку гортають пальцем. */
+@media (max-width:640px){
+  .row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+  .row figure{flex:0 0 44%;scroll-snap-align:start}
+  .mails{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+  .mail{flex:0 0 84%;scroll-snap-align:start}
+}
+@media (max-width:560px){ .fcols{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="logo" href="./">Fomina.Designs</a>
+    <span class="sp"></span>
+    <a class="btn sm g" href="./">← Усі роботи</a>
+    <a class="btn sm o" href="https://clg-site-three.vercel.app/" target="_blank" rel="noopener">
+      Відкрити сайт
+    </a>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 1. герой ──────────────────────────────────────────────────── -->
+<div class="wrap hero">
+  <div class="hero-grid">
+    <div class="hero-txt">
+      <p class="tagline">Кейс · 2026 · міжнародна логістика</p>
+      <h1>CLG<small>Customs Logistics Group</small></h1>
+      <p class="say">
+        Сайт, реклама, розсилка й&nbsp;презентація для&nbsp;логістичного
+        оператора&nbsp;— в&nbsp;одному стилі. Не&nbsp;«зробила сайт»,
+        а&nbsp;маркетингова система для&nbsp;B2B.
+      </p>
+      <div class="hero-cta">
+        <a class="btn o" href="https://clg-site-three.vercel.app/" target="_blank" rel="noopener">
+          Живий сайт
+        </a>
+        <a class="btn" href="#site">Що всередині</a>
+      </div>
+    </div>
+
+    <!-- Праворуч справжній сайт: гортається просто в рамці. Поки скрипт
+         не підставив сайт, видно скрин першого екрана. -->
+    <div class="hero-site">
+      <div class="lid">
+        <span class="cam"></span>
+        <div class="pane">
+          <img src="images/clg/site-home-desktop.webp" alt="Перший екран сайту CLG" width="1440" height="900">
+          <iframe data-src="https://clg-site-three.vercel.app/" hidden
+                  title="Сайт CLG — гортайте й натискайте"></iframe>
+        </div>
+      </div>
+      <div class="base"></div>
+      <p class="frame-cap">Справжній сайт: гортайте й&nbsp;натискайте просто тут</p>
+    </div>
+  </div>
+
+  <dl class="meta">
+    <div><dt>Клієнт</dt><dd>міжнародний логістичний оператор, Київ</dd></div>
+    <div><dt>Що зробила</dt><dd>дизайн, 3D, анімації, код</dd></div>
+    <div><dt>Складові</dt><dd>сайт · таргет · email · презентація</dd></div>
+    <div><dt>Стан</dt><dd>сайт працює, UA&nbsp;/&nbsp;EN</dd></div>
+  </dl>
+</div>
+
+<!-- ── 2. що всередині ───────────────────────────────────────────── -->
+<section class="pains" aria-label="Що всередині проєкту">
+  <h2>Один стиль<em>.</em><br>Чотири канали<em>.</em></h2>
+
+  <div class="lane" aria-hidden="true">
+    <img src="images/clg/3d-truck.webp" alt="" width="800" height="450">
+    <span>сайт UA / EN</span><span class="hot">33 креативи для таргету</span>
+    <span>8 листів розсилки</span><span class="hot">презентація на 10 слайдів</span>
+    <img src="images/clg/3d-truck.webp" alt="" width="800" height="450">
+    <span>сайт UA / EN</span><span class="hot">33 креативи для таргету</span>
+    <span>8 листів розсилки</span><span class="hot">презентація на 10 слайдів</span>
+  </div>
+
+  <div class="lane back" aria-hidden="true">
+    <span>авіа</span><span>море FCL / LCL</span>
+    <img src="images/clg/3d-plane.webp" alt="" width="800" height="450">
+    <span>авто FTL</span><span>залізниця</span><span class="hot">митне оформлення</span>
+    <img src="images/clg/3d-train.webp" alt="" width="800" height="450">
+    <span>авіа</span><span>море FCL / LCL</span>
+    <img src="images/clg/3d-plane.webp" alt="" width="800" height="450">
+    <span>авто FTL</span><span>залізниця</span><span class="hot">митне оформлення</span>
+    <img src="images/clg/3d-train.webp" alt="" width="800" height="450">
+  </div>
+</section>
+
+<!-- ── 3. поворот ────────────────────────────────────────────────── -->
+<section class="turn">
+  <div class="wrap turn-grid">
+    <div class="turn-txt">
+      <h2>Сайт утричі легший і&nbsp;зʼявляється за&nbsp;1,4&nbsp;секунди</h2>
+      <p>
+        Старий сайт компанії застарів, а&nbsp;новий я&nbsp;спершу зібрала
+        у&nbsp;Webflow. Потім перенесла його у&nbsp;власний код на&nbsp;Vercel:
+        без щомісячної плати за&nbsp;конструктор, з&nbsp;двома новими сторінками,
+        англійською версією й&nbsp;заявками просто на&nbsp;пошту компанії.
+      </p>
+      <div class="three">
+        <div><b>1,5&nbsp;МБ</b><span>важить головна. Було <s>4,9&nbsp;МБ</s></span></div>
+        <div><b>1,4&nbsp;с</b><span>до першого контенту на&nbsp;телефоні. Було <s>3,7&nbsp;с</s></span></div>
+        <div><b>97</b><span>доступність у&nbsp;Google Lighthouse. Було <s>86</s></span></div>
+      </div>
+    </div>
+
+    <figure class="phone">
+      <div class="screen"><div class="holder">
+        <img src="images/clg/site-home-mobile.webp" alt="Сайт CLG на телефоні" width="390" height="844" loading="lazy">
+        <iframe data-src="https://clg-site-three.vercel.app/" hidden
+                title="Сайт CLG на телефоні — гортайте"></iframe>
+      </div></div>
+      <figcaption>Той самий сайт у&nbsp;телефоні&nbsp;— гортайте</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 01. сайт ──────────────────────────────────────────────────── -->
+<section class="wrap" id="site">
+  <div class="sec-head">
+    <span class="sq"><b>01</b></span>
+    <h2>Сайт, який показує перевезення</h2>
+  </div>
+  <p class="sec-lead">
+    Задача&nbsp;— переробити застарілий сайт так, щоб він продавав послуги
+    бізнесу й&nbsp;показував сам процес перевезення, а&nbsp;не&nbsp;стокові
+    фото з&nbsp;портом. Дизайн і&nbsp;анімації я&nbsp;зробила у&nbsp;Webflow,
+    потім переписала сайт у&nbsp;власний код і&nbsp;доробила.
+  </p>
+
+  <div class="shots">
+    <article class="shot">
+      <div class="browser">
+        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-morski-perevezennia</span></div>
+        <a href="images/clg/site-sea-container.webp" data-zoom="site" data-cap="Бірюзова смуга й контейнер на тросах">
+          <img src="images/clg/site-sea-container.webp" alt="Контейнер на тросах над бірюзовою смугою" width="1440" height="900" loading="lazy">
+        </a>
+      </div>
+      <h3>3D в&nbsp;одному стилі</h3>
+      <p>Літак, вантажівка, потяг і&nbsp;контейнер&nbsp;— 3D-ілюстрації в&nbsp;єдиній
+        бірюзовій гамі. На&nbsp;прокрутку літак пролітає крізь картку, вантажівка
+        виїжджає, контейнер зʼїжджає на&nbsp;тросах.</p>
+    </article>
+
+    <article class="shot">
+      <div class="browser">
+        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-morski-perevezennia</span></div>
+        <a href="images/clg/site-sea-desktop.webp" data-zoom="site" data-cap="Нова сторінка «Морські перевезення (FCL/LCL)»">
+          <img src="images/clg/site-sea-desktop.webp" alt="Сторінка морських перевезень, перший екран" width="1440" height="900" loading="lazy">
+        </a>
+      </div>
+      <h3>Нова сторінка: море</h3>
+      <p>Морські перевезення FCL і&nbsp;LCL&nbsp;— окремою сторінкою: повний
+        контейнер або місце у&nbsp;збірному, з&nbsp;митним оформленням
+        і&nbsp;доставкою до&nbsp;складу.</p>
+    </article>
+
+    <article class="shot">
+      <div class="browser">
+        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-brokerski-posluhy</span></div>
+        <a href="images/clg/site-broker-docs.webp" data-zoom="site" data-cap="Брокерська сторінка: документи з митними печатками">
+          <img src="images/clg/site-broker-docs.webp" alt="Кроки митного оформлення й 3D-документи з печатками" width="1440" height="900" loading="lazy">
+        </a>
+      </div>
+      <h3>Нова сторінка: брокерські послуги</h3>
+      <p>Митне оформлення по&nbsp;кроках. Для&nbsp;неї я&nbsp;згенерувала
+        3D-ілюстрацію документів із&nbsp;митними печатками&nbsp;— у&nbsp;тій&nbsp;ж
+        гамі, що&nbsp;й&nbsp;увесь сайт.</p>
+    </article>
+
+    <article class="shot">
+      <div class="browser">
+        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app</span></div>
+        <a href="images/clg/site-service-cards.webp" data-zoom="site" data-cap="Картки послуг, одна розкрита">
+          <img src="images/clg/site-service-cards.webp" alt="Картки послуг, одна розкрита" width="1440" height="900" loading="lazy">
+        </a>
+      </div>
+      <h3>Картки, що&nbsp;розкриваються</h3>
+      <p>Послуги&nbsp;— картками, які плавно розкриваються. Кнопки мають
+        відблиск, інверсію й&nbsp;стискання кола, бігучі рядки показують типи
+        вантажів і&nbsp;напрямки, FAQ виїжджає збоку.</p>
+    </article>
+  </div>
+
+  <h3 class="sub">Швидкість: було й&nbsp;стало</h3>
+  <div class="panel speed" style="margin-top:14px">
+    <table>
+      <caption class="sr" style="position:absolute;left:-9999px">Google Lighthouse, головна сторінка, телефон</caption>
+      <thead><tr><th>Lighthouse, телефон</th><th>Було</th><th>Стало</th></tr></thead>
+      <tbody>
+        <tr><td>Вага сторінки</td><td>4,9&nbsp;МБ</td><td class="up">1,5&nbsp;МБ</td></tr>
+        <tr><td>Перший контент на&nbsp;екрані</td><td>3,7&nbsp;с</td><td class="up">1,4&nbsp;с</td></tr>
+        <tr><td>Продуктивність</td><td>65</td><td class="up">81–86</td></tr>
+        <tr><td>Доступність</td><td>86</td><td class="up">97</td></tr>
+        <tr><td>SEO</td><td>100</td><td>100</td></tr>
+      </tbody>
+    </table>
+    <div>
+      <p class="note"><b>На&nbsp;компʼютері</b> продуктивність 88, головний блок
+        зʼявляється за&nbsp;0,9&nbsp;с.</p>
+      <p class="note">Заміри&nbsp;— Google Lighthouse, головна сторінка.
+        Продуктивність на&nbsp;телефоні подано діапазоном: від&nbsp;заміру
+        до&nbsp;заміру вона трохи гуляє.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Що ще під&nbsp;капотом</h3>
+  <div class="panel dark" style="margin-top:14px">
+    <div class="cards" style="margin-top:0">
+      <div class="card"><h3>Свій код замість Webflow</h3>
+        <p>Сайт живе на&nbsp;Vercel. Компанія не&nbsp;платить щомісяця
+          за&nbsp;конструктор.</p></div>
+      <div class="card"><h3>UA&nbsp;/&nbsp;EN</h3>
+        <p>Англійська версія всіх сторінок і&nbsp;перемикач мови. Google знає,
+          яка сторінка якою мовою.</p></div>
+      <div class="card"><h3>Заявки на&nbsp;пошту</h3>
+        <p>Форма відправляє заявку просто на&nbsp;пошту компанії, без&nbsp;посередників.</p></div>
+      <div class="card"><h3>SEO</h3>
+        <p>Розмітка компанії й&nbsp;послуг для&nbsp;Google, FAQ-розмітка, карта
+          сайту, превʼю посилань у&nbsp;месенджерах.</p></div>
+      <div class="card"><h3>Пошук нейромережами</h3>
+        <p>Файл <code>llms.txt</code>&nbsp;— довідка про&nbsp;компанію для&nbsp;ChatGPT
+          і&nbsp;Perplexity, щоб вони відповідали про&nbsp;CLG правильно.</p></div>
+      <div class="card"><h3>Дрібниці, які видно</h3>
+        <p>Політика конфіденційності й&nbsp;умови використання. Прийменники
+          не&nbsp;висять у&nbsp;кінці рядка.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 02. креативи ──────────────────────────────────────────────── -->
+<section class="wrap" id="ads">
+  <div class="sec-head">
+    <span class="sq"><b>02</b></span>
+    <h2>Креативи для таргету</h2>
+  </div>
+  <p class="sec-lead">
+    33&nbsp;сторіс 9:16 для&nbsp;реклами в&nbsp;тій&nbsp;самій бірюзі й&nbsp;3D,
+    що&nbsp;на&nbsp;сайті: людина бачить рекламу, переходить&nbsp;— і&nbsp;впізнає
+    компанію. Тут&nbsp;— найсильніші. Кожен креатив побудований за&nbsp;однією
+    схемою:
+  </p>
+  <div class="formula" aria-label="Схема креативу">
+    <span>біль у&nbsp;заголовку</span><i>→</i><span>вигода</span><i>→</i><span>кнопка дії</span>
+  </div>
+
+  <div class="ads">
+    <figure class="lead-creo" style="margin:0">
+      <a class="story" href="images/clg/creo-07.webp" data-zoom="ads" data-cap="«1 договір, 1 менеджер, 100% відповідальності»">
+        <img src="images/clg/creo-07.webp" alt="Креатив: 1 договір, 1 менеджер, 100% відповідальності" width="720" height="1280" loading="lazy">
+      </a>
+      <figcaption class="cap"><b>Головний</b>«1&nbsp;договір, 1&nbsp;менеджер, 100%&nbsp;відповідальності»&nbsp;—
+        одна обіцянка закриває головний страх імпортера: що&nbsp;вантаж
+        загубиться між&nbsp;підрядниками.</figcaption>
+    </figure>
+
+    <div>
+      <div class="series">
+        <h3>Метафори, які продають</h3>
+        <p>Абстрактну вигоду показано предметом, який зрозуміло з&nbsp;першої секунди.</p>
+        <div class="row">
+          <figure>
+            <a class="story" href="images/clg/creo-06.webp" data-zoom="ads" data-cap="«Кошторис фіксуємо до відправлення»">
+              <img src="images/clg/creo-06.webp" alt="Креатив: контейнер на ланцюгу із замком — кошторис фіксуємо" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">Контейнер на&nbsp;ланцюгу із&nbsp;замком&nbsp;— «кошторис фіксуємо»</figcaption>
+          </figure>
+          <figure>
+            <a class="story" href="images/clg/creo-09.webp" data-zoom="ads" data-cap="«Перевірте, чи не переплачуєте ви за фрахт»">
+              <img src="images/clg/creo-09.webp" alt="Креатив: терези — чи не переплачуєте ви за фрахт" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">Терези&nbsp;— «чи&nbsp;не&nbsp;переплачуєте за&nbsp;фрахт»</figcaption>
+          </figure>
+          <figure>
+            <a class="story" href="images/clg/creo-22.webp" data-zoom="ads" data-cap="«Потрібна вигідна доставка?»">
+              <img src="images/clg/creo-22.webp" alt="Креатив: контейнер у руках — потрібна вигідна доставка" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">Контейнер у&nbsp;руках&nbsp;— той самий образ, що&nbsp;на&nbsp;сайті</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="series">
+        <h3>Митниця</h3>
+        <p>Найболючіше в&nbsp;імпорті&nbsp;— приховані платежі й&nbsp;вантаж, що&nbsp;застряг.
+          Креативи відповідають на&nbsp;цей страх прямо.</p>
+        <div class="row">
+          <figure>
+            <a class="story" href="images/clg/creo-01.webp" data-zoom="ads" data-cap="«Набридли приховані платежі на митниці?»">
+              <img src="images/clg/creo-01.webp" alt="Креатив: набридли приховані платежі на митниці" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Набридли приховані платежі на&nbsp;митниці?»</figcaption>
+          </figure>
+          <figure>
+            <a class="story" href="images/clg/creo-05.webp" data-zoom="ads" data-cap="«Ваш вантаж не застряне на митниці»">
+              <img src="images/clg/creo-05.webp" alt="Креатив: ваш вантаж не застряне на митниці" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Ваш вантаж не&nbsp;застряне на&nbsp;митниці»</figcaption>
+          </figure>
+          <figure>
+            <a class="story" href="images/clg/creo-20.webp" data-zoom="ads" data-cap="«Вантаж застряг?»">
+              <img src="images/clg/creo-20.webp" alt="Креатив: вантаж застряг" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Вантаж застряг?»</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="series">
+        <h3>Преміальна серія: бірюза й&nbsp;золото</h3>
+        <p>Темний фон, золоті акценти, світлі кнопки&nbsp;— для&nbsp;великого
+          й&nbsp;середнього бізнесу, якому важлива надійність.</p>
+        <div class="row">
+          <figure>
+            <a class="story" href="images/clg/creo-10.webp" data-zoom="ads" data-cap="«Регулярні рейси без затримок»">
+              <img src="images/clg/creo-10.webp" alt="Креатив: регулярні рейси без затримок" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Регулярні рейси без&nbsp;затримок»</figcaption>
+          </figure>
+          <figure>
+            <a class="story" href="images/clg/creo-12.webp" data-zoom="ads" data-cap="«Ваш вантаж вже в дорозі?»">
+              <img src="images/clg/creo-12.webp" alt="Креатив: ваш вантаж вже в дорозі" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Ваш вантаж вже в&nbsp;дорозі?»</figcaption>
+          </figure>
+          <figure>
+            <a class="story" href="images/clg/creo-31.webp" data-zoom="ads" data-cap="«Збірні контейнерні партії (LCL)»">
+              <img src="images/clg/creo-31.webp" alt="Креатив: збірні контейнерні партії LCL" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Збірні контейнерні партії»</figcaption>
+          </figure>
+          <figure>
+            <a class="story" href="images/clg/creo-33.webp" data-zoom="ads" data-cap="«Надійний імпорт для малого та середнього B2B-бізнесу»">
+              <img src="images/clg/creo-33.webp" alt="Креатив: надійний імпорт для малого та середнього B2B-бізнесу" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Надійний імпорт для&nbsp;B2B»</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="series">
+        <h3>Синя серія&nbsp;— з&nbsp;чого почали</h3>
+        <p>Перший набір: світліший, з&nbsp;синім контейнером і&nbsp;ціною в&nbsp;картках.
+          З&nbsp;нього виросла бірюзова серія.</p>
+        <div class="row">
+          <figure>
+            <a class="story" href="images/clg/creo-02.webp" data-zoom="ads" data-cap="«Оптимізуйте логістику для бізнесу»">
+              <img src="images/clg/creo-02.webp" alt="Креатив синьої серії: оптимізуйте логістику для бізнесу" width="720" height="1280" loading="lazy">
+            </a>
+            <figcaption class="cap">«Оптимізуйте логістику для&nbsp;бізнесу»</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ab">
+      <figure>
+        <span class="tag">A</span>
+        <a class="story" href="images/clg/creo-07.webp" data-zoom="ab" data-cap="Варіант A">
+          <img src="images/clg/creo-07.webp" alt="Варіант A: фотореалістична сцена із золотом" width="720" height="1280" loading="lazy">
+        </a>
+      </figure>
+      <figure>
+        <span class="tag">B</span>
+        <a class="story" href="images/clg/creo-08.webp" data-zoom="ab" data-cap="Варіант B">
+          <img src="images/clg/creo-08.webp" alt="Варіант B: темна сцена з неоновим світлом" width="720" height="1280" loading="lazy">
+        </a>
+      </figure>
+      <div>
+        <h3>Одна ідея&nbsp;— дві подачі</h3>
+        <p>Та сама обіцянка й&nbsp;та сама кнопка, але різна картинка:
+          світла фотореалістична сцена із&nbsp;золотом проти темної
+          з&nbsp;неоновим світлом. Такі пари запускають у&nbsp;рекламі
+          паралельно й&nbsp;лишають ту, що&nbsp;приводить заявки дешевше.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03. розсилка ──────────────────────────────────────────────── -->
+<section class="wrap" id="email">
+  <div class="sec-head">
+    <span class="sq"><b>03</b></span>
+    <h2>Email-розсилка</h2>
+  </div>
+  <p class="sec-lead">
+    Вісім листів&nbsp;— по&nbsp;одному на&nbsp;послугу: авіа, море, залізниця,
+    «під&nbsp;ключ», митне оформлення, тарифи. Усі зібрані за&nbsp;однією
+    схемою, тож лист CLG впізнають іще до&nbsp;того, як&nbsp;прочитали тему.
+  </p>
+  <div class="flow" aria-label="Схема листа">
+    <span>шапка з&nbsp;логотипом</span><i>→</i><span>привітання</span><i>→</i>
+    <span>картка з&nbsp;3D-ілюстрацією</span><i>→</i><span>ціни</span><i>→</i><span>кнопка</span>
+  </div>
+
+  <div class="mails">
+    <figure class="mail">
+      <div class="win">
+        <div class="top"><b>CLG</b><span>Залізниця</span></div>
+        <div class="scroll" tabindex="0" aria-label="Лист про залізничні перевезення — гортайте">
+          <img src="images/clg/mail-04.webp" alt="Лист: швидше за море, дешевше за авіа — залізничні перевезення" width="820" height="1090" loading="lazy">
+        </div>
+      </div>
+      <figcaption>«Швидше за&nbsp;море. Дешевше за&nbsp;авіа»&nbsp;— найсильніший заголовок серії</figcaption>
+    </figure>
+    <figure class="mail">
+      <div class="win">
+        <div class="top"><b>CLG</b><span>Під ключ</span></div>
+        <div class="scroll" tabindex="0" aria-label="Лист про доставку під ключ — гортайте">
+          <img src="images/clg/mail-05.webp" alt="Лист: доставка без турбот, повний сервіс під ключ" width="820" height="1160" loading="lazy">
+        </div>
+      </div>
+      <figcaption>Доставка «під&nbsp;ключ»: від&nbsp;пошуку постачальника до&nbsp;складу</figcaption>
+    </figure>
+    <figure class="mail">
+      <div class="win">
+        <div class="top"><b>CLG</b><span>Авіа</span></div>
+        <div class="scroll" tabindex="0" aria-label="Лист про авіадоставку — гортайте">
+          <img src="images/clg/mail-02.webp" alt="Лист: авіадоставка з Китаю, США та інших країн через Варшаву" width="820" height="1160" loading="lazy">
+        </div>
+      </div>
+      <figcaption>Авіадоставка через&nbsp;Варшаву</figcaption>
+    </figure>
+    <figure class="mail">
+      <div class="win">
+        <div class="top"><b>CLG</b><span>LCL</span></div>
+        <div class="scroll" tabindex="0" aria-label="Лист про збірні вантажі — гортайте">
+          <img src="images/clg/mail-01.webp" alt="Лист: збірні вантажі з Азії та США" width="820" height="1160" loading="lazy">
+        </div>
+      </div>
+      <figcaption>Збірні вантажі з&nbsp;Азії та&nbsp;США</figcaption>
+    </figure>
+  </div>
+  <p class="sec-lead" style="margin-top:22px;font-size:15.5px;opacity:.8">
+    Листи гортаються просто в&nbsp;рамках. Листи з&nbsp;детальними тарифами
+    клієнта лишила за&nbsp;кадром.
+  </p>
+</section>
+
+<!-- ── 04. презентація ───────────────────────────────────────────── -->
+<section class="wrap" id="deck">
+  <div class="sec-head">
+    <span class="sq"><b>04</b></span>
+    <h2>Презентація для продажів</h2>
+  </div>
+  <p class="sec-lead">
+    Десять слайдів 16:9 у&nbsp;тому&nbsp;ж стилі: компанія, послуги
+    й&nbsp;кожен вид перевезень окремо&nbsp;— авіа, море, LCL, FTL, LTL,
+    брокерські послуги.
+  </p>
+
+  <div class="deck">
+    <div class="track" tabindex="0" aria-label="Слайди презентації — гортайте вбік">
+      <figure class="slide"><a href="images/clg/slide-01.webp" data-zoom="deck" data-cap="Обкладинка"><img src="images/clg/slide-01.webp" alt="Слайд: обкладинка Customs Logistics Group" width="1600" height="900" loading="lazy"></a><figcaption>Обкладинка</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-02.webp" data-zoom="deck" data-cap="Про компанію"><img src="images/clg/slide-02.webp" alt="Слайд: про компанію" width="1600" height="900" loading="lazy"></a><figcaption>Про компанію: понад 120&nbsp;країн, від&nbsp;10&nbsp;кг до&nbsp;200&nbsp;т</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-03.webp" data-zoom="deck" data-cap="Послуги"><img src="images/clg/slide-03.webp" alt="Слайд: послуги" width="1600" height="900" loading="lazy"></a><figcaption>Послуги</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-04.webp" data-zoom="deck" data-cap="Авіаперевезення"><img src="images/clg/slide-04.webp" alt="Слайд: авіаперевезення" width="1600" height="900" loading="lazy"></a><figcaption>Авіаперевезення</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-05.webp" data-zoom="deck" data-cap="Морські перевезення"><img src="images/clg/slide-05.webp" alt="Слайд: морські перевезення" width="1600" height="900" loading="lazy"></a><figcaption>Морські перевезення</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-06.webp" data-zoom="deck" data-cap="Консолідований вантаж — LCL"><img src="images/clg/slide-06.webp" alt="Слайд: консолідований вантаж LCL" width="1600" height="900" loading="lazy"></a><figcaption>Консолідований вантаж&nbsp;— LCL</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-07.webp" data-zoom="deck" data-cap="FTL — автоперевезення"><img src="images/clg/slide-07.webp" alt="Слайд: FTL автоперевезення" width="1600" height="900" loading="lazy"></a><figcaption>FTL&nbsp;— автоперевезення</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-08.webp" data-zoom="deck" data-cap="LTL — збірне автоперевезення"><img src="images/clg/slide-08.webp" alt="Слайд: LTL збірне автоперевезення" width="1600" height="900" loading="lazy"></a><figcaption>LTL&nbsp;— збірне автоперевезення</figcaption></figure>
+      <figure class="slide"><a href="images/clg/slide-09.webp" data-zoom="deck" data-cap="Брокерські послуги"><img src="images/clg/slide-09.webp" alt="Слайд: брокерські послуги" width="1600" height="900" loading="lazy"></a><figcaption>Брокерські послуги</figcaption></figure>
+    </div>
+    <div class="deck-nav">
+      <button type="button" class="prev" aria-label="Попередній слайд">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" class="next" aria-label="Наступний слайд">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <span class="count">01 / 09</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── 05. підсумок і заклик ─────────────────────────────────────── -->
+<section class="wrap">
+  <div class="sec-head">
+    <span class="sq"><b>05</b></span>
+    <h2>Що отримала компанія</h2>
+  </div>
+
+  <ol class="rules">
+    <li><span class="num">1</span>
+      <div><b>Один стиль у&nbsp;кожному каналі</b>
+        <p>Реклама, сайт, лист і&nbsp;презентація говорять однією мовою:
+          та сама бірюза, той самий 3D, той самий тон.</p></div></li>
+    <li><span class="num">2</span>
+      <div><b>Сайт без&nbsp;абонплати</b>
+        <p>Власний код на&nbsp;Vercel замість конструктора з&nbsp;щомісячною
+          оплатою.</p></div></li>
+    <li><span class="num">3</span>
+      <div><b>Швидкий на&nbsp;телефоні</b>
+        <p>Головна втричі легша й&nbsp;показує перший контент за&nbsp;1,4&nbsp;с
+          замість 3,7.</p></div></li>
+    <li><span class="num">4</span>
+      <div><b>Готовий до&nbsp;пошуку</b>
+        <p>Дві мови, розмітка для&nbsp;Google і&nbsp;довідка для&nbsp;нейромереж.</p></div></li>
+  </ol>
+
+  <div class="panel blue">
+    <h3 style="font-size:clamp(24px,4vw,46px)">Потрібна така&nbsp;ж система?</h3>
+    <p style="margin-top:12px;max-width:52ch">
+      Сайт, рекламу, розсилку й&nbsp;презентацію роблю в&nbsp;одному стилі&nbsp;—
+      для&nbsp;бізнесу, якому треба продавати послугу, а&nbsp;не&nbsp;просто
+      мати сайт.
+    </p>
+    <div style="display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:22px">
+      <a class="btn wh" href="./#contact">Написати мені</a>
+      <a class="btn g" style="border-color:#fff;color:#fff" href="./">Інші роботи</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Перегляд картинки на весь екран. Без скрипта посилання просто
+     відкривають картинку окремо. -->
+<dialog class="lb" aria-label="Перегляд">
+  <img alt="">
+  <button type="button" class="x" aria-label="Закрити">✕</button>
+  <button type="button" class="pv" aria-label="Попередня">‹</button>
+  <button type="button" class="nx" aria-label="Наступна">›</button>
+  <p></p>
+</dialog>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div>
+        <span class="fbrand">Fomina.<br>Designs</span>
+        <p>Сайти й&nbsp;маркетинг під&nbsp;ключ: від&nbsp;першого екрана
+          до&nbsp;реклами й&nbsp;розсилки.</p>
+      </div>
+      <div>
+        <h4>Проєкт</h4>
+        <a href="https://clg-site-three.vercel.app/" target="_blank" rel="noopener">Живий сайт</a>
+        <a href="https://clg-site-three.vercel.app/en" target="_blank" rel="noopener">English version</a>
+      </div>
+      <div>
+        <h4>У кейсі</h4>
+        <a href="#site">Сайт</a>
+        <a href="#ads">Креативи для&nbsp;таргету</a>
+        <a href="#email">Email-розсилка</a>
+        <a href="#deck">Презентація</a>
+      </div>
+      <div>
+        <h4>Ще</h4>
+        <a href="./">Усі роботи</a>
+        <a href="skipper.html">Кейс: Skipper</a>
+        <a href="kviz.html">Квіз за&nbsp;3&nbsp;хвилини</a>
+        <a href="https://t.me/fominadesigns" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://www.instagram.com/fominadesigns/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+
+    <div class="fbot">
+      <span>© 2026. Fomina.Designs. Усі права захищені</span>
+      <span>Customs Logistics Group, Київ</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+/* Живий сайт у рамках. Підставляємо його, лише коли рамка близько
+   до екрана: два iframe з анімаціями одразу гальмували б сторінку.
+   Скрин під ним лишається, поки сайт вантажиться. */
+(function () {
+  const frames = [...document.querySelectorAll('iframe[data-src]')];
+  const load = (f) => {
+    if (f.src) return;
+    f.src = f.dataset.src;
+    f.hidden = false;
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { load(e.target.querySelector('iframe')); io.unobserve(e.target); }
+    }), { rootMargin: '300px' });
+    frames.forEach((f) => io.observe(f.parentNode));
+  } else frames.forEach(load);
+
+  /* Десктопна сторінка (1920px) вписується в екран ноутбука цілою. */
+  const panes = [...document.querySelectorAll('.pane')];
+  const fit = () => panes.forEach((p) => {
+    const f = p.querySelector('iframe');
+    if (f) f.style.transform = 'scale(' + (p.clientWidth / 1920) + ')';
+  });
+  fit();
+  if (window.ResizeObserver && panes[0]) new ResizeObserver(fit).observe(panes[0]);
+  else window.addEventListener('resize', fit);
+})();
+
+/* Стрілки й лічильник для слайдів. */
+(function () {
+  const track = document.querySelector('.track');
+  if (!track) return;
+  const slides = [...track.children];
+  const nav = document.querySelector('.deck-nav');
+  const count = nav.querySelector('.count');
+  const prev = nav.querySelector('.prev');
+  const next = nav.querySelector('.next');
+  const pad = (n) => String(n).padStart(2, '0');
+  const step = () => slides[1].offsetLeft - slides[0].offsetLeft;
+  const idx = () => Math.round(track.scrollLeft / step());
+  const upd = () => {
+    const i = Math.min(idx(), slides.length - 1);
+    count.textContent = pad(i + 1) + ' / ' + pad(slides.length);
+    prev.disabled = track.scrollLeft < 4;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  };
+  prev.addEventListener('click', () => track.scrollBy({ left: -step() }));
+  next.addEventListener('click', () => track.scrollBy({ left: step() }));
+  track.addEventListener('scroll', () => requestAnimationFrame(upd), { passive: true });
+  window.addEventListener('resize', upd);
+  upd();
+})();
+
+/* Перегляд на весь екран: стрілки ходять у межах своєї групи
+   (сайт, креативи, слайди). */
+(function () {
+  const dlg = document.querySelector('.lb');
+  if (!dlg || !dlg.showModal) return;
+  const img = dlg.querySelector('img');
+  const cap = dlg.querySelector('p');
+  let group = [], i = 0;
+  const show = () => {
+    const a = group[i];
+    img.src = a.getAttribute('href');
+    img.alt = a.querySelector('img') ? a.querySelector('img').alt : '';
+    cap.textContent = (a.dataset.cap || '') + (group.length > 1 ? '  ·  ' + (i + 1) + ' / ' + group.length : '');
+    dlg.querySelector('.pv').hidden = dlg.querySelector('.nx').hidden = group.length < 2;
+  };
+  const go = (d) => { i = (i + d + group.length) % group.length; show(); };
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[data-zoom]');
+    if (!a) return;
+    e.preventDefault();
+    group = [...document.querySelectorAll('a[data-zoom="' + a.dataset.zoom + '"]')];
+    i = group.indexOf(a);
+    show();
+    dlg.showModal();
+  });
+  dlg.querySelector('.x').addEventListener('click', () => dlg.close());
+  dlg.querySelector('.pv').addEventListener('click', () => go(-1));
+  dlg.querySelector('.nx').addEventListener('click', () => go(1));
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+})();
+</script>
+
+</body>
+</html>
