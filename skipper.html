@@ -134,7 +134,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .turn .three span{display:block;margin-top:7px;font-size:15.5px}
 
 /* ── 4. кроки ──────────────────────────────────────────────────────── */
-section{padding-top:52px;padding-bottom:52px}
+section{padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(52px,7vw,96px)}
 .sq{width:80px;height:80px;border:1px solid var(--blue);border-radius:var(--r);
     position:relative;flex:none;background:#fff}
 .sq::before{content:'';position:absolute;inset:0;
@@ -185,14 +185,16 @@ section{padding-top:52px;padding-bottom:52px}
 .phone figcaption{margin-top:11px;text-align:center;font-size:14px;font-weight:600;opacity:.8}
 
 /* ── рішення ───────────────────────────────────────────────────────── */
-.rules{list-style:none;margin:var(--gap) 0 0;padding:0;display:flex;
-       flex-direction:column;gap:var(--gap)}
+.rules{list-style:none;margin:26px 0 0;padding:0;
+       display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
 .rules li{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
-          padding:18px 20px;display:flex;gap:16px;align-items:flex-start}
-.num{width:32px;height:32px;flex:none;border:1px solid var(--blue);border-radius:var(--r);
-     display:grid;place-items:center;font-family:var(--head);font-size:15px}
-.rules b{display:block;font-family:var(--head);text-transform:uppercase;font-size:18px}
-.rules p{margin:6px 0 0;font-size:15.5px}
+          padding:20px 20px 22px;min-width:0;display:block}
+.num{width:32px;height:32px;border:1px solid var(--blue);border-radius:var(--r);
+     display:grid;place-items:center;font-family:var(--head);font-size:15px;
+     margin-bottom:13px}
+.rules b{display:block;font-family:var(--head);text-transform:uppercase;font-size:17px;
+         line-height:1.02;letter-spacing:-.005em}
+.rules p{margin:9px 0 0;font-size:14.5px;line-height:1.5}
 
 .panel{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
        padding:clamp(18px,3vw,34px);margin-top:26px}
@@ -224,6 +226,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   .step{grid-template-columns:1fr}
   .phone.sm{margin:4px auto 0}
 }
+@media (max-width:1080px){ .rules{grid-template-columns:1fr 1fr} }
 @media (max-width:980px){
   .steps-grid{grid-template-columns:1fr}
   .fcols{grid-template-columns:1fr 1fr}
@@ -234,7 +237,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   .sq{width:56px;height:56px}
   .sq b{font-size:14px;left:7px;bottom:4px}
 }
-@media (max-width:560px){ .fcols{grid-template-columns:1fr} }
+@media (max-width:560px){ .fcols,.rules{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -459,25 +462,33 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 
   <ol class="rules">
-    <li><span class="num">1</span>
-      <div><b>Сервіс нічого не вирішує за людину</b>
-        <p>Він не&nbsp;підтверджує бронь і&nbsp;не&nbsp;зараховує оплату:
-          він не&nbsp;бачить банківського рахунку.</p></div></li>
-    <li><span class="num">2</span>
-      <div><b>Невідоме показуємо як невідоме</b>
-        <p>Якщо тариф не&nbsp;названий, борг не&nbsp;рахується, і&nbsp;місяць
+    <li>
+      <span class="num">1</span>
+      <b>Сервіс нічого не вирішує за людину</b>
+      <p>Він не&nbsp;підтверджує бронь і&nbsp;не&nbsp;зараховує оплату:
+          він не&nbsp;бачить банківського рахунку.</p>
+    </li>
+    <li>
+      <span class="num">2</span>
+      <b>Невідоме показуємо як невідоме</b>
+      <p>Якщо тариф не&nbsp;названий, борг не&nbsp;рахується, і&nbsp;місяць
           отримує свій, сірий колір. Нуль тут означав&nbsp;би «усе гаразд»,
-          а&nbsp;правда&nbsp;— «ми&nbsp;не&nbsp;знаємо».</p></div></li>
-    <li><span class="num">3</span>
-      <div><b>Оплата важливіша за календар</b>
-        <p>Місяць, оплачений наперед, зелений уже зараз. Спершу колір залежав
+          а&nbsp;правда&nbsp;— «ми&nbsp;не&nbsp;знаємо».</p>
+    </li>
+    <li>
+      <span class="num">3</span>
+      <b>Оплата важливіша за календар</b>
+      <p>Місяць, оплачений наперед, зелений уже зараз. Спершу колір залежав
           від&nbsp;того, минув місяць чи&nbsp;ні&nbsp;— і&nbsp;той, хто
-          розрахувався до&nbsp;нового року, виглядав як боржник.</p></div></li>
-    <li><span class="num">4</span>
-      <div><b>Суми — цілими копійками</b>
-        <p>Дробові числа дають похибку округлення, а&nbsp;це&nbsp;рахунок живої
+          розрахувався до&nbsp;нового року, виглядав як боржник.</p>
+    </li>
+    <li>
+      <span class="num">4</span>
+      <b>Суми — цілими копійками</b>
+      <p>Дробові числа дають похибку округлення, а&nbsp;це&nbsp;рахунок живої
           людини. Ціна, якої не&nbsp;знаємо,&nbsp;— не&nbsp;нуль,
-          а&nbsp;окремий стан «ціну уточнити».</p></div></li>
+          а&nbsp;окремий стан «ціну уточнити».</p>
+    </li>
   </ol>
 </section>
 
