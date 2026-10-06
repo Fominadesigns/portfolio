@@ -149,15 +149,17 @@ section{padding:52px 0}
    розтягували розділ на пів сторінки, і зв'язок між кроками губився. */
 .steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:26px}
 .step{background:#fff;border:1px solid var(--blue);border-radius:var(--r);
-      padding:clamp(18px,2.4vw,28px);min-width:0;display:flex;flex-direction:column}
-.step .no{display:inline-grid;place-items:center;width:42px;height:42px;
-          border-radius:var(--r);background:var(--orange);color:#fff;
-          font-family:var(--head);font-size:19px}
-.step h3{font-size:clamp(21px,2.4vw,30px);margin-top:13px}
-.step p{margin-top:11px;font-size:15.5px}
-.step .who{align-self:flex-start;margin-top:14px;font-family:var(--head);font-weight:700;
-           text-transform:uppercase;font-size:12px;letter-spacing:.12em;
-           border:1px solid var(--blue);border-radius:999px;padding:5px 13px}
+      padding:clamp(16px,2vw,24px);min-width:0;
+      display:grid;grid-template-columns:1fr 206px;gap:clamp(14px,1.8vw,24px);
+      align-items:start}
+.step-txt{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.step .no{display:grid;place-items:center;width:40px;height:40px;border-radius:var(--r);
+          background:var(--orange);color:#fff;font-family:var(--head);font-size:18px}
+.step h3{font-size:clamp(19px,2vw,26px);margin-top:12px}
+.step p{margin-top:10px;font-size:15px}
+.step .who{margin-top:13px;font-family:var(--head);font-weight:700;text-transform:uppercase;
+           font-size:11.5px;letter-spacing:.12em;border:1px solid var(--blue);
+           border-radius:999px;padding:5px 12px}
 
 /* ── рамки пристроїв ───────────────────────────────────────────────── */
 .browser{border:1px solid var(--blue);border-radius:var(--r);overflow:hidden;background:#fff}
@@ -175,10 +177,11 @@ section{padding:52px 0}
 .phone .holder{width:296px;height:591px;overflow:hidden}
 .phone iframe{width:390px;height:780px;border:0;display:block;
               transform:scale(.758);transform-origin:top left}
-.phone.sm{width:232px;margin:20px auto 0}
-.phone.sm .screen{border-width:8px;border-radius:26px}
-.phone.sm .holder{width:216px;height:432px}
-.phone.sm iframe{transform:scale(.5538)}
+.phone.sm{width:206px;margin:0}
+.phone.sm .screen{border-width:7px;border-radius:24px}
+.phone.sm .holder{width:192px;height:384px}
+.phone.sm iframe{transform:scale(.4923)}
+.phone.sm figcaption{font-size:12.5px;margin-top:9px}
 .phone figcaption{margin-top:11px;text-align:center;font-size:14px;font-weight:600;opacity:.8}
 
 /* ── рішення ───────────────────────────────────────────────────────── */
@@ -217,6 +220,10 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);
       font-size:14px;opacity:.75}
 
+@media (max-width:620px){
+  .step{grid-template-columns:1fr}
+  .phone.sm{margin:4px auto 0}
+}
 @media (max-width:980px){
   .steps-grid{grid-template-columns:1fr}
   .fcols{grid-template-columns:1fr 1fr}
@@ -351,16 +358,26 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
   <div class="steps-grid">
     <article class="step">
-      <span class="no">1</span>
-      <h3>Знаходить станцію</h3>
-      <p>Сайт відповідає на&nbsp;перше питання власника човна&nbsp;— «скільки коштує й&nbsp;чи&nbsp;є&nbsp;місце». Він угорі цієї сторінки, у&nbsp;рамці: повзунок довжини рахує суму за&nbsp;справжньою таблицею, а&nbsp;вільні місця приходять із&nbsp;тієї&nbsp;ж бази, у&nbsp;якій станція веде облік.</p>
-      <span class="who">клієнт</span>
+      <div class="step-txt">
+        <span class="no">1</span>
+        <h3>Знаходить станцію</h3>
+        <p>Сайт відповідає на&nbsp;перше питання власника човна&nbsp;— «скільки коштує й&nbsp;чи&nbsp;є&nbsp;місце». Повзунок довжини рахує суму за&nbsp;справжньою таблицею, а&nbsp;вільні місця приходять із&nbsp;тієї&nbsp;ж бази, у&nbsp;якій станція веде облік.</p>
+        <span class="who">клієнт</span>
+      </div>
+      <figure class="phone sm">
+        <div class="screen"><div class="holder">
+          <iframe src="https://skipper-site-three.vercel.app/" loading="lazy" title="Сайт із телефона"></iframe>
+        </div></div>
+        <figcaption>Сайт із телефона</figcaption>
+      </figure>
     </article>
     <article class="step">
-      <span class="no">2</span>
-      <h3>Лишає заявку</h3>
-      <p>Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона не&nbsp;створює: місце закріплює людина після дзвінка.</p>
-      <span class="who">клієнт → станція</span>
+      <div class="step-txt">
+        <span class="no">2</span>
+        <h3>Лишає заявку</h3>
+        <p>Заявка падає просто в&nbsp;CRM і&nbsp;спливає над&nbsp;усіма вкладками, поки з&nbsp;нею нічого не&nbsp;зробили. Бронювання вона не&nbsp;створює: місце закріплює людина після дзвінка.</p>
+        <span class="who">клієнт → станція</span>
+      </div>
       <figure class="phone sm">
         <div class="screen"><div class="holder">
           <iframe src="demo/admin.html" loading="lazy" title="CRM станції"></iframe>
@@ -369,10 +386,12 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </figure>
     </article>
     <article class="step">
-      <span class="no">3</span>
-      <h3>Підключається до бота</h3>
-      <p>Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить бронь за&nbsp;телефоном. Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить кабінет, станція&nbsp;— CRM.</p>
-      <span class="who">клієнт</span>
+      <div class="step-txt">
+        <span class="no">3</span>
+        <h3>Підключається до бота</h3>
+        <p>Один «Старт» і&nbsp;кнопка «Поділитися номером»&nbsp;— бот знаходить бронь за&nbsp;телефоном. Той самий бот веде <b>два різні</b> міні-додатки: клієнт бачить кабінет, станція&nbsp;— CRM.</p>
+        <span class="who">клієнт</span>
+      </div>
       <figure class="phone sm">
         <div class="screen"><div class="holder">
           <iframe src="demo/telegram.html" loading="lazy" title="Чат із ботом"></iframe>
@@ -381,10 +400,12 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </figure>
     </article>
     <article class="step">
-      <span class="no">4</span>
-      <h3>Отримує рахунок</h3>
-      <p>З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками, з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк із&nbsp;<b>уже вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ.</p>
-      <span class="who">станція → клієнт</span>
+      <div class="step-txt">
+        <span class="no">4</span>
+        <h3>Отримує рахунок</h3>
+        <p>З&nbsp;1&nbsp;по&nbsp;7&nbsp;число рахунок приходить сам&nbsp;— рядками, з&nbsp;реквізитами й&nbsp;кнопкою, яка відкриває банк із&nbsp;<b>уже вписаною сумою</b>. QR&nbsp;за&nbsp;стандартом НБУ.</p>
+        <span class="who">станція → клієнт</span>
+      </div>
       <figure class="phone sm">
         <div class="screen"><div class="holder">
           <iframe src="demo/client.html" loading="lazy" title="Кабінет клієнта"></iframe>
@@ -393,10 +414,12 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </figure>
     </article>
     <article class="step">
-      <span class="no">5</span>
-      <h3>Платить і каже про це</h3>
-      <p>Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити надходження. Сервіс не&nbsp;бачить банківського рахунку.</p>
-      <span class="who">клієнт → станція</span>
+      <div class="step-txt">
+        <span class="no">5</span>
+        <h3>Платить і каже про це</h3>
+        <p>Після оплати клієнт тисне «Я&nbsp;оплатив». Ця кнопка <b>не&nbsp;зараховує гроші</b>&nbsp;— вона кладе станції сигнал звірити надходження. Сервіс не&nbsp;бачить банківського рахунку.</p>
+        <span class="who">клієнт → станція</span>
+      </div>
       <figure class="phone sm">
         <div class="screen"><div class="holder">
           <iframe src="demo/telegram.html" loading="lazy" title="Натисніть «Я оплатив»"></iframe>
@@ -405,10 +428,12 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </figure>
     </article>
     <article class="step">
-      <span class="no">6</span>
-      <h3>Гроші видно в касі</h3>
-      <p>Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі. Готівка й&nbsp;безготівка окремо. Список човнів розкладений за&nbsp;тим, що&nbsp;з&nbsp;ним робити, а&nbsp;не&nbsp;за&nbsp;номером місця.</p>
-      <span class="who">станція</span>
+      <div class="step-txt">
+        <span class="no">6</span>
+        <h3>Гроші видно в касі</h3>
+        <p>Оплата лягає в&nbsp;касу й&nbsp;зеленить місяць у&nbsp;календарі. Готівка й&nbsp;безготівка окремо. Список човнів розкладений за&nbsp;тим, що&nbsp;з&nbsp;ним робити, а&nbsp;не&nbsp;за&nbsp;номером місця.</p>
+        <span class="who">станція</span>
+      </div>
       <figure class="phone sm">
         <div class="screen"><div class="holder">
           <iframe src="demo/admin.html" loading="lazy" title="Календар і каса"></iframe>
