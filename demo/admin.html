@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Демонстрація — CRM човнової станції Skipper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="admin.css">
+<style>
+  /* Усі човни, імена й суми тут вигадані. Справжня CRM містить прізвища,
+     телефони й борги клієнтів станції — таке на публічну сторінку
+     не виносять. */
+  .demo-tag{display:inline-block;background:var(--sand-grad);color:#2a1a02;
+            font-size:10.5px;font-weight:800;letter-spacing:.08em;
+            text-transform:uppercase;padding:4px 10px;border-radius:999px}
+  .mgrid{min-width:0}
+</style>
+</head>
+<body>
+<div class="wrap" style="max-width:980px">
+
+  <div class="top">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="5" r="2.2"/><path d="M12 7.2V21"/><path d="M7.5 10.5h9"/>
+        <path d="M3.8 14.3A8.4 8.4 0 0 0 12 21a8.4 8.4 0 0 0 8.2-6.7"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Skipper</h1>
+      <div class="sub">CRM човнової станції <span class="demo-tag">демонстрація</span></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="nav">
+      <button class="on" data-go="cash">Каса</button>
+      <button data-go="cal">Календар</button>
+      <button data-go="list">Човни</button>
+    </div>
+  </div>
+
+  <!-- ── каса ────────────────────────────────────────────────────── -->
+  <section data-tab="cash">
+    <div class="top" style="margin-bottom:12px">
+      <button class="btn sm">‹</button>
+      <div style="font-weight:800;font-size:15px">Жовтень 2026</div>
+      <button class="btn sm">›</button>
+    </div>
+
+    <div class="kpi">
+      <div class="k"><div class="l">Готівка</div><div class="v ok">12 500 ₴</div></div>
+      <div class="k"><div class="l">Безготівка</div><div class="v ok">21 000 ₴</div></div>
+      <div class="k"><div class="l">Витрати</div><div class="v">2 400 ₴</div></div>
+      <div class="k"><div class="l">Разом у касі</div><div class="v">31 100 ₴</div></div>
+    </div>
+
+    <button class="btn solid" style="width:100%;margin-top:14px" data-say="Надходження записано">
+      Записати в касу
+    </button>
+
+    <div class="sect">Рух грошей · 5</div>
+
+    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">₴</div>
+      <div class="body"><div class="n">Стоянка · «Ладога-21»</div>
+        <div class="m">Олег · A-07 · 04.10.2026</div></div>
+      <div class="v ok">+3 000 ₴</div></div>
+
+    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">б/г</div>
+      <div class="body"><div class="n">Стоянка · «Онега»</div>
+        <div class="m">Марина · B-03 · 03.10.2026</div></div>
+      <div class="v ok">+4 000 ₴</div></div>
+
+    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">₴</div>
+      <div class="body"><div class="n">Мийка човна</div><div class="m">02.10.2026</div></div>
+      <div class="v ok">+800 ₴</div></div>
+
+    <div class="row-card"><div class="bchip debt">₴</div>
+      <div class="body"><div class="n">Пальне для мотопомпи</div><div class="m">02.10.2026</div></div>
+      <div class="v debt">−1 200 ₴</div></div>
+
+    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">б/г</div>
+      <div class="body"><div class="n">Стоянка · «Сапсан»</div>
+        <div class="m">Тарас · C-02 · 01.10.2026</div></div>
+      <div class="v ok">+2 500 ₴</div></div>
+  </section>
+
+  <!-- ── календар ────────────────────────────────────────────────── -->
+  <section data-tab="cal" hidden>
+    <div class="top" style="margin-bottom:12px">
+      <button class="btn sm">‹</button>
+      <div style="font-weight:800;font-size:15px">Серпень 2026 — Січень 2027</div>
+      <button class="btn sm">›</button>
+    </div>
+
+    <div class="cal">
+      <table class="mgrid">
+        <thead><tr><th class="c"></th>
+          <th>сер</th><th>вер</th><th>жов</th><th>лис</th><th>гру</th><th>січ</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <span><i class="p"></i>оплачено</span>
+      <span><i class="d"></i>борг</span>
+      <span><i class="q"></i>тариф не вказано</span>
+      <span><i class="u"></i>попереду, ще не нараховано</span>
+      <span><i class="f"></i>вільно · натисніть, щоб додати</span>
+    </div>
+  </section>
+
+  <!-- ── човни ───────────────────────────────────────────────────── -->
+  <section data-tab="list" hidden>
+    <div class="kpi">
+      <div class="k"><div class="l">Борг усього</div><div class="v debt">11 000 ₴</div></div>
+      <div class="k"><div class="l">Не оплатили</div><div class="v debt">3</div></div>
+      <div class="k"><div class="l">Оплачено</div><div class="v ok">4</div></div>
+      <div class="k"><div class="l">Тариф не вказано</div><div class="v" style="color:var(--muted)">1</div></div>
+      <div class="k"><div class="l">Вільних місць</div><div class="v">42</div></div>
+      <div class="k"><div class="l">Місяць, якщо всі заплатять</div><div class="v">23 500 ₴</div></div>
+    </div>
+
+    <div class="sect">Треба уточнити тариф · 1</div>
+    <div class="note" style="margin-bottom:10px">
+      Для цього клієнта борг не рахується: невідомо, скільки він платить.
+    </div>
+    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#b6b0a4,#8d8779)">B-11</div>
+      <div class="body"><div class="n">«Без назви» · Руслан</div>
+        <div class="m">телефон не вказано · 5,2 м</div></div>
+      <div class="v" style="color:var(--muted)">тариф?</div></div>
+
+    <div class="sect">Є борг · 3</div>
+    <div class="row-card"><div class="bchip debt">B-03</div>
+      <div class="body"><div class="n">«Онега» · Марина</div>
+        <div class="m">+380 •• ••• •• •• · 8,1 м · 4 000 ₴/міс</div></div>
+      <div class="v debt">4 000 ₴</div></div>
+    <div class="row-card"><div class="bchip debt">A-12</div>
+      <div class="body"><div class="n">«Чайка» · Богдан</div>
+        <div class="m">+380 •• ••• •• •• · 5,8 м · 2 500 ₴/міс</div></div>
+      <div class="v debt">5 000 ₴</div></div>
+    <div class="row-card"><div class="bchip debt">C-05</div>
+      <div class="body"><div class="n">«Веспа» · Ігор</div>
+        <div class="m">+380 •• ••• •• •• · 4,6 м · 2 500 ₴/міс</div></div>
+      <div class="v debt">2 000 ₴</div></div>
+
+    <div class="sect">Усе оплачено · 4</div>
+    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">A-07</div>
+      <div class="body"><div class="n">«Ладога-21» · Олег</div>
+        <div class="m">+380 •• ••• •• •• · 6,4 м · 3 000 ₴/міс</div></div>
+      <div class="v ok">✓</div></div>
+    <div class="row-card"><div class="bchip" style="background:linear-gradient(145deg,#3f9b7f,#1d6150)">C-02</div>
+      <div class="body"><div class="n">«Сапсан» · Тарас</div>
+        <div class="m">+380 •• ••• •• •• · 5,0 м · 2 500 ₴/міс</div></div>
+      <div class="v ok">✓</div></div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* Сітка календаря: шість місяців і сім місць. Стани ті самі, що
+   в справжній CRM, — зелений, медовий, блідий, сірий. */
+const ROWS = [
+  ['A-07', ['paid','paid','paid','paid','future','future'], '«Ладога-21»'],
+  ['A-12', ['debt','debt','debt','future','future','future'], '«Чайка»'],
+  ['B-03', ['paid','paid','debt','future','future','future'], '«Онега»'],
+  ['B-11', ['unknown','unknown','unknown','unknown','unknown','unknown'], '«Без назви»'],
+  ['C-02', ['paid','paid','paid','paid','paid','paid'], '«Сапсан»'],
+  ['C-05', ['debt','debt','debt','future','future','future'], '«Веспа»'],
+  ['A-03', [null,null,null,null,null,null], ''],
+];
+
+document.getElementById('rows').innerHTML = ROWS.map(([slot, states, name]) => {
+  const cells = states.map((s, i) => {
+    if (!s) return '<td class="m"><div class="cell free"></div></td>';
+    const now = i === 2 ? ' now' : '';
+    return '<td class="m"><div class="cell on ' + s + now + '">' +
+           (i === 0 ? name : '') + '</div></td>';
+  }).join('');
+  return '<tr><td class="slot"><span class="sn">' + slot + '</span></td>' + cells + '</tr>';
+}).join('');
+
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-go]');
+  if (b) {
+    document.querySelectorAll('[data-tab]').forEach(s => { s.hidden = s.dataset.tab !== b.dataset.go; });
+    document.querySelectorAll('.nav button').forEach(x => x.classList.toggle('on', x === b));
+  }
+  const s = e.target.closest('[data-say]');
+  if (s) {
+    const el = document.getElementById('toast');
+    el.textContent = s.dataset.say;
+    el.classList.add('on');
+    setTimeout(() => el.classList.remove('on'), 2400);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Демонстрація — кабінет клієнта Skipper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="client.css">
+<style>
+  /* Демонстрація живе в рамці телефона на сторінці кейсу, тож сама
+     сторінка — просто тло потрібного кольору. Усі дані тут вигадані:
+     справжні імена, телефони й борги клієнтів станції на публічну
+     сторінку не потрапляють. */
+  html,body{margin:0;background:#141d42}
+  [data-skin="client"]{min-height:100vh}
+  .wrap{max-width:560px;margin:0 auto;padding:18px 16px 92px}
+  .nav{position:fixed;left:0;right:0;bottom:0;border-radius:0;
+       padding:8px max(16px,calc(50% - 264px));justify-content:space-between}
+  .nav button{flex:1}
+  .qr{display:grid;place-items:center;background:#fff;border-radius:16px;
+      padding:14px;margin-top:14px}
+  .qr img{width:150px;height:150px;display:block;image-rendering:pixelated}
+  .demo-tag{position:fixed;top:10px;left:50%;transform:translateX(-50%);
+            background:rgba(245,194,27,.92);color:#141d42;font-size:11px;
+            font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+            padding:5px 12px;border-radius:999px;z-index:30}
+</style>
+</head>
+<body>
+<div data-skin="client">
+  <span class="demo-tag">демонстрація</span>
+
+  <div class="wrap">
+    <div class="top" style="flex-wrap:nowrap">
+      <div style="flex:1;min-width:0">
+        <h1 id="ttl">Ваш човен</h1>
+        <div class="sub">Олег&nbsp;·&nbsp;Skipper, човнова станція</div>
+      </div>
+    </div>
+
+    <!-- ── човен ─────────────────────────────────────────────────── -->
+    <section data-tab="boat">
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="bchip">A-07</div>
+          <div style="flex:1;min-width:0">
+            <b style="font-size:16px">«Ладога-21»</b>
+            <div class="sub">на&nbsp;воді, біля понтона · 6,4&nbsp;м</div>
+          </div>
+        </div>
+        <div class="rows" style="margin-top:16px">
+          <div class="row"><span class="k">Стоїть із</span><span class="v">травня 2026</span></div>
+          <div class="row"><span class="k">Тариф</span><span class="v">3 000 ₴ / міс</span></div>
+          <div class="row"><span class="k">Оплачено по</span><span class="v">вересень 2026</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="sub">До сплати за жовтень</div>
+        <div style="font-size:34px;font-weight:800;letter-spacing:-.03em;margin-top:4px">3 000 ₴</div>
+        <button class="btn sand" style="width:100%;margin-top:14px" data-go="bill">
+          Відкрити рахунок
+        </button>
+      </div>
+
+      <div class="note">
+        Рахунок приходить сюди з&nbsp;1&nbsp;по&nbsp;7&nbsp;число. Сума вже
+        вписана — переписувати реквізити не&nbsp;треба.
+      </div>
+    </section>
+
+    <!-- ── рахунок ───────────────────────────────────────────────── -->
+    <section data-tab="bill" hidden>
+      <div class="card">
+        <b>Рахунок за стоянку</b>
+        <div class="sub">«Ладога-21», місце A-07</div>
+        <div class="rows" style="margin-top:14px">
+          <div class="row"><span class="k">Стоянка, жовтень 2026</span><span class="v">3 000 ₴</span></div>
+          <div class="row" style="border-top:1px solid rgba(255,255,255,.12);padding-top:11px">
+            <span class="k"><b>Разом</b></span><span class="v" style="font-size:19px">3 000 ₴</span></div>
+        </div>
+
+        <div class="qr">
+          <img src="qr-demo.png" alt="Демонстраційний QR-код" width="150" height="150">
+        </div>
+        <div class="note" style="margin-top:12px">
+          Наведіть камеру — банк відкриється з&nbsp;уже вписаною сумою.
+          <b>У&nbsp;демонстрації код неплатіжний.</b>
+        </div>
+
+        <button class="btn sand" style="width:100%;margin-top:14px" id="paid">Я оплатив</button>
+        <div class="note">
+          Кнопка не&nbsp;зараховує гроші. Вона лише каже станції звірити
+          надходження — позначку про&nbsp;оплату ставить людина.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── місця ─────────────────────────────────────────────────── -->
+    <section data-tab="free" hidden>
+      <div class="card">
+        <b>Вільно у жовтні</b>
+        <div class="rows" style="margin-top:12px">
+          <div class="row"><span class="k">На воді</span><span class="v">3 з 20</span></div>
+          <div class="row"><span class="k">На суші</span><span class="v">6 з 20</span></div>
+          <div class="row"><span class="k">В ангарі</span><span class="v">2 з 10</span></div>
+        </div>
+        <button class="btn sand" style="width:100%;margin-top:14px" id="ask">
+          Попросити місце
+        </button>
+      </div>
+      <div class="note">
+        Заявка не&nbsp;бронює місце. Станція передзвонює, уточнює довжину
+        судна й&nbsp;закріплює місце вручну.
+      </div>
+    </section>
+  </div>
+
+  <div class="nav">
+    <button class="on" data-go="boat">Човен</button>
+    <button data-go="bill">Рахунок&nbsp;•</button>
+    <button data-go="free">Місця</button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* Перемикання вкладок і два повідомлення — більше демонстрації
+   не треба. Нікуди не звертаємось: сторінка статична. */
+const TITLES = { boat: 'Ваш човен', bill: 'Рахунок', free: 'Вільні місця' };
+
+function go(tab) {
+  document.querySelectorAll('[data-tab]').forEach(s => { s.hidden = s.dataset.tab !== tab; });
+  document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('on', b.dataset.go === tab));
+  document.getElementById('ttl').textContent = TITLES[tab];
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-go]');
+  if (b) go(b.dataset.go);
+});
+
+let t;
+function say(text) {
+  const el = document.getElementById('toast');
+  el.textContent = text;
+  el.classList.add('on');
+  clearTimeout(t);
+  t = setTimeout(() => el.classList.remove('on'), 2600);
+}
+document.getElementById('paid').onclick = () => say('Дякуємо! Звіримо з банком і підтвердимо');
+document.getElementById('ask').onclick = () => say('Заявку надіслано — передзвонимо');
+</script>
+</body>
+</html>

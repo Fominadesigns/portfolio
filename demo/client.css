@@ -1,0 +1,267 @@
+/* Тема кабінету клієнта — та сама, що була: темно-синій фон,
+   білий «оплачено», жовтий «борг». Усі правила загорнуті
+   в [data-skin="client"], щоб світла адмінка на тих самих назвах
+   класів їх не перемалювала. Файл зібраний зі старої globals.css;
+   правити треба тут. */
+
+/* Темний неоморфізм — рішення Каті від 22.09.2026.
+   Фон темно-синій, картки того ж кольору; об'єм дають дві тіні:
+   світліша синя зверху-зліва і майже чорна знизу-справа.
+     білий  — оплачено, звичайні кнопки, текст;
+     жовтий — не оплачено / борг, а також головні кнопки дій.
+   На білих і жовтих плашках текст темно-синій.
+   Тема ФІКСОВАНА: не залежить від теми телефона чи Telegram. */
+
+[data-skin="client"]{
+  --bg:#141d42; --card:#172248; --sunk:#101838;
+  --lift:#22306a; --drop:rgba(3,6,20,.70); --drop-soft:rgba(3,6,20,.55);
+  --navy:#141d42; --on:#141d42;           /* текст на білому й жовтому */
+  --blue:#141d42; --blue-hi:#ffffff;
+  --yellow:#f5c21b;
+  --grad:linear-gradient(145deg,#ffffff 0%,#e2e7f7 100%);   /* «оплачено» */
+  --navy-grad:var(--grad);
+  --yellow-grad:linear-gradient(145deg,#ffd84d 0%,#f5c21b 100%);
+  --sand:#f5c21b; --sand-grad:var(--yellow-grad);
+  --ink:#ffffff; --muted:#a9b2d6; --ok:#ffffff; --warn:#f5c21b;
+  --r-lg:20px; --r-md:14px; --r-sm:10px;
+  --out:8px 8px 16px var(--drop), -8px -8px 16px var(--lift);
+  --out-sm:5px 5px 10px var(--drop-soft), -5px -5px 10px var(--lift);
+  --out-lg:12px 12px 24px var(--drop), -10px -10px 20px var(--lift);
+  --in:inset 5px 5px 10px var(--drop-soft), inset -5px -5px 10px var(--lift);
+  --cast:0 7px 16px rgba(0,0,0,.45);
+  --cast-sm:0 4px 10px rgba(0,0,0,.40);
+}
+
+[data-skin="client"] *, [data-skin="client"]{box-sizing:border-box;margin:0;padding:0}
+[data-skin="client"]{color-scheme:dark;background:#141d42;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+[data-skin="client"], [data-skin="client"]{overscroll-behavior-y:none}
+[data-skin="client"]{
+  background:var(--bg);color:var(--ink);
+  font:400 15px/1.55 Manrope,system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:clip;
+}
+[data-skin="client"] button, [data-skin="client"] input, [data-skin="client"] select{font:inherit}
+[data-skin="client"] a{color:inherit}
+
+[data-skin="client"] .wrap{max-width:1240px;margin:0 auto;padding:22px}
+
+[data-skin="client"] /* ── шапка ───────────────────────────────────────────────────────────── */
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+[data-skin="client"] .logo{
+  width:44px;height:44px;border-radius:13px;background:var(--grad);flex:none;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--cast-sm), inset 0 1px 0 rgba(255,255,255,.2);
+}
+[data-skin="client"] .logo svg{width:22px;height:22px;fill:none;stroke:var(--on);stroke-width:1.5;
+          stroke-linecap:round;stroke-linejoin:round}
+[data-skin="client"] .top h1{font-size:20px;font-weight:800;letter-spacing:-.018em}
+[data-skin="client"] .top .sub{color:var(--muted);font-size:13px}
+[data-skin="client"] .spacer{flex:1}
+
+[data-skin="client"] .nav{display:flex;gap:7px;background:var(--card);padding:6px;
+     border-radius:var(--r-md);box-shadow:var(--out-sm);flex-wrap:wrap}
+[data-skin="client"] .nav button{
+  border:0;cursor:pointer;padding:9px 16px;border-radius:var(--r-sm);
+  font-size:13.5px;font-weight:700;color:var(--muted);background:none;
+}
+[data-skin="client"] .nav button.on{
+  background:var(--grad);color:var(--on);
+  box-shadow:var(--cast-sm), inset 0 1px 0 rgba(255,255,255,.2);
+  text-shadow:none;
+}
+
+[data-skin="client"] /* ── кнопки й поля ───────────────────────────────────────────────────── */
+.btn{
+  border:0;cursor:pointer;padding:12px 20px;border-radius:var(--r-md);
+  background:var(--card);box-shadow:var(--out);
+  color:var(--ink);font-weight:700;font-size:14.5px;
+  transition:transform .15s,box-shadow .15s;
+}
+[data-skin="client"] /* Підйом при наведенні — лише там, [data-skin="client"] де є миша. На телефоні «наведення»
+   залипає після дотику, [data-skin="client"] і кнопка підстрибує: це й було смикання. */
+@media (hover:hover){ .btn:hover{transform:translateY(-2px);box-shadow:var(--out-lg)} }
+[data-skin="client"] .btn:active{transform:translateY(1px);box-shadow:var(--in)}
+[data-skin="client"] .btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:var(--out-sm)}
+[data-skin="client"] .btn.solid{background:var(--yellow-grad);color:var(--on);
+           box-shadow:0 7px 16px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.4)}
+[data-skin="client"] .btn.blue{background:var(--grad);color:var(--on);box-shadow:var(--cast)}
+[data-skin="client"] .btn.sand{background:var(--sand-grad);color:var(--ink);
+          box-shadow:0 7px 16px rgba(160,130,0,.35), inset 0 1px 0 rgba(255,255,255,.4);
+          text-shadow:none}
+[data-skin="client"] .btn.sm{padding:9px 14px;font-size:13px}
+
+[data-skin="client"] .field{
+  width:100%;background:var(--sunk);border:0;border-radius:var(--r-md);
+  box-shadow:var(--in);padding:12px 15px;font-size:14.5px;color:var(--ink);
+}
+[data-skin="client"] .field::placeholder{color:#7d87b3}
+[data-skin="client"] option{color:#141d42;background:#fff}
+[data-skin="client"] .field:focus{outline:2px solid var(--yellow);outline-offset:2px}
+[data-skin="client"] .lbl{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+     color:var(--muted);margin-bottom:6px}
+
+[data-skin="client"] .card{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--out);padding:18px}
+[data-skin="client"] .sect{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--muted);margin:22px 0 10px 4px}
+
+[data-skin="client"] /* ── підсумки ────────────────────────────────────────────────────────── */
+.kpi{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:13px}
+[data-skin="client"] .kpi .k{background:var(--card);border-radius:var(--r-md);box-shadow:var(--out);padding:15px 17px}
+[data-skin="client"] .kpi .k .l{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--muted)}
+[data-skin="client"] .kpi .k .v{font-size:23px;font-weight:800;letter-spacing:-.025em;margin-top:5px}
+[data-skin="client"] .kpi .k .v.debt{color:var(--warn)}
+[data-skin="client"] .kpi .k .v.ok{color:var(--ok)}
+
+[data-skin="client"] /* ── календар по місяцях ─────────────────────────────────────────────── */
+.cal{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--out);
+     padding:14px;overflow-x:auto}
+[data-skin="client"] .mgrid{border-collapse:separate;border-spacing:0 7px;width:100%;min-width:720px;
+       table-layout:fixed}  [data-skin="client"] /* інакше місяць із назвою човна розтягується на пів таблиці */
+.mgrid th{padding:0 0 10px;font-size:10px;font-weight:700;letter-spacing:.05em;
+          text-transform:uppercase;color:var(--muted);text-align:center}
+[data-skin="client"] .mgrid th.c{text-align:left;width:70px;padding-right:9px}
+[data-skin="client"] .mgrid td.slot{padding-right:9px;width:70px}
+[data-skin="client"] .mgrid .sn{display:block;font-size:12px;font-weight:800;padding:2px 0 0;white-space:nowrap}
+[data-skin="client"] .mgrid .sk{display:block;font-size:10px;color:var(--muted);white-space:nowrap;padding-bottom:2px}
+[data-skin="client"] .mgrid td.m{padding:0 2px}
+[data-skin="client"] .cell{height:34px;border-radius:8px;background:var(--sunk);
+      box-shadow:inset 2px 2px 5px var(--drop-soft), inset -2px -2px 4px var(--lift)}
+[data-skin="client"] .cell.free{cursor:pointer}
+@media (hover:hover){ [data-skin="client"] .cell.free:hover{box-shadow:inset 3px 3px 7px var(--drop), inset -2px -2px 4px var(--lift)} }
+[data-skin="client"] .cell.on{cursor:pointer;background:var(--grad);
+         box-shadow:0 3px 7px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.18);
+         display:flex;align-items:center;padding:0 9px;color:var(--on);
+         font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;
+         text-shadow:none}
+[data-skin="client"] .cell.on.debt{background:var(--yellow-grad);color:var(--on)}
+[data-skin="client"] .cell.on.future{
+  background:transparent;color:var(--ink);text-shadow:none;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);
+}
+[data-skin="client"] .cell.now{outline:1.5px solid rgba(255,255,255,.55);outline-offset:1px}
+
+[data-skin="client"] .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;
+        font-size:12.5px;color:var(--muted);font-weight:600}
+[data-skin="client"] .legend i{display:inline-block;width:14px;height:12px;border-radius:4px;
+          margin-right:7px;vertical-align:-1px}
+[data-skin="client"] .legend i.p{background:var(--grad)}
+[data-skin="client"] .legend i.d{background:var(--yellow-grad)}
+[data-skin="client"] .legend i.f{background:var(--sunk);box-shadow:var(--in)}
+[data-skin="client"] .legend i.u{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+
+[data-skin="client"] /* ── список ──────────────────────────────────────────────────────────── */
+.row-card{background:var(--card);border-radius:var(--r-md);box-shadow:var(--out-sm);
+          padding:13px 15px;display:flex;align-items:center;gap:13px;cursor:pointer}
+[data-skin="client"] .row-card + .row-card{margin-top:10px}
+@media (hover:hover){ [data-skin="client"] .row-card:hover{box-shadow:var(--out)} }
+[data-skin="client"] .row-card .body{flex:1;min-width:0}
+[data-skin="client"] .row-card .n{font-weight:700;font-size:14.5px}
+[data-skin="client"] .row-card .m{color:var(--muted);font-size:12.5px;margin-top:2px}
+[data-skin="client"] .row-card .v{font-weight:800;font-size:14px;white-space:nowrap}
+[data-skin="client"] .row-card .v.debt{color:var(--warn)}
+[data-skin="client"] .row-card .v.ok{color:var(--ok)}
+[data-skin="client"] .bchip{min-width:52px;height:38px;border-radius:11px;background:var(--grad);color:var(--on);
+       display:flex;align-items:center;justify-content:center;font-size:12px;
+       font-weight:800;flex:none;
+       box-shadow:var(--cast-sm), inset 0 1px 0 rgba(255,255,255,.2);
+       text-shadow:none}
+[data-skin="client"] .bchip.debt{background:var(--yellow-grad);color:var(--on)}
+[data-skin="client"] .bchip.out{background:var(--sunk);color:var(--ink);box-shadow:var(--in)}
+
+[data-skin="client"] /* ── вікно ───────────────────────────────────────────────────────────── */
+.veil{position:fixed;inset:0;background:rgba(3,6,20,.6);z-index:40;
+      display:flex;align-items:center;justify-content:center;padding:20px}
+[data-skin="client"] .modal{background:var(--bg);border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.6);
+       padding:24px;width:100%;max-width:440px;max-height:88vh;max-height:88dvh;overflow-y:auto;
+       overscroll-behavior:contain}
+[data-skin="client"] .modal h2{font-size:19px;font-weight:800;letter-spacing:-.018em}
+[data-skin="client"] .modal .sub{color:var(--muted);font-size:13px;margin-top:2px}
+[data-skin="client"] .rows{display:flex;flex-direction:column;gap:11px}
+[data-skin="client"] .row{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+[data-skin="client"] .row .k{color:var(--muted)}
+[data-skin="client"] .row .v{font-weight:700;text-align:right}
+[data-skin="client"] .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+[data-skin="client"] .note{margin-top:12px;padding:12px 15px;border-radius:var(--r-md);
+      background:var(--sunk);box-shadow:var(--in);
+      font-size:13px;line-height:1.5;color:var(--muted)}
+[data-skin="client"] .note b{color:var(--ink)}
+[data-skin="client"] .note.warn{color:var(--warn)}
+
+[data-skin="client"] .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);
+       background:#ffffff;color:var(--on);padding:13px 22px;border-radius:14px;
+       font-size:14px;font-weight:700;box-shadow:0 12px 28px rgba(0,0,0,.4);
+       opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:90vw;
+       text-align:center}
+[data-skin="client"] .toast.on{opacity:1;transform:translate(-50%,0)}
+
+[data-skin="client"] .center{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px}
+
+[data-skin="client"] /* ── календар на телефоні: три місяці, [data-skin="client"] картка на місце ──────────────── */
+.cal-mob{display:none}
+[data-skin="client"] .mslot{background:var(--card);border-radius:var(--r-md);box-shadow:var(--out-sm);padding:12px 13px}
+[data-skin="client"] .mslot + .mslot{margin-top:12px}
+[data-skin="client"] .mhead{display:flex;align-items:center;gap:12px;cursor:pointer}
+[data-skin="client"] .mhead .sname{font-weight:800;font-size:14px;min-width:44px}
+[data-skin="client"] .mhead .body{flex:1;min-width:0}
+[data-skin="client"] .mhead .n{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+[data-skin="client"] .mhead .m{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+[data-skin="client"] .mhead .v{font-weight:800;font-size:13.5px;white-space:nowrap}
+[data-skin="client"] .mhead .v.debt{color:var(--warn)}
+[data-skin="client"] .mcells{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+[data-skin="client"] .mcell{height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+       font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;
+       background:var(--sunk);color:var(--muted);
+       box-shadow:inset 2px 2px 5px var(--drop-soft), inset -2px -2px 4px var(--lift)}
+[data-skin="client"] .mcell.on{background:var(--grad);color:var(--on);box-shadow:var(--cast-sm)}
+[data-skin="client"] .mcell.on.debt{background:var(--yellow-grad)}
+[data-skin="client"] .mcell.now{outline:1.5px solid rgba(255,255,255,.55);outline-offset:2px}
+
+@media (max-width:700px){
+  [data-skin="client"] .wrap{padding:14px 14px calc(96px + env(safe-area-inset-bottom))}
+  [data-skin="client"] .top h1{font-size:17px}
+  [data-skin="client"] /* Вкладки — знизу, [data-skin="client"] як у звичайному додатку: до них дістає великий палець. */
+  .nav{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));
+       z-index:30;width:auto;flex-wrap:nowrap;background:var(--card)}
+  [data-skin="client"] .nav button{flex:1;padding:12px 6px;font-size:13.5px}
+  [data-skin="client"] .cal-desk{display:none}
+  [data-skin="client"] .cal-mob{display:block}
+  [data-skin="client"] /* Поля 16px: з меншим шрифтом телефон сам збільшує сторінку
+     при дотику до поля, [data-skin="client"] і вона «стрибає». */
+  .field, [data-skin="client"] select.field, [data-skin="client"] input, [data-skin="client"] select{font-size:16px}
+  [data-skin="client"] /* Вікна — знизу, [data-skin="client"] як шторка: так не перекриває клавіатура. */
+  .veil{align-items:flex-end;padding:0}
+  [data-skin="client"] .modal{padding:20px 18px calc(20px + env(safe-area-inset-bottom));
+         border-radius:22px 22px 0 0;max-width:none;max-height:92vh;max-height:92dvh}
+  [data-skin="client"] .two{grid-template-columns:1fr}
+  [data-skin="client"] .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+  [data-skin="client"] .kpi .k .v{font-size:20px}
+}
+
+[data-skin="client"] /* ── клієнтський міні-додаток ─────────────────────────────────────────
+   Той самий темний стиль. «До оплати» — жовта плашка: найпомітніше
+   на екрані, [data-skin="client"] як і домовлялись (сума до оплати — найконтрастніша). */
+.due{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+     background:var(--yellow-grad);color:var(--on);border-radius:var(--r-lg);
+     padding:16px 18px;box-shadow:var(--cast);cursor:pointer}
+[data-skin="client"] .due-l{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.8}
+[data-skin="client"] .due-v{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+[data-skin="client"] .due-go{font-weight:800;font-size:14px;white-space:nowrap}
+[data-skin="client"] .bill-sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;
+          padding-top:14px;border-top:1px solid rgba(255,255,255,.12);
+          font-weight:800;font-size:15px}
+[data-skin="client"] .bill-sum span:last-child{font-size:24px;color:var(--yellow)}
+[data-skin="client"] /* QR на білому: камера й банк мають бачити контрастний код. */
+.qr-frame{display:block;margin:4px auto 0;width:220px;max-width:70vw;aspect-ratio:1;
+          padding:14px;border:0;border-radius:18px;background:#fff;cursor:pointer;
+          box-shadow:var(--cast)}
+[data-skin="client"] .qr-frame svg{width:100%;height:100%;display:block}
+[data-skin="client"] .qr-cap{color:var(--muted);font-size:13px;line-height:1.55;margin-top:12px}
+[data-skin="client"] .qr-cap b{color:var(--ink)}
+[data-skin="client"] .mono{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+
+/* Обгортка займає весь екран: інакше крізь неї світився б світлий
+   фон адмінки, який лишається на body. */
+[data-skin="client"]{min-height:100vh}
