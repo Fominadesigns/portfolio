@@ -730,7 +730,7 @@ section[id]{scroll-margin-top:64px}
   .js .mgoal__t{font-size:clamp(26px,9cqi,44px)}
   .js .mail-art{
     display:block;position:fixed;left:auto;right:12px;top:0;z-index:30;margin:0;
-    width:min(42vw,210px);height:auto;aspect-ratio:820/1160;
+    width:min(42vw,210px);height:auto;aspect-ratio:var(--ar,820/1090);
     opacity:0;visibility:hidden;pointer-events:none;
     transform:translate3d(0,var(--fy,60svh),0) scale(.85);
     transition:transform .55s cubic-bezier(.22,.8,.24,1),opacity .3s,visibility 0s linear .3s}
@@ -1313,6 +1313,10 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <div class="mart__slide"><img src="images/clg/mail-05.webp" alt="" width="820" height="1160" decoding="async" loading="lazy"></div>
         <div class="mart__slide"><img src="images/clg/mail-02.webp" alt="" width="820" height="1160" decoding="async" loading="lazy"></div>
         <div class="mart__slide"><img src="images/clg/mail-01.webp" alt="" width="820" height="1160" decoding="async" loading="lazy"></div>
+        <div class="mart__slide"><img src="images/clg/mail-06.webp" alt="" width="820" height="1546" decoding="async" loading="lazy"></div>
+        <div class="mart__slide"><img src="images/clg/mail-07.webp" alt="" width="820" height="1836" decoding="async" loading="lazy"></div>
+        <div class="mart__slide"><img src="images/clg/mail-08.webp" alt="" width="820" height="1592" decoding="async" loading="lazy"></div>
+        <div class="mart__slide"><img src="images/clg/mail-09.webp" alt="" width="820" height="1160" decoding="async" loading="lazy"></div>
       </div>
     </div>
   </aside>
@@ -1340,6 +1344,14 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <a class="mgoal__pic" href="images/clg/mail-02.webp" data-zoom="mail" data-cap="Авіадоставка через Варшаву"><img src="images/clg/mail-02.webp" alt="Лист про авіадоставку" width="820" height="1160" loading="lazy"></a></div></li>
       <li class="mgoal"><span class="mnum">04</span><div><h3 class="mgoal__t">Збірні вантажі з&nbsp;Азії та&nbsp;США</h3>
         <a class="mgoal__pic" href="images/clg/mail-01.webp" data-zoom="mail" data-cap="Збірні вантажі з Азії та США"><img src="images/clg/mail-01.webp" alt="Лист про збірні вантажі" width="820" height="1160" loading="lazy"></a></div></li>
+      <li class="mgoal"><span class="mnum">05</span><div><h3 class="mgoal__t">Перевезення без&nbsp;ризиків</h3>
+        <a class="mgoal__pic" href="images/clg/mail-06.webp" data-zoom="mail" data-cap="Перевезення без ризиків"><img src="images/clg/mail-06.webp" alt="Лист про автоперевезення з Європи" width="820" height="1546" loading="lazy"></a></div></li>
+      <li class="mgoal"><span class="mnum">06</span><div><h3 class="mgoal__t">Морські контейнери з&nbsp;Китаю</h3>
+        <a class="mgoal__pic" href="images/clg/mail-07.webp" data-zoom="mail" data-cap="Морські контейнерні перевезення"><img src="images/clg/mail-07.webp" alt="Лист про морські контейнерні перевезення" width="820" height="1836" loading="lazy"></a></div></li>
+      <li class="mgoal"><span class="mnum">07</span><div><h3 class="mgoal__t">Митне оформлення по&nbsp;всій Україні</h3>
+        <a class="mgoal__pic" href="images/clg/mail-08.webp" data-zoom="mail" data-cap="Митне оформлення по всій Україні"><img src="images/clg/mail-08.webp" alt="Лист про митне оформлення" width="820" height="1592" loading="lazy"></a></div></li>
+      <li class="mgoal"><span class="mnum">08</span><div><h3 class="mgoal__t">Морські LCL-перевезення</h3>
+        <a class="mgoal__pic" href="images/clg/mail-09.webp" data-zoom="mail" data-cap="Морські LCL-перевезення"><img src="images/clg/mail-09.webp" alt="Лист про збірні морські перевезення" width="820" height="1160" loading="lazy"></a></div></li>
     </ol>
   </div>
   </div>
@@ -1757,6 +1769,7 @@ document.documentElement.classList.add('js');
       cur = best;
       goals.forEach((g, i) => g.classList.toggle('is-on', i === cur));
       track.style.transform = 'translateX(' + (-cur * 100) + '%)';
+      setRatio();
       if (count) count.textContent = pad(cur + 1) + '\u00a0/ ' + pad(goals.length);
     }
     floatArt(best);
@@ -1764,6 +1777,12 @@ document.documentElement.classList.add('js');
   /* Телефон: віконце з листом плаває, поки видно список. Стоїть унизу
      праворуч; якщо активний рядок туди дістає — перепливає нагору. */
   const art = document.querySelector('.mail-art');
+  /* Віконце на телефоні — точно за пропорцією активного листа, без сірих смуг. */
+  const imgs = [...track.querySelectorAll('img')];
+  const setRatio = () => {
+    const im = imgs[cur]; if (!art || !im) return;
+    art.style.setProperty('--ar', im.getAttribute('width') + ' / ' + im.getAttribute('height'));
+  };
   const list = document.querySelector('.mgoals');
   const floatArt = (best) => {
     if (!art || !list) return;
@@ -1781,7 +1800,7 @@ document.documentElement.classList.add('js');
     art.classList.toggle('is-float', on);
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
-  upd();
+  setRatio(); upd();
 })();
 
 /* Картка «Швидкість»: при кожному розкритті цифри біжать від нуля
