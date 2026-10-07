@@ -729,6 +729,34 @@ section[id]{scroll-margin-top:64px}
   .deck3__hint .curl{display:none}
 }
 
+
+/* Шрифти: літери-трафарети, що перебираються. */
+.scr{display:none;flex-direction:column;gap:8px}
+.js .scr{display:flex}
+.js .fnt-static{display:none}
+.scr-l{display:flex;align-items:flex-end;height:var(--gh)}
+.scr-l .g{display:block;height:var(--gh);background:var(--c);
+  -webkit-mask-image:url(images/clg/fnt-glyphs.webp);mask-image:url(images/clg/fnt-glyphs.webp);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.scr-l .sp{display:block;width:calc(var(--gh) * .28)}
+
+/* Фото з нейромережі: рамка на місці, кадр повільно наближається —
+   літак наче їде на нас. */
+.zoombox{overflow:hidden;aspect-ratio:1000/552;height:auto;max-height:60%;flex:none}
+.zoombox img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:50% 58%;
+             transform:scale(1);transition:transform .6s ease}
+.acc-i.open .zoombox img{animation:planeIn 9s cubic-bezier(.2,.6,.3,1) forwards}
+@media (hover:hover) and (min-width:761px){ .acc-i:hover .zoombox img{animation:planeIn 9s cubic-bezier(.2,.6,.3,1) forwards} }
+@keyframes planeIn{from{transform:scale(1)}to{transform:scale(1.55)}}
+@media (prefers-reduced-motion:reduce){ .zoombox img{animation:none!important} }
+
+
+/* 02: заголовок у три рядки ліворуч, текст праворуч — верхом на рівні заголовка. */
+.site-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:start}
+.site-head .sec-head h2{font-size:clamp(34px,5.2vw,88px)}
+.site-head .site-lead{margin-top:0}
+@media (max-width:900px){ .site-head{grid-template-columns:1fr} }
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -939,8 +967,14 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       <div class="acc-face f-orange"><span class="acc-num">03</span><span class="acc-name">Шрифти</span></div>
       <div class="acc-body">
         <div class="acc-pic acc-fonts">
-          <img src="images/clg/fnt-title.webp" alt="Шрифти — написано шрифтом Bebas Neue" width="736" height="202">
-          <img src="images/clg/fnt-sample.webp" alt="" width="846" height="192">
+          <img class="fnt-static" src="images/clg/fnt-title.webp" alt="Шрифти — написано шрифтом Bebas Neue" width="736" height="202">
+          <img class="fnt-static" src="images/clg/fnt-sample.webp" alt="" width="846" height="192">
+          <!-- Літери перебираються й зупиняються на потрібних. Гліфи Bebas Neue —
+               картинкою-трафаретом, сам шрифт на сторінку не підключаємо. -->
+          <div class="scr" aria-hidden="true">
+            <div class="scr-l" data-text="ШРИФТИ" style="--gh:clamp(44px,5vw,72px);--c:#2b2b2b"></div>
+            <div class="scr-l" data-text="АБВГҐД 0123" style="--gh:clamp(30px,3.3vw,48px);--c:#347C7D"></div>
+          </div>
         </div>
         <h3>Шрифти</h3>
         <ul class="why">
@@ -958,7 +992,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <article class="acc-i" tabindex="0">
       <div class="acc-face f-dark"><span class="acc-num">04</span><span class="acc-name">Фото з&nbsp;нейро&shy;мережі</span></div>
       <div class="acc-body">
-        <img class="acc-pic wide" src="images/clg/acc-avia-hero.webp" alt="Бірюзовий літак на злітній смузі — перший екран сторінки авіаперевезень" width="1000" height="552" loading="lazy">
+        <div class="acc-pic wide zoombox"><img src="images/clg/acc-avia-hero.webp" alt="Бірюзовий літак на злітній смузі — перший екран сторінки авіаперевезень" width="1000" height="552" loading="lazy"></div>
         <h3>Фото з&nbsp;нейромережі</h3>
         <p>Замість стокових фото, які є&nbsp;в&nbsp;кожного конкурента,&nbsp;—
           яскраві, соковиті кадри, згенеровані в&nbsp;нейромережі: бірюзовий літак,
@@ -987,17 +1021,18 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
 <!-- ── 01. сайт ──────────────────────────────────────────────────── -->
 <section class="wrap" id="site">
-  <div class="sec-head">
-    <span class="sq"><b>02</b></span>
-    <h2>Сайт, який показує перевезення</h2>
-  </div>
-  <p class="sec-lead">
+  <div class="site-head">
+    <div class="sec-head">
+      <span class="sq"><b>02</b></span>
+      <h2>Сайт,<br>який показує<br>перевезення</h2>
+    </div>
+  <p class="sec-lead site-lead">
     Задача&nbsp;— сайт, який продає послуги бізнесу й&nbsp;показує сам
     процес перевезення. Я&nbsp;перебудувала структуру: кожна послуга отримала
     свою сторінку, текст&nbsp;— кроки, картки й&nbsp;відповіді на&nbsp;питання,
     а&nbsp;головне виділено так, щоб його було видно з&nbsp;першого погляду.
   </p>
-
+  </div>
 </section>
 
 <!-- ── анімації: окремий екран ───────────────────────────────────────
@@ -1595,6 +1630,54 @@ document.documentElement.classList.add('js');
   view.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
   addEventListener('resize', upd);
   upd();
+})();
+
+/* Шрифти: кожна літера перебирає випадкові й зупиняється на своїй,
+   зліва направо. Запускається при кожному розкритті картки. */
+(function () {
+  const G = {"w": 3792, "h": 166, "g": {"А": [0, 81], "Б": [85, 78], "В": [167, 81], "Г": [252, 68], "Ґ": [324, 68], "Д": [396, 102], "Е": [502, 73], "Є": [579, 78], "Ж": [661, 127], "З": [792, 78], "И": [874, 86], "І": [964, 38], "Ї": [1006, 52], "Й": [1062, 86], "К": [1152, 83], "Л": [1239, 100], "М": [1343, 108], "Н": [1455, 85], "О": [1544, 79], "П": [1627, 85], "Р": [1716, 75], "С": [1795, 78], "Т": [1877, 72], "У": [1953, 92], "Ф": [2049, 114], "Х": [2167, 86], "Ц": [2257, 89], "Ч": [2350, 78], "Ш": [2432, 118], "Щ": [2554, 121], "Ь": [2679, 75], "Ю": [2758, 116], "Я": [2878, 80], "0": [2962, 79], "1": [3045, 79], "2": [3128, 79], "3": [3211, 79], "4": [3294, 79], "5": [3377, 79], "6": [3460, 79], "7": [3543, 79], "8": [3626, 79], "9": [3709, 79]}};
+  const lines = [...document.querySelectorAll('.scr-l')];
+  if (!lines.length) return;
+  const LET = 'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ', DIG = '0123456789';
+  const slots = [];
+  lines.forEach((line) => {
+    const h = parseFloat(getComputedStyle(line).height) || 60;
+    [...line.dataset.text].forEach((ch) => {
+      if (ch === ' ') { const sp = document.createElement('span'); sp.className = 'sp'; line.appendChild(sp); return; }
+      const el = document.createElement('span'); el.className = 'g'; line.appendChild(el);
+      slots.push({ el, ch, line, pool: DIG.includes(ch) ? DIG : LET });
+    });
+  });
+  const paint = (sl, ch) => {
+    const h = sl.line.getBoundingClientRect().height || 60, k = h / G.h;
+    const [fx, fw] = G.g[sl.ch], [x, w] = G.g[ch];
+    const sx = fw / w;                       // підганяємо випадкову літеру під ширину своєї
+    sl.el.style.width = (fw * k) + 'px';
+    sl.el.style.webkitMaskSize = sl.el.style.maskSize = (G.w * k * sx) + 'px ' + h + 'px';
+    sl.el.style.webkitMaskPosition = sl.el.style.maskPosition = (-x * k * sx) + 'px 0';
+  };
+  const settle = () => slots.forEach((sl) => paint(sl, sl.ch));
+  settle();
+  addEventListener('resize', settle);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let timer = 0;
+  const run = () => {
+    clearInterval(timer);
+    const t0 = performance.now();
+    timer = setInterval(() => {
+      const t = performance.now() - t0;
+      let done = true;
+      slots.forEach((sl, i) => {
+        if (t < 250 + i * 75) { done = false; paint(sl, sl.pool[Math.floor(Math.random() * sl.pool.length)]); }
+        else paint(sl, sl.ch);
+      });
+      if (done) clearInterval(timer);
+    }, 55);
+  };
+  const card = lines[0].closest('.acc-i');
+  card.addEventListener('mouseenter', run);
+  card.addEventListener('focus', run);
+  card.addEventListener('click', run);
 })();
 
 /* Стрілки й лічильник для слайдів. */
