@@ -567,6 +567,32 @@ section[id]{scroll-margin-top:64px}
   .acc-pic{max-height:220px}
 }
 
+
+/* Закриті картки — у стилі Fomina.Designs: колір, великий номер, назва. */
+.acc-face.f-blue,.acc-face.f-blue2{background:var(--blue) var(--grid-l);color:#fff}
+.acc-face.f-white{background:#fff;color:var(--blue)}
+.acc-face.f-orange{background:var(--orange);color:#fff}
+.acc-face.f-dark{background:var(--dark) var(--grid-l);color:#fff}
+.acc-num{position:absolute;left:clamp(14px,1.4vw,22px);top:clamp(10px,1.2vw,18px);
+         font-family:var(--head);font-weight:800;font-size:clamp(56px,6vw,104px);line-height:.9;
+         letter-spacing:-.02em}
+.acc-name{position:absolute;left:clamp(14px,1.4vw,22px);right:12px;bottom:clamp(14px,1.4vw,22px);
+          font-family:var(--head);font-weight:800;text-transform:uppercase;line-height:.95;
+          font-size:clamp(20px,1.9vw,30px);hyphens:manual}
+.acc-speed{display:flex;flex-direction:column;justify-content:center;padding:16px 22px;
+           background:var(--blue) var(--grid-l);color:#fff;flex:0 0 auto;max-height:none}
+.acc-speed b{font-family:var(--head);font-weight:800;font-size:clamp(54px,6vw,96px);line-height:.9}
+.acc-speed span{font-size:15px;opacity:.9;margin-top:6px}
+.kpi-mini{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 16px}
+.kpi-mini li{font-size:13.5px;line-height:1.3}
+.kpi-mini b{display:block;font-family:var(--head);font-weight:800;font-size:clamp(24px,2.2vw,34px);
+            color:var(--orange);line-height:1}
+@media (max-width:760px){
+  .acc-i{height:96px}
+  .acc-num{font-size:44px;top:50%;transform:translateY(-50%)}
+  .acc-name{left:96px;bottom:auto;top:50%;transform:translateY(-50%);font-size:22px}
+}
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -748,9 +774,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
   <div class="acc">
     <article class="acc-i" tabindex="0">
-      <div class="acc-face" style="background-image:url(images/clg/acc-bento.webp);background-position:62% center">
-        <span class="acc-label">Бенто-<br>сітка</span>
-      </div>
+      <div class="acc-face f-blue"><span class="acc-num">01</span><span class="acc-name">Бенто-<br>сітка</span></div>
       <div class="acc-body">
         <img class="acc-pic" src="images/clg/acc-bento.webp" alt="Перший екран морських перевезень: головне, фото й переваги — окремими картками" width="1290" height="540" loading="lazy">
         <h3>Бенто-сітка</h3>
@@ -761,9 +785,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     </article>
 
     <article class="acc-i" tabindex="0">
-      <div class="acc-face acc-grad">
-        <span class="acc-label">Кольори</span>
-      </div>
+      <div class="acc-face f-white"><span class="acc-num">02</span><span class="acc-name">Кольори</span></div>
       <div class="acc-body">
         <div class="acc-pic acc-grad" role="img" aria-label="Градієнт із кольорів бренду"></div>
         <h3>Кольори</h3>
@@ -778,10 +800,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     </article>
 
     <article class="acc-i" tabindex="0">
-      <div class="acc-face acc-white">
-        <img class="acc-vert" src="images/clg/fnt-title.webp" alt="" width="736" height="202">
-        <span class="acc-label">Шрифти</span>
-      </div>
+      <div class="acc-face f-orange"><span class="acc-num">03</span><span class="acc-name">Шрифти</span></div>
       <div class="acc-body">
         <div class="acc-pic acc-fonts">
           <img src="images/clg/fnt-title.webp" alt="Шрифти — написано шрифтом Bebas Neue" width="736" height="202">
@@ -801,9 +820,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     </article>
 
     <article class="acc-i" tabindex="0">
-      <div class="acc-face" style="background-image:url(images/clg/acc-ship.webp)">
-        <span class="acc-label">Нейро-<br>фото</span>
-      </div>
+      <div class="acc-face f-dark"><span class="acc-num">04</span><span class="acc-name">Фото з&nbsp;нейро&shy;мережі</span></div>
       <div class="acc-body">
         <img class="acc-pic" src="images/clg/acc-ship.webp" alt="Бірюзовий контейнеровоз у тропічній воді" width="600" height="1058" loading="lazy" style="object-position:center 62%">
         <h3>Фото з&nbsp;нейромережі</h3>
@@ -814,7 +831,22 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </div>
     </article>
 
- </div>
+    <article class="acc-i" tabindex="0">
+      <div class="acc-face f-blue2"><span class="acc-num">05</span><span class="acc-name">Швидкість</span></div>
+      <div class="acc-body">
+        <div class="acc-pic acc-speed"><b>1,4&nbsp;с</b><span>до першого контенту на&nbsp;телефоні</span></div>
+        <h3>Швидкість</h3>
+        <ul class="kpi-mini">
+          <li><b>0,9&nbsp;с</b>головний блок на&nbsp;компʼютері</li>
+          <li><b>1,5&nbsp;МБ</b>вага головної з&nbsp;3D й&nbsp;анімаціями</li>
+          <li><b>97</b>доступність</li>
+          <li><b>100</b>SEO</li>
+        </ul>
+        <p class="kpi-note" style="margin:0">Google Lighthouse, головна сторінка. Продуктивність: 81–86 на&nbsp;телефоні,
+          88&nbsp;на&nbsp;компʼютері.</p>
+      </div>
+    </article>
+  </div>
 </section>
 
 <!-- ── 01. сайт ──────────────────────────────────────────────────── -->
@@ -852,20 +884,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 </section>
 
 <section class="wrap">
-  <h3 class="sub" style="margin-top:0">Швидкість</h3>
-  <div class="panel" style="margin-top:14px">
-    <div class="kpi">
-      <div><b>1,4&nbsp;с</b><span>до першого контенту на&nbsp;телефоні</span></div>
-      <div><b>0,9&nbsp;с</b><span>до головного блоку на&nbsp;компʼютері</span></div>
-      <div><b>1,5&nbsp;МБ</b><span>важить головна разом з&nbsp;3D й&nbsp;анімаціями</span></div>
-      <div><b>97</b><span>доступність</span></div>
-      <div><b>100</b><span>SEO</span></div>
-    </div>
-    <p class="kpi-note">Google Lighthouse, головна сторінка. Продуктивність: 81–86
-      на&nbsp;телефоні, 88&nbsp;на&nbsp;компʼютері.</p>
-  </div>
-
-  <h3 class="sub">Що ще під&nbsp;капотом</h3>
+  <h3 class="sub" style="margin-top:0">Що ще під&nbsp;капотом</h3>
   <div class="panel dark" style="margin-top:14px">
     <div class="cards" style="margin-top:0">
       <div class="card"><h3>Без абонплати</h3>
