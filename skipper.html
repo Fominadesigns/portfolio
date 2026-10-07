@@ -219,7 +219,7 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
 
 .sstep{grid-area:1/1;background:#fff;border:1px solid var(--blue);border-radius:var(--r);
        padding:clamp(18px,2.6vw,38px);color:var(--blue);
-       display:grid;grid-template-columns:minmax(0,1.6fr) minmax(214px,.58fr);
+       display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);
        gap:clamp(18px,2.6vw,38px);align-items:stretch;
        transform:translate(calc(var(--k,0) * 22px),calc(var(--k,0) * 13px));
        z-index:calc(10 - var(--k,0));
@@ -229,7 +229,7 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
 .sstep.is-front > *{visibility:visible}
 
 /* Синя плашка — як блок із цитатою у відгуках. */
-.sstep__quote{background:var(--blue) var(--grid-l);color:#fff;border-radius:var(--r);
+.sstep__quote{position:relative;background:var(--blue) var(--grid-l);color:#fff;border-radius:var(--r);
               padding:clamp(22px,3vw,48px);min-width:0;
               display:flex;flex-direction:column;align-items:flex-start}
 .sstep .no{display:grid;place-items:center;width:44px;height:44px;border-radius:var(--r);
@@ -244,15 +244,29 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
 .sstep__shot{margin:0;min-width:0;border-left:1px solid var(--blue);
              padding-left:clamp(16px,2.6vw,40px);display:grid;justify-items:center;
              align-content:center}
+
+/* На широкому екрані прототип тягнеться на всю висоту картки й
+   притискається до правого краю — відступ такий самий, як усюди. */
+@media (min-width:861px){
+  /* Прототип займає всю ширину своєї колонки й притискається до правого
+     краю — відступ від краю картки такий самий, як усюди. Висоту йому
+     дає сама ширина: екран телефона завжди вдвічі вищий за свою ширину. */
+  .sstep__shot{justify-items:end}
+  .sstep__shot .phone.sm{width:100%;min-width:0;max-width:460px;margin:0}
+  .sstep__shot .phone.sm .holder{width:100%;height:auto;aspect-ratio:1/2}
+}
 /* Підпис і бейджик стоять у синій картці, під плашкою «клієнт», і крива
    показує звідти на прототип. Під телефоном їх більше немає — завдяки
    цьому сам прототип став більшим. */
-.shotcap{margin-top:auto;padding-top:24px;display:flex;flex-direction:column;
-         align-items:flex-start;gap:10px;width:100%}
+.shotcap{margin-top:auto;padding:24px 0 74px;display:flex;flex-direction:column;
+         align-items:flex-end;text-align:right;gap:10px;width:100%}
 .shotcap .cap{font-size:14px;font-weight:600;line-height:1.35;opacity:.9}
 .shotcap .point{margin:0}
-.shotcap .curl.side{display:block;width:170px;height:95px;align-self:flex-end;
-                    margin:-10px -44px -24px 0}
+/* Крива починається на синій картці, а вістрям заходить на прототип.
+   Наскільки далеко тягнутись — міряє скрипт і кладе у --reach: ширина
+   білого проміжку залежить від розміру екрана. */
+.shotcap .curl.side{display:block;position:absolute;width:176px;height:98px;margin:0;
+                    bottom:14px;right:calc(-1 * (var(--reach,70px) + 10px))}
 
 @media (max-width:620px){
   /* Три числа лишаються в ряд: вони про порівняння, а поодинці
@@ -283,7 +297,7 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
   .sstep .who{grid-area:who;justify-self:start;margin:0;font-size:11px;padding:5px 11px}
   .sstep h3{grid-area:title;margin-top:2px;font-size:clamp(21px,5.6vw,28px)}
   .sstep p{grid-area:text;margin-top:0;font-size:15px}
-  .sstep .shotcap{grid-column:1/-1;margin-top:2px;padding-top:0;gap:8px}
+  .sstep .shotcap{grid-column:1/-1;margin-top:2px;padding:0;gap:8px;align-items:flex-start;text-align:left}
   .sstep .shotcap .curl{display:none}
 
   /* Стрілки лишаються великими й сідають у вільний правий кут картки:
@@ -1055,6 +1069,38 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   fit();
   if (window.ResizeObserver) new ResizeObserver(fit).observe(panes[0]);
   else window.addEventListener('resize', fit);
+})();
+
+/* Прототипи в слайдері тягнуться на висоту картки, тож їхня ширина
+   щоразу інша — масштаб сторінки всередині рахуємо на місці. Заразом
+   міряємо, скільки кривій треба пройти від синьої картки до прототипа. */
+(function () {
+  const steps = [...document.querySelectorAll('.sstep')];
+  if (!steps.length) return;
+
+  function fit() {
+    steps.forEach((st) => {
+      const holder = st.querySelector('.phone.sm .holder');
+      const frame  = holder && holder.querySelector('iframe');
+      const quote  = st.querySelector('.sstep__quote');
+      const phone  = st.querySelector('.phone.sm');
+      if (!holder || !frame || !quote || !phone) return;
+
+      const w = holder.clientWidth;
+      if (w) frame.style.transform = 'scale(' + (w / 390) + ')';
+
+      /* Проміжок між карткою й прототипом. На вузькому екрані прототип
+         стоїть знизу — тоді кривої немає і міряти нема чого. */
+      const q = quote.getBoundingClientRect(), p = phone.getBoundingClientRect();
+      const gap = Math.round(p.left - q.right);
+      quote.style.setProperty('--reach', (gap > 0 ? gap : 70) + 'px');
+    });
+  }
+
+  fit();
+  addEventListener('resize', fit, { passive: true });
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(steps[0]);
+  setTimeout(fit, 700);        // після того, як шрифти перерахують висоту
 })();
 </script>
 
