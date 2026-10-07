@@ -766,6 +766,16 @@ section[id]{scroll-margin-top:64px}
 .site-head .site-lead{margin-top:0}
 @media (max-width:900px){ .site-head{grid-template-columns:1fr} }
 
+
+/* Бенто: контейнер окремим шаром опускається на тросах, як на сайті CLG. */
+.bento-anim{position:relative;overflow:hidden;aspect-ratio:1440/985;height:auto;max-height:66%;background:#fff;border:1px solid rgba(51,70,196,.2)}
+.bento-anim img{display:block;width:100%;height:100%;object-fit:contain}
+.bento-anim .bento-box{position:absolute;left:62%;top:-15%;width:34%;height:auto;object-fit:initial}
+.acc-i.open .bento-box{animation:boxDown 1.8s cubic-bezier(.2,.75,.25,1.05) both}
+@media (hover:hover) and (min-width:761px){ .acc-i:hover .bento-box{animation:boxDown 1.8s cubic-bezier(.2,.75,.25,1.05) both} }
+@keyframes boxDown{from{transform:translateY(-105%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){ .bento-box{animation:none!important} }
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -949,7 +959,12 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <article class="acc-i" tabindex="0">
       <div class="acc-face f-blue"><span class="acc-num">01</span><span class="acc-name">Бенто-<br>сітка</span></div>
       <div class="acc-body">
-        <img class="acc-pic sq" src="images/clg/acc-bento.webp" alt="Секція сайту CLG «Чому нам довіряють»: переваги бенто-картками" width="1440" height="985" loading="lazy">
+        <div class="acc-pic bento-anim" role="img" aria-label="Секція сайту CLG «Чому нам довіряють»: переваги бенто-картками, контейнер опускається на тросах">
+          <img src="images/clg/acc-bento-bg.webp" alt="" width="1440" height="985" loading="lazy">
+          <!-- Контейнер окремим шаром на тому ж місці, що й на сайті:
+               при розкритті картки опускається згори, як на справжньому сайті. -->
+          <img class="bento-box" src="images/clg/acc-container.webp" alt="" loading="lazy">
+        </div>
         <h3>Бенто-сітка</h3>
         <p>Сторінка розкладена на&nbsp;картки, кожна&nbsp;— одна думка: що
           це за&nbsp;послуга, фото, переваги, кнопка. Людина бачить усе одразу
