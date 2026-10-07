@@ -408,12 +408,26 @@ section[id]{scroll-margin-top:64px}
          width:var(--trw,clamp(300px,30vw,560px));scale:-1 1}
 .a-box.swing{animation:swing 5s ease-in-out infinite}
 @keyframes swing{0%,100%{rotate:-1deg}50%{rotate:1deg}}
-/* На вузькому екрані поруч із текстом місця немає: літак і вантажівка
-   стають над текстом по боках від контейнера. */
+/* Телефон: без довгої прокрутки й закріпленої сцени — звичайна секція.
+   Зверху контейнер на тросах, що йдуть від краю секції, далі заголовок,
+   текст і кнопка, нижче літак і вантажівка. Кожен виїжджає, коли
+   зʼявляється на екрані (клас .in ставить скрипт). */
 @media (max-width:760px){
-  .a-box{width:150px;margin-left:-75px}
-  .a-plane{left:auto;right:-4vw;bottom:auto;top:5vh;width:56vw}
-  .a-truck{right:auto;left:3vw;bottom:auto;top:22vh;width:40vw}
+  .anim{height:auto;padding:0 0 var(--sec)}
+  .anim-stage{position:static;height:auto;overflow:hidden}
+  .a-top{flex:none;display:flex;justify-content:center}
+  .anim-stage img{position:relative;will-change:auto}
+  .a-box{bottom:auto;left:auto;margin:0;width:min(230px,58vw)}
+  .anim-txt{order:2;padding:24px 16px 8px}
+  .a-plane{order:3;right:auto;bottom:auto;align-self:flex-end;width:88vw;margin:22px -6vw 0 0}
+  .a-truck{order:4;right:auto;bottom:auto;align-self:flex-start;width:70vw;margin:4px 0 0 4vw}
+  .js .a-box{translate:0 -100%;transition:translate 1.6s cubic-bezier(.2,.75,.25,1.05)}
+  .js .a-plane{translate:110% 0;transition:translate 1.3s cubic-bezier(.22,.8,.24,1)}
+  .js .a-truck{translate:-110% 0;transition:translate 1.3s cubic-bezier(.22,.8,.24,1)}
+  .js .anim-stage img.in{translate:none}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  .js .anim-stage img{translate:none;transition:none}
 }
 @media (prefers-reduced-motion:reduce){ .a-box.swing{animation:none} }
 
@@ -1529,7 +1543,25 @@ document.documentElement.classList.add('js');
   addEventListener('resize', measure);
   if (document.fonts) document.fonts.ready.then(measure);
   let cur = target(), running = false;
+  const mq = matchMedia('(max-width: 760px)');
+  /* На телефоні — свій сценарій: кожен предмет виїжджає, коли видно. */
+  /* Місце беремо з offsetTop — він не зважає на зсув, тож предмет,
+     що ще за краєм, теж «бачимо». */
+  const reveal = () => {
+    if (!mq.matches) return;
+    const top = sec.getBoundingClientRect().top;
+    [box, plane, truck].forEach((el) => {
+      if (top + el.offsetTop + el.offsetHeight * .3 < innerHeight * .92) el.classList.add('in');
+    });
+  };
+  addEventListener('scroll', reveal, { passive: true });
+  addEventListener('resize', reveal);
+  reveal();
   const draw = () => {
+    if (mq.matches) {
+      box.style.transform = plane.style.transform = truck.style.transform = '';
+      box.classList.add('swing'); running = false; return;
+    }
     const t = target();
     cur += (t - cur) * 0.09;
     if (Math.abs(t - cur) < 0.0005) cur = t;
