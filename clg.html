@@ -522,6 +522,11 @@ section[id]{scroll-margin-top:64px}
        box-shadow:0 14px 32px rgba(33,33,33,.12);
        transition:flex-grow .7s cubic-bezier(.22,.8,.24,1)}
 .acc-i.open{flex-grow:4.6;cursor:default}
+@media (hover:hover) and (min-width:761px){
+  .acc-i:hover{flex-grow:4.6;cursor:default}
+  .acc-i:hover .acc-face{opacity:0}
+  .acc-i:hover .acc-body{opacity:1;visibility:visible;transition:opacity .45s ease .25s,visibility 0s}
+}
 .acc-face{position:absolute;inset:0;background-size:cover;background-position:center;
           transition:opacity .4s ease}
 .acc-label{position:absolute;left:10px;right:10px;bottom:10px;background:#fff;color:var(--blue);
@@ -730,9 +735,9 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 </section>
 
 <!-- ── 01. стиль з нуля: картки-гармошка ─────────────────────────────
-     Повторює прийом із сайту CLG: ряд вузьких карток із картинкою
-     й підписом, одна розкрита. Наведення (чи дотик) розкриває іншу.
-     Без скрипта перша картка розкрита, решту видно вузькими. -->
+     Повторює прийом із сайту CLG: спершу всі картки однакові й стиснуті,
+     наведена розкривається, решта звужується; курсор пішов — знову
+     порівну. Наведення працює й без скрипта; дотик і фокус — скриптом. -->
 <section class="wrap acc-sec" id="style">
   <div class="sec-head">
     <span class="sq"><b>01</b></span>
@@ -742,7 +747,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     на&nbsp;картку&nbsp;— вона розкриється.</p>
 
   <div class="acc">
-    <article class="acc-i open" tabindex="0">
+    <article class="acc-i" tabindex="0">
       <div class="acc-face" style="background-image:url(images/clg/acc-bento.webp);background-position:62% center">
         <span class="acc-label">Бенто-<br>сітка</span>
       </div>
@@ -809,34 +814,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </div>
     </article>
 
-    <article class="acc-i" tabindex="0">
-      <div class="acc-face" style="background-image:url(images/clg/acc-rail.webp)">
-        <span class="acc-label">Картки-<br>гармошка</span>
-      </div>
-      <div class="acc-body">
-        <img class="acc-pic" src="images/clg/site-service-cards.webp" alt="Послуги на сайті CLG: вузькі картки, одна розкрита" width="1440" height="900" loading="lazy" style="object-position:center 45%">
-        <h3>Нестандартна сітка</h3>
-        <p>Шість послуг&nbsp;— не&nbsp;списком на&nbsp;пів сторінки,
-          а&nbsp;«гармошкою» на&nbsp;один екран: вузькі картки з&nbsp;фото,
-          і&nbsp;та, на&nbsp;яку навели, плавно розкривається з&nbsp;описом
-          і&nbsp;кнопкою. Ця секція зроблена так само.</p>
-      </div>
-    </article>
-
-    <article class="acc-i" tabindex="0">
-      <div class="acc-face" style="background-image:url(images/clg/acc-avia.webp)">
-        <span class="acc-label">Рух<br>у&nbsp;деталях</span>
-      </div>
-      <div class="acc-body">
-        <img class="acc-pic" src="images/clg/acc-avia.webp" alt="Бірюзовий літак у небі" width="600" height="1058" loading="lazy" style="object-position:center 30%">
-        <h3>Рух у&nbsp;деталях</h3>
-        <p>Кнопки відгукуються на&nbsp;курсор: відблиск, інверсія кольору,
-          коло зі&nbsp;стрілкою стискається. Бігучі рядки з&nbsp;типами
-          вантажів, FAQ виїжджає збоку. Дрібниці, через які сайт відчувається
-          живим.</p>
-      </div>
-    </article>
-  </div>
+ </div>
 </section>
 
 <!-- ── 01. сайт ──────────────────────────────────────────────────── -->
@@ -1310,7 +1288,9 @@ document.documentElement.classList.add('js');
   const render = () => {
     const w = slides[0].offsetWidth;
     slides.forEach((el, i) => {
-      const k = i - pos, a = Math.abs(k);
+      /* По колу: беремо найкоротшу відстань до центру, тож після
+         останнього слайда знову йде перший. */
+      const k = ((((i - pos) % n) + n + n / 2) % n) - n / 2, a = Math.abs(k);
       /* Дуга: кут росте на 6° на кожен крок, підйом — як у кола
          радіусом 1600 px; зсув уздовж дуги, а не рівний. */
       const th = Math.max(-5, Math.min(5, k)) * 6 * Math.PI / 180;
@@ -1323,9 +1303,9 @@ document.documentElement.classList.add('js');
       el.style.filter = a < 0.5 ? 'none' : 'brightness(' + Math.max(0.55, 1 - a * 0.12) + ')';
       el.style.pointerEvents = a > 4.5 ? 'none' : '';
     });
-    count.textContent = pad(Math.round(pos) + 1) + ' / ' + pad(n);
+    count.textContent = pad(((Math.round(pos) % n) + n) % n + 1) + ' / ' + pad(n);
   };
-  const go = (i) => { pos = Math.max(0, Math.min(n - 1, Math.round(i))); render(); };
+  const go = (i) => { pos = Math.round(i); render(); };
   root.querySelector('.cf-prev').addEventListener('click', () => go(pos - 1));
   root.querySelector('.cf-next').addEventListener('click', () => go(pos + 1));
   root.addEventListener('keydown', (e) => {
@@ -1343,7 +1323,7 @@ document.documentElement.classList.add('js');
     if (!down) return;
     const dx = e.clientX - sx;
     if (Math.abs(dx) > 6) { moved = true; track.classList.add('drag'); }
-    if (moved) { pos = Math.max(-0.4, Math.min(n - 0.6, sp - dx / (slides[0].offsetWidth * 0.6))); render(); }
+    if (moved) { pos = sp - dx / (slides[0].offsetWidth * 0.6); render(); }
   });
   addEventListener('pointerup', () => {
     if (!down) return; down = false; track.classList.remove('drag');
@@ -1354,27 +1334,29 @@ document.documentElement.classList.add('js');
     const li = e.target.closest('.cf-slide');
     if (!li) return;
     const i = slides.indexOf(li);
-    if (moved || i !== Math.round(pos)) {
+    const c = ((Math.round(pos) % n) + n) % n;
+    if (moved || i !== c) {
       e.preventDefault(); e.stopPropagation();
-      if (!moved) go(i);
+      /* Найкоротшим шляхом по колу. */
+      if (!moved) go(Math.round(pos) + ((((i - c) % n) + n + n / 2) % n) - n / 2);
     }
   }, true);
   addEventListener('resize', render);
   render();
 })();
 
-/* Картки-гармошка: на компʼютері розкриваються наведенням, на телефоні
-   й з клавіатури — дотиком чи фокусом. */
+/* Картки-гармошка: наведення робить CSS; тут — дотик і клавіатура.
+   Курсор залишив ряд — усі знову однакові. */
 (function () {
-  const items = [...document.querySelectorAll('.acc-i')];
-  if (!items.length) return;
+  const acc = document.querySelector('.acc');
+  if (!acc) return;
+  const items = [...acc.querySelectorAll('.acc-i')];
   const open = (el) => items.forEach((i) => i.classList.toggle('open', i === el));
-  const hover = matchMedia('(hover: hover) and (min-width: 761px)');
   items.forEach((el) => {
-    el.addEventListener('mouseenter', () => { if (hover.matches) open(el); });
-    el.addEventListener('click', () => open(el));
+    el.addEventListener('click', () => open(el.classList.contains('open') && !matchMedia('(hover: hover)').matches ? null : el));
     el.addEventListener('focus', () => open(el));
   });
+  acc.addEventListener('mouseleave', () => open(null));
 })();
 
 /* Стрілки й лічильник для слайдів. */
