@@ -149,12 +149,26 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 @media (prefers-reduced-motion:reduce){.lane{animation:none}}
 
 /* ── 3. поворот ────────────────────────────────────────────────────── */
-.turn{background:var(--blue) var(--grid-l);color:#fff;padding-block:var(--sec)}
-.turn-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(20px,3.4vw,46px);
-           align-items:center}
+.turn{background:var(--blue) var(--grid-l);color:#fff;padding-block:10px}
+/* Телефон — на всю висоту екрана під шапкою; між текстом і телефоном —
+   плашка зі стрілкою, стрілка заходить на телефон. */
+.turn-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(110px,14vw,240px);
+           align-items:center;min-height:calc(100svh - var(--barh,72px) - 20px)}
 .turn-txt{min-width:0}
-.turn h2{font-size:clamp(28px,4.2vw,62px);max-width:24ch}
-.turn p{max-width:54ch;margin-top:22px;font-size:clamp(17px,1.9vw,21px)}
+.turn h2{font-size:clamp(28px,3.6vw,56px);max-width:24ch}
+.turn p{max-width:56ch;margin-top:18px;font-size:clamp(15.5px,1.25vw,18px)}
+/* Плашка між текстом і телефоном, стрілка заходить на телефон. */
+.turn-hint{position:absolute;right:calc(100% - clamp(40px,4vw,70px));bottom:24%;z-index:2;margin:0;
+           display:flex;align-items:flex-end;gap:2px}
+.turn-hint .live{max-width:clamp(170px,15vw,250px);line-height:1.25}
+.turn-hint .curl{width:clamp(90px,7.5vw,130px);height:auto;margin-bottom:22px}
+@media (max-width:980px){
+  .turn{padding-block:var(--sec)}
+  .turn-grid{grid-template-columns:minmax(0,1fr);min-height:0;row-gap:28px}
+  .turn-hint{position:static;justify-content:center;margin-bottom:12px}
+  .turn-hint .live{max-width:none}
+  .turn-hint .curl{display:none}
+}
 .turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:34px}
 .turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:20px 22px;
                  min-width:0}
@@ -179,15 +193,18 @@ section[id]{scroll-margin-top:64px}
      font-size:clamp(22px,2.6vw,34px);margin-top:44px}
 
 /* ── телефон із живим сайтом (на «повороті») ───────────────────────── */
-.phone{width:316px;max-width:100%;margin:0 auto}
-.phone .screen{border:10px solid var(--dark);border-radius:34px;overflow:hidden;
+.phone{--ph:calc(100svh - var(--barh,72px) - 10px);height:var(--ph);aspect-ratio:316/611;
+       max-width:100%;margin:0;position:relative}
+.phone .screen{height:100%;border:10px solid var(--dark);border-radius:34px;overflow:hidden;
                background:var(--dark);box-shadow:0 18px 40px rgba(0,0,0,.4)}
-.phone .holder{width:296px;height:591px;overflow:hidden;position:relative;background:#fff}
+.phone .holder{width:100%;height:100%;overflow:hidden;position:relative;background:#fff}
 .phone .holder img{width:100%;height:auto}
 .phone iframe{position:absolute;top:0;left:0;width:390px;height:780px;border:0;display:block;
               transform:scale(.758);transform-origin:top left;background:#fff}
-.phone figcaption{margin-top:11px;text-align:center;font-size:14px;font-weight:600;
-                  color:#fff;opacity:.85}
+@media (max-width:980px){
+  .phone{height:auto;aspect-ratio:auto;width:100%;margin:0 auto}
+  .phone .screen{width:min(316px,100%);height:auto;aspect-ratio:316/611;margin:0 auto}
+}
 
 /* ── 01. сайт: кадри з підписами ───────────────────────────────────── */
 .shots{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:26px}
@@ -363,7 +380,7 @@ section[id]{scroll-margin-top:64px}
             flex-direction:column;align-items:center;--tw:600px}
 .a-top{flex:1;position:relative;width:100%;min-height:0}
 .anim-txt{position:relative;z-index:2;text-shadow:0 2px 18px rgba(33,33,33,.85);text-align:center;max-width:1100px;
-          padding:0 20px clamp(72px,13vh,140px)}
+          padding:0 20px clamp(24px,4vh,48px)}
 .anim-txt h2{font-size:clamp(32px,4.1vw,72px)}
 /* Рівно два рядки на широкому екрані; на телефоні — як вийде. */
 @media (min-width:761px){ .anim-txt h2{white-space:nowrap} }
@@ -377,7 +394,7 @@ section[id]{scroll-margin-top:64px}
    і трохи заходить на текст. Вантажівка зліва: кабіна трохи на тексті,
    причіп за краєм екрана — її ширину й місце рахує
    скрипт (--tw — ширина тексту). */
-.a-plane{right:-4vw;bottom:25vh;width:clamp(340px,36vw,700px);rotate:7deg}
+.a-plane{right:-4vw;bottom:17vh;width:clamp(340px,36vw,700px);rotate:7deg}
 /* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
 .a-truck{right:calc(50% + var(--tw) / 2 - 40px);bottom:3vh;
          width:var(--trw,clamp(300px,30vw,560px));scale:-1 1}
@@ -524,7 +541,7 @@ section[id]{scroll-margin-top:64px}
 
 
 /* ── 01. стиль: картки-гармошка ────────────────────────────────────── */
-.acc{--h:clamp(460px,66vh,660px);display:flex;gap:var(--gap);margin-top:24px;height:var(--h)}
+.acc{--h:clamp(400px,calc(100svh - var(--barh,72px) - 56px),640px);display:flex;gap:var(--gap);margin-top:24px;height:var(--h)}
 .acc-i{flex:1 1 0;min-width:0;position:relative;border-radius:18px;overflow:hidden;cursor:pointer;
        background:#fff;border:1px solid rgba(51,70,196,.25);outline-offset:3px;
        box-shadow:0 14px 32px rgba(33,33,33,.12);
@@ -561,12 +578,13 @@ section[id]{scroll-margin-top:64px}
 .swatches span{display:flex;flex-direction:column;border-radius:10px;overflow:hidden;min-width:0;
                border:1px solid rgba(51,70,196,.25);background:#fff;box-shadow:0 6px 16px rgba(33,33,33,.1)}
 .swatches i{flex:1;display:block;position:relative;overflow:hidden}
-/* Білий відблиск пробігає по кольорах по черзі, і так по колу. */
-.swatches i::after{content:'';position:absolute;inset:-20% auto -20% 0;width:45%;
-  background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);
-  transform:translateX(-120%) skewX(-18deg);animation:swShine 3.5s ease-in-out infinite;
-  animation-delay:calc(var(--n,0) * .35s)}
-@keyframes swShine{0%{transform:translateX(-120%) skewX(-18deg)}22%,100%{transform:translateX(320%) skewX(-18deg)}}
+/* Білий відблиск повільно проходить згори вниз — по одному кольору
+   за раз, по черзі, і так по колу. Лише в межах кольорової плашки. */
+.swatches i::after{content:'';position:absolute;left:0;right:0;top:0;height:40%;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.6),transparent);
+  transform:translateY(-110%);animation:swShine 10s ease-in-out infinite;
+  animation-delay:calc(var(--n,0) * 2s)}
+@keyframes swShine{0%{transform:translateY(-110%)}18%,100%{transform:translateY(260%)}}
 @media (prefers-reduced-motion:reduce){ .swatches i::after{animation:none;display:none} }
 .swatches em{font-style:normal;padding:8px 8px 9px;font-size:11px;line-height:1.25;color:#666;
              overflow-wrap:anywhere}
@@ -736,6 +754,7 @@ section[id]{scroll-margin-top:64px}
   .deck3__in{grid-template-columns:1fr}
   .deck3__view{max-width:none}
   .deck3__hint .curl{display:none}
+  .deck3__hint{margin-right:0}
 }
 
 
@@ -771,8 +790,8 @@ section[id]{scroll-margin-top:64px}
 .bento-anim{position:relative;overflow:hidden;aspect-ratio:1440/985;height:auto;max-height:66%;background:#fff;border:1px solid rgba(51,70,196,.2)}
 .bento-anim img{display:block;width:100%;height:100%;object-fit:contain}
 .bento-anim .bento-box{position:absolute;left:62%;top:-15%;width:34%;height:auto;object-fit:initial}
-.acc-i.open .bento-box{animation:boxDown 1.8s cubic-bezier(.2,.75,.25,1.05) both}
-@media (hover:hover) and (min-width:761px){ .acc-i:hover .bento-box{animation:boxDown 1.8s cubic-bezier(.2,.75,.25,1.05) both} }
+.acc-i.open .bento-box{animation:boxDown 3s cubic-bezier(.2,.75,.25,1.05) both}
+@media (hover:hover) and (min-width:761px){ .acc-i:hover .bento-box{animation:boxDown 3s cubic-bezier(.2,.75,.25,1.05) both} }
 @keyframes boxDown{from{transform:translateY(-105%)}to{transform:none}}
 @media (prefers-reduced-motion:reduce){ .bento-box{animation:none!important} }
 
@@ -933,12 +952,20 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     </div>
 
     <figure class="phone">
+      <div class="point turn-hint">
+      <span class="live"><i></i>Сторінка авіаперевезень&nbsp;— гортайте</span>
+      <svg class="curl" viewBox="0 0 150 82" fill="none" aria-hidden="true">
+          <path d="M6 76C32 72 56 64 74 50C90 38 86 20 72 22C60 24 62 40 80 46C102 54 124 40 137 16"
+                stroke="url(#ga)" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M119 20L139 13L137 34" stroke="url(#ga)" stroke-width="3.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
       <div class="screen"><div class="holder">
         <img src="images/clg/site-home-mobile.webp" alt="Сайт CLG на телефоні" width="390" height="844" loading="lazy">
         <iframe data-src="https://clg-site-three.vercel.app/posluhy-aviaperevezennia-vantazhiv" hidden
                 title="Сторінка авіаперевезень CLG на телефоні — гортайте"></iframe>
       </div></div>
-      <figcaption>Сторінка авіаперевезень&nbsp;— гортайте</figcaption>
     </figure>
   </div>
 </section>
@@ -966,9 +993,8 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
           <img class="bento-box" src="images/clg/acc-container.webp" alt="" loading="lazy">
         </div>
         <h3>Бенто-сітка</h3>
-        <p>Сторінка розкладена на&nbsp;картки, кожна&nbsp;— одна думка: що
-          це за&nbsp;послуга, фото, переваги, кнопка. Людина бачить усе одразу
-          й&nbsp;читає лише потрібне, замість суцільного полотна тексту.</p>
+        <p>Сторінка розкладена на&nbsp;картки, кожна&nbsp;— одна думка: послуга,
+          фото, переваги, кнопка. Людина бачить усе одразу й&nbsp;читає лише потрібне.</p>
       </div>
     </article>
 
@@ -1416,6 +1442,20 @@ document.documentElement.classList.add('js');
   fit();
   if (window.ResizeObserver && panes[0]) new ResizeObserver(fit).observe(panes[0]);
   else window.addEventListener('resize', fit);
+
+  /* Телефон: ширина мобільної версії 390, масштаб — під висоту екрана. */
+  const hold = document.querySelector('.phone .holder');
+  const fitPhone = () => {
+    const f = hold && hold.querySelector('iframe'); if (!f) return;
+    const k = hold.clientWidth / 390;
+    f.style.transform = 'scale(' + k + ')';
+    f.style.height = (hold.clientHeight / k) + 'px';
+  };
+  const bar = document.querySelector('.bar');
+  const setBar = () => bar && document.documentElement.style.setProperty('--barh', bar.offsetHeight + 'px');
+  setBar(); fitPhone();
+  if (window.ResizeObserver && hold) new ResizeObserver(fitPhone).observe(hold);
+  window.addEventListener('resize', () => { setBar(); fitPhone(); });
 })();
 
 /* Сцена анімацій: прогрес прокрутки 0…1 усередині секції розкладено
