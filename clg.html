@@ -484,6 +484,36 @@ section[id]{scroll-margin-top:64px}
   .objs{height:220px}
 }
 
+
+/* ── 03. креативи: слайдер по дузі ─────────────────────────────────── */
+.ads-cf{padding:52px 0 56px;overflow:hidden}
+.cf{position:relative;margin-top:22px}
+.cf-track{list-style:none;margin:0;padding:0 16px 10px;display:flex;gap:var(--gap);overflow-x:auto;
+          scroll-snap-type:x mandatory}
+.cf-slide{flex:0 0 200px;scroll-snap-align:center}
+.cf-slide a{display:block;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:var(--dark);
+            box-shadow:0 14px 34px rgba(33,33,33,.28)}
+.cf-slide img{width:100%;height:100%;object-fit:cover;-webkit-user-drag:none;user-select:none}
+.cf-nav{display:none;align-items:center;justify-content:center;gap:16px;margin-top:30px;position:relative;z-index:200}
+.cf-nav button{width:48px;height:48px;border:1px solid var(--blue);border-radius:var(--r);background:#fff;
+               color:var(--blue);cursor:pointer;display:grid;place-items:center}
+.cf-nav button:hover{background:var(--blue);color:#fff}
+.cf-count{font-family:var(--head);font-weight:800;font-size:20px;min-width:84px;text-align:center}
+.cf-lead{max-width:62ch;margin:18px auto 0;text-align:center;font-size:clamp(16px,1.6vw,19px)}
+
+/* Зі скриптом стрічка стає сценою: слайди лежать один на одному,
+   а місце кожного рахує скрипт (зсув, підйом по дузі, поворот, масштаб). */
+.js .cf-track{display:block;position:relative;overflow:visible;padding:0;
+              height:clamp(380px,62vh,640px);touch-action:pan-y;cursor:grab}
+.js .cf-track.drag{cursor:grabbing}
+.js .cf-slide{position:absolute;left:50%;top:0;height:100%;aspect-ratio:9/16;width:auto;
+              transform-origin:50% 50%;will-change:transform;
+              transition:transform .6s cubic-bezier(.22,.8,.24,1),opacity .6s ease,filter .6s ease}
+.js .cf-track.drag .cf-slide{transition:none}
+.js .cf-slide a{height:100%}
+.js .cf-nav{display:flex}
+@media (prefers-reduced-motion:reduce){ .js .cf-slide{transition:none} }
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -784,154 +814,105 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 </section>
 
-<!-- ── 02. креативи ──────────────────────────────────────────────── -->
-<section class="wrap" id="ads">
-  <div class="sec-head">
-    <span class="sq"><b>03</b></span>
-    <h2>Креативи для таргету</h2>
-  </div>
-  <p class="sec-lead">
-    33&nbsp;сторіс 9:16 для&nbsp;реклами в&nbsp;тій&nbsp;самій бірюзі й&nbsp;3D,
-    що&nbsp;на&nbsp;сайті: людина бачить рекламу, переходить&nbsp;— і&nbsp;впізнає
-    компанію. Тут&nbsp;— найсильніші. Кожен креатив побудований за&nbsp;однією
-    схемою:
-  </p>
-  <div class="formula" aria-label="Схема креативу">
-    <span>біль у&nbsp;заголовку</span><i>→</i><span>вигода</span><i>→</i><span>кнопка дії</span>
-  </div>
-
-  <div class="ads">
-    <figure class="lead-creo" style="margin:0">
-      <a class="story" href="images/clg/creo-07.webp" data-zoom="ads" data-cap="«1 договір, 1 менеджер, 100% відповідальності»">
-        <img src="images/clg/creo-07.webp" alt="Креатив: 1 договір, 1 менеджер, 100% відповідальності" width="720" height="1280" loading="lazy">
-      </a>
-      <figcaption class="cap"><b>Головний</b>«1&nbsp;договір, 1&nbsp;менеджер, 100%&nbsp;відповідальності»&nbsp;—
-        одна обіцянка закриває головний страх імпортера: що&nbsp;вантаж
-        загубиться між&nbsp;підрядниками.</figcaption>
-    </figure>
-
-    <div>
-      <div class="series">
-        <h3>Метафори, які продають</h3>
-        <p>Абстрактну вигоду показано предметом, який зрозуміло з&nbsp;першої секунди.</p>
-        <div class="row">
-          <figure>
-            <a class="story" href="images/clg/creo-06.webp" data-zoom="ads" data-cap="«Кошторис фіксуємо до відправлення»">
-              <img src="images/clg/creo-06.webp" alt="Креатив: контейнер на ланцюгу із замком — кошторис фіксуємо" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">Контейнер на&nbsp;ланцюгу із&nbsp;замком&nbsp;— «кошторис фіксуємо»</figcaption>
-          </figure>
-          <figure>
-            <a class="story" href="images/clg/creo-09.webp" data-zoom="ads" data-cap="«Перевірте, чи не переплачуєте ви за фрахт»">
-              <img src="images/clg/creo-09.webp" alt="Креатив: терези — чи не переплачуєте ви за фрахт" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">Терези&nbsp;— «чи&nbsp;не&nbsp;переплачуєте за&nbsp;фрахт»</figcaption>
-          </figure>
-          <figure>
-            <a class="story" href="images/clg/creo-22.webp" data-zoom="ads" data-cap="«Потрібна вигідна доставка?»">
-              <img src="images/clg/creo-22.webp" alt="Креатив: контейнер у руках — потрібна вигідна доставка" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">Контейнер у&nbsp;руках&nbsp;— той самий образ, що&nbsp;на&nbsp;сайті</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="series">
-        <h3>Митниця</h3>
-        <p>Найболючіше в&nbsp;імпорті&nbsp;— приховані платежі й&nbsp;вантаж, що&nbsp;застряг.
-          Креативи відповідають на&nbsp;цей страх прямо.</p>
-        <div class="row">
-          <figure>
-            <a class="story" href="images/clg/creo-01.webp" data-zoom="ads" data-cap="«Набридли приховані платежі на митниці?»">
-              <img src="images/clg/creo-01.webp" alt="Креатив: набридли приховані платежі на митниці" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Набридли приховані платежі на&nbsp;митниці?»</figcaption>
-          </figure>
-          <figure>
-            <a class="story" href="images/clg/creo-05.webp" data-zoom="ads" data-cap="«Ваш вантаж не застряне на митниці»">
-              <img src="images/clg/creo-05.webp" alt="Креатив: ваш вантаж не застряне на митниці" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Ваш вантаж не&nbsp;застряне на&nbsp;митниці»</figcaption>
-          </figure>
-          <figure>
-            <a class="story" href="images/clg/creo-20.webp" data-zoom="ads" data-cap="«Вантаж застряг?»">
-              <img src="images/clg/creo-20.webp" alt="Креатив: вантаж застряг" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Вантаж застряг?»</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="series">
-        <h3>Преміальна серія: бірюза й&nbsp;золото</h3>
-        <p>Темний фон, золоті акценти, світлі кнопки&nbsp;— для&nbsp;великого
-          й&nbsp;середнього бізнесу, якому важлива надійність.</p>
-        <div class="row">
-          <figure>
-            <a class="story" href="images/clg/creo-10.webp" data-zoom="ads" data-cap="«Регулярні рейси без затримок»">
-              <img src="images/clg/creo-10.webp" alt="Креатив: регулярні рейси без затримок" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Регулярні рейси без&nbsp;затримок»</figcaption>
-          </figure>
-          <figure>
-            <a class="story" href="images/clg/creo-12.webp" data-zoom="ads" data-cap="«Ваш вантаж вже в дорозі?»">
-              <img src="images/clg/creo-12.webp" alt="Креатив: ваш вантаж вже в дорозі" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Ваш вантаж вже в&nbsp;дорозі?»</figcaption>
-          </figure>
-          <figure>
-            <a class="story" href="images/clg/creo-31.webp" data-zoom="ads" data-cap="«Збірні контейнерні партії (LCL)»">
-              <img src="images/clg/creo-31.webp" alt="Креатив: збірні контейнерні партії LCL" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Збірні контейнерні партії»</figcaption>
-          </figure>
-          <figure>
-            <a class="story" href="images/clg/creo-33.webp" data-zoom="ads" data-cap="«Надійний імпорт для малого та середнього B2B-бізнесу»">
-              <img src="images/clg/creo-33.webp" alt="Креатив: надійний імпорт для малого та середнього B2B-бізнесу" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Надійний імпорт для&nbsp;B2B»</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="series">
-        <h3>Синя серія&nbsp;— з&nbsp;чого почали</h3>
-        <p>Перший набір: світліший, з&nbsp;синім контейнером і&nbsp;ціною в&nbsp;картках.
-          З&nbsp;нього виросла бірюзова серія.</p>
-        <div class="row">
-          <figure>
-            <a class="story" href="images/clg/creo-02.webp" data-zoom="ads" data-cap="«Оптимізуйте логістику для бізнесу»">
-              <img src="images/clg/creo-02.webp" alt="Креатив синьої серії: оптимізуйте логістику для бізнесу" width="720" height="1280" loading="lazy">
-            </a>
-            <figcaption class="cap">«Оптимізуйте логістику для&nbsp;бізнесу»</figcaption>
-          </figure>
-        </div>
-      </div>
+<!-- ── 03. креативи: слайдер по дузі ─────────────────────────────────
+     Усі 33 креативи вперемішку, без поділу на серії. Центральний —
+     великий, сусіди меншають і йдуть по дузі вліво й управо. Без скрипта
+     це звичайна стрічка, яку гортають вбік. -->
+<section class="ads-cf" id="ads">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sq"><b>03</b></span>
+      <h2>Креативи для таргету</h2>
     </div>
   </div>
 
-  <div class="panel">
-    <div class="ab">
-      <figure>
-        <span class="tag">A</span>
-        <a class="story" href="images/clg/creo-07.webp" data-zoom="ab" data-cap="Варіант A">
-          <img src="images/clg/creo-07.webp" alt="Варіант A: фотореалістична сцена із золотом" width="720" height="1280" loading="lazy">
-        </a>
-      </figure>
-      <figure>
-        <span class="tag">B</span>
-        <a class="story" href="images/clg/creo-08.webp" data-zoom="ab" data-cap="Варіант B">
-          <img src="images/clg/creo-08.webp" alt="Варіант B: темна сцена з неоновим світлом" width="720" height="1280" loading="lazy">
-        </a>
-      </figure>
-      <div>
-        <h3>Одна ідея&nbsp;— дві подачі</h3>
-        <p>Та сама обіцянка й&nbsp;та сама кнопка, але різна картинка:
-          світла фотореалістична сцена із&nbsp;золотом проти темної
-          з&nbsp;неоновим світлом. Такі пари запускають у&nbsp;рекламі
-          паралельно й&nbsp;лишають ту, що&nbsp;приводить заявки дешевше.</p>
-      </div>
+  <div class="cf" data-start="16" tabindex="0" aria-label="Слайдер креативів: стрілки ← →">
+    <ul class="cf-track" aria-label="Креативи — гортайте">
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-08.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-08.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-24.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-24.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-26.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-26.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-32.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-32.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-05.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-05.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-11.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-11.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-06.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-06.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-16.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-16.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-31.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-31.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-01.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-01.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-20.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-20.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-09.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-09.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-15.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-15.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-25.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-25.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-23.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-23.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-30.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-30.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-07.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-07.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-14.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-14.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-28.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-28.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-22.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-22.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-17.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-17.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-29.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-29.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-19.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-19.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-12.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-12.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-04.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-04.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-18.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-18.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-27.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-27.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-03.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-03.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-02.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-02.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-33.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-33.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-13.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-13.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-10.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-10.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+      <li class="cf-slide"><a draggable="false" href="images/clg/creo-21.webp" data-zoom="ads" data-cap="Креатив для таргету">
+        <img src="images/clg/creo-21.webp" alt="Креатив CLG для таргету" width="720" height="1280" loading="lazy" decoding="async" draggable="false"></a></li>
+    </ul>
+    <div class="cf-nav">
+      <button type="button" class="cf-prev" aria-label="Попередній креатив">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </button>
+      <span class="cf-count">17 / 33</span>
+      <button type="button" class="cf-next" aria-label="Наступний креатив">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
     </div>
+  </div>
+
+  <div class="wrap">
+    <p class="cf-lead">
+      33&nbsp;сторіс для&nbsp;реклами&nbsp;— теж з&nbsp;нуля. Яскраві, щоб
+      зупинити палець у&nbsp;стрічці: біль у&nbsp;заголовку, вигода й&nbsp;кнопка
+      дії. І&nbsp;в&nbsp;тому&nbsp;ж стилі, що&nbsp;й&nbsp;сайт: після кліку
+      людина одразу впізнає компанію.
+    </p>
   </div>
 </section>
 
@@ -1214,6 +1195,75 @@ document.documentElement.classList.add('js');
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { threshold: 0.3 });
   lists.forEach((l) => io.observe(l));
+})();
+
+/* Слайдер креативів по дузі. Позиція — дробове число: під час
+   перетягування слайди рухаються за пальцем, після — доїжджають
+   до найближчого. Клік по бічному слайду везе його в центр, по центральному
+   — відкриває на весь екран. */
+(function () {
+  const root = document.querySelector('.cf');
+  if (!root) return;
+  const track = root.querySelector('.cf-track');
+  const slides = [...track.children];
+  const n = slides.length;
+  const count = root.querySelector('.cf-count');
+  let pos = +root.dataset.start || 0;
+  const pad = (v) => String(v).padStart(2, '0');
+  const render = () => {
+    const w = slides[0].offsetWidth;
+    slides.forEach((el, i) => {
+      const k = i - pos, a = Math.abs(k);
+      /* Дуга: кут росте на 6° на кожен крок, підйом — як у кола
+         радіусом 1600 px; зсув уздовж дуги, а не рівний. */
+      const th = Math.max(-5, Math.min(5, k)) * 6 * Math.PI / 180;
+      const x = Math.sign(k) * (a <= 1 ? a * w * 0.8 : w * 0.8 + (a - 1) * w * 0.52);
+      const y = 1600 * (1 - Math.cos(th)) * 0.55;
+      const sc = Math.max(0.46, 1 - a * 0.13);
+      el.style.transform = 'translateX(calc(-50% + ' + x + 'px)) translateY(' + y + 'px) rotate(' + (th * 180 / Math.PI) + 'deg) scale(' + sc + ')';
+      el.style.zIndex = 100 - Math.round(a * 10);
+      el.style.opacity = a > 4.5 ? 0 : 1;
+      el.style.filter = a < 0.5 ? 'none' : 'brightness(' + Math.max(0.55, 1 - a * 0.12) + ')';
+      el.style.pointerEvents = a > 4.5 ? 'none' : '';
+    });
+    count.textContent = pad(Math.round(pos) + 1) + ' / ' + pad(n);
+  };
+  const go = (i) => { pos = Math.max(0, Math.min(n - 1, Math.round(i))); render(); };
+  root.querySelector('.cf-prev').addEventListener('click', () => go(pos - 1));
+  root.querySelector('.cf-next').addEventListener('click', () => go(pos + 1));
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(pos - 1);
+    if (e.key === 'ArrowRight') go(pos + 1);
+  });
+  /* Перетягування мишею чи пальцем. */
+  let sx = 0, sp = 0, moved = false, down = false;
+  track.addEventListener('pointerdown', (e) => {
+    down = true; moved = false; sx = e.clientX; sp = pos;
+  });
+  track.addEventListener('dragstart', (e) => e.preventDefault());
+  addEventListener('pointercancel', () => { if (down) { down = false; track.classList.remove('drag'); go(pos); } });
+  addEventListener('pointermove', (e) => {
+    if (!down) return;
+    const dx = e.clientX - sx;
+    if (Math.abs(dx) > 6) { moved = true; track.classList.add('drag'); }
+    if (moved) { pos = Math.max(-0.4, Math.min(n - 0.6, sp - dx / (slides[0].offsetWidth * 0.6))); render(); }
+  });
+  addEventListener('pointerup', () => {
+    if (!down) return; down = false; track.classList.remove('drag');
+    if (moved) go(pos);
+  });
+  /* Клік: бічний — у центр, центральний — перегляд на весь екран. */
+  track.addEventListener('click', (e) => {
+    const li = e.target.closest('.cf-slide');
+    if (!li) return;
+    const i = slides.indexOf(li);
+    if (moved || i !== Math.round(pos)) {
+      e.preventDefault(); e.stopPropagation();
+      if (!moved) go(i);
+    }
+  }, true);
+  addEventListener('resize', render);
+  render();
 })();
 
 /* Стрілки й лічильник для слайдів. */
