@@ -706,7 +706,9 @@ section[id]{scroll-margin-top:64px}
              /* Вікно має вміститися в екран: ширину обмежуємо висотою. */
              max-width:calc((100vh - 180px) / .5625)}
 /* Висота вікна = слайд 16:9 + місце під краї слайдів, що лишились позаду. */
-.dviewer{height:calc(56.25cqi + 92px);overflow-y:auto;overscroll-behavior:contain;border-radius:10px;
+/* Без overscroll-behavior:contain: дійшли до першого чи останнього слайда —
+   колесо далі гортає сайт. */
+.dviewer{height:calc(56.25cqi + 92px);overflow-y:auto;overscroll-behavior:auto;border-radius:10px;
          scrollbar-width:none;outline-offset:4px}
 .dviewer::-webkit-scrollbar{display:none}
 .dv-track{position:relative}
@@ -1629,6 +1631,16 @@ document.documentElement.classList.add('js');
     }
   };
   view.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+  /* Дійшли до першого чи останнього слайда — колесо одразу гортає сайт,
+     навіть у тому самому русі колеса (браузер сам цього не робить). */
+  view.addEventListener('wheel', (e) => {
+    const max = view.scrollHeight - view.clientHeight;
+    const d = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+    if ((d < 0 && view.scrollTop <= 0) || (d > 0 && view.scrollTop >= max - 1)) {
+      e.preventDefault();
+      window.scrollBy({ top: d, behavior: 'instant' });
+    }
+  }, { passive: false });
   addEventListener('resize', upd);
   upd();
 })();
