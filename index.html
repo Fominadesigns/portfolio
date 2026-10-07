@@ -383,6 +383,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
    Ліворуч човен, праворуч опис. Уся плашка — одне посилання: по банеру
    клікають будь-де, а не цілять у слово. */
 .bnr{padding:0 var(--gap) clamp(40px,7vw,90px)}
+.bnr:has(+ .bnr){padding-bottom:var(--gap)}
 .bnr__in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);
          gap:clamp(16px,2.6vw,34px);align-items:center;text-decoration:none;
          background:var(--blue);color:#fff;border-radius:var(--r);padding:10px;
@@ -1058,6 +1059,26 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
         Човнова станція під&nbsp;Вишгородом. Сайт, облік і&nbsp;кабінет клієнта
         в&nbsp;Telegram, які працюють з&nbsp;однієї бази: заявка з&nbsp;сайту
         падає в&nbsp;CRM, рахунок приходить клієнту з&nbsp;QR, гроші видно в&nbsp;касі.
+      </p>
+      <span class="bnr__more">Дивитись кейс&nbsp;→</span>
+    </div>
+  </a>
+</section>
+
+<!-- Банер кейсу CLG: обертається помаранчевий контейнер, у парі з човном Skipper. -->
+<section class="bnr" data-nav="light">
+  <a class="bnr__in" href="clg.html">
+    <div class="bnr__cover">
+      <video class="bnr__video" muted loop playsinline preload="none"
+             poster="images/cases/clg-container.webp" data-src="video/container.mp4" aria-hidden="true"></video>
+    </div>
+    <div class="bnr__txt">
+      <span class="bnr__eyebrow">Кейс · 2026</span>
+      <h2 class="h bnr__title" style="font-size:clamp(30px,4.6vw,66px)">Customs Logistics Group</h2>
+      <p class="bnr__lead">
+        Міжнародна логістика з&nbsp;Києва. Стиль з&nbsp;нуля, новий сайт із&nbsp;3D
+        й&nbsp;анімаціями, креативи для&nbsp;таргету, розсилка й&nbsp;презентація&nbsp;—
+        усе в&nbsp;одному стилі.
       </p>
       <span class="bnr__more">Дивитись кейс&nbsp;→</span>
     </div>
