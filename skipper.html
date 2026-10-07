@@ -467,6 +467,20 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   .fcols > :last-child h4{grid-column:1/-1}
   .fbot{margin-top:26px;gap:8px 20px}
 }
+/* Відстані між смисловими блоками на телефоні — у півтора раза менші.
+   Ті самі порожнечі, що на великому екрані тримають ритм, на вузькому
+   читаються як розрив: наступний блок просто не видно. */
+@media (max-width:860px){
+  section{padding-top:17px;padding-bottom:17px}
+  .hero{padding-top:40px;padding-bottom:26px}
+  .pains{padding:26px 0 30px}
+  .turn{padding:42px 0}
+  .meta{margin-top:26px}
+  .sec-lead{margin-top:12px}
+  .cta{margin-top:20px}
+  .statecard{margin-top:16px}
+  footer{padding:34px 0 20px;margin-top:26px}
+}
 </style>
 </head>
 <body>
@@ -546,7 +560,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 </div>
 
 <!-- ── 2. біль, що біжить ────────────────────────────────────────── -->
-<section class="pains" style="padding-top:40px">
+<section class="pains">
   <h2>Більше<br>не&nbsp;треба<em>…</em></h2>
 
   <div class="lane" aria-hidden="true">
