@@ -398,10 +398,16 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 .bnr__lead{margin:14px 0 0;font-size:clamp(15px,1.6vw,18px);line-height:1.5;max-width:52ch}
 .bnr__more{display:inline-block;margin-top:18px;font:800 15px var(--head);
            text-transform:uppercase;border-bottom:2px solid var(--orange);padding-bottom:3px}
+/* CLG дзеркально: текст ліворуч, відео праворуч */
+.bnr--rev .bnr__in{grid-template-columns:minmax(0,1.6fr) minmax(0,.9fr)}
+.bnr--rev .bnr__cover{order:2}
+.bnr--rev .bnr__txt{order:1;padding-left:clamp(16px,2.4vw,30px);padding-right:6px}
 @media (max-width:760px){
-  .bnr__in{grid-template-columns:1fr}
-  .bnr__txt{padding:14px 14px 18px}
-  .bnr__cover{min-height:180px}
+  .bnr__in,.bnr--rev .bnr__in{grid-template-columns:1fr}
+  .bnr--rev .bnr__cover{order:0}
+  .bnr__txt,.bnr--rev .bnr__txt{padding:14px 14px 18px}
+  /* відео квадратні 960×960: квадратна рамка показує об'єкт повністю */
+  .bnr__cover{min-height:0;aspect-ratio:1/1}
 }
 
 .freebie{margin:26px 0 0 auto;width:min(330px,100%);display:grid;grid-template-columns:116px minmax(0,1fr);gap:16px;background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:6px}
@@ -966,28 +972,46 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   <div class="belt belt--dark" data-dir="-1"><div class="belt__rail"><div class="belt__group"><span>Зустрічайтесь із&nbsp;клієнтами * а&nbsp;не&nbsp;з&nbsp;конструктором сайтів</span><i>✦</i><span>Ведіть бізнес * а&nbsp;не&nbsp;переписку з&nbsp;трьома підрядниками</span><i>✦</i><span>Відпочивайте у&nbsp;вихідні * а&nbsp;не&nbsp;верстайте лендинг</span><i>✦</i></div><div class="belt__group"><span>Зустрічайтесь із&nbsp;клієнтами * а&nbsp;не&nbsp;з&nbsp;конструктором сайтів</span><i>✦</i><span>Ведіть бізнес * а&nbsp;не&nbsp;переписку з&nbsp;трьома підрядниками</span><i>✦</i><span>Відпочивайте у&nbsp;вихідні * а&nbsp;не&nbsp;верстайте лендинг</span><i>✦</i></div></div></div>
 </div>
 
-<!-- ========================= ВИ ВЕДЕТЕ БІЗНЕС ============================ -->
-<section class="love" id="love" data-nav="dark">
-  <!-- Сердечка спливають угору від курсора. Клік по секції — цілий оберемок.
-       На телефоні точка, звідки вони летять, сама кружляє по секції. Малює скрипт. -->
-  <div class="hearts" aria-hidden="true"></div>
-  <div class="love__grid">
-    <h2 class="h love__t" data-reveal>
-      <span class="ln"><span>Ви&nbsp;ведете</span></span>
-      <span class="ln"><span>бізнес.</span></span>
-      <span class="ln"><span>Візуал&nbsp;— </span><span class="box">на&nbsp;мені</span></span>
-    </h2>
-    <div class="corner fade love__corner">02</div>
-    <div class="love__side">
-      <p class="fade">Я прийшла з&nbsp;рекламного візуалу&nbsp;— тому бачу, що&nbsp;на&nbsp;сайті дає заявки, а&nbsp;що&nbsp;просто гарне.</p>
-      <p class="fade">Дизайн, верстка й&nbsp;реклама&nbsp;— від&nbsp;однієї людини, без&nbsp;трьох підрядників.</p>
+<!-- =========================== БАНЕР КЕЙСУ ============================== -->
+<!-- Відео човна те саме, що в самому кейсі. Вантажиться, лише коли банер
+     близько до екрана: до того показується обкладинка. -->
+<section class="bnr" data-nav="light">
+  <a class="bnr__in" href="skipper.html">
+    <div class="bnr__cover">
+      <video class="bnr__video" muted loop playsinline preload="none"
+             poster="images/cases/skipper.webp" data-src="video/boat.mp4" aria-hidden="true"></video>
     </div>
-    <!-- Відео 1080×1080, 1,2 МБ, без звуку. Вантажиться, лише коли до нього доскролили;
-         до того й без скриптів — обкладинка. Поза екраном стоїть на паузі. -->
-    <div class="card card--video fade">
-      <video class="love__video" muted loop playsinline preload="none" poster="video/love.webp" data-src="video/love.mp4"></video>
+    <div class="bnr__txt">
+      <span class="bnr__eyebrow">Кейс · 2026</span>
+      <h2 class="h bnr__title">Skipper</h2>
+      <p class="bnr__lead">
+        Човнова станція під&nbsp;Вишгородом. Сайт, облік і&nbsp;кабінет клієнта
+        в&nbsp;Telegram, які працюють з&nbsp;однієї бази: заявка з&nbsp;сайту
+        падає в&nbsp;CRM, рахунок приходить клієнту з&nbsp;QR, гроші видно в&nbsp;касі.
+      </p>
+      <span class="bnr__more">Дивитись кейс&nbsp;→</span>
     </div>
-  </div>
+  </a>
+</section>
+
+<!-- Банер кейсу CLG: обертається помаранчевий контейнер, у парі з човном Skipper. -->
+<section class="bnr bnr--rev" data-nav="light">
+  <a class="bnr__in" href="clg.html">
+    <div class="bnr__cover">
+      <video class="bnr__video" muted loop playsinline preload="none"
+             poster="images/cases/clg-container.webp" data-src="video/container.mp4" aria-hidden="true"></video>
+    </div>
+    <div class="bnr__txt">
+      <span class="bnr__eyebrow">Кейс · 2026</span>
+      <h2 class="h bnr__title" style="font-size:clamp(30px,4.6vw,66px)">Customs Logistics Group</h2>
+      <p class="bnr__lead">
+        Міжнародна логістика з&nbsp;Києва. Стиль з&nbsp;нуля, новий сайт із&nbsp;3D
+        й&nbsp;анімаціями, креативи для&nbsp;таргету, розсилка й&nbsp;презентація&nbsp;—
+        усе в&nbsp;одному стилі.
+      </p>
+      <span class="bnr__more">Дивитись кейс&nbsp;→</span>
+    </div>
+  </a>
 </section>
 
 <!-- ========================== ЦИФРА Й КЕЙСИ ============================== -->
@@ -1043,46 +1067,28 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
   </div>
 </section>
 
-<!-- =========================== БАНЕР КЕЙСУ ============================== -->
-<!-- Відео човна те саме, що в самому кейсі. Вантажиться, лише коли банер
-     близько до екрана: до того показується обкладинка. -->
-<section class="bnr" data-nav="light">
-  <a class="bnr__in" href="skipper.html">
-    <div class="bnr__cover">
-      <video class="bnr__video" muted loop playsinline preload="none"
-             poster="images/cases/skipper.webp" data-src="video/boat.mp4" aria-hidden="true"></video>
+<!-- ========================= ВИ ВЕДЕТЕ БІЗНЕС ============================ -->
+<section class="love" id="love" data-nav="dark">
+  <!-- Сердечка спливають угору від курсора. Клік по секції — цілий оберемок.
+       На телефоні точка, звідки вони летять, сама кружляє по секції. Малює скрипт. -->
+  <div class="hearts" aria-hidden="true"></div>
+  <div class="love__grid">
+    <h2 class="h love__t" data-reveal>
+      <span class="ln"><span>Ви&nbsp;ведете</span></span>
+      <span class="ln"><span>бізнес.</span></span>
+      <span class="ln"><span>Візуал&nbsp;— </span><span class="box">на&nbsp;мені</span></span>
+    </h2>
+    <div class="corner fade love__corner">02</div>
+    <div class="love__side">
+      <p class="fade">Я прийшла з&nbsp;рекламного візуалу&nbsp;— тому бачу, що&nbsp;на&nbsp;сайті дає заявки, а&nbsp;що&nbsp;просто гарне.</p>
+      <p class="fade">Дизайн, верстка й&nbsp;реклама&nbsp;— від&nbsp;однієї людини, без&nbsp;трьох підрядників.</p>
     </div>
-    <div class="bnr__txt">
-      <span class="bnr__eyebrow">Кейс · 2026</span>
-      <h2 class="h bnr__title">Skipper</h2>
-      <p class="bnr__lead">
-        Човнова станція під&nbsp;Вишгородом. Сайт, облік і&nbsp;кабінет клієнта
-        в&nbsp;Telegram, які працюють з&nbsp;однієї бази: заявка з&nbsp;сайту
-        падає в&nbsp;CRM, рахунок приходить клієнту з&nbsp;QR, гроші видно в&nbsp;касі.
-      </p>
-      <span class="bnr__more">Дивитись кейс&nbsp;→</span>
+    <!-- Відео 1080×1080, 1,2 МБ, без звуку. Вантажиться, лише коли до нього доскролили;
+         до того й без скриптів — обкладинка. Поза екраном стоїть на паузі. -->
+    <div class="card card--video fade">
+      <video class="love__video" muted loop playsinline preload="none" poster="video/love.webp" data-src="video/love.mp4"></video>
     </div>
-  </a>
-</section>
-
-<!-- Банер кейсу CLG: обертається помаранчевий контейнер, у парі з човном Skipper. -->
-<section class="bnr" data-nav="light">
-  <a class="bnr__in" href="clg.html">
-    <div class="bnr__cover">
-      <video class="bnr__video" muted loop playsinline preload="none"
-             poster="images/cases/clg-container.webp" data-src="video/container.mp4" aria-hidden="true"></video>
-    </div>
-    <div class="bnr__txt">
-      <span class="bnr__eyebrow">Кейс · 2026</span>
-      <h2 class="h bnr__title" style="font-size:clamp(30px,4.6vw,66px)">Customs Logistics Group</h2>
-      <p class="bnr__lead">
-        Міжнародна логістика з&nbsp;Києва. Стиль з&nbsp;нуля, новий сайт із&nbsp;3D
-        й&nbsp;анімаціями, креативи для&nbsp;таргету, розсилка й&nbsp;презентація&nbsp;—
-        усе в&nbsp;одному стилі.
-      </p>
-      <span class="bnr__more">Дивитись кейс&nbsp;→</span>
-    </div>
-  </a>
+  </div>
 </section>
 
 <!-- Прев’ю за курсором на кейсах: квадратний скрін головного екрана сайту в білій рамці -->
