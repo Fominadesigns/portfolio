@@ -151,15 +151,17 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 @media (prefers-reduced-motion:reduce){.lane{animation:none}}
 
 /* ── 3. поворот ────────────────────────────────────────────────────── */
-.turn{background:var(--blue) var(--grid-l);color:#fff;padding-block:clamp(28px,5vh,56px)}
+.turn{background:var(--blue) var(--grid-l);color:#fff;padding-block:12px}
+/* Уся секція — на один екран під шапкою: телефон за висотою екрана,
+   текст і картки підтискаються від висоти вікна. */
 .turn-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,3.4vw,46px);
-           align-items:center}
+           align-items:center;min-height:calc(100svh - var(--barh,72px) - 24px)}
 .turn-txt{min-width:0}
-.turn h2{font-size:clamp(28px,4.2vw,62px);max-width:24ch}
+.turn h2{font-size:clamp(26px,min(4.2vw,8vh),62px);max-width:24ch}
 /* Текст ліворуч, праворуч від нього — підпис і плашка; стрілка від плашки
    йде вниз і заходить на телефон. */
-.turn-mid{display:flex;align-items:flex-start;gap:clamp(16px,2vw,32px);margin-top:22px}
-.turn p{flex:1;min-width:0;max-width:46ch;font-size:clamp(17px,1.9vw,21px)}
+.turn-mid{display:flex;align-items:flex-start;gap:clamp(16px,2vw,32px);margin-top:clamp(12px,2.6vh,22px)}
+.turn p{flex:1;min-width:0;max-width:46ch;font-size:clamp(16px,min(1.9vw,3.4vh),21px);line-height:1.45}
 .turn-hint{position:relative;flex:none;margin:clamp(-8px,-.5vw,0px) 0 0 auto;display:flex;flex-direction:column;
            align-items:flex-start;gap:10px;z-index:2}
 .turn-hint small{font-weight:600;font-size:clamp(14px,1.2vw,17px);opacity:.9}
@@ -167,17 +169,18 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .turn-arrow{position:absolute;left:30%;top:calc(100% + 10px);
             width:calc(70% + clamp(20px,3.4vw,46px) + 30px);height:auto;overflow:visible}
 @media (max-width:980px){
-  .turn-grid{grid-template-columns:minmax(0,1fr);row-gap:28px}
+  .turn{padding-block:var(--sec)}
+  .turn-grid{grid-template-columns:minmax(0,1fr);row-gap:28px;min-height:0}
   .turn-mid{flex-direction:column}
   .turn-hint{margin:0}
   .turn-arrow{display:none}
 }
-.turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:34px}
-.turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:20px 22px;
+.turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:clamp(16px,3.6vh,34px)}
+.turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:clamp(12px,2.2vh,20px) clamp(14px,1.6vw,22px);
                  min-width:0}
-.turn .three b{display:block;font-family:var(--head);font-size:clamp(22px,2.4vw,32px);
+.turn .three b{display:block;font-family:var(--head);font-size:clamp(20px,min(2.4vw,4.4vh),32px);
                text-transform:uppercase;line-height:.95}
-.turn .three span{display:block;margin-top:7px;font-size:15.5px}
+.turn .three span{display:block;margin-top:7px;font-size:clamp(14px,2.4vh,15.5px);line-height:1.4}
 .turn .three s{opacity:.7}
 
 /* ── розділи ───────────────────────────────────────────────────────── */
@@ -196,10 +199,12 @@ section[id]{scroll-margin-top:64px}
      font-size:clamp(22px,2.6vw,34px);margin-top:44px}
 
 /* ── телефон із живим сайтом (на «повороті») ───────────────────────── */
-.phone{width:316px;max-width:100%;margin:0 auto}
-.phone .screen{border:10px solid var(--dark);border-radius:34px;overflow:hidden;
+/* Телефон за висотою екрана, але не більший за 316 px завширшки. */
+.phone{height:min(631px,calc(100svh - var(--barh,72px) - 24px));aspect-ratio:316/631;
+       max-width:100%;margin:0 auto}
+.phone .screen{height:100%;border:10px solid var(--dark);border-radius:34px;overflow:hidden;
                background:var(--dark);box-shadow:0 18px 40px rgba(0,0,0,.4)}
-.phone .holder{width:296px;height:591px;overflow:hidden;position:relative;background:#fff}
+.phone .holder{width:100%;height:100%;overflow:hidden;position:relative;background:#fff}
 .phone .holder img{width:100%;height:auto}
 .phone iframe{position:absolute;top:0;left:0;width:390px;height:780px;border:0;display:block;
               transform:scale(.758);transform-origin:top left;background:#fff}
