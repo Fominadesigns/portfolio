@@ -58,6 +58,8 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .btn.o{background:var(--orange);border-color:var(--orange);color:#fff}
 .btn.o:hover{background:#ff7846}
 .btn.g{background:transparent}
+.btn.grad{background:var(--grad);border-color:rgba(255,255,255,.5);color:#fff}
+.btn.grad:hover{filter:brightness(1.08)}
 .btn.sm{padding:9px 14px;font-size:13px}
 .btn.wh{background:#fff;border-color:#fff}
 @media (max-width:520px){ .bar .btn.g{display:none} }
@@ -792,10 +794,22 @@ section[id]{scroll-margin-top:64px}
 @media (prefers-reduced-motion:reduce){ .bento-box{animation:none!important} }
 
 /* ── великий підвал ────────────────────────────────────────────────── */
+/* Синя картка з відео — як у кейсі Skipper. */
+.cta{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.75fr);
+     gap:clamp(20px,3vw,44px);align-items:stretch}
+.cta__txt{min-width:0;align-self:center}
+.cta__video{position:relative;min-height:150px;border-radius:var(--r);overflow:hidden;
+            border:1px solid rgba(255,255,255,.45)}
+.cta__video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:860px){
+  .cta{grid-template-columns:1fr}
+  .cta__video{min-height:200px}
+}
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
 .fcols h4{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:12.5px;
-          letter-spacing:.12em;opacity:.6;margin:0 0 12px}
+          letter-spacing:.12em;color:var(--orange);margin:0 0 12px}
+.fbrand .dot{color:var(--orange)}
 .fcols a,.fcols p{display:block;font-size:15px;margin:0 0 9px;text-decoration:none;opacity:.85}
 .fcols a:hover{opacity:1;text-decoration:underline}
 .fbrand{font-family:var(--head);font-weight:800;text-transform:uppercase;
@@ -1346,7 +1360,8 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
           й&nbsp;контакти в&nbsp;одному стилі з&nbsp;сайтом.</p></div></li>
   </ol>
 
-  <div class="panel blue">
+  <div class="panel blue cta">
+    <div class="cta__txt">
     <h3 style="font-size:clamp(24px,4vw,46px)">Потрібна така&nbsp;ж система?</h3>
     <p style="margin-top:12px;max-width:52ch">
       Сайт, рекламу, розсилку й&nbsp;презентацію роблю в&nbsp;одному стилі&nbsp;—
@@ -1354,8 +1369,18 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       мати сайт.
     </p>
     <div style="display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:22px">
-      <a class="btn wh" href="./#contact">Написати мені</a>
+      <a class="btn grad" href="./#contact">Написати мені</a>
       <a class="btn g" style="border-color:#fff;color:#fff" href="./">Інші роботи</a>
+    </div>
+    </div>
+
+    <!-- Відео з першого екрана головної, як у кейсі Skipper. Висоту
+         картки воно не змінює: кадр обрізається по центру. -->
+    <div class="cta__video">
+      <video autoplay muted loop playsinline preload="metadata"
+             poster="video/hero-card.webp" aria-hidden="true">
+        <source src="video/hero-card.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 </section>
@@ -1376,7 +1401,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   <div class="wrap">
     <div class="fcols">
       <div>
-        <span class="fbrand">Fomina.<br>Designs</span>
+        <span class="fbrand">Fomina<span class="dot">.</span><br>Designs</span>
         <p>Сайти й&nbsp;маркетинг під&nbsp;ключ: від&nbsp;першого екрана
           до&nbsp;реклами й&nbsp;розсилки.</p>
       </div>
