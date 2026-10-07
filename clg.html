@@ -1507,10 +1507,17 @@ document.documentElement.classList.add('js');
     f.src = f.dataset.src;
     f.hidden = false;
   };
-  /* Телефон: живий сайт вантажимо лише по дотику до рамки — два сайти
-     з анімаціями у фоні змушували сторінку смикатися при прокрутці. */
-  if (matchMedia('(max-width: 760px)').matches) {
-    frames.forEach((f) => f.parentNode.addEventListener('click', () => load(f), { once: true }));
+  if (matchMedia('(max-width: 760px)').matches && 'IntersectionObserver' in window) {
+    /* Телефон: живий сайт вмикаємо, коли рамка майже вся на екрані,
+       і вимикаємо, коли вона пішла з екрана, — тоді у фоні не крутиться
+       жоден сайт, і прокрутка не смикається. */
+    const unload = (f) => { if (!f.src) return; f.removeAttribute('src'); f.hidden = true; };
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      const f = e.target.querySelector('iframe');
+      if (e.intersectionRatio >= 0.6) load(f);
+      else if (!e.isIntersecting) unload(f);
+    }), { threshold: [0, 0.6] });
+    frames.forEach((f) => io.observe(f.parentNode));
   } else if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting) { load(e.target.querySelector('iframe')); io.unobserve(e.target); }
