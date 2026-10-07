@@ -612,37 +612,41 @@ section[id]{scroll-margin-top:64px}
 
 
 /* ── 04. розсилка: як «Що я роблю» на головній ──────────────────────── */
-.mail-sec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap);
-          max-width:1240px;margin:0 auto;padding:var(--sec) clamp(16px,3.4vw,48px)}
-.mail-side{position:sticky;top:78px;align-self:start;display:flex;flex-direction:column;gap:var(--gap);
-           height:calc(100vh - 92px)}
+.mail-sec{display:grid;gap:var(--gap);max-width:1640px;margin:0 auto;padding:var(--sec) clamp(16px,3.4vw,48px);
+          /* Лист ~ 0,72 ширини до висоти: колонку з листом рахуємо від висоти
+             екрана, щоб лист уміщався в екран цілком. */
+          grid-template-columns:min(calc((100vh - 92px) * .7),42%) minmax(190px,240px) minmax(0,1fr)}
+.mail-art{position:sticky;top:78px;align-self:start;height:calc(100vh - 92px);display:flex}
+.mail-mid{position:sticky;top:78px;align-self:start;height:calc(100vh - 92px);display:flex;align-items:center}
+.mail-mid .mcard{width:100%}
 .mcard{background:#fff;border:1px solid var(--blue);border-radius:var(--r);overflow:hidden}
 .mcard__head{display:grid;grid-template-columns:minmax(0,1fr) auto;border-bottom:1px solid var(--blue)}
 .mcard__title{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:21px;line-height:1;
-              padding:13px 18px;margin:0}
+              padding:13px 16px;margin:0}
 .mcard__ico{border-left:1px solid var(--blue);display:flex;align-items:center;padding:0 10px}
-.mcard__text{margin:0;padding:14px 18px 18px;font-size:15.5px;line-height:1.5}
+.mcard__text{margin:0;padding:14px 16px 18px;font-size:15px;line-height:1.5}
 .mart{position:relative;flex:1;min-height:0;background:var(--light)}
+.mail-art .mart{width:100%}
 .mart__track{display:flex;height:100%;transition:transform .8s cubic-bezier(.22,.8,.24,1)}
 .mart__slide{flex:0 0 100%;height:100%;position:relative;min-height:0}
 /* Лист цілком: вписується у вікно за висотою, тінь іде по самому листу. */
-.mart__slide img{position:absolute;left:18px;top:18px;width:calc(100% - 36px);height:calc(100% - 62px);
+.mart__slide img{position:absolute;left:12px;top:12px;width:calc(100% - 24px);height:calc(100% - 52px);
                  object-fit:contain;filter:drop-shadow(0 12px 22px rgba(33,33,33,.28))}
 .mart__count{position:absolute;left:12px;bottom:10px;font:800 14px/1 var(--head);background:#fff;color:var(--blue);
              border:1px solid var(--blue);border-radius:4px;padding:5px 7px}
-.mail-panel{position:relative;background:#fff;border:1px solid var(--blue);border-radius:var(--r)}
+.mail-panel{position:relative;background:#fff;border:1px solid var(--blue);border-radius:var(--r);container-type:inline-size}
 .mcorner-pin{position:sticky;top:92px;height:0;display:flex;justify-content:flex-end;
              padding:var(--gap) var(--gap) 0 0;z-index:3}
 .mcorner{width:80px;height:80px;border:1px solid var(--blue);display:flex;align-items:flex-end;padding:0 0 4px 5px;
          background:linear-gradient(to top right,transparent calc(50% - .6px),var(--blue) 50%,transparent calc(50% + .6px));
          font:800 28px/1 var(--head);color:var(--blue)}
-.mgoals{list-style:none;margin:0;padding:clamp(110px,22vh,220px) clamp(20px,4vw,60px) clamp(140px,34vh,320px) clamp(18px,3vw,40px);
+.mgoals{list-style:none;margin:0;padding:clamp(110px,22vh,220px) clamp(20px,3vw,48px) clamp(140px,34vh,320px) clamp(16px,2.4vw,34px);
         display:grid;gap:clamp(40px,9vh,90px)}
 .mgoal{display:grid;grid-template-columns:32px minmax(0,1fr);gap:clamp(14px,2.6vw,34px);align-items:start}
 .mnum{width:32px;height:32px;border:1px solid currentColor;display:grid;place-items:center;margin-top:.3em;
       font:800 14px var(--head);color:#D6D6D6;transition:color .5s}
 .mgoal__t{font-family:var(--head);font-weight:800;text-transform:uppercase;line-height:.92;margin:0;
-          font-size:clamp(30px,3.7vw,60px);color:#D6D6D6;padding:.16em .08em .14em;margin:-.16em -.08em -.14em;
+          font-size:clamp(24px,7.4cqi,58px);color:#D6D6D6;padding:.16em .08em .14em;margin:-.16em -.08em -.14em;
           background:linear-gradient(90deg,var(--blue) 50%,#D6D6D6 50%) 100% 0 / 200% 100% no-repeat;
           -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
           transition:background-position .9s cubic-bezier(.22,.8,.24,1)}
@@ -651,8 +655,8 @@ section[id]{scroll-margin-top:64px}
 .mgoal__pic{display:none}
 @media (max-width:900px){
   .mail-sec{grid-template-columns:1fr}
-  .mail-side{position:static;height:auto}
-  .mart{display:none}
+  .mail-art{display:none}
+  .mail-mid{position:static;height:auto}
   .mcorner-pin{display:none}
   .mgoals{padding:28px 18px}
   .mgoal__pic{display:block;margin-top:14px;max-width:320px}
@@ -1104,7 +1108,18 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
      лист; праворуч — назви листів великими літерами. Пункт посередині
      екрана заливається синім, а ліворуч показується його лист. -->
 <section class="mail-sec" id="email">
-  <aside class="mail-side">
+  <aside class="mail-art">
+    <div class="mcard mart" aria-hidden="true">
+      <div class="mart__track">
+        <div class="mart__slide is-on"><img src="images/clg/mail-04.webp" alt="" width="820" height="1090" decoding="async"></div>
+        <div class="mart__slide"><img src="images/clg/mail-05.webp" alt="" width="820" height="1160" decoding="async"></div>
+        <div class="mart__slide"><img src="images/clg/mail-02.webp" alt="" width="820" height="1160" decoding="async"></div>
+        <div class="mart__slide"><img src="images/clg/mail-01.webp" alt="" width="820" height="1160" decoding="async"></div>
+      </div>
+      <span class="mart__count">01&nbsp;/ 04</span>
+    </div>
+  </aside>
+  <div class="mail-mid">
     <div class="mcard">
       <div class="mcard__head">
         <h2 class="mcard__title">Email-розсилка</h2>
@@ -1117,16 +1132,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         з&nbsp;3D-ілюстрацією, ціни й&nbsp;кнопка&nbsp;— тож лист CLG
         впізнають ще&nbsp;до&nbsp;того, як&nbsp;прочитали тему.</p>
     </div>
-    <div class="mcard mart" aria-hidden="true">
-      <div class="mart__track">
-        <div class="mart__slide is-on"><img src="images/clg/mail-04.webp" alt="" width="820" height="1090" decoding="async"></div>
-        <div class="mart__slide"><img src="images/clg/mail-05.webp" alt="" width="820" height="1160" decoding="async"></div>
-        <div class="mart__slide"><img src="images/clg/mail-02.webp" alt="" width="820" height="1160" decoding="async"></div>
-        <div class="mart__slide"><img src="images/clg/mail-01.webp" alt="" width="820" height="1160" decoding="async"></div>
-      </div>
-      <span class="mart__count">01&nbsp;/ 04</span>
-    </div>
-  </aside>
+  </div>
 
   <div class="mail-panel">
     <div class="mcorner-pin"><div class="mcorner">04</div></div>
