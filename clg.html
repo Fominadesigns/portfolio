@@ -45,6 +45,10 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 /* ── шапка ─────────────────────────────────────────────────────────── */
 .bar{position:sticky;top:0;z-index:20;background:rgba(211,211,211,.86);
      backdrop-filter:blur(8px);border-bottom:1px solid rgba(51,70,196,.25)}
+/* Шапка ховається при прокрутці вниз і виїжджає при прокрутці вгору. */
+.bar{transition:transform .35s cubic-bezier(.22,.8,.24,1)}
+.bar.hide{transform:translateY(-100%)}
+.bar:focus-within{transform:none}
 .bar-in{display:flex;align-items:center;gap:var(--gap);padding-top:11px;padding-bottom:11px}
 .logo{font-family:var(--head);font-weight:800;font-size:19px;text-transform:uppercase;
       text-decoration:none;letter-spacing:-.01em}
@@ -1442,6 +1446,23 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
 <script>
 document.documentElement.classList.add('js');
+
+/* Шапка: вниз — ховається, вгору — виїжджає. Біля верху сторінки
+   завжди видна. */
+(function () {
+  const bar = document.querySelector('.bar');
+  if (!bar) return;
+  let last = scrollY, ticking = false;
+  const upd = () => {
+    const y = scrollY, d = y - last;
+    if (y < 120) bar.classList.remove('hide');
+    else if (d > 6) bar.classList.add('hide');
+    else if (d < -6) bar.classList.remove('hide');
+    if (Math.abs(d) > 6 || y < 120) last = y;
+    ticking = false;
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+})();
 
 /* Живий сайт у рамках. Підставляємо його, лише коли рамка близько
    до екрана: два iframe з анімаціями одразу гальмували б сторінку.
