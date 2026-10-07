@@ -50,6 +50,8 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 /* ── шапка ─────────────────────────────────────────────────────────── */
 .bar{position:sticky;top:0;z-index:20;background:rgba(211,211,211,.86);
      backdrop-filter:blur(8px);border-bottom:1px solid rgba(51,70,196,.25)}
+/* Телефон: розмиття під шапкою важке для прокрутки — щільний фон замість нього. */
+@media (max-width:760px){ .bar{backdrop-filter:none;background:rgba(211,211,211,.97)} }
 .bar-in{display:flex;align-items:center;gap:var(--gap);padding-top:11px;padding-bottom:11px}
 .logo{font-family:var(--head);font-weight:800;font-size:19px;text-transform:uppercase;
       text-decoration:none;letter-spacing:-.01em}
@@ -1505,7 +1507,11 @@ document.documentElement.classList.add('js');
     f.src = f.dataset.src;
     f.hidden = false;
   };
-  if ('IntersectionObserver' in window) {
+  /* Телефон: живий сайт вантажимо лише по дотику до рамки — два сайти
+     з анімаціями у фоні змушували сторінку смикатися при прокрутці. */
+  if (matchMedia('(max-width: 760px)').matches) {
+    frames.forEach((f) => f.parentNode.addEventListener('click', () => load(f), { once: true }));
+  } else if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting) { load(e.target.querySelector('iframe')); io.unobserve(e.target); }
     }), { rootMargin: '300px' });
@@ -1705,11 +1711,7 @@ document.documentElement.classList.add('js');
   const open = (el) => items.forEach((i) => i.classList.toggle('open', i === el));
   const hover = matchMedia('(hover: hover)');
   const narrow = matchMedia('(max-width: 760px)');
-  let tapping = false;
   items.forEach((el) => {
-    /* На дотик фокус приходить разом із тапом — його не рахуємо,
-       інакше тап одразу ж закривав щойно відкриту картку. */
-    el.addEventListener('pointerdown', () => { tapping = true; setTimeout(() => { tapping = false; }, 400); });
     el.addEventListener('click', () => {
       const was = el.classList.contains('open');
       if (hover.matches && !narrow.matches) { open(el); return; }
@@ -1718,7 +1720,9 @@ document.documentElement.classList.add('js');
          підтягуємо відкриту картку під шапку, щоб нічого не стрибало. */
       if (!was && narrow.matches) requestAnimationFrame(() => el.scrollIntoView({ block: 'start', behavior: 'smooth' }));
     });
-    el.addEventListener('focus', () => { if (!tapping) open(el); });
+    /* Фокус відкриває картку лише з клавіатури (Tab). Від пальця фокус
+       приходить разом із тапом, і тоді тап одразу ж закривав би картку. */
+    el.addEventListener('focus', () => { if (el.matches(':focus-visible')) open(el); });
   });
   acc.addEventListener('mouseleave', () => { if (hover.matches && !narrow.matches) open(null); });
 })();
