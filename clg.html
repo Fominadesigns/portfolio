@@ -905,7 +905,16 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   .mails{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
   .mail{flex:0 0 84%;scroll-snap-align:start}
 }
-@media (max-width:560px){ .fcols{grid-template-columns:1fr} }
+/* Підвал на телефоні — як у кейсі Skipper: підпис на всю ширину,
+   посилання двома стовпцями. */
+@media (max-width:620px){
+  .fcols{grid-template-columns:1fr 1fr;gap:22px 20px}
+  .fcols > :first-child{grid-column:1/-1}
+  .fcols > :last-child{grid-column:1/-1;display:grid;
+                       grid-template-columns:1fr 1fr;gap:0 20px}
+  .fcols > :last-child h4{grid-column:1/-1}
+  .fbot{margin-top:26px;gap:8px 20px}
+}
 </style>
 </head>
 <body>
