@@ -344,29 +344,37 @@ section[id]{scroll-margin-top:64px}
 
 
 /* ── анімації: сцена на весь екран ─────────────────────────────────── */
-.anim{position:relative;height:300vh;background:var(--dark) var(--grid-l);color:#fff;padding:0}
-.anim-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
-.anim-txt{position:relative;z-index:2;text-align:center;max-width:760px;padding:0 20px;
-          margin-top:24vh}
-.anim-txt h2{font-size:clamp(40px,6.4vw,104px)}
-.anim-txt p{margin:18px auto 0;max-width:56ch;font-size:clamp(16px,1.6vw,19px);opacity:.88}
-.anim-txt .tagline{margin:0 0 6px;opacity:.7}
-.anim-txt .btn{margin-top:24px}
-.anim-stage>img{position:absolute;z-index:1;height:auto;will-change:transform;pointer-events:none}
-/* Контейнер висить на тросах від верхнього краю. */
-.a-box{top:0;left:50%;width:clamp(150px,16vw,260px);margin-left:calc(clamp(150px,16vw,260px) / -2);
-       transform-origin:50% 0}
-.a-plane{right:2vw;top:12vh;width:clamp(260px,30vw,520px)}
+/* Сцена — колонка: зверху вільне місце, де висить контейнер, знизу текст.
+   Контейнер прив'язаний до низу верхньої частини, тож завжди зупиняється
+   трохи вище заголовка, яким би не був екран. */
+.anim{position:relative;height:340vh;background:var(--dark) var(--grid-l);color:#fff;padding:0}
+.anim-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;
+            flex-direction:column;align-items:center}
+.a-top{flex:1;position:relative;width:100%;min-height:0}
+.anim-txt{position:relative;z-index:2;text-align:center;max-width:1100px;
+          padding:0 20px clamp(48px,11vh,120px)}
+.anim-txt h2{font-size:clamp(32px,4.1vw,72px)}
+/* Рівно два рядки на широкому екрані; на телефоні — як вийде. */
+@media (min-width:761px){ .anim-txt h2{white-space:nowrap} }
+.anim-txt p{margin:16px auto 0;max-width:52ch;font-size:clamp(16px,1.5vw,19px);opacity:.88}
+.anim-txt .tagline{margin:0 0 8px;opacity:.7}
+.anim-txt .btn{margin-top:22px}
+.anim-stage img{position:absolute;z-index:1;height:auto;will-change:transform;pointer-events:none}
+.a-box{bottom:clamp(14px,3vh,34px);left:50%;width:clamp(180px,20vw,360px);
+       margin-left:calc(clamp(180px,20vw,360px) / -2);transform-origin:50% 0}
+.a-plane{right:-5vw;top:5vh;width:clamp(360px,44vw,860px)}
 /* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
-.a-truck{left:2vw;bottom:5vh;width:clamp(240px,27vw,460px)}
-.a-truck{scale:-1 1}
-.a-box.swing{animation:swing 4.5s ease-in-out infinite}
-@keyframes swing{0%,100%{rotate:-1.2deg}50%{rotate:1.2deg}}
-@media (max-width:760px){
-  .anim-txt{margin-top:22vh}
-  .a-box{width:110px;margin-left:-55px}
-  .a-plane{top:7vh;right:-8vw;width:58vw}
-  .a-truck{bottom:3vh;width:62vw}
+.a-truck{left:-6vw;bottom:2vh;width:clamp(340px,36vw,700px);scale:-1 1}
+.a-box.swing{animation:swing 5s ease-in-out infinite}
+@keyframes swing{0%,100%{rotate:-1deg}50%{rotate:1deg}}
+@media (max-width:980px){
+  .a-plane{top:3vh;width:62vw}
+  .a-truck{width:56vw;bottom:1vh}
+}
+@media (max-width:640px){
+  .a-box{width:150px;margin-left:-75px}
+  .a-plane{right:-14vw;top:2vh;width:78vw}
+  .a-truck{left:-16vw;width:74vw;bottom:0}
 }
 @media (prefers-reduced-motion:reduce){ .a-box.swing{animation:none} }
 
@@ -607,7 +615,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       <img src="images/clg/3d-plane.webp" alt="3D-літак" width="800" height="450" loading="lazy">
       <img src="images/clg/3d-truck.webp" alt="3D-вантажівка" width="800" height="450" loading="lazy">
       <img src="images/clg/3d-train.webp" alt="3D-потяг" width="800" height="450" loading="lazy">
-      <img src="images/clg/3d-hook.webp" alt="3D-контейнер на тросах" width="800" height="1493" loading="lazy">
+      <img src="images/clg/3d-hook.webp" alt="3D-контейнер на тросах" width="630" height="1050" loading="lazy">
       <img src="images/clg/3d-hands.webp" alt="3D-контейнер у руках" width="500" height="548" loading="lazy">
       <img src="images/clg/3d-docs.webp" alt="3D-документи з митними печатками" width="600" height="418" loading="lazy">
     </div>
@@ -638,16 +646,15 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
      Без скрипта чи зі «зменшити рух» усе одразу стоїть на місцях. -->
 <section class="anim" id="motion" aria-label="Анімації сайту">
   <div class="anim-stage">
-    <img class="a-box" src="images/clg/3d-hook.webp" alt="" width="800" height="1493">
+    <div class="a-top"><img class="a-box" src="images/clg/3d-hook.webp" alt="" width="630" height="1050"></div>
     <img class="a-plane" src="images/clg/3d-plane.webp" alt="" width="800" height="450">
     <img class="a-truck" src="images/clg/3d-truck.webp" alt="" width="800" height="450">
     <div class="anim-txt">
       <p class="tagline">Сайт · рух</p>
-      <h2>Анімації, які показують доставку</h2>
-      <p>На&nbsp;сайті CLG рух&nbsp;— не&nbsp;прикраса. Контейнер зʼїжджає
-        на&nbsp;тросах, літак пролітає крізь картку, вантажівка виїжджає
-        на&nbsp;прокрутку: людина бачить сам процес перевезення ще&nbsp;до&nbsp;того,
-        як&nbsp;прочитала текст. І&nbsp;все це&nbsp;— без&nbsp;втрати швидкості.</p>
+      <h2>Анімації, які показують<br>доставку</h2>
+      <p>На&nbsp;сайті CLG рух&nbsp;— не&nbsp;прикраса: людина бачить сам процес
+        перевезення ще&nbsp;до&nbsp;того, як&nbsp;прочитала текст. І&nbsp;все
+        це&nbsp;— без&nbsp;втрати швидкості.</p>
       <a class="btn o" href="https://clg-site-three.vercel.app/posluhy-morski-perevezennia" target="_blank" rel="noopener">Подивитися на&nbsp;сайті</a>
     </div>
   </div>
@@ -1094,7 +1101,9 @@ document.documentElement.classList.add('js');
 })();
 
 /* Сцена анімацій: прогрес прокрутки 0…1 усередині секції розкладено
-   на три відрізки — спершу контейнер, потім літак, потім вантажівка. */
+   на три відрізки — спершу контейнер, потім літак, потім вантажівка.
+   Показуємо не сам прогрес, а «наздоганяючий» (інерція): так рух
+   плавний навіть від різкого коліщатка миші. */
 (function () {
   const sec = document.querySelector('.anim');
   if (!sec || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1102,25 +1111,30 @@ document.documentElement.classList.add('js');
   const plane = sec.querySelector('.a-plane');
   const truck = sec.querySelector('.a-truck');
   const clamp = (v) => Math.max(0, Math.min(1, v));
-  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const seg = (p, a, b) => ease(clamp((p - a) / (b - a)));
-  let ticking = false;
-  const draw = () => {
-    ticking = false;
+  const target = () => {
     const r = sec.getBoundingClientRect();
-    const p = clamp(-r.top / (r.height - innerHeight));
-    const b = seg(p, 0.04, 0.32), pl = seg(p, 0.30, 0.58), tr = seg(p, 0.56, 0.84);
-    box.style.transform = 'translateY(' + ((1 - b) * -110) + '%)';
+    return clamp(-r.top / (r.height - innerHeight));
+  };
+  let cur = target(), running = false;
+  const draw = () => {
+    const t = target();
+    cur += (t - cur) * 0.09;
+    if (Math.abs(t - cur) < 0.0005) cur = t;
+    const b = seg(cur, 0.02, 0.36), pl = seg(cur, 0.30, 0.62), tr = seg(cur, 0.56, 0.88);
+    box.style.transform = 'translateY(' + ((1 - b) * -115) + '%)';
     box.classList.toggle('swing', b >= 1);
-    plane.style.transform = 'translate(' + ((1 - pl) * 75) + 'vw,' + ((1 - pl) * -14) + 'vh)';
+    plane.style.transform = 'translate(' + ((1 - pl) * 70) + 'vw,' + ((1 - pl) * -12) + 'vh)';
     /* Знак плюс: вантажівка віддзеркалена (scale:-1 1), тож зсув теж
        дзеркалиться й візуально йде вліво. */
-    truck.style.transform = 'translateX(' + ((1 - tr) * 75) + 'vw)';
+    truck.style.transform = 'translateX(' + ((1 - tr) * 70) + 'vw)';
+    if (cur !== t) requestAnimationFrame(draw); else running = false;
   };
-  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(draw); } };
-  draw();
-  addEventListener('scroll', req, { passive: true });
-  addEventListener('resize', req);
+  const go = () => { if (!running) { running = true; requestAnimationFrame(draw); } };
+  running = true; draw();
+  addEventListener('scroll', go, { passive: true });
+  addEventListener('resize', go);
 })();
 
 /* Стрілки й лічильник для слайдів. */
