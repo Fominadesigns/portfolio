@@ -3,10 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Чернетка портфоліо: не показувати в пошуку, як і головну. -->
-<meta name="robots" content="noindex, nofollow">
-<title>Skipper&nbsp;— сайт, CRM і&nbsp;кабінет клієнта для&nbsp;човнової станції | Fomina.Designs</title>
+<script>document.documentElement.classList.add('js')</script>
+<title>Skipper — сайт, CRM і кабінет клієнта для човнової станції | Fomina.Designs</title>
 <meta name="description" content="Кейс: човнова станція під Вишгородом. Сайт із живими вільними місцями, CRM із календарем і касою, кабінет клієнта в Telegram із рахунком і QR.">
+<link rel="canonical" href="https://fominadesigns.github.io/portfolio/skipper.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fomina.Designs">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Skipper — сайт, CRM і кабінет клієнта для човнової станції">
+<meta property="og:description" content="Кейс: човнова станція під Вишгородом. Сайт із живими вільними місцями, CRM із календарем і касою, кабінет клієнта в Telegram із рахунком і QR.">
+<meta property="og:url" content="https://fominadesigns.github.io/portfolio/skipper.html">
+<meta property="og:image" content="https://fominadesigns.github.io/portfolio/images/og/og-skipper.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#3346C4">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fomina.Designs", "item": "https://fominadesigns.github.io/portfolio/"}, {"@type": "ListItem", "position": 2, "name": "Кейс Skipper", "item": "https://fominadesigns.github.io/portfolio/skipper.html"}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,8 +111,12 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .cam{display:block;width:6px;height:6px;border-radius:50%;background:#3d3d3d;
      margin:-7px auto 8px}
 .pane{position:relative;overflow:hidden;background:#fff;border-radius:3px;aspect-ratio:128/59}
+/* Поки живий сайт вантажиться, видно його скрін; сайт проявляється поверх, коли готовий. */
+.js iframe[data-src]{opacity:0;transition:opacity .6s ease}
+.js iframe[data-src].ready{opacity:1}
+.pane img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
 .pane iframe{position:absolute;top:0;left:0;border:0;display:block;
-             width:1280px;height:590px;transform-origin:top left}
+             width:1280px;height:590px;transform-origin:top left;background:#fff}
 .base{height:13px;margin:0 -16px;border-radius:0 0 13px 13px;
       background:linear-gradient(180deg,#2e2e2e,#1b1b1b);position:relative;
       box-shadow:0 10px 22px rgba(33,33,33,.3)}
@@ -442,6 +461,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 .fbrand{font-family:var(--head);font-weight:800;text-transform:uppercase;
         font-size:clamp(28px,4vw,46px);line-height:.9}
 .fbrand+p{margin-top:12px;max-width:34ch;opacity:.7;font-size:15px}
+.fbot a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
 .fbot{display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;
       margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);
       font-size:14px;opacity:.75}
@@ -533,7 +553,8 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <div class="lid">
           <span class="cam"></span>
           <div class="pane">
-            <iframe src="https://skipper-site-three.vercel.app/"
+            <img src="images/skipper/site-home-desktop.webp" alt="Перший екран сайту човнової станції Skipper" width="1280" height="590" fetchpriority="high">
+            <iframe data-src="https://skipper-site-three.vercel.app/" hidden
                     title="Сайт човнової станції — гортайте й натискайте"></iframe>
           </div>
         </div>
@@ -1170,11 +1191,33 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     </div>
 
     <div class="fbot">
-      <span>© 2026. Fomina.Designs. Усі права захищені</span>
+      <span>© 2026 Fomina.Designs. Усі права захищені</span>
+      <a href="privacy.html">Політика конфіденційності</a>
       <span>Човнова станція під&nbsp;Вишгородом</span>
     </div>
   </div>
 </footer>
 
+<script>
+/* Живий сайт у ноутбуці першого екрана вантажимо не одразу, а коли сторінка
+   вже показалась: спершу видно скрін, і сторінка не чекає чужого сайту. */
+(function () {
+  const frames = [...document.querySelectorAll('iframe[data-src]')];
+  const load = (f) => {
+    if (f.src) return;
+    f.addEventListener('load', () => setTimeout(() => f.classList.add('ready'), 400), { once: true });
+    f.src = f.dataset.src; f.hidden = false;
+  };
+  const start = () => {
+    if (!('IntersectionObserver' in window)) return frames.forEach(load);
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { load(e.target.querySelector('iframe')); io.unobserve(e.target); }
+    }), { rootMargin: '300px' });
+    frames.forEach((f) => io.observe(f.parentNode));
+  };
+  if (document.readyState === 'complete') setTimeout(start, 600);
+  else addEventListener('load', () => setTimeout(start, 600), { once: true });
+})();
+</script>
 </body>
 </html>

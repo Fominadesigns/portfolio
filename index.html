@@ -3,16 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Чернетка із заглушками: не показувати в пошуку. Прибрати, коли сайт буде готовий. -->
-<meta name="robots" content="noindex, nofollow">
 <script>
 /* --vh — одна сота висоти екрана, заміряна при відкритті. У браузері Telegram
    панелі ховаються під час прокрутки й висота «стрибає»; якщо блоки рахувати від
    живого vh, сторінка змінює довжину просто під пальцем і перескакує. */
 (function (d) { d.classList.add('js'); d.style.setProperty('--vh', window.innerHeight / 100 + 'px'); })(document.documentElement);
 </script>
-<title>Fomina.Designs&nbsp;— сайти під&nbsp;ключ</title>
+<title>Сайти під ключ для бізнесу | Fomina.Designs</title>
 <meta name="description" content="Сайти під ключ для бізнесу: структура, дизайн, верстка й запуск. Поруч — міні-додатки в Telegram, креативи й презентації.">
+<link rel="canonical" href="https://fominadesigns.github.io/portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fomina.Designs">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Fomina.Designs — сайти під ключ для бізнесу">
+<meta property="og:description" content="Сайти під ключ для бізнесу: структура, дизайн, верстка й запуск. Поруч — міні-додатки в Telegram, креативи й презентації.">
+<meta property="og:url" content="https://fominadesigns.github.io/portfolio/">
+<meta property="og:image" content="https://fominadesigns.github.io/portfolio/images/og/og-home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#3346C4">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ProfessionalService", "@id": "https://fominadesigns.github.io/portfolio/#studio", "name": "Fomina.Designs", "url": "https://fominadesigns.github.io/portfolio/", "image": "https://fominadesigns.github.io/portfolio/images/og/og-home.jpg", "logo": "https://fominadesigns.github.io/portfolio/apple-touch-icon.png", "description": "Сайти під ключ для бізнесу: структура, дизайн, верстка й запуск. Міні-додатки в Telegram, CRM, креативи й презентації.", "telephone": "+380507893064", "areaServed": {"@type": "Country", "name": "Україна"}, "address": {"@type": "PostalAddress", "addressLocality": "Одеса", "addressCountry": "UA"}, "founder": {"@type": "Person", "name": "Катерина Фоміна", "jobTitle": "Вебдизайнерка"}, "sameAs": ["https://t.me/fominadesigns", "https://www.instagram.com/fominadesigns/"]}, {"@type": "WebSite", "@id": "https://fominadesigns.github.io/portfolio/#site", "url": "https://fominadesigns.github.io/portfolio/", "name": "Fomina.Designs", "inLanguage": "uk"}]}</script>
+<link rel="preload" as="image" href="video/hero-card.webp" fetchpriority="high">
 
 <!-- Шрифти. Обидва безкоштовні для комерційного використання (ліцензія OFL),
      обидва мають українську кирилицю — перевірено через Google Fonts.
@@ -432,7 +447,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 .foot__tg svg{flex:none;transition:transform .5s var(--ease)}
 .foot__tg:hover svg{transform:translateX(10px)}
 .fbox--links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
-.fbar{margin-top:4px;background:var(--dark);border-radius:var(--r);padding:16px clamp(24px,3vw,40px);display:flex;justify-content:space-between;gap:16px;font:600 11px var(--body);text-transform:uppercase;letter-spacing:.08em}
+.fbar{margin-top:4px;background:var(--dark);border-radius:var(--r);padding:16px clamp(24px,3vw,40px);display:flex;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;font:600 11px var(--body);text-transform:uppercase;letter-spacing:.08em}
 .fbar a{text-decoration:none}
 
 /* --- поява блоків -------------------------------------------------------- */
@@ -729,9 +744,68 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 @media (min-width:901px){.side > .card:not(.card--art){flex:none}}
 /* --- «Мій підхід» дрібнішим шрифтом, щоб ілюстрація під ним вміщалась повністю */
 @media (min-width:901px){.side .card__title{font-size:19px;padding:11px 16px} .side .card__text{font-size:14px;line-height:1.45;padding:12px 16px 14px}}
+
+/* --- прелоадер: чорний екран, помаранчевий логотип із бліком, відсотки --- */
+.pre{display:none}
+.js .pre{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#000;color:#fff;transition:opacity .5s ease,visibility .5s ease}
+.pre.is-out{opacity:0;visibility:hidden}
+.pre__logo{margin:0;font:800 clamp(64px,17vw,160px)/.86 "Roboto Condensed",Arial Narrow,sans-serif;text-transform:uppercase;
+  letter-spacing:.005em;text-align:left}
+.pre__l{display:block;background:linear-gradient(105deg,var(--orange) 0 42%,#fff 48% 52%,var(--orange) 58% 100%);
+  background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;animation:preShine 1.7s cubic-bezier(.5,0,.3,1) infinite}
+.pre__l i{font-style:normal;color:#fff;-webkit-text-fill-color:#fff}
+.pre__pct{position:absolute;left:0;right:0;bottom:calc(clamp(28px,6vh,60px) + env(safe-area-inset-bottom));text-align:center;
+  font:800 clamp(18px,2vw,24px) "Roboto Condensed",Arial Narrow,sans-serif;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+@keyframes preShine{0%{background-position:100% 0}70%,100%{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.pre__l{animation:none;background:none;color:var(--orange);-webkit-text-fill-color:var(--orange)}}
+html.pre-lock,html.pre-lock body{overflow:hidden}
 </style>
 </head>
 <body>
+<!-- Прелоадер. Відсоток рахує справжнє завантаження першого екрана: шрифти, обкладинку,
+     відео й саму сторінку. Показується раз за сесію; без JavaScript його не видно. -->
+<div class="pre" id="pre" aria-hidden="true">
+  <p class="pre__logo"><span class="pre__l">Fomina<i>.</i></span><span class="pre__l">Designs</span></p>
+  <div class="pre__pct"><span id="prePct">0</span>%</div>
+</div>
+<script>
+(function () {
+  var pre = document.getElementById('pre'), out = document.getElementById('prePct'), root = document.documentElement;
+  var done, seen = false;
+  window.fdPre = new Promise(function (r) { done = r; });
+  try { seen = sessionStorage.getItem('fdPre') === '1'; sessionStorage.setItem('fdPre', '1'); } catch (e) {}
+  if (seen) { pre.parentNode.removeChild(pre); done(); return; }
+  root.classList.add('pre-lock');
+  var parts = 4, got = 0, target = 0, shown = 0, t0 = performance.now(), finished = false;
+  function tick(name) { return function () { if (tick[name]) return; tick[name] = 1; got++; target = got / parts * 100; }; }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(tick('f')); else tick('f')();
+  // відео не тримає заставку: якщо телефон не вантажить його (режим енергозбереження),
+  // зараховуємо його разом із завантаженням сторінки
+  window.addEventListener('load', function () { tick('l')(); setTimeout(tick('v'), 300); });
+  document.addEventListener('DOMContentLoaded', function () {
+    var v = document.querySelector('.hero__video');
+    if (!v) { tick('v')(); tick('p')(); return; }
+    if (v.readyState >= 3) tick('v')(); else { v.addEventListener('canplay', tick('v')); v.addEventListener('error', tick('v')); }
+    var img = new Image(); img.onload = img.onerror = tick('p'); img.src = v.getAttribute('poster');
+  });
+  setTimeout(function () { target = 100; got = parts; }, 5000); // запобіжник для повільного інтернету
+  (function frame(now) {
+    // не швидше ніж за ~0,9 с, щоб логотип устиг прочитатися
+    var cap = Math.min(100, (now - t0) / 900 * 100);
+    shown += (Math.min(target, cap) - shown) * 0.12;
+    if (target >= 100 && cap >= 100 && shown > 99.4) shown = 100;
+    out.textContent = Math.floor(shown);
+    if (shown < 100) return requestAnimationFrame(frame);
+    if (finished) return; finished = true;
+    setTimeout(function () {
+      pre.classList.add('is-out'); root.classList.remove('pre-lock'); done();
+      setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 600);
+    }, 250);
+  })(t0);
+})();
+</script>
 
 
 <!-- ================================ ШАПКА ================================ -->
@@ -1092,77 +1166,10 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 </section>
 
 <!-- Прев’ю за курсором на кейсах: квадратний скрін головного екрана сайту в білій рамці -->
-<div class="peek" aria-hidden="true"><div class="peek__frame"><img src="images/cases/clg.webp" alt=""></div></div>
+<div class="peek" aria-hidden="true"><div class="peek__frame"><img src="images/cases/clg.webp" alt="" width="600" height="514" decoding="async"></div></div>
 
-<!-- =============================== КЛІЄНТИ =============================== -->
-<section class="people" data-nav="light">
-  <div class="people__top">
-    <div class="card fade">
-      <div class="card__head">
-        <h2 class="h card__title">Клієнти</h2>
-        <div class="card__ico"><svg width="46" height="22" viewBox="0 0 46 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 5h16v10H9l-6 5z"/><path d="M27 17l12-12M31 5h8v8"/></svg></div>
-      </div>
-      <p class="card__text">Бізнеси, для&nbsp;яких я&nbsp;вже зробила сайт. Логотипи й&nbsp;відгуки додамо, щойно зберемо дозволи.</p>
-    </div>
-    <div class="panel people__panel">
-      <div class="h pp1 fade">Реальні бізнеси.</div>
-      <div class="pp2row">
-        <div class="corner">03</div>
-        <div class="h pp2 fade">Живі сайти.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Стрічку логотипів клієнтів тимчасово прибрано (15.09.2026). Файли лежать у images/logos,
-       розмітка й стилі — у коміті 35c6a70; щоб повернути, взяти блок <div class="logos"> звідти. -->
-
-  <!-- ВІДГУКИ — ЗАГЛУШКИ. Тексти, фото й цифри — лише справжні, від клієнтів.
-       Стос карток: стрілки гортають, передня картка відлітає ліворуч, наступна виїжджає вперед. -->
-  <div class="reviews" data-reviews>
-    <div class="reviews__nav">
-      <button class="rv-btn" type="button" data-rv="prev" aria-label="Попередній відгук" disabled><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 5l-7 7 7 7"/></svg></button>
-      <button class="rv-btn" type="button" data-rv="next" aria-label="Наступний відгук"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
-    </div>
-    <div class="reviews__deck" aria-live="polite">
-      <article class="review" style="--k:0" aria-roledescription="відгук">
-        <div class="review__top">
-          <div class="review__photo"><div class="ph"><span>Фото<br>клієнта</span></div></div>
-          <blockquote class="review__quote">
-            <p class="h review__text">«Тут буде відгук клієнта&nbsp;— два-чотири речення про&nbsp;те, що&nbsp;змінилося після нового сайту»</p>
-            <footer class="review__who">
-              <span><span class="h review__name">Ім’я Прізвище</span><span class="review__role">Посада · Custom Logistic Group</span></span>
-              <span class="review__logo">Лого</span>
-            </footer>
-          </blockquote>
-        </div>
-      </article>
-      <article class="review" style="--k:1" aria-roledescription="відгук">
-        <div class="review__top">
-          <div class="review__photo"><div class="ph"><span>Фото<br>клієнта</span></div></div>
-          <blockquote class="review__quote">
-            <p class="h review__text">«Тут буде відгук клієнта&nbsp;— два-чотири речення про&nbsp;те, що&nbsp;змінилося після нового сайту»</p>
-            <footer class="review__who">
-              <span><span class="h review__name">Ім’я Прізвище</span><span class="review__role">Посада · IBP Consulting</span></span>
-              <span class="review__logo">Лого</span>
-            </footer>
-          </blockquote>
-        </div>
-      </article>
-      <article class="review" style="--k:2" aria-roledescription="відгук">
-        <div class="review__top">
-          <div class="review__photo"><div class="ph"><span>Фото<br>клієнта</span></div></div>
-          <blockquote class="review__quote">
-            <p class="h review__text">«Тут буде відгук клієнта&nbsp;— два-чотири речення про&nbsp;те, що&nbsp;змінилося після нового сайту»</p>
-            <footer class="review__who">
-              <span><span class="h review__name">Ім’я Прізвище</span><span class="review__role">Посада · Темп Дніпра</span></span>
-              <span class="review__logo">Лого</span>
-            </footer>
-          </blockquote>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
+<!-- Секцію «Клієнти» з відгуками тимчасово прибрано (08.10.2026), поки збираємо справжні відгуки.
+     Щоб повернути: узяти блок <section class="people"> з коміту 06be8c0. -->
 
 <!-- ============================ БАНЕР КВІЗУ ============================= -->
 <!-- Затверджено варіант А «Графік заявок»: лінія малюється, коли банер з’являється,
@@ -1207,7 +1214,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 <!-- ЦІНИ — ЗАГЛУШКИ. Цифри з’являться після підтвердження. -->
 <section class="formats" id="formats" data-nav="light">
   <div class="formats__head">
-    <div class="corner fade" style="margin-bottom:28px">04</div>
+    <div class="corner fade" style="margin-bottom:28px">03</div>
     <h2 class="h" data-reveal><span class="ln"><span>Формати</span></span><span class="ln"><span>співпраці</span></span></h2>
     <p class="fade">Точну вартість називаю після короткого брифу&nbsp;— вона залежить від&nbsp;кількості сторінок і&nbsp;задач.</p>
   </div>
@@ -1255,7 +1262,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
 <section class="faq" id="faq" data-nav="light">
   <div class="faq__top">
     <h2 class="h" data-reveal><span class="ln"><span>Часті</span></span><span class="ln"><span>питання</span></span></h2>
-    <div class="corner fade">05</div>
+    <div class="corner fade">04</div>
   </div>
 
   <div class="faq__list">
@@ -1352,7 +1359,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:none}
       </div>
     </div>
   </div>
-  <div class="fbar"><span>Fomina.Designs</span><span>© 2026</span><a href="#hero">Нагору ↑</a></div>
+  <div class="fbar"><span>© 2026 Fomina.Designs. Усі права захищені</span><a href="privacy.html">Політика конфіденційності</a><a href="#hero">Нагору ↑</a></div>
 </footer>
 
 <!-- Lenis — плавна прокрутка, MIT-ліцензія. Якщо CDN не відповість, сайт працює зі звичайною прокруткою. -->
@@ -1422,8 +1429,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // чекаємо шрифт, інакше заголовок першого екрана виїде системним шрифтом і перестрибне
   var started = false;
   function go() { if (!started) { started = true; startReveal(); } }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
-  setTimeout(go, 1500);
+  // і чекаємо, поки зникне прелоадер, щоб заголовок виїхав уже на очах
+  var preDone = window.fdPre || Promise.resolve();
+  Promise.all([document.fonts && document.fonts.ready ? document.fonts.ready : 0, preDone]).then(go);
+  preDone.then(function () { setTimeout(go, 1500); });
+  setTimeout(go, 9000);
 
   function blueNow() {
     return getComputedStyle(root).getPropertyValue('--blue').trim() || '#3346C4';
