@@ -692,16 +692,16 @@ section[id]{scroll-margin-top:64px}
 
 /* ── 05. презентація: темна секція, «вікно» з власною прокруткою ────── */
 .deck3{background:var(--dark) var(--grid-l);color:#fff;padding-block:var(--sec)}
-.deck3__in{max-width:1400px;margin:0 auto;padding-inline:clamp(16px,3.4vw,48px);display:grid;
-           grid-template-columns:minmax(0,.75fr) minmax(0,1.6fr);gap:clamp(24px,3.4vw,56px);align-items:start}
+.deck3__in{max-width:1240px;margin:0 auto;padding-inline:clamp(16px,3.4vw,48px);display:grid;
+           grid-template-columns:minmax(0,.7fr) minmax(0,1.8fr);gap:clamp(24px,3vw,48px);align-items:start}
 .deck3__head{min-width:0}
 .deck3__head h2{font-size:clamp(30px,3vw,56px);line-height:.9}
 .deck3__head p{margin:24px 0 0;font-size:clamp(16px,1.4vw,18px);max-width:30em;opacity:.88}
 .mcorner.light{border-color:#fff;color:#fff;
   background:linear-gradient(to top right,transparent calc(50% - .6px),#fff 50%,transparent calc(50% + .6px))}
-.deck3__view{container-type:inline-size;min-width:0;justify-self:center;width:100%;
+.deck3__view{container-type:inline-size;min-width:0;justify-self:end;width:100%;
              /* Вікно має вміститися в екран: ширину обмежуємо висотою. */
-             max-width:calc((100vh - 230px) / .5625)}
+             max-width:calc((100vh - 180px) / .5625)}
 /* Висота вікна = слайд 16:9 + місце під краї слайдів, що лишились позаду. */
 .dviewer{height:calc(56.25cqi + 92px);overflow-y:auto;overscroll-behavior:contain;border-radius:10px;
          scrollbar-width:none;outline-offset:4px}
