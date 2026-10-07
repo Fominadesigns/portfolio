@@ -356,11 +356,11 @@ section[id]{scroll-margin-top:64px}
    Контейнер прив'язаний до низу верхньої частини, тож завжди зупиняється
    трохи вище заголовка, яким би не був екран. */
 .anim{position:relative;height:340vh;background:var(--dark) var(--grid-l);color:#fff;padding:0}
-.anim-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;
-            flex-direction:column;align-items:center}
+.anim-stage{position:sticky;top:64px;height:calc(100vh - 64px);overflow:hidden;display:flex;
+            flex-direction:column;align-items:center;--tw:600px}
 .a-top{flex:1;position:relative;width:100%;min-height:0}
 .anim-txt{position:relative;z-index:2;text-align:center;max-width:1100px;
-          padding:0 20px clamp(48px,11vh,120px)}
+          padding:0 20px clamp(36px,8vh,96px)}
 .anim-txt h2{font-size:clamp(32px,4.1vw,72px)}
 /* Рівно два рядки на широкому екрані; на телефоні — як вийде. */
 @media (min-width:761px){ .anim-txt h2{white-space:nowrap} }
@@ -370,19 +370,20 @@ section[id]{scroll-margin-top:64px}
 .anim-stage img{position:absolute;z-index:1;height:auto;will-change:transform;pointer-events:none}
 .a-box{bottom:clamp(14px,3vh,34px);left:50%;width:clamp(180px,20vw,360px);
        margin-left:calc(clamp(180px,20vw,360px) / -2);transform-origin:50% 0}
-.a-plane{right:-5vw;top:5vh;width:clamp(360px,44vw,860px)}
+/* Літак справа, вантажівка зліва: обидва внизу, поруч із текстом,
+   і зупиняються трохи не доїхавши до нього. --tw — ширина текстового
+   блоку, її ставить скрипт. Зовнішня частина може ховатись за краєм. */
+.a-plane{left:calc(50% + var(--tw) / 2 + 22px);bottom:13vh;width:clamp(380px,46vw,820px)}
 /* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
-.a-truck{left:-6vw;bottom:2vh;width:clamp(340px,36vw,700px);scale:-1 1}
+.a-truck{right:calc(50% + var(--tw) / 2 + 22px);bottom:2vh;width:clamp(360px,42vw,760px);scale:-1 1}
 .a-box.swing{animation:swing 5s ease-in-out infinite}
 @keyframes swing{0%,100%{rotate:-1deg}50%{rotate:1deg}}
-@media (max-width:980px){
-  .a-plane{top:3vh;width:62vw}
-  .a-truck{width:56vw;bottom:1vh}
-}
-@media (max-width:640px){
+/* На вузькому екрані поруч із текстом місця немає: літак і вантажівка
+   стають над текстом по боках від контейнера. */
+@media (max-width:760px){
   .a-box{width:150px;margin-left:-75px}
-  .a-plane{right:-14vw;top:2vh;width:78vw}
-  .a-truck{left:-16vw;width:74vw;bottom:0}
+  .a-plane{left:auto;right:-16vw;bottom:auto;top:4vh;width:62vw}
+  .a-truck{right:auto;left:-18vw;bottom:auto;top:24vh;width:60vw}
 }
 @media (prefers-reduced-motion:reduce){ .a-box.swing{animation:none} }
 
@@ -658,7 +659,6 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <img class="a-plane" src="images/clg/3d-plane.webp" alt="" width="800" height="450">
     <img class="a-truck" src="images/clg/3d-truck.webp" alt="" width="800" height="450">
     <div class="anim-txt">
-      <p class="tagline">Сайт · рух</p>
       <h2>Анімації, які показують<br>доставку</h2>
       <p>На&nbsp;сайті CLG рух&nbsp;— не&nbsp;прикраса: людина бачить сам процес
         перевезення ще&nbsp;до&nbsp;того, як&nbsp;прочитала текст. І&nbsp;все
@@ -1125,6 +1125,20 @@ document.documentElement.classList.add('js');
     const r = sec.getBoundingClientRect();
     return clamp(-r.top / (r.height - innerHeight));
   };
+  /* Ширина текстового блоку — щоб літак і вантажівка зупинялись біля нього. */
+  const stage = sec.querySelector('.anim-stage');
+  const txt = sec.querySelector('.anim-txt');
+  const measure = () => {
+    /* Міряємо сам текст, а не блок: блок завжди на всю ширину колонки. */
+    const w = Math.max(...[...txt.children].map((c) => {
+      const r = document.createRange(); r.selectNodeContents(c);
+      return r.getBoundingClientRect().width;
+    }));
+    stage.style.setProperty('--tw', Math.round(w) + 'px');
+  };
+  measure();
+  addEventListener('resize', measure);
+  if (document.fonts) document.fonts.ready.then(measure);
   let cur = target(), running = false;
   const draw = () => {
     const t = target();
@@ -1133,7 +1147,7 @@ document.documentElement.classList.add('js');
     const b = seg(cur, 0.02, 0.36), pl = seg(cur, 0.30, 0.62), tr = seg(cur, 0.56, 0.88);
     box.style.transform = 'translateY(' + ((1 - b) * -115) + '%)';
     box.classList.toggle('swing', b >= 1);
-    plane.style.transform = 'translate(' + ((1 - pl) * 70) + 'vw,' + ((1 - pl) * -12) + 'vh)';
+    plane.style.transform = 'translate(' + ((1 - pl) * 70) + 'vw,' + ((1 - pl) * -10) + 'vh)';
     /* Знак плюс: вантажівка віддзеркалена (scale:-1 1), тож зсув теж
        дзеркалиться й візуально йде вліво. */
     truck.style.transform = 'translateX(' + ((1 - tr) * 70) + 'vw)';
