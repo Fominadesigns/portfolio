@@ -560,7 +560,14 @@ section[id]{scroll-margin-top:64px}
 .swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;border-radius:0}
 .swatches span{display:flex;flex-direction:column;border-radius:10px;overflow:hidden;min-width:0;
                border:1px solid rgba(51,70,196,.25);background:#fff;box-shadow:0 6px 16px rgba(33,33,33,.1)}
-.swatches i{flex:1;display:block}
+.swatches i{flex:1;display:block;position:relative;overflow:hidden}
+/* Білий відблиск пробігає по кольорах по черзі, і так по колу. */
+.swatches i::after{content:'';position:absolute;inset:-20% auto -20% 0;width:45%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);
+  transform:translateX(-120%) skewX(-18deg);animation:swShine 3.5s ease-in-out infinite;
+  animation-delay:calc(var(--n,0) * .35s)}
+@keyframes swShine{0%{transform:translateX(-120%) skewX(-18deg)}22%,100%{transform:translateX(320%) skewX(-18deg)}}
+@media (prefers-reduced-motion:reduce){ .swatches i::after{animation:none;display:none} }
 .swatches em{font-style:normal;padding:8px 8px 9px;font-size:11px;line-height:1.25;color:#666;
              overflow-wrap:anywhere}
 .swatches b{display:block;font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:13px;
@@ -954,11 +961,11 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       <div class="acc-face f-white"><span class="acc-num">02</span><span class="acc-name">Кольори</span></div>
       <div class="acc-body">
         <div class="acc-pic swatches" role="img" aria-label="Палітра бренду: глибокий петроль, бірюза, світло-сірий, теплий жовтий, золото">
-          <span><i style="background:#001D1C"></i><em><b>Петроль</b>фон реклами<br>#001D1C</em></span>
-          <span><i style="background:#347C7D"></i><em><b>Бірюза</b>головний<br>#347C7D</em></span>
-          <span><i style="background:#E4E4E4"></i><em><b>Сірий</b>фон сайту<br>#E4E4E4</em></span>
-          <span><i style="background:#FCC55E"></i><em><b>Жовтий</b>кнопки<br>#FCC55E</em></span>
-          <span><i style="background:linear-gradient(160deg,#F2D58A,#C99A45 55%,#8E6526)"></i><em><b>Золото</b>реклама</em></span>
+          <span><i style="--n:0;background:#001D1C"></i><em><b>Петроль</b>фон реклами<br>#001D1C</em></span>
+          <span><i style="--n:1;background:#347C7D"></i><em><b>Бірюза</b>головний<br>#347C7D</em></span>
+          <span><i style="--n:2;background:#E4E4E4"></i><em><b>Сірий</b>фон сайту<br>#E4E4E4</em></span>
+          <span><i style="--n:3;background:#FCC55E"></i><em><b>Жовтий</b>кнопки<br>#FCC55E</em></span>
+          <span><i style="--n:4;background:linear-gradient(160deg,#F2D58A,#C99A45 55%,#8E6526)"></i><em><b>Золото</b>реклама</em></span>
         </div>
         <h3>Кольори</h3>
         <p>Сайт на&nbsp;спокійному сірому, бірюза&nbsp;— головний колір, жовтий&nbsp;— лише для&nbsp;дій. Петроль і&nbsp;золото&nbsp;— для&nbsp;реклами й&nbsp;презентації, де&nbsp;потрібна глибина й&nbsp;преміальність.</p>
