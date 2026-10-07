@@ -693,8 +693,11 @@ section[id]{scroll-margin-top:64px}
 /* ── 05. презентація: темна секція, «вікно» з власною прокруткою ────── */
 .deck3{background:var(--dark) var(--grid-l);color:#fff;padding-block:var(--sec)}
 .deck3__in{max-width:1240px;margin:0 auto;padding-inline:clamp(16px,3.4vw,48px);display:grid;
-           grid-template-columns:minmax(0,.7fr) minmax(0,1.8fr);gap:clamp(24px,3vw,48px);align-items:start}
-.deck3__head{min-width:0}
+           grid-template-columns:minmax(0,.7fr) minmax(0,1.8fr);gap:clamp(24px,3vw,48px);align-items:stretch}
+.deck3__head{min-width:0;display:flex;flex-direction:column;position:relative;z-index:2;
+             /* Низ підказки — на рівні низу першого слайда (під ним 9 сходинок по 10 px). */
+             padding-bottom:90px}
+.deck3__view{align-self:start}
 .deck3__head h2{font-size:clamp(30px,3vw,56px);line-height:.9}
 .deck3__head p{margin:24px 0 0;font-size:clamp(16px,1.4vw,18px);max-width:30em;opacity:.88}
 .mcorner.light{border-color:#fff;color:#fff;
@@ -714,8 +717,12 @@ section[id]{scroll-margin-top:64px}
 .dv-slide a{display:block;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#0d3b3b;
             box-shadow:0 -8px 24px rgba(0,0,0,.45)}
 .dv-slide img{width:100%;height:100%;object-fit:cover}
-.deck3__hint{justify-content:flex-start;margin-top:28px}
-.deck3__hint .curl{margin-bottom:22px}
+/* Підказка внизу колонки, на рівні низу слайдів; стрілка заходить на слайди. */
+.deck3__hint{justify-content:flex-start;margin-top:auto;padding-top:24px;gap:6px;
+             margin-right:calc(-1 * clamp(70px,8vw,130px))}
+.deck3__hint .live{white-space:nowrap}
+.deck3__hint .curl{width:clamp(110px,10vw,160px);height:auto;margin-bottom:26px;flex:none}
+@media (max-width:1100px){ .deck3__hint .live{white-space:normal} }
 @media (max-width:900px){
   .deck3__in{grid-template-columns:1fr}
   .deck3__view{max-width:none}
@@ -1192,10 +1199,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <div class="deck3__head">
       <div class="mcorner light" style="margin-bottom:28px">05</div>
       <h2>Презентація<br>для&nbsp;продажів</h2>
-      <p>Замість білого шаблону&nbsp;— десять слайдів 16:9 у&nbsp;стилі сайту:
-        компанія, послуги й&nbsp;кожен вид перевезень окремо. Ті&nbsp;самі
-        бірюза, 3D і&nbsp;нейрофото, що&nbsp;й&nbsp;у&nbsp;рекламі, тож
-        презентація продовжує розмову, яку почав сайт.</p>
+      <p>Замість білого шаблону&nbsp;— десять слайдів у&nbsp;стилі сайту: та&nbsp;сама бірюза, 3D і&nbsp;нейрофото.</p>
       <div class="point deck3__hint">
         <span class="live"><i></i>Наведіть на&nbsp;презентацію й&nbsp;гортайте вниз</span>
         <svg class="curl" viewBox="0 0 150 82" fill="none" aria-hidden="true">
