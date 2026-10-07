@@ -150,7 +150,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .turn-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(20px,3.4vw,46px);
            align-items:center}
 .turn-txt{min-width:0}
-.turn h2{font-size:clamp(32px,5.6vw,80px);max-width:17ch}
+.turn h2{font-size:clamp(28px,4.2vw,62px);max-width:24ch}
 .turn p{max-width:54ch;margin-top:22px;font-size:clamp(17px,1.9vw,21px)}
 .turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:34px}
 .turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:20px 22px;
@@ -374,9 +374,9 @@ section[id]{scroll-margin-top:64px}
    і трохи заходить на текст. Вантажівка зліва: кабіна трохи на тексті,
    причіп за краєм екрана — її ширину й місце рахує
    скрипт (--tw — ширина тексту). */
-.a-plane{right:-17vw;bottom:12vh;width:clamp(520px,60vw,1120px);rotate:7deg}
+.a-plane{right:-4vw;bottom:25vh;width:clamp(340px,36vw,700px);rotate:7deg}
 /* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
-.a-truck{right:calc(50% + var(--tw) / 2 - 130px);bottom:1vh;
+.a-truck{right:calc(50% + var(--tw) / 2 - 40px);bottom:3vh;
          width:var(--trw,clamp(300px,30vw,560px));scale:-1 1}
 .a-box.swing{animation:swing 5s ease-in-out infinite}
 @keyframes swing{0%,100%{rotate:-1deg}50%{rotate:1deg}}
@@ -384,8 +384,8 @@ section[id]{scroll-margin-top:64px}
    стають над текстом по боках від контейнера. */
 @media (max-width:760px){
   .a-box{width:150px;margin-left:-75px}
-  .a-plane{left:auto;right:-16vw;bottom:auto;top:4vh;width:62vw}
-  .a-truck{right:auto;left:-18vw;bottom:auto;top:24vh;width:60vw}
+  .a-plane{left:auto;right:-4vw;bottom:auto;top:5vh;width:56vw}
+  .a-truck{right:auto;left:3vw;bottom:auto;top:22vh;width:40vw}
 }
 @media (prefers-reduced-motion:reduce){ .a-box.swing{animation:none} }
 
@@ -602,23 +602,23 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   <h2>Один стиль<em>.</em><br>Чотири канали<em>.</em></h2>
 
   <div class="lane" aria-hidden="true">
-    <img src="images/clg/3d-truck.webp" alt="" width="800" height="450">
+    <img src="images/clg/3d-truck.webp" alt="" width="796" height="473">
     <span>сайт UA / EN</span><span class="hot">33 креативи для таргету</span>
     <span>8 листів розсилки</span><span class="hot">презентація на 10 слайдів</span>
-    <img src="images/clg/3d-truck.webp" alt="" width="800" height="450">
+    <img src="images/clg/3d-truck.webp" alt="" width="796" height="473">
     <span>сайт UA / EN</span><span class="hot">33 креативи для таргету</span>
     <span>8 листів розсилки</span><span class="hot">презентація на 10 слайдів</span>
   </div>
 
   <div class="lane back" aria-hidden="true">
     <span>авіа</span><span>море FCL / LCL</span>
-    <img src="images/clg/3d-plane.webp" alt="" width="800" height="450">
+    <img src="images/clg/3d-plane.webp" alt="" width="1022" height="281">
     <span>авто FTL</span><span>залізниця</span><span class="hot">митне оформлення</span>
-    <img src="images/clg/3d-train.webp" alt="" width="800" height="450">
+    <img src="images/clg/3d-train.webp" alt="" width="678" height="293">
     <span>авіа</span><span>море FCL / LCL</span>
-    <img src="images/clg/3d-plane.webp" alt="" width="800" height="450">
+    <img src="images/clg/3d-plane.webp" alt="" width="1022" height="281">
     <span>авто FTL</span><span>залізниця</span><span class="hot">митне оформлення</span>
-    <img src="images/clg/3d-train.webp" alt="" width="800" height="450">
+    <img src="images/clg/3d-train.webp" alt="" width="678" height="293">
   </div>
 </section>
 
@@ -643,10 +643,10 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <figure class="phone">
       <div class="screen"><div class="holder">
         <img src="images/clg/site-home-mobile.webp" alt="Сайт CLG на телефоні" width="390" height="844" loading="lazy">
-        <iframe data-src="https://clg-site-three.vercel.app/" hidden
-                title="Сайт CLG на телефоні — гортайте"></iframe>
+        <iframe data-src="https://clg-site-three.vercel.app/posluhy-aviaperevezennia-vantazhiv" hidden
+                title="Сторінка авіаперевезень CLG на телефоні — гортайте"></iframe>
       </div></div>
-      <figcaption>Той самий сайт у&nbsp;телефоні&nbsp;— гортайте</figcaption>
+      <figcaption>Сторінка авіаперевезень&nbsp;— гортайте</figcaption>
     </figure>
   </div>
 </section>
@@ -688,9 +688,9 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <div class="k k-3d">
       <h3>3D-ілюстрації</h3>
       <div class="objs">
-        <img style="--d:0s" src="images/clg/3d-plane.webp" alt="3D-літак" width="800" height="450" loading="lazy">
-        <img style="--d:.6s" src="images/clg/3d-truck.webp" alt="3D-вантажівка" width="800" height="450" loading="lazy">
-        <img style="--d:1.2s" src="images/clg/3d-train.webp" alt="3D-потяг" width="800" height="450" loading="lazy">
+        <img style="--d:0s" src="images/clg/3d-plane.webp" alt="3D-літак" width="1022" height="281" loading="lazy">
+        <img style="--d:.6s" src="images/clg/3d-truck.webp" alt="3D-вантажівка" width="796" height="473" loading="lazy">
+        <img style="--d:1.2s" src="images/clg/3d-train.webp" alt="3D-потяг" width="678" height="293" loading="lazy">
         <img style="--d:.3s" src="images/clg/3d-hook.webp" alt="3D-контейнер на тросах" width="630" height="1050" loading="lazy">
         <img style="--d:.9s" src="images/clg/3d-hands.webp" alt="3D-контейнер у руках" width="500" height="548" loading="lazy">
         <img style="--d:1.5s" src="images/clg/3d-docs.webp" alt="3D-документи з митними печатками" width="600" height="418" loading="lazy">
@@ -734,8 +734,8 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <section class="anim" id="motion" aria-label="Анімації сайту">
   <div class="anim-stage">
     <div class="a-top"><img class="a-box" src="images/clg/3d-hook.webp" alt="" width="630" height="1050"></div>
-    <img class="a-plane" src="images/clg/3d-plane.webp" alt="" width="800" height="450">
-    <img class="a-truck" src="images/clg/3d-truck.webp" alt="" width="800" height="450">
+    <img class="a-plane" src="images/clg/3d-plane.webp" alt="" width="1022" height="281">
+    <img class="a-truck" src="images/clg/3d-truck.webp" alt="" width="796" height="473">
     <div class="anim-txt">
       <h2>Анімації, які показують<br>доставку</h2>
       <p>На&nbsp;сайті CLG рух&nbsp;— не&nbsp;прикраса: людина бачить сам процес
@@ -1178,10 +1178,10 @@ document.documentElement.classList.add('js');
       return r.getBoundingClientRect().width;
     }));
     stage.style.setProperty('--tw', Math.round(w) + 'px');
-    /* Вантажівка вдвічі довша за вільне місце ліворуч від тексту:
-       кабіна трохи заходить на текст, причіп ховається за краєм. */
+    /* Вантажівка видна цілком: від лівого краю (16 px) до тексту,
+       кабіною на 40 px заходить на текст. */
     const free = (stage.clientWidth - w) / 2 - 20;
-    stage.style.setProperty('--trw', Math.round(Math.min(1300, Math.max(480, free * 2.1))) + 'px');
+    stage.style.setProperty('--trw', Math.round(Math.min(620, Math.max(220, free + 40 - 16))) + 'px');
   };
   measure();
   addEventListener('resize', measure);
