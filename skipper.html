@@ -962,11 +962,12 @@ footer .wrap{position:relative;z-index:1}
     if (seen && !timer) { drop(); timer = setInterval(drop, 1500); }
     else if (!seen && timer) { clearInterval(timer); timer = 0; }
   }
+  /* Прокрутка — щоб відгукнутись одразу, а раз на секунду перевіряємо
+     й самі: події прокрутки приходять не в кожному браузері, і без цього
+     анімації могло не бути зовсім. Один замір на секунду нічого не варт. */
   addEventListener('scroll', check, { passive: true });
-  addEventListener('resize', check, { passive: true });
-  addEventListener('load', check);
   check();
-  setTimeout(check, 800);   // якщо сторінка відкрилась одразу внизу
+  setInterval(check, 1000);
 })();
 </script>
 </body>
