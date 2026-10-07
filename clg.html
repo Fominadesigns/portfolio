@@ -660,6 +660,28 @@ section[id]{scroll-margin-top:64px}
 }
 @media (prefers-reduced-motion:reduce){ .mart__track,.mgoal__t{transition:none} }
 
+
+/* ── 05. презентація: стос слайдів, як «Формати» на головній ────────── */
+.deck2{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(20px,3vw,40px);
+       max-width:1240px;margin:0 auto;padding:var(--sec) clamp(16px,3.4vw,48px)}
+.deck2__head{position:sticky;top:96px;align-self:start}
+.deck2__head h2{font-size:clamp(40px,4.8vw,84px);line-height:.9}
+.deck2__head p{margin:24px 0 0;font-size:clamp(16px,1.4vw,18px);max-width:30em}
+.dslide{position:sticky;top:calc(96px + var(--i) * 14px);margin-bottom:9vh;background:#fff;
+        border:1px solid var(--blue);border-radius:var(--r);padding:clamp(10px,1.2vw,16px);
+        transform-origin:50% 0;will-change:transform;box-shadow:0 -10px 30px rgba(33,33,33,.08)}
+.dslide:last-child{margin-bottom:0}
+.dslide__tag{display:flex;gap:10px;align-items:center;font:800 14px var(--head);text-transform:uppercase;
+             margin:2px 2px 12px}
+.dslide__tag b{border:1px solid currentColor;padding:5px 8px;border-radius:4px}
+.dslide a{display:block;border-radius:4px;overflow:hidden;aspect-ratio:16/9;background:#0d3b3b}
+.dslide img{width:100%;height:100%;object-fit:cover}
+@media (max-width:900px){
+  .deck2{grid-template-columns:1fr}
+  .deck2__head{position:static}
+  .dslide{top:calc(76px + var(--i) * 8px);margin-bottom:5vh}
+}
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -1121,39 +1143,56 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 </section>
 
-<!-- ── 04. презентація ───────────────────────────────────────────── -->
-<section class="wrap" id="deck">
-  <div class="sec-head">
-    <span class="sq"><b>05</b></span>
-    <h2>Презентація для продажів</h2>
+<!-- ── 05. презентація: слайди наїжджають один на одного ──────────────
+     Як «Формати співпраці» на головній: ліворуч закріплені заголовок
+     і текст, праворуч кожен наступний слайд виїжджає поверх попереднього,
+     а попередній трохи зменшується й темнішає. -->
+<section class="deck2" id="deck">
+  <div class="deck2__head">
+    <div class="mcorner" style="margin-bottom:28px">05</div>
+    <h2>Презентація для&nbsp;продажів</h2>
+    <p>Замість білого шаблону&nbsp;— десять слайдів 16:9 у&nbsp;стилі сайту:
+      компанія, послуги й&nbsp;кожен вид перевезень окремо. Ті&nbsp;самі
+      бірюза, 3D і&nbsp;нейрофото, що&nbsp;й&nbsp;у&nbsp;рекламі, тож
+      презентація продовжує розмову, яку почав сайт.</p>
   </div>
-  <p class="sec-lead">
-    Замість білого шаблону&nbsp;— десять слайдів 16:9 у&nbsp;стилі сайту:
-    компанія, послуги й&nbsp;кожен вид перевезень окремо&nbsp;— авіа, море,
-    LCL, FTL, LTL, брокерські послуги.
-  </p>
-
-  <div class="deck">
-    <div class="track" tabindex="0" aria-label="Слайди презентації — гортайте вбік">
-      <figure class="slide"><a href="images/clg/slide-01.webp" data-zoom="deck" data-cap="Обкладинка"><img src="images/clg/slide-01.webp" alt="Слайд: обкладинка Customs Logistics Group" width="1600" height="900" loading="lazy"></a><figcaption>Обкладинка</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-02.webp" data-zoom="deck" data-cap="Про компанію"><img src="images/clg/slide-02.webp" alt="Слайд: про компанію" width="1600" height="900" loading="lazy"></a><figcaption>Про компанію: понад 120&nbsp;країн, від&nbsp;10&nbsp;кг до&nbsp;200&nbsp;т</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-03.webp" data-zoom="deck" data-cap="Послуги"><img src="images/clg/slide-03.webp" alt="Слайд: послуги" width="1600" height="900" loading="lazy"></a><figcaption>Послуги</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-04.webp" data-zoom="deck" data-cap="Авіаперевезення"><img src="images/clg/slide-04.webp" alt="Слайд: авіаперевезення" width="1600" height="900" loading="lazy"></a><figcaption>Авіаперевезення</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-05.webp" data-zoom="deck" data-cap="Морські перевезення"><img src="images/clg/slide-05.webp" alt="Слайд: морські перевезення" width="1600" height="900" loading="lazy"></a><figcaption>Морські перевезення</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-06.webp" data-zoom="deck" data-cap="Консолідований вантаж — LCL"><img src="images/clg/slide-06.webp" alt="Слайд: консолідований вантаж LCL" width="1600" height="900" loading="lazy"></a><figcaption>Консолідований вантаж&nbsp;— LCL</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-07.webp" data-zoom="deck" data-cap="FTL — автоперевезення"><img src="images/clg/slide-07.webp" alt="Слайд: FTL автоперевезення" width="1600" height="900" loading="lazy"></a><figcaption>FTL&nbsp;— автоперевезення</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-08.webp" data-zoom="deck" data-cap="LTL — збірне автоперевезення"><img src="images/clg/slide-08.webp" alt="Слайд: LTL збірне автоперевезення" width="1600" height="900" loading="lazy"></a><figcaption>LTL&nbsp;— збірне автоперевезення</figcaption></figure>
-      <figure class="slide"><a href="images/clg/slide-09.webp" data-zoom="deck" data-cap="Брокерські послуги"><img src="images/clg/slide-09.webp" alt="Слайд: брокерські послуги" width="1600" height="900" loading="lazy"></a><figcaption>Брокерські послуги</figcaption></figure>
-    </div>
-    <div class="deck-nav">
-      <button type="button" class="prev" aria-label="Попередній слайд">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-      </button>
-      <button type="button" class="next" aria-label="Наступний слайд">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-      <span class="count">01 / 09</span>
-    </div>
+  <div class="dstack">
+    <article class="dslide" style="--i:0">
+      <div class="dslide__tag"><b>01</b><span>Обкладинка</span></div>
+      <a href="images/clg/slide-01.webp" data-zoom="deck" data-cap="Обкладинка"><img src="images/clg/slide-01.webp" alt="Слайд презентації: Обкладинка" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:1">
+      <div class="dslide__tag"><b>02</b><span>Про компанію</span></div>
+      <a href="images/clg/slide-02.webp" data-zoom="deck" data-cap="Про компанію"><img src="images/clg/slide-02.webp" alt="Слайд презентації: Про компанію" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:2">
+      <div class="dslide__tag"><b>03</b><span>Послуги</span></div>
+      <a href="images/clg/slide-03.webp" data-zoom="deck" data-cap="Послуги"><img src="images/clg/slide-03.webp" alt="Слайд презентації: Послуги" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:3">
+      <div class="dslide__tag"><b>04</b><span>Авіаперевезення</span></div>
+      <a href="images/clg/slide-04.webp" data-zoom="deck" data-cap="Авіаперевезення"><img src="images/clg/slide-04.webp" alt="Слайд презентації: Авіаперевезення" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:4">
+      <div class="dslide__tag"><b>05</b><span>Морські перевезення</span></div>
+      <a href="images/clg/slide-05.webp" data-zoom="deck" data-cap="Морські перевезення"><img src="images/clg/slide-05.webp" alt="Слайд презентації: Морські перевезення" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:5">
+      <div class="dslide__tag"><b>06</b><span>Консолідований вантаж&nbsp;— LCL</span></div>
+      <a href="images/clg/slide-06.webp" data-zoom="deck" data-cap="Консолідований вантаж — LCL"><img src="images/clg/slide-06.webp" alt="Слайд презентації: Консолідований вантаж — LCL" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:6">
+      <div class="dslide__tag"><b>07</b><span>FTL&nbsp;— автоперевезення</span></div>
+      <a href="images/clg/slide-07.webp" data-zoom="deck" data-cap="FTL — автоперевезення"><img src="images/clg/slide-07.webp" alt="Слайд презентації: FTL — автоперевезення" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:7">
+      <div class="dslide__tag"><b>08</b><span>LTL&nbsp;— збірне автоперевезення</span></div>
+      <a href="images/clg/slide-08.webp" data-zoom="deck" data-cap="LTL — збірне автоперевезення"><img src="images/clg/slide-08.webp" alt="Слайд презентації: LTL — збірне автоперевезення" width="1600" height="900" loading="lazy"></a>
+    </article>
+    <article class="dslide" style="--i:8">
+      <div class="dslide__tag"><b>09</b><span>Брокерські послуги</span></div>
+      <a href="images/clg/slide-09.webp" data-zoom="deck" data-cap="Брокерські послуги"><img src="images/clg/slide-09.webp" alt="Слайд презентації: Брокерські послуги" width="1600" height="900" loading="lazy"></a>
+    </article>
   </div>
 </section>
 
@@ -1483,6 +1522,26 @@ document.documentElement.classList.add('js');
   item.addEventListener('mouseenter', run);
   item.addEventListener('focus', run);
   item.addEventListener('click', run);
+})();
+
+/* Стос слайдів: попередній зменшується й темнішає, коли наступний
+   наїжджає на нього. */
+(function () {
+  const cards = [...document.querySelectorAll('.dslide')];
+  if (cards.length < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let ticking = false;
+  const upd = () => {
+    ticking = false;
+    for (let i = 0; i < cards.length - 1; i++) {
+      const tr = cards[i].getBoundingClientRect(), nr = cards[i + 1].getBoundingClientRect();
+      const p = Math.max(0, Math.min(1, 1 - (nr.top - tr.top) / (innerHeight * 0.7)));
+      cards[i].style.transform = p > 0 ? 'scale(' + (1 - p * 0.06).toFixed(4) + ')' : '';
+      cards[i].style.filter = p > 0 ? 'brightness(' + (1 - p * 0.2).toFixed(3) + ')' : '';
+    }
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+  addEventListener('resize', upd);
+  upd();
 })();
 
 /* Стрілки й лічильник для слайдів. */
