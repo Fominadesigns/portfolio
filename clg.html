@@ -21,6 +21,8 @@
   --grey:#D3D3D3; --light:#ECECEC;
   --blue:#3346C4; --orange:#FF622B; --dark:#212121;
   --gap:13px; --r:6px;
+  /* Один ритм між смисловими блоками на всю сторінку. */
+  --sec:clamp(64px,7vw,112px);
   --grad:linear-gradient(90deg,#B35CF2,#FF8A4D);
   --head:'Roboto Condensed','Arial Narrow',sans-serif;
   --body:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -35,7 +37,8 @@ body{margin:0;background:var(--grey) var(--grid-d);color:var(--blue);
 a{color:inherit}
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 img{max-width:100%;display:block}
-.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,3.4vw,48px)}
+/* Лише бокові відступи: вертикальні задає секція, інакше .wrap їх обнуляв. */
+.wrap{max-width:1240px;margin:0 auto;padding-inline:clamp(16px,3.4vw,48px)}
 h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
             line-height:.9;letter-spacing:-.01em;margin:0}
 
@@ -146,7 +149,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 @media (prefers-reduced-motion:reduce){.lane{animation:none}}
 
 /* ── 3. поворот ────────────────────────────────────────────────────── */
-.turn{background:var(--blue) var(--grid-l);color:#fff;padding:64px 0}
+.turn{background:var(--blue) var(--grid-l);color:#fff;padding-block:var(--sec)}
 .turn-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(20px,3.4vw,46px);
            align-items:center}
 .turn-txt{min-width:0}
@@ -161,7 +164,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .turn .three s{opacity:.7}
 
 /* ── розділи ───────────────────────────────────────────────────────── */
-section{padding:52px 0}
+section{padding-block:var(--sec)}
 section[id]{scroll-margin-top:64px}
 .sq{width:80px;height:80px;border:1px solid var(--blue);border-radius:var(--r);
     position:relative;flex:none;background:#fff}
@@ -360,7 +363,7 @@ section[id]{scroll-margin-top:64px}
             flex-direction:column;align-items:center;--tw:600px}
 .a-top{flex:1;position:relative;width:100%;min-height:0}
 .anim-txt{position:relative;z-index:2;text-shadow:0 2px 18px rgba(33,33,33,.85);text-align:center;max-width:1100px;
-          padding:0 20px clamp(36px,8vh,96px)}
+          padding:0 20px clamp(72px,13vh,140px)}
 .anim-txt h2{font-size:clamp(32px,4.1vw,72px)}
 /* Рівно два рядки на широкому екрані; на телефоні — як вийде. */
 @media (min-width:761px){ .anim-txt h2{white-space:nowrap} }
@@ -486,7 +489,7 @@ section[id]{scroll-margin-top:64px}
 
 
 /* ── 03. креативи: слайдер по дузі ─────────────────────────────────── */
-.ads-cf{padding:52px 0 56px;overflow:hidden}
+.ads-cf{padding-block:var(--sec);overflow:hidden}
 .cf{position:relative;margin-top:22px}
 .cf-track{list-style:none;margin:0;padding:0 16px 10px;display:flex;gap:var(--gap);overflow-x:auto;
           scroll-snap-type:x mandatory}
@@ -516,14 +519,15 @@ section[id]{scroll-margin-top:64px}
 
 
 /* ── 01. стиль: картки-гармошка ────────────────────────────────────── */
-.acc{display:flex;gap:var(--gap);margin-top:24px;height:clamp(460px,64vh,640px)}
+.acc{--h:clamp(460px,66vh,660px);display:flex;gap:var(--gap);margin-top:24px;height:var(--h)}
 .acc-i{flex:1 1 0;min-width:0;position:relative;border-radius:18px;overflow:hidden;cursor:pointer;
        background:#fff;border:1px solid rgba(51,70,196,.25);outline-offset:3px;
        box-shadow:0 14px 32px rgba(33,33,33,.12);
-       transition:flex-grow .7s cubic-bezier(.22,.8,.24,1)}
-.acc-i.open{flex-grow:4.6;cursor:default}
+       transition:flex .7s cubic-bezier(.22,.8,.24,1)}
+/* Розкрита картка — квадратна: ширина дорівнює висоті ряду. */
+.acc-i.open{flex:0 0 var(--h);cursor:default}
 @media (hover:hover) and (min-width:761px){
-  .acc-i:hover{flex-grow:4.6;cursor:default}
+  .acc-i:hover{flex:0 0 var(--h);cursor:default}
   .acc-i:hover .acc-face{opacity:0}
   .acc-i:hover .acc-body{opacity:1;visibility:visible;transition:opacity .45s ease .25s,visibility 0s}
 }
@@ -541,8 +545,21 @@ section[id]{scroll-margin-top:64px}
           transition:opacity .35s ease,visibility 0s .35s}
 .acc-i.open .acc-face{opacity:0}
 .acc-i.open .acc-body{opacity:1;visibility:visible;transition:opacity .45s ease .25s,visibility 0s}
-.acc-pic{width:100%;flex:1 1 auto;min-height:120px;max-height:52%;object-fit:cover;border-radius:12px;
-         display:block}
+.acc-pic{width:100%;flex:none;height:60%;object-fit:cover;border-radius:12px;display:block}
+/* Скриншот бенто — квадратом, цілком. */
+.acc-pic.sq{width:auto;aspect-ratio:1;align-self:center;object-fit:contain;background:#fff;
+            border:1px solid rgba(51,70,196,.2)}
+/* Фото — цілком, без обрізання. */
+.acc-pic.wide{height:auto;max-height:60%;object-fit:contain}
+/* Палітра — як віяло фарб: кольорова плашка й біла смужка з назвою. */
+.swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;border-radius:0}
+.swatches span{display:flex;flex-direction:column;border-radius:10px;overflow:hidden;min-width:0;
+               border:1px solid rgba(51,70,196,.25);background:#fff;box-shadow:0 6px 16px rgba(33,33,33,.1)}
+.swatches i{flex:1;display:block}
+.swatches em{font-style:normal;padding:8px 8px 9px;font-size:11px;line-height:1.25;color:#666;
+             overflow-wrap:anywhere}
+.swatches b{display:block;font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:13px;
+            color:var(--blue)}
 .acc-fonts{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px;
            background:var(--light);padding:16px 20px;flex:0 0 auto;max-height:none}
 .acc-fonts img{height:auto;max-width:100%}
@@ -582,7 +599,7 @@ section[id]{scroll-margin-top:64px}
 .acc-speed{display:flex;flex-direction:column;justify-content:center;padding:16px 22px;
            background:var(--blue) var(--grid-l);color:#fff;flex:0 0 auto;max-height:none}
 .acc-speed b{font-family:var(--head);font-weight:800;font-size:clamp(54px,6vw,96px);line-height:.9}
-.acc-speed span{font-size:15px;opacity:.9;margin-top:6px}
+.acc-speed>span{font-size:15px;opacity:.9;margin-top:6px}
 .kpi-mini{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 16px}
 .kpi-mini li{font-size:13.5px;line-height:1.3}
 .kpi-mini b{display:block;font-family:var(--head);font-weight:800;font-size:clamp(24px,2.2vw,34px);
@@ -596,7 +613,7 @@ section[id]{scroll-margin-top:64px}
 
 /* ── 04. розсилка: як «Що я роблю» на головній ──────────────────────── */
 .mail-sec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap);
-          max-width:1240px;margin:0 auto;padding:52px clamp(16px,3.4vw,48px)}
+          max-width:1240px;margin:0 auto;padding:var(--sec) clamp(16px,3.4vw,48px)}
 .mail-side{position:sticky;top:78px;align-self:start;display:flex;flex-direction:column;gap:var(--gap);
            height:calc(100vh - 92px)}
 .mcard{background:#fff;border:1px solid var(--blue);border-radius:var(--r);overflow:hidden}
@@ -826,7 +843,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <article class="acc-i" tabindex="0">
       <div class="acc-face f-blue"><span class="acc-num">01</span><span class="acc-name">Бенто-<br>сітка</span></div>
       <div class="acc-body">
-        <img class="acc-pic" src="images/clg/acc-bento.webp" alt="Перший екран морських перевезень: головне, фото й переваги — окремими картками" width="1290" height="540" loading="lazy">
+        <img class="acc-pic sq" src="images/clg/acc-bento.webp" alt="Екран сайту CLG: переваги контейнерних перевезень бенто-картками" width="960" height="960" loading="lazy">
         <h3>Бенто-сітка</h3>
         <p>Сторінка розкладена на&nbsp;картки, кожна&nbsp;— одна думка: що
           це за&nbsp;послуга, фото, переваги, кнопка. Людина бачить усе одразу
@@ -837,15 +854,15 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <article class="acc-i" tabindex="0">
       <div class="acc-face f-white"><span class="acc-num">02</span><span class="acc-name">Кольори</span></div>
       <div class="acc-body">
-        <div class="acc-pic acc-grad" role="img" aria-label="Градієнт із кольорів бренду"></div>
+        <div class="acc-pic swatches" role="img" aria-label="Палітра бренду: глибокий петроль, бірюза, світло-сірий, теплий жовтий, золото">
+          <span><i style="background:#001D1C"></i><em><b>Петроль</b>фон реклами<br>#001D1C</em></span>
+          <span><i style="background:#347C7D"></i><em><b>Бірюза</b>головний<br>#347C7D</em></span>
+          <span><i style="background:#E4E4E4"></i><em><b>Сірий</b>фон сайту<br>#E4E4E4</em></span>
+          <span><i style="background:#FCC55E"></i><em><b>Жовтий</b>кнопки<br>#FCC55E</em></span>
+          <span><i style="background:linear-gradient(160deg,#F2D58A,#C99A45 55%,#8E6526)"></i><em><b>Золото</b>реклама</em></span>
+        </div>
         <h3>Кольори</h3>
-        <ul class="sw-list">
-          <li><i style="background:#001D1C"></i><span><b>Глибокий петроль</b>&nbsp;— фон реклами й&nbsp;презентації, дає глибину й&nbsp;преміальність</span></li>
-          <li><i style="background:#347C7D"></i><span><b>Бірюза</b>&nbsp;— головний колір: море, техніка, кнопки й&nbsp;плашки</span></li>
-          <li><i style="background:#E4E4E4"></i><span><b>Світло-сірий</b>&nbsp;— спокійний фон сайту, на&nbsp;якому видно картки</span></li>
-          <li><i style="background:#FCC55E"></i><span><b>Теплий жовтий</b>&nbsp;— лише для дій: коло-стрілка на&nbsp;кожній кнопці</span></li>
-          <li><i style="background:linear-gradient(135deg,#F2D58A,#C99A45 55%,#8E6526)"></i><span><b>Золото</b>&nbsp;— преміальна серія реклами</span></li>
-        </ul>
+        <p>Сайт на&nbsp;спокійному сірому, бірюза&nbsp;— головний колір, жовтий&nbsp;— лише для&nbsp;дій. Петроль і&nbsp;золото&nbsp;— для&nbsp;реклами й&nbsp;презентації, де&nbsp;потрібна глибина й&nbsp;преміальність.</p>
       </div>
     </article>
 
@@ -872,25 +889,25 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <article class="acc-i" tabindex="0">
       <div class="acc-face f-dark"><span class="acc-num">04</span><span class="acc-name">Фото з&nbsp;нейро&shy;мережі</span></div>
       <div class="acc-body">
-        <img class="acc-pic" src="images/clg/acc-ship.webp" alt="Бірюзовий контейнеровоз у тропічній воді" width="600" height="1058" loading="lazy" style="object-position:center 62%">
+        <img class="acc-pic wide" src="images/clg/acc-avia-hero.webp" alt="Бірюзовий літак на злітній смузі — перший екран сторінки авіаперевезень" width="1000" height="552" loading="lazy">
         <h3>Фото з&nbsp;нейромережі</h3>
-        <p>Замість стокових портів, які є&nbsp;в&nbsp;кожного конкурента,&nbsp;—
-          яскраві, соковиті кадри, згенеровані в&nbsp;нейромережі: бірюзова техніка,
-          тропічна вода, чисте небо. Вони тримають атмосферу й&nbsp;збігаються
-          з&nbsp;кольорами бренду.</p>
+        <p>Замість стокових фото, які є&nbsp;в&nbsp;кожного конкурента,&nbsp;—
+          яскраві, соковиті кадри, згенеровані в&nbsp;нейромережі: бірюзовий літак,
+          вантажівка, контейнеровоз, чисте небо. Вони тримають атмосферу
+          й&nbsp;збігаються з&nbsp;кольорами бренду.</p>
       </div>
     </article>
 
     <article class="acc-i" tabindex="0">
       <div class="acc-face f-blue2"><span class="acc-num">05</span><span class="acc-name">Швидкість</span></div>
       <div class="acc-body">
-        <div class="acc-pic acc-speed"><b>1,4&nbsp;с</b><span>до першого контенту на&nbsp;телефоні</span></div>
+        <div class="acc-pic acc-speed"><b><span data-to="1.4">1,4</span>&nbsp;с</b><span>до першого контенту на&nbsp;телефоні</span></div>
         <h3>Швидкість</h3>
         <ul class="kpi-mini">
-          <li><b>0,9&nbsp;с</b>головний блок на&nbsp;компʼютері</li>
-          <li><b>1,5&nbsp;МБ</b>вага головної з&nbsp;3D й&nbsp;анімаціями</li>
-          <li><b>97</b>доступність</li>
-          <li><b>100</b>SEO</li>
+          <li><b><span data-to="0.9">0,9</span>&nbsp;с</b>головний блок на&nbsp;компʼютері</li>
+          <li><b><span data-to="1.5">1,5</span>&nbsp;МБ</b>вага головної з&nbsp;3D й&nbsp;анімаціями</li>
+          <li><b><span data-to="97">97</span></b>доступність</li>
+          <li><b><span data-to="100">100</span></b>SEO</li>
         </ul>
         <p class="kpi-note" style="margin:0">Google Lighthouse, головна сторінка. Продуктивність: 81–86 на&nbsp;телефоні,
           88&nbsp;на&nbsp;компʼютері.</p>
@@ -1439,6 +1456,33 @@ document.documentElement.classList.add('js');
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
   upd();
+})();
+
+/* Картка «Швидкість»: при кожному розкритті цифри біжать від нуля
+   до свого значення (дробові — з комою, як у тексті). */
+(function () {
+  const card = document.querySelector('.acc-speed');
+  if (!card) return;
+  const item = card.closest('.acc-i');
+  const nums = [...item.querySelectorAll('[data-to]')];
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let raf = 0;
+  const run = () => {
+    cancelAnimationFrame(raf);
+    const t0 = performance.now(), dur = 1300;
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      nums.forEach((el) => {
+        const to = +el.dataset.to, dec = to % 1 ? 1 : 0;
+        el.textContent = (to * e).toFixed(dec).replace('.', ',');
+      });
+      if (k < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+  };
+  item.addEventListener('mouseenter', run);
+  item.addEventListener('focus', run);
+  item.addEventListener('click', run);
 })();
 
 /* Стрілки й лічильник для слайдів. */
