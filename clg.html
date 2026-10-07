@@ -370,12 +370,14 @@ section[id]{scroll-margin-top:64px}
 .anim-stage img{position:absolute;z-index:1;height:auto;will-change:transform;pointer-events:none}
 .a-box{bottom:clamp(14px,3vh,34px);left:50%;width:clamp(180px,20vw,360px);
        margin-left:calc(clamp(180px,20vw,360px) / -2);transform-origin:50% 0}
-/* Літак справа, вантажівка зліва: обидва внизу, поруч із текстом,
-   і зупиняються трохи не доїхавши до нього. --tw — ширина текстового
-   блоку, її ставить скрипт. Зовнішня частина може ховатись за краєм. */
-.a-plane{left:calc(50% + var(--tw) / 2 + 22px);bottom:13vh;width:clamp(380px,46vw,820px)}
+/* Літак справа: видно цілком, трохи піднятий і нахилений носом угору,
+   може трохи заходити на заголовок. Вантажівка зліва: майже вся
+   в кадрі й зупиняється за 20 px до тексту — її ширину й місце рахує
+   скрипт (--tw — ширина тексту). */
+.a-plane{right:2vw;bottom:30vh;width:clamp(300px,34vw,620px);rotate:7deg}
 /* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
-.a-truck{right:calc(50% + var(--tw) / 2 + 22px);bottom:2vh;width:clamp(360px,42vw,760px);scale:-1 1}
+.a-truck{right:calc(50% + var(--tw) / 2 + 20px);bottom:2vh;
+         width:var(--trw,clamp(300px,30vw,560px));scale:-1 1}
 .a-box.swing{animation:swing 5s ease-in-out infinite}
 @keyframes swing{0%,100%{rotate:-1deg}50%{rotate:1deg}}
 /* На вузькому екрані поруч із текстом місця немає: літак і вантажівка
@@ -415,6 +417,71 @@ section[id]{scroll-margin-top:64px}
   .bento-phone{max-width:220px;margin:0 auto}
   .pin{width:24px;height:24px;font-size:13px;box-shadow:0 0 0 3px rgba(255,98,43,.25)}
   .legend{grid-template-columns:1fr}
+}
+
+
+/* ── 01. стиль у бенто ─────────────────────────────────────────────── */
+.kit{padding-top:clamp(28px,4vh,52px);padding-bottom:clamp(28px,4vh,52px)}
+.kit-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap);
+          grid-template-rows:repeat(4,minmax(0,1fr));
+          height:clamp(620px,calc(100vh - 64px - 2 * clamp(28px,4vh,52px)),900px)}
+.k{border-radius:var(--r);padding:clamp(16px,1.8vw,26px);min-width:0;min-height:0;
+   overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid var(--blue)}
+.k h3{font-size:clamp(18px,1.7vw,24px)}
+.k p{margin:0;font-size:15px;line-height:1.45}
+.k-intro{grid-column:1/6;grid-row:1/3;background:var(--blue) var(--grid-l);color:#fff;
+         justify-content:space-between}
+.k-intro h2{font-size:clamp(32px,3.8vw,60px);margin-top:auto;padding-top:14px}
+.k-intro p{font-size:clamp(15px,1.25vw,17.5px);max-width:46ch;opacity:.92;margin-top:16px}
+.sq.light{background:transparent;border-color:rgba(255,255,255,.7);width:56px;height:56px}
+.sq.light::before{background:linear-gradient(to bottom right,transparent calc(50% - .5px),
+                  rgba(255,255,255,.6) 50%,transparent calc(50% + .5px))}
+.sq.light b{font-size:14px;left:7px;bottom:4px}
+.k-colors{grid-column:6/9;grid-row:1/5;background:#fff}
+.k-type{grid-column:9/13;grid-row:1/3;background:var(--orange);border-color:var(--orange);color:#fff}
+.k-type img{width:100%;max-width:364px;height:auto;border-radius:var(--r);margin:14px 0;
+            border:4px solid #fff;background:#fff}
+.k-type p{margin-top:auto}
+.k-3d{grid-column:1/6;grid-row:3/5;background:var(--dark) var(--grid-l);color:#fff;border-color:var(--dark)}
+.k-3d p{margin-top:auto;opacity:.75}
+.objs{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);
+      grid-template-rows:repeat(2,minmax(0,1fr));gap:6px 12px;align-items:center;margin:10px 0}
+.objs img{width:100%;height:100%;min-height:0;object-fit:contain;animation:bob 4s ease-in-out infinite;
+          animation-delay:var(--d)}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.k-site{grid-column:9/13;grid-row:3/5;background:#fff}
+.k-shot{display:block;margin:12px 0 10px;border:1px solid rgba(51,70,196,.3);border-radius:var(--r);
+        overflow:hidden;flex:1;min-height:0}
+.k-shot img{width:100%;height:100%;object-fit:cover;object-position:top left}
+
+/* Плашки, що виїжджають справа наліво — прийом із сайту CLG. */
+.pills{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;flex:1;
+       justify-content:space-evenly}
+.pills li{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--blue);
+          border-radius:999px;padding:7px 16px 7px 7px;font-weight:600;font-size:15px;line-height:1.2}
+.pills i{width:clamp(34px,3vw,46px);height:clamp(34px,3vw,46px);border-radius:50%;flex:none;
+         border:1px solid rgba(0,0,0,.12)}
+.pills small{display:block;font-weight:400;font-size:12.5px;opacity:.7;margin-top:2px}
+.pills.sm{flex:none;flex-direction:row;flex-wrap:wrap;gap:6px;margin:0}
+.pills.sm li{padding:6px 11px;font-size:12.5px;background:var(--light);border-color:transparent}
+.js .pills[data-slide] li{transform:translateX(120%);opacity:0;
+       transition:transform .8s cubic-bezier(.2,.8,.2,1) var(--d),opacity .5s ease var(--d)}
+.js .pills[data-slide].in li{transform:none;opacity:1}
+@media (prefers-reduced-motion:reduce){
+  .objs img{animation:none}
+  .js .pills[data-slide] li{transform:none;opacity:1;transition:none}
+}
+
+@media (max-width:1100px){
+  .kit-grid{height:auto;grid-template-rows:none;grid-auto-rows:auto;grid-template-columns:repeat(2,1fr)}
+  .k-intro,.k-colors,.k-type,.k-3d,.k-site{grid-column:auto;grid-row:auto}
+  .k-intro{grid-column:1/-1}
+  .objs{height:260px;flex:none}
+  .k-shot{flex:none;aspect-ratio:16/10}
+}
+@media (max-width:640px){
+  .kit-grid{grid-template-columns:1fr}
+  .objs{height:220px}
 }
 
 /* ── великий підвал ────────────────────────────────────────────────── */
@@ -584,53 +651,64 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 </section>
 
-<!-- ── 01. стиль з нуля ──────────────────────────────────────────── -->
-<section class="wrap" id="style">
-  <div class="sec-head">
-    <span class="sq"><b>01</b></span>
-    <h2>Стиль з&nbsp;нуля</h2>
-  </div>
-  <p class="sec-lead">
-    Логістика зазвичай виглядає однаково: синій, стокове фото порту
-    й&nbsp;вантажівка на&nbsp;трасі. Я&nbsp;пішла від&nbsp;цього: глибокий
-    бірюзовий, теплий жовтий для&nbsp;дій і&nbsp;золото для&nbsp;реклами,
-    вузькі високі заголовки й&nbsp;набір 3D-ілюстрацій, де&nbsp;кожен
-    вид транспорту зроблено в&nbsp;одній гамі.
-  </p>
+<!-- ── 01. стиль з нуля — бенто ──────────────────────────────────────
+     Екран сам зібраний бенто-сіткою, як сайт CLG, але в картках не
+     логістика, а стиль кейсу. Картки — у моїх кольорах: синій, білий,
+     помаранчевий, темний. Плашки кольорів виїжджають справа наліво,
+     як картки переваг на сайті CLG. -->
+<section class="wrap kit" id="style">
+  <div class="kit-grid">
+    <div class="k k-intro">
+      <span class="sq light"><b>01</b></span>
+      <h2>Стиль з&nbsp;нуля в&nbsp;бенто-сітці</h2>
+      <p>Бенто&nbsp;— сітка з&nbsp;карток, де кожна картка&nbsp;— одна думка.
+        Так на&nbsp;сайті CLG розкладено послуги: людина бачить усе
+        одразу й&nbsp;читає лише потрібне. Цей екран зібраний так само,
+        тільки в&nbsp;картках&nbsp;— сам стиль.</p>
+    </div>
 
-  <div class="style-grid">
-    <div class="panel palette" style="margin-top:0">
+    <div class="k k-colors">
       <h3>Кольори</h3>
-      <ul class="sw">
-        <li><i style="background:#001D1C"></i><span>Глибокий петроль<small>фон реклами й&nbsp;презентації</small></span></li>
-        <li><i style="background:#347C7D"></i><span>Бірюза<small>головний колір бренду</small></span></li>
-        <li><i style="background:#E4E4E4"></i><span>Світло-сірий<small>фон сайту</small></span></li>
-        <li><i style="background:#FCC55E"></i><span>Теплий жовтий<small>кнопки на&nbsp;сайті</small></span></li>
-        <li><i style="background:linear-gradient(135deg,#F2D58A,#C99A45 55%,#8E6526)"></i><span>Золото<small>преміальна серія реклами</small></span></li>
+      <ul class="pills" data-slide>
+        <li style="--d:0s"><i style="background:#001D1C"></i><span>Глибокий петроль<small>фон реклами й&nbsp;презентації</small></span></li>
+        <li style="--d:.12s"><i style="background:#347C7D"></i><span>Бірюза<small>головний колір бренду</small></span></li>
+        <li style="--d:.24s"><i style="background:#E4E4E4"></i><span>Світло-сірий<small>фон сайту</small></span></li>
+        <li style="--d:.36s"><i style="background:#FCC55E"></i><span>Теплий жовтий<small>кнопки на&nbsp;сайті</small></span></li>
+        <li style="--d:.48s"><i style="background:linear-gradient(135deg,#F2D58A,#C99A45 55%,#8E6526)"></i><span>Золото<small>преміальна реклама</small></span></li>
       </ul>
     </div>
-    <div class="panel type" style="margin-top:0">
-      <h3>Шрифти</h3>
-      <img class="type-big" src="images/clg/type-heading.webp" alt="Заголовок сайту шрифтом Bebas Neue: Доставка вантажів по всьому світу" width="364" height="106" loading="lazy">
-      <p>Заголовки&nbsp;— вузький високий гротеск <b>Bebas Neue</b> з&nbsp;кирилицею:
-        багато слів у&nbsp;рядку, але читається з&nbsp;першого погляду.
-        Текст&nbsp;— спокійний гротеск без&nbsp;прикрас.</p>
-    </div>
-  </div>
 
-  <div class="panel dark set">
-    <h3>3D-ілюстрації: один набір на&nbsp;всі канали</h3>
-    <div class="set-row">
-      <img src="images/clg/3d-plane.webp" alt="3D-літак" width="800" height="450" loading="lazy">
-      <img src="images/clg/3d-truck.webp" alt="3D-вантажівка" width="800" height="450" loading="lazy">
-      <img src="images/clg/3d-train.webp" alt="3D-потяг" width="800" height="450" loading="lazy">
-      <img src="images/clg/3d-hook.webp" alt="3D-контейнер на тросах" width="630" height="1050" loading="lazy">
-      <img src="images/clg/3d-hands.webp" alt="3D-контейнер у руках" width="500" height="548" loading="lazy">
-      <img src="images/clg/3d-docs.webp" alt="3D-документи з митними печатками" width="600" height="418" loading="lazy">
+    <div class="k k-type">
+      <h3>Шрифт</h3>
+      <img src="images/clg/type-heading.webp" alt="Заголовок сайту шрифтом Bebas Neue: Доставка вантажів по всьому світу" width="364" height="106" loading="lazy">
+      <p><b>Bebas Neue</b>&nbsp;— вузький високий гротеск для&nbsp;заголовків:
+        багато слів у&nbsp;рядку, а&nbsp;читається з&nbsp;першого погляду.</p>
     </div>
-    <p>Ті самі предмети живуть на&nbsp;сайті, у&nbsp;рекламі, у&nbsp;листах
-      і&nbsp;в&nbsp;презентації&nbsp;— тому компанію впізнають у&nbsp;будь-якому
-      каналі.</p>
+
+    <div class="k k-3d">
+      <h3>3D-ілюстрації</h3>
+      <div class="objs">
+        <img style="--d:0s" src="images/clg/3d-plane.webp" alt="3D-літак" width="800" height="450" loading="lazy">
+        <img style="--d:.6s" src="images/clg/3d-truck.webp" alt="3D-вантажівка" width="800" height="450" loading="lazy">
+        <img style="--d:1.2s" src="images/clg/3d-train.webp" alt="3D-потяг" width="800" height="450" loading="lazy">
+        <img style="--d:.3s" src="images/clg/3d-hook.webp" alt="3D-контейнер на тросах" width="630" height="1050" loading="lazy">
+        <img style="--d:.9s" src="images/clg/3d-hands.webp" alt="3D-контейнер у руках" width="500" height="548" loading="lazy">
+        <img style="--d:1.5s" src="images/clg/3d-docs.webp" alt="3D-документи з митними печатками" width="600" height="418" loading="lazy">
+      </div>
+      <p>Один набір на&nbsp;сайт, рекламу, листи й&nbsp;презентацію.</p>
+    </div>
+
+    <div class="k k-site">
+      <h3>Так бенто на&nbsp;сайті</h3>
+      <a class="k-shot" href="images/clg/site-sea-desktop.webp" data-zoom="site" data-cap="Морські перевезення: головне, фото й переваги — окремими картками">
+        <img src="images/clg/site-sea-desktop.webp" alt="Перший екран сторінки морських перевезень" width="1440" height="900" loading="lazy">
+      </a>
+      <ul class="pills sm" data-slide>
+        <li style="--d:0s">головне&nbsp;— карткою</li>
+        <li style="--d:.12s">фото&nbsp;— плиткою</li>
+        <li style="--d:.24s">переваги&nbsp;— плашками</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -669,42 +747,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 </section>
 
 <section class="wrap">
-  <h3 class="sub" style="margin-top:0">Бенто: послуга, розкладена на&nbsp;картки</h3>
-  <p class="sec-lead">
-    Бенто-сітка тут не&nbsp;заради моди. Вона ділить послугу на&nbsp;окремі
-    картки, і&nbsp;людина за&nbsp;секунди знаходить своє: що&nbsp;веземо,
-    як&nbsp;і&nbsp;куди натиснути. Ось перший екран морських перевезень.
-  </p>
-
-  <div class="bento">
-    <div class="bento-shot">
-      <div class="browser">
-        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-morski-perevezennia</span></div>
-        <div class="pin-wrap">
-          <img src="images/clg/site-sea-desktop.webp" alt="Перший екран сторінки морських перевезень" width="1440" height="900" loading="lazy">
-          <span class="pin" style="left:5.5%;top:13%">1</span>
-          <span class="pin" style="left:35%;top:13%">2</span>
-          <span class="pin" style="left:75%;top:15%">3</span>
-          <span class="pin" style="left:27%;top:53%">4</span>
-          <span class="pin" style="left:2%;top:69%">5</span>
-        </div>
-      </div>
-    </div>
-    <figure class="bento-phone">
-      <img src="images/clg/site-sea-mobile.webp" alt="Той самий екран на телефоні" width="390" height="844" loading="lazy">
-      <figcaption>На&nbsp;телефоні картки стають у&nbsp;стовпчик&nbsp;— нічого не&nbsp;губиться</figcaption>
-    </figure>
-  </div>
-
-  <ol class="legend">
-    <li><span class="num">1</span><div><b>Головне&nbsp;— окремою карткою</b><p>Що&nbsp;це за&nbsp;послуга, два речення й&nbsp;кнопка. Без&nbsp;абзаців на&nbsp;пів екрана.</p></div></li>
-    <li><span class="num">2</span><div><b>Фото&nbsp;— своєю плиткою</b><p>Картинка задає настрій і&nbsp;не&nbsp;заважає читати текст.</p></div></li>
-    <li><span class="num">3</span><div><b>Переваги&nbsp;— короткими картками</b><p>Повний контейнер чи&nbsp;збірний, відстеження, до&nbsp;дверей складу: кожна читається за&nbsp;секунду.</p></div></li>
-    <li><span class="num">4</span><div><b>Дія завжди поруч</b><p>Кнопка з&nbsp;колом-стрілкою повторюється на&nbsp;кожному екрані.</p></div></li>
-    <li><span class="num">5</span><div><b>Типи вантажів&nbsp;— бігучим рядком</b><p>Довгий перелік не&nbsp;розтягує сторінку, а&nbsp;пливе в&nbsp;один рядок.</p></div></li>
-  </ol>
-
-  <h3 class="sub">Швидкість</h3>
+  <h3 class="sub" style="margin-top:0">Швидкість</h3>
   <div class="panel" style="margin-top:14px">
     <div class="kpi">
       <div><b>1,4&nbsp;с</b><span>до першого контенту на&nbsp;телефоні</span></div>
@@ -1135,6 +1178,10 @@ document.documentElement.classList.add('js');
       return r.getBoundingClientRect().width;
     }));
     stage.style.setProperty('--tw', Math.round(w) + 'px');
+    /* Вантажівка займає майже все місце ліворуч від тексту: за краєм
+       екрана лишається не більше 8 % її довжини. */
+    const free = (stage.clientWidth - w) / 2 - 20;
+    stage.style.setProperty('--trw', Math.round(Math.min(700, Math.max(240, free * 1.08))) + 'px');
   };
   measure();
   addEventListener('resize', measure);
@@ -1157,6 +1204,16 @@ document.documentElement.classList.add('js');
   running = true; draw();
   addEventListener('scroll', go, { passive: true });
   addEventListener('resize', go);
+})();
+
+/* Плашки виїжджають, коли картка зʼявляється на екрані. */
+(function () {
+  const lists = document.querySelectorAll('[data-slide]');
+  if (!('IntersectionObserver' in window)) { lists.forEach((l) => l.classList.add('in')); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.3 });
+  lists.forEach((l) => io.observe(l));
 })();
 
 /* Стрілки й лічильник для слайдів. */
