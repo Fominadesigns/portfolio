@@ -321,6 +321,64 @@ section[id]{scroll-margin-top:64px}
 .lb p{position:fixed;bottom:14px;left:0;right:0;text-align:center;color:#fff;
       font-size:14px;margin:0;opacity:.8;padding:0 70px}
 
+
+/* ── анімації: сцена на весь екран ─────────────────────────────────── */
+.anim{position:relative;height:300vh;background:var(--dark) var(--grid-l);color:#fff;padding:0}
+.anim-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+.anim-txt{position:relative;z-index:2;text-align:center;max-width:760px;padding:0 20px;
+          margin-top:24vh}
+.anim-txt h2{font-size:clamp(40px,6.4vw,104px)}
+.anim-txt p{margin:18px auto 0;max-width:56ch;font-size:clamp(16px,1.6vw,19px);opacity:.88}
+.anim-txt .tagline{margin:0 0 6px;opacity:.7}
+.anim-txt .btn{margin-top:24px}
+.anim-stage>img{position:absolute;z-index:1;height:auto;will-change:transform;pointer-events:none}
+/* Контейнер висить на тросах від верхнього краю. */
+.a-box{top:0;left:50%;width:clamp(150px,16vw,260px);margin-left:calc(clamp(150px,16vw,260px) / -2);
+       transform-origin:50% 0}
+.a-plane{right:2vw;top:12vh;width:clamp(260px,30vw,520px)}
+/* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
+.a-truck{left:2vw;bottom:5vh;width:clamp(240px,27vw,460px)}
+.a-truck{scale:-1 1}
+.a-box.swing{animation:swing 4.5s ease-in-out infinite}
+@keyframes swing{0%,100%{rotate:-1.2deg}50%{rotate:1.2deg}}
+@media (max-width:760px){
+  .anim-txt{margin-top:22vh}
+  .a-box{width:110px;margin-left:-55px}
+  .a-plane{top:7vh;right:-8vw;width:58vw}
+  .a-truck{bottom:3vh;width:62vw}
+}
+@media (prefers-reduced-motion:reduce){ .a-box.swing{animation:none} }
+
+/* ── бенто ─────────────────────────────────────────────────────────── */
+.bento{display:grid;grid-template-columns:1fr 210px;gap:clamp(14px,2.4vw,30px);margin-top:26px;
+       align-items:end}
+.bento-shot{min-width:0}
+.bento .browser{border:1px solid var(--blue);box-shadow:0 18px 40px rgba(33,33,33,.18)}
+.pin-wrap{position:relative}
+.pin-wrap img{width:100%;height:auto}
+.pin{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;
+     display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:17px;
+     box-shadow:0 0 0 5px rgba(255,98,43,.25);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px rgba(255,98,43,.08)}}
+@media (prefers-reduced-motion:reduce){.pin{animation:none}}
+.bento-phone{margin:0}
+.bento-phone img{border:7px solid var(--dark);border-radius:24px;width:100%;height:auto}
+.bento-phone figcaption{font-size:13.5px;margin-top:9px;line-height:1.4;text-align:center}
+.legend{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);
+        gap:var(--gap)}
+.legend li{background:#fff;border:1px solid var(--blue);border-radius:var(--r);padding:16px;
+           min-width:0;display:flex;flex-direction:column;gap:10px}
+.legend .num{background:var(--orange);border-color:var(--orange);color:#fff;border-radius:50%}
+.legend b{display:block;font-family:var(--head);text-transform:uppercase;font-size:16.5px;line-height:1.05}
+.legend p{margin:6px 0 0;font-size:14.5px;line-height:1.4}
+@media (max-width:1100px){ .legend{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:700px){
+  .bento{grid-template-columns:1fr}
+  .bento-phone{max-width:220px;margin:0 auto}
+  .pin{width:24px;height:24px;font-size:13px;box-shadow:0 0 0 3px rgba(255,98,43,.25)}
+  .legend{grid-template-columns:1fr}
+}
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -537,59 +595,64 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     а&nbsp;головне виділено так, щоб його було видно з&nbsp;першого погляду.
   </p>
 
-  <div class="shots">
-    <article class="shot">
-      <div class="browser">
-        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-morski-perevezennia</span></div>
-        <a href="images/clg/site-sea-container.webp" data-zoom="site" data-cap="Бірюзова смуга й контейнер на тросах">
-          <img src="images/clg/site-sea-container.webp" alt="Контейнер на тросах над бірюзовою смугою" width="1440" height="900" loading="lazy">
-        </a>
-      </div>
-      <h3>3D в&nbsp;одному стилі</h3>
-      <p>Літак, вантажівка, потяг і&nbsp;контейнер&nbsp;— 3D-ілюстрації в&nbsp;єдиній
-        бірюзовій гамі. На&nbsp;прокрутку літак пролітає крізь картку, вантажівка
-        виїжджає, контейнер зʼїжджає на&nbsp;тросах.</p>
-    </article>
+</section>
 
-    <article class="shot">
-      <div class="browser">
-        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-morski-perevezennia</span></div>
-        <a href="images/clg/site-sea-desktop.webp" data-zoom="site" data-cap="Сторінка «Морські перевезення (FCL/LCL)»">
-          <img src="images/clg/site-sea-desktop.webp" alt="Сторінка морських перевезень, перший екран" width="1440" height="900" loading="lazy">
-        </a>
-      </div>
-      <h3>Сторінка послуги: море</h3>
-      <p>Морські перевезення FCL і&nbsp;LCL&nbsp;— окремою сторінкою: повний
-        контейнер або місце у&nbsp;збірному, з&nbsp;митним оформленням
-        і&nbsp;доставкою до&nbsp;складу.</p>
-    </article>
-
-    <article class="shot">
-      <div class="browser">
-        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-brokerski-posluhy</span></div>
-        <a href="images/clg/site-broker-docs.webp" data-zoom="site" data-cap="Брокерська сторінка: документи з митними печатками">
-          <img src="images/clg/site-broker-docs.webp" alt="Кроки митного оформлення й 3D-документи з печатками" width="1440" height="900" loading="lazy">
-        </a>
-      </div>
-      <h3>Сторінка послуги: брокерські</h3>
-      <p>Митне оформлення&nbsp;— пʼятьма кроками замість абзацу тексту.
-        Поруч 3D-документи з&nbsp;митними печатками в&nbsp;тій&nbsp;самій
-        гамі, що&nbsp;й&nbsp;увесь сайт.</p>
-    </article>
-
-    <article class="shot">
-      <div class="browser">
-        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app</span></div>
-        <a href="images/clg/site-service-cards.webp" data-zoom="site" data-cap="Картки послуг, одна розкрита">
-          <img src="images/clg/site-service-cards.webp" alt="Картки послуг, одна розкрита" width="1440" height="900" loading="lazy">
-        </a>
-      </div>
-      <h3>Картки, що&nbsp;розкриваються</h3>
-      <p>Послуги&nbsp;— картками, які плавно розкриваються. Кнопки мають
-        відблиск, інверсію й&nbsp;стискання кола, бігучі рядки показують типи
-        вантажів і&nbsp;напрямки, FAQ виїжджає збоку.</p>
-    </article>
+<!-- ── анімації: окремий екран ───────────────────────────────────────
+     Повторює прийом із сайту CLG: на прокрутку по черзі виїжджають
+     контейнер на тросах (згори), літак (справа) і вантажівка (зліва).
+     Без скрипта чи зі «зменшити рух» усе одразу стоїть на місцях. -->
+<section class="anim" id="motion" aria-label="Анімації сайту">
+  <div class="anim-stage">
+    <img class="a-box" src="images/clg/3d-hook.webp" alt="" width="800" height="1493">
+    <img class="a-plane" src="images/clg/3d-plane.webp" alt="" width="800" height="450">
+    <img class="a-truck" src="images/clg/3d-truck.webp" alt="" width="800" height="450">
+    <div class="anim-txt">
+      <p class="tagline">Сайт · рух</p>
+      <h2>Анімації, які показують доставку</h2>
+      <p>На&nbsp;сайті CLG рух&nbsp;— не&nbsp;прикраса. Контейнер зʼїжджає
+        на&nbsp;тросах, літак пролітає крізь картку, вантажівка виїжджає
+        на&nbsp;прокрутку: людина бачить сам процес перевезення ще&nbsp;до&nbsp;того,
+        як&nbsp;прочитала текст. І&nbsp;все це&nbsp;— без&nbsp;втрати швидкості.</p>
+      <a class="btn o" href="https://clg-site-three.vercel.app/posluhy-morski-perevezennia" target="_blank" rel="noopener">Подивитися на&nbsp;сайті</a>
+    </div>
   </div>
+</section>
+
+<section class="wrap">
+  <h3 class="sub" style="margin-top:0">Бенто: послуга, розкладена на&nbsp;картки</h3>
+  <p class="sec-lead">
+    Бенто-сітка тут не&nbsp;заради моди. Вона ділить послугу на&nbsp;окремі
+    картки, і&nbsp;людина за&nbsp;секунди знаходить своє: що&nbsp;веземо,
+    як&nbsp;і&nbsp;куди натиснути. Ось перший екран морських перевезень.
+  </p>
+
+  <div class="bento">
+    <div class="bento-shot">
+      <div class="browser">
+        <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-morski-perevezennia</span></div>
+        <div class="pin-wrap">
+          <img src="images/clg/site-sea-desktop.webp" alt="Перший екран сторінки морських перевезень" width="1440" height="900" loading="lazy">
+          <span class="pin" style="left:5.5%;top:13%">1</span>
+          <span class="pin" style="left:35%;top:13%">2</span>
+          <span class="pin" style="left:75%;top:15%">3</span>
+          <span class="pin" style="left:27%;top:53%">4</span>
+          <span class="pin" style="left:2%;top:69%">5</span>
+        </div>
+      </div>
+    </div>
+    <figure class="bento-phone">
+      <img src="images/clg/site-sea-mobile.webp" alt="Той самий екран на телефоні" width="390" height="844" loading="lazy">
+      <figcaption>На&nbsp;телефоні картки стають у&nbsp;стовпчик&nbsp;— нічого не&nbsp;губиться</figcaption>
+    </figure>
+  </div>
+
+  <ol class="legend">
+    <li><span class="num">1</span><div><b>Головне&nbsp;— окремою карткою</b><p>Що&nbsp;це за&nbsp;послуга, два речення й&nbsp;кнопка. Без&nbsp;абзаців на&nbsp;пів екрана.</p></div></li>
+    <li><span class="num">2</span><div><b>Фото&nbsp;— своєю плиткою</b><p>Картинка задає настрій і&nbsp;не&nbsp;заважає читати текст.</p></div></li>
+    <li><span class="num">3</span><div><b>Переваги&nbsp;— короткими картками</b><p>Повний контейнер чи&nbsp;збірний, відстеження, до&nbsp;дверей складу: кожна читається за&nbsp;секунду.</p></div></li>
+    <li><span class="num">4</span><div><b>Дія завжди поруч</b><p>Кнопка з&nbsp;колом-стрілкою повторюється на&nbsp;кожному екрані.</p></div></li>
+    <li><span class="num">5</span><div><b>Типи вантажів&nbsp;— бігучим рядком</b><p>Довгий перелік не&nbsp;розтягує сторінку, а&nbsp;пливе в&nbsp;один рядок.</p></div></li>
+  </ol>
 
   <h3 class="sub">Швидкість</h3>
   <div class="panel" style="margin-top:14px">
@@ -993,6 +1056,36 @@ document.documentElement.classList.add('js');
   fit();
   if (window.ResizeObserver && panes[0]) new ResizeObserver(fit).observe(panes[0]);
   else window.addEventListener('resize', fit);
+})();
+
+/* Сцена анімацій: прогрес прокрутки 0…1 усередині секції розкладено
+   на три відрізки — спершу контейнер, потім літак, потім вантажівка. */
+(function () {
+  const sec = document.querySelector('.anim');
+  if (!sec || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const box = sec.querySelector('.a-box');
+  const plane = sec.querySelector('.a-plane');
+  const truck = sec.querySelector('.a-truck');
+  const clamp = (v) => Math.max(0, Math.min(1, v));
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const seg = (p, a, b) => ease(clamp((p - a) / (b - a)));
+  let ticking = false;
+  const draw = () => {
+    ticking = false;
+    const r = sec.getBoundingClientRect();
+    const p = clamp(-r.top / (r.height - innerHeight));
+    const b = seg(p, 0.04, 0.32), pl = seg(p, 0.30, 0.58), tr = seg(p, 0.56, 0.84);
+    box.style.transform = 'translateY(' + ((1 - b) * -110) + '%)';
+    box.classList.toggle('swing', b >= 1);
+    plane.style.transform = 'translate(' + ((1 - pl) * 75) + 'vw,' + ((1 - pl) * -14) + 'vh)';
+    /* Знак плюс: вантажівка віддзеркалена (scale:-1 1), тож зсув теж
+       дзеркалиться й візуально йде вліво. */
+    truck.style.transform = 'translateX(' + ((1 - tr) * 75) + 'vw)';
+  };
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(draw); } };
+  draw();
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', req);
 })();
 
 /* Стрілки й лічильник для слайдів. */
