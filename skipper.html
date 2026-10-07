@@ -1086,6 +1086,17 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       const phone  = st.querySelector('.phone.sm');
       if (!holder || !frame || !quote || !phone) return;
 
+      /* Картка має вміщатись в один екран разом із відступами, тож
+         прототип беремо не ширший, ніж дозволяє висота вікна: екран
+         телефона завжди вдвічі вищий за свою ширину. */
+      if (matchMedia('(min-width:861px)').matches) {
+        const room = phone.parentElement.clientWidth;          // скільки дає колонка
+        const byHeight = (innerHeight - 176 + 14) / 2;         // скільки дозволяє екран
+        phone.style.width = Math.max(200, Math.min(room, byHeight)) + 'px';
+      } else {
+        phone.style.width = '';
+      }
+
       const w = holder.clientWidth;
       if (w) frame.style.transform = 'scale(' + (w / 390) + ')';
 
