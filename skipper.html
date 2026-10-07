@@ -964,7 +964,9 @@ footer .wrap{position:relative;z-index:1}
   }
   addEventListener('scroll', check, { passive: true });
   addEventListener('resize', check, { passive: true });
+  addEventListener('load', check);
   check();
+  setTimeout(check, 800);   // якщо сторінка відкрилась одразу внизу
 })();
 </script>
 </body>
