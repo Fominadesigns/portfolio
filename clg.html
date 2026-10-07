@@ -359,7 +359,7 @@ section[id]{scroll-margin-top:64px}
 .anim-stage{position:sticky;top:64px;height:calc(100vh - 64px);overflow:hidden;display:flex;
             flex-direction:column;align-items:center;--tw:600px}
 .a-top{flex:1;position:relative;width:100%;min-height:0}
-.anim-txt{position:relative;z-index:2;text-align:center;max-width:1100px;
+.anim-txt{position:relative;z-index:2;text-shadow:0 2px 18px rgba(33,33,33,.85);text-align:center;max-width:1100px;
           padding:0 20px clamp(36px,8vh,96px)}
 .anim-txt h2{font-size:clamp(32px,4.1vw,72px)}
 /* Рівно два рядки на широкому екрані; на телефоні — як вийде. */
@@ -370,13 +370,13 @@ section[id]{scroll-margin-top:64px}
 .anim-stage img{position:absolute;z-index:1;height:auto;will-change:transform;pointer-events:none}
 .a-box{bottom:clamp(14px,3vh,34px);left:50%;width:clamp(180px,20vw,360px);
        margin-left:calc(clamp(180px,20vw,360px) / -2);transform-origin:50% 0}
-/* Літак справа: видно цілком, трохи піднятий і нахилений носом угору,
-   може трохи заходити на заголовок. Вантажівка зліва: майже вся
-   в кадрі й зупиняється за 20 px до тексту — її ширину й місце рахує
+/* Літак справа: великий, нахилений носом угору, частково за краєм
+   і трохи заходить на текст. Вантажівка зліва: кабіна трохи на тексті,
+   причіп за краєм екрана — її ширину й місце рахує
    скрипт (--tw — ширина тексту). */
-.a-plane{right:2vw;bottom:30vh;width:clamp(300px,34vw,620px);rotate:7deg}
+.a-plane{right:-17vw;bottom:12vh;width:clamp(520px,60vw,1120px);rotate:7deg}
 /* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
-.a-truck{right:calc(50% + var(--tw) / 2 + 20px);bottom:2vh;
+.a-truck{right:calc(50% + var(--tw) / 2 - 130px);bottom:1vh;
          width:var(--trw,clamp(300px,30vw,560px));scale:-1 1}
 .a-box.swing{animation:swing 5s ease-in-out infinite}
 @keyframes swing{0%,100%{rotate:-1deg}50%{rotate:1deg}}
@@ -1178,10 +1178,10 @@ document.documentElement.classList.add('js');
       return r.getBoundingClientRect().width;
     }));
     stage.style.setProperty('--tw', Math.round(w) + 'px');
-    /* Вантажівка займає майже все місце ліворуч від тексту: за краєм
-       екрана лишається не більше 8 % її довжини. */
+    /* Вантажівка вдвічі довша за вільне місце ліворуч від тексту:
+       кабіна трохи заходить на текст, причіп ховається за краєм. */
     const free = (stage.clientWidth - w) / 2 - 20;
-    stage.style.setProperty('--trw', Math.round(Math.min(700, Math.max(240, free * 1.08))) + 'px');
+    stage.style.setProperty('--trw', Math.round(Math.min(1300, Math.max(480, free * 2.1))) + 'px');
   };
   measure();
   addEventListener('resize', measure);
