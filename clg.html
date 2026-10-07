@@ -593,6 +593,56 @@ section[id]{scroll-margin-top:64px}
   .acc-name{left:96px;bottom:auto;top:50%;transform:translateY(-50%);font-size:22px}
 }
 
+
+/* ── 04. розсилка: як «Що я роблю» на головній ──────────────────────── */
+.mail-sec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap);
+          max-width:1240px;margin:0 auto;padding:52px clamp(16px,3.4vw,48px)}
+.mail-side{position:sticky;top:78px;align-self:start;display:flex;flex-direction:column;gap:var(--gap);
+           height:calc(100vh - 92px)}
+.mcard{background:#fff;border:1px solid var(--blue);border-radius:var(--r);overflow:hidden}
+.mcard__head{display:grid;grid-template-columns:minmax(0,1fr) auto;border-bottom:1px solid var(--blue)}
+.mcard__title{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:21px;line-height:1;
+              padding:13px 18px;margin:0}
+.mcard__ico{border-left:1px solid var(--blue);display:flex;align-items:center;padding:0 10px}
+.mcard__text{margin:0;padding:14px 18px 18px;font-size:15.5px;line-height:1.5}
+.mart{position:relative;flex:1;min-height:0;background:var(--light)}
+.mart__track{display:flex;height:100%;transition:transform .8s cubic-bezier(.22,.8,.24,1)}
+.mart__slide{flex:0 0 100%;height:100%;position:relative;min-height:0}
+/* Лист цілком: вписується у вікно за висотою, тінь іде по самому листу. */
+.mart__slide img{position:absolute;left:18px;top:18px;width:calc(100% - 36px);height:calc(100% - 62px);
+                 object-fit:contain;filter:drop-shadow(0 12px 22px rgba(33,33,33,.28))}
+.mart__count{position:absolute;left:12px;bottom:10px;font:800 14px/1 var(--head);background:#fff;color:var(--blue);
+             border:1px solid var(--blue);border-radius:4px;padding:5px 7px}
+.mail-panel{position:relative;background:#fff;border:1px solid var(--blue);border-radius:var(--r)}
+.mcorner-pin{position:sticky;top:92px;height:0;display:flex;justify-content:flex-end;
+             padding:var(--gap) var(--gap) 0 0;z-index:3}
+.mcorner{width:80px;height:80px;border:1px solid var(--blue);display:flex;align-items:flex-end;padding:0 0 4px 5px;
+         background:linear-gradient(to top right,transparent calc(50% - .6px),var(--blue) 50%,transparent calc(50% + .6px));
+         font:800 28px/1 var(--head);color:var(--blue)}
+.mgoals{list-style:none;margin:0;padding:clamp(110px,22vh,220px) clamp(20px,4vw,60px) clamp(140px,34vh,320px) clamp(18px,3vw,40px);
+        display:grid;gap:clamp(40px,9vh,90px)}
+.mgoal{display:grid;grid-template-columns:32px minmax(0,1fr);gap:clamp(14px,2.6vw,34px);align-items:start}
+.mnum{width:32px;height:32px;border:1px solid currentColor;display:grid;place-items:center;margin-top:.3em;
+      font:800 14px var(--head);color:#D6D6D6;transition:color .5s}
+.mgoal__t{font-family:var(--head);font-weight:800;text-transform:uppercase;line-height:.92;margin:0;
+          font-size:clamp(30px,3.7vw,60px);color:#D6D6D6;padding:.16em .08em .14em;margin:-.16em -.08em -.14em;
+          background:linear-gradient(90deg,var(--blue) 50%,#D6D6D6 50%) 100% 0 / 200% 100% no-repeat;
+          -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+          transition:background-position .9s cubic-bezier(.22,.8,.24,1)}
+.mgoal.is-on .mgoal__t{background-position:0 0}
+.mgoal.is-on .mnum{color:var(--blue)}
+.mgoal__pic{display:none}
+@media (max-width:900px){
+  .mail-sec{grid-template-columns:1fr}
+  .mail-side{position:static;height:auto}
+  .mart{display:none}
+  .mcorner-pin{display:none}
+  .mgoals{padding:28px 18px}
+  .mgoal__pic{display:block;margin-top:14px;max-width:320px}
+  .mgoal__pic img{width:100%;height:auto;border-radius:8px;box-shadow:0 10px 24px rgba(33,33,33,.2)}
+}
+@media (prefers-reduced-motion:reduce){ .mart__track,.mgoal__t{transition:none} }
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -1010,64 +1060,48 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 </section>
 
-<!-- ── 03. розсилка ──────────────────────────────────────────────── -->
-<section class="wrap" id="email">
-  <div class="sec-head">
-    <span class="sq"><b>04</b></span>
-    <h2>Email-розсилка</h2>
-  </div>
-  <p class="sec-lead">
-    Вісім листів&nbsp;— по&nbsp;одному на&nbsp;послугу: авіа, море, залізниця,
-    «під&nbsp;ключ», митне оформлення, тарифи. Усі зібрані за&nbsp;однією
-    схемою, тож лист CLG впізнають іще до&nbsp;того, як&nbsp;прочитали тему.
-  </p>
-  <div class="flow" aria-label="Схема листа">
-    <span>шапка з&nbsp;логотипом</span><i>→</i><span>привітання</span><i>→</i>
-    <span>картка з&nbsp;3D-ілюстрацією</span><i>→</i><span>ціни</span><i>→</i><span>кнопка</span>
-  </div>
+<!-- ── 04. розсилка: як «Що я роблю» на головній ─────────────────────
+     Ліворуч — картка з поясненням і вікно, у яке справа наліво виїжджає
+     лист; праворуч — назви листів великими літерами. Пункт посередині
+     екрана заливається синім, а ліворуч показується його лист. -->
+<section class="mail-sec" id="email">
+  <aside class="mail-side">
+    <div class="mcard">
+      <div class="mcard__head">
+        <h2 class="mcard__title">Email-розсилка</h2>
+        <div class="mcard__ico" aria-hidden="true">
+          <svg width="44" height="22" viewBox="0 0 44 22" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1" y="3" width="24" height="16" rx="1"/><path d="M1 4l12 9 12-9"/><circle cx="35" cy="11" r="8"/><path d="M31 11h8M36 8l3 3-3 3"/></svg>
+        </div>
+      </div>
+      <p class="mcard__text">Вісім листів&nbsp;— по&nbsp;одному на&nbsp;послугу. Усі зібрані
+        за&nbsp;однією схемою: шапка з&nbsp;логотипом, привітання, картка
+        з&nbsp;3D-ілюстрацією, ціни й&nbsp;кнопка&nbsp;— тож лист CLG
+        впізнають ще&nbsp;до&nbsp;того, як&nbsp;прочитали тему.</p>
+    </div>
+    <div class="mcard mart" aria-hidden="true">
+      <div class="mart__track">
+        <div class="mart__slide is-on"><img src="images/clg/mail-04.webp" alt="" width="820" height="1090" decoding="async"></div>
+        <div class="mart__slide"><img src="images/clg/mail-05.webp" alt="" width="820" height="1160" decoding="async"></div>
+        <div class="mart__slide"><img src="images/clg/mail-02.webp" alt="" width="820" height="1160" decoding="async"></div>
+        <div class="mart__slide"><img src="images/clg/mail-01.webp" alt="" width="820" height="1160" decoding="async"></div>
+      </div>
+      <span class="mart__count">01&nbsp;/ 04</span>
+    </div>
+  </aside>
 
-  <div class="mails">
-    <figure class="mail">
-      <div class="win">
-        <div class="top"><b>CLG</b><span>Залізниця</span></div>
-        <div class="scroll" tabindex="0" aria-label="Лист про залізничні перевезення — гортайте">
-          <img src="images/clg/mail-04.webp" alt="Лист: швидше за море, дешевше за авіа — залізничні перевезення" width="820" height="1090" loading="lazy">
-        </div>
-      </div>
-      <figcaption>«Швидше за&nbsp;море. Дешевше за&nbsp;авіа»&nbsp;— найсильніший заголовок серії</figcaption>
-    </figure>
-    <figure class="mail">
-      <div class="win">
-        <div class="top"><b>CLG</b><span>Під ключ</span></div>
-        <div class="scroll" tabindex="0" aria-label="Лист про доставку під ключ — гортайте">
-          <img src="images/clg/mail-05.webp" alt="Лист: доставка без турбот, повний сервіс під ключ" width="820" height="1160" loading="lazy">
-        </div>
-      </div>
-      <figcaption>Доставка «під&nbsp;ключ»: від&nbsp;пошуку постачальника до&nbsp;складу</figcaption>
-    </figure>
-    <figure class="mail">
-      <div class="win">
-        <div class="top"><b>CLG</b><span>Авіа</span></div>
-        <div class="scroll" tabindex="0" aria-label="Лист про авіадоставку — гортайте">
-          <img src="images/clg/mail-02.webp" alt="Лист: авіадоставка з Китаю, США та інших країн через Варшаву" width="820" height="1160" loading="lazy">
-        </div>
-      </div>
-      <figcaption>Авіадоставка через&nbsp;Варшаву</figcaption>
-    </figure>
-    <figure class="mail">
-      <div class="win">
-        <div class="top"><b>CLG</b><span>LCL</span></div>
-        <div class="scroll" tabindex="0" aria-label="Лист про збірні вантажі — гортайте">
-          <img src="images/clg/mail-01.webp" alt="Лист: збірні вантажі з Азії та США" width="820" height="1160" loading="lazy">
-        </div>
-      </div>
-      <figcaption>Збірні вантажі з&nbsp;Азії та&nbsp;США</figcaption>
-    </figure>
+  <div class="mail-panel">
+    <div class="mcorner-pin"><div class="mcorner">04</div></div>
+    <ol class="mgoals">
+      <li class="mgoal is-on"><span class="mnum">01</span><div><h3 class="mgoal__t">Швидше за&nbsp;море. Дешевше за&nbsp;авіа</h3>
+        <a class="mgoal__pic" href="images/clg/mail-04.webp" data-zoom="mail" data-cap="Залізниця: «Швидше за море. Дешевше за авіа»"><img src="images/clg/mail-04.webp" alt="Лист про залізничні перевезення" width="820" height="1090" loading="lazy"></a></div></li>
+      <li class="mgoal"><span class="mnum">02</span><div><h3 class="mgoal__t">Доставка «під&nbsp;ключ»</h3>
+        <a class="mgoal__pic" href="images/clg/mail-05.webp" data-zoom="mail" data-cap="Доставка «під ключ»"><img src="images/clg/mail-05.webp" alt="Лист про доставку під ключ" width="820" height="1160" loading="lazy"></a></div></li>
+      <li class="mgoal"><span class="mnum">03</span><div><h3 class="mgoal__t">Авіадоставка через&nbsp;Варшаву</h3>
+        <a class="mgoal__pic" href="images/clg/mail-02.webp" data-zoom="mail" data-cap="Авіадоставка через Варшаву"><img src="images/clg/mail-02.webp" alt="Лист про авіадоставку" width="820" height="1160" loading="lazy"></a></div></li>
+      <li class="mgoal"><span class="mnum">04</span><div><h3 class="mgoal__t">Збірні вантажі з&nbsp;Азії та&nbsp;США</h3>
+        <a class="mgoal__pic" href="images/clg/mail-01.webp" data-zoom="mail" data-cap="Збірні вантажі з Азії та США"><img src="images/clg/mail-01.webp" alt="Лист про збірні вантажі" width="820" height="1160" loading="lazy"></a></div></li>
+    </ol>
   </div>
-  <p class="sec-lead" style="margin-top:22px;font-size:15.5px;opacity:.8">
-    Листи гортаються просто в&nbsp;рамках. Листи з&nbsp;детальними тарифами
-    клієнта лишила за&nbsp;кадром.
-  </p>
 </section>
 
 <!-- ── 04. презентація ───────────────────────────────────────────── -->
@@ -1376,6 +1410,35 @@ document.documentElement.classList.add('js');
     el.addEventListener('focus', () => open(el));
   });
   acc.addEventListener('mouseleave', () => open(null));
+})();
+
+/* Розсилка: активний лист — той, чия назва ближче до середини екрана;
+   ліворуч у вікно виїжджає відповідний лист. */
+(function () {
+  const goals = [...document.querySelectorAll('.mgoal')];
+  const track = document.querySelector('.mart__track');
+  const count = document.querySelector('.mart__count');
+  if (!goals.length || !track) return;
+  let cur = 0, ticking = false;
+  const pad = (v) => String(v).padStart(2, '0');
+  const upd = () => {
+    ticking = false;
+    let best = -1, bd = 1e9;
+    const mid = innerHeight * 0.5;
+    goals.forEach((g, i) => {
+      const r = g.querySelector('.mgoal__t').getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const d = Math.abs(r.top + r.height / 2 - mid);
+      if (d < bd) { bd = d; best = i; }
+    });
+    if (best < 0 || best === cur) return;
+    cur = best;
+    goals.forEach((g, i) => g.classList.toggle('is-on', i === cur));
+    track.style.transform = 'translateX(' + (-cur * 100) + '%)';
+    count.textContent = pad(cur + 1) + '\u00a0/ ' + pad(goals.length);
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+  upd();
 })();
 
 /* Стрілки й лічильник для слайдів. */
