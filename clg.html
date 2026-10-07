@@ -149,25 +149,26 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 @media (prefers-reduced-motion:reduce){.lane{animation:none}}
 
 /* ── 3. поворот ────────────────────────────────────────────────────── */
-.turn{background:var(--blue) var(--grid-l);color:#fff;padding-block:10px}
-/* Телефон — на всю висоту екрана під шапкою; між текстом і телефоном —
-   плашка зі стрілкою, стрілка заходить на телефон. */
-.turn-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(110px,14vw,240px);
-           align-items:center;min-height:calc(100svh - var(--barh,72px) - 20px)}
+.turn{background:var(--blue) var(--grid-l);color:#fff;padding-block:clamp(28px,5vh,56px)}
+.turn-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,3.4vw,46px);
+           align-items:center}
 .turn-txt{min-width:0}
-.turn h2{font-size:clamp(28px,3.6vw,56px);max-width:24ch}
-.turn p{max-width:56ch;margin-top:18px;font-size:clamp(15.5px,1.25vw,18px)}
-/* Плашка між текстом і телефоном, стрілка заходить на телефон. */
-.turn-hint{position:absolute;right:calc(100% - clamp(40px,4vw,70px));bottom:24%;z-index:2;margin:0;
-           display:flex;align-items:flex-end;gap:2px}
-.turn-hint .live{max-width:clamp(170px,15vw,250px);line-height:1.25}
-.turn-hint .curl{width:clamp(90px,7.5vw,130px);height:auto;margin-bottom:22px}
+.turn h2{font-size:clamp(28px,4.2vw,62px);max-width:24ch}
+/* Текст ліворуч, праворуч від нього — підпис і плашка; стрілка від плашки
+   йде вниз і заходить на телефон. */
+.turn-mid{display:flex;align-items:flex-start;gap:clamp(16px,2vw,32px);margin-top:22px}
+.turn p{flex:1;min-width:0;max-width:46ch;font-size:clamp(17px,1.9vw,21px)}
+.turn-hint{position:relative;flex:none;margin:clamp(-8px,-.5vw,0px) 0 0 auto;display:flex;flex-direction:column;
+           align-items:flex-start;gap:10px;z-index:2}
+.turn-hint small{font-weight:600;font-size:clamp(14px,1.2vw,17px);opacity:.9}
+.turn-hint .live{white-space:nowrap}
+.turn-arrow{position:absolute;left:30%;top:calc(100% + 10px);
+            width:calc(70% + clamp(20px,3.4vw,46px) + 30px);height:auto;overflow:visible}
 @media (max-width:980px){
-  .turn{padding-block:var(--sec)}
-  .turn-grid{grid-template-columns:minmax(0,1fr);min-height:0;row-gap:28px}
-  .turn-hint{position:static;justify-content:center;margin-bottom:12px}
-  .turn-hint .live{max-width:none}
-  .turn-hint .curl{display:none}
+  .turn-grid{grid-template-columns:minmax(0,1fr);row-gap:28px}
+  .turn-mid{flex-direction:column}
+  .turn-hint{margin:0}
+  .turn-arrow{display:none}
 }
 .turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:34px}
 .turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:20px 22px;
@@ -193,18 +194,13 @@ section[id]{scroll-margin-top:64px}
      font-size:clamp(22px,2.6vw,34px);margin-top:44px}
 
 /* ── телефон із живим сайтом (на «повороті») ───────────────────────── */
-.phone{--ph:calc(100svh - var(--barh,72px) - 10px);height:var(--ph);aspect-ratio:316/611;
-       max-width:100%;margin:0;position:relative}
-.phone .screen{height:100%;border:10px solid var(--dark);border-radius:34px;overflow:hidden;
+.phone{width:316px;max-width:100%;margin:0 auto}
+.phone .screen{border:10px solid var(--dark);border-radius:34px;overflow:hidden;
                background:var(--dark);box-shadow:0 18px 40px rgba(0,0,0,.4)}
-.phone .holder{width:100%;height:100%;overflow:hidden;position:relative;background:#fff}
+.phone .holder{width:296px;height:591px;overflow:hidden;position:relative;background:#fff}
 .phone .holder img{width:100%;height:auto}
 .phone iframe{position:absolute;top:0;left:0;width:390px;height:780px;border:0;display:block;
               transform:scale(.758);transform-origin:top left;background:#fff}
-@media (max-width:980px){
-  .phone{height:auto;aspect-ratio:auto;width:100%;margin:0 auto}
-  .phone .screen{width:min(316px,100%);height:auto;aspect-ratio:316/611;margin:0 auto}
-}
 
 /* ── 01. сайт: кадри з підписами ───────────────────────────────────── */
 .shots{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:26px}
@@ -375,7 +371,7 @@ section[id]{scroll-margin-top:64px}
 /* Сцена — колонка: зверху вільне місце, де висить контейнер, знизу текст.
    Контейнер прив'язаний до низу верхньої частини, тож завжди зупиняється
    трохи вище заголовка, яким би не був екран. */
-.anim{position:relative;height:340vh;background:var(--dark) var(--grid-l);color:#fff;padding:0}
+.anim{position:relative;height:340vh;background:var(--dark) var(--grid-l);color:#fff;padding:0 0 clamp(44px,5vw,80px)}
 .anim-stage{position:sticky;top:64px;height:calc(100vh - 64px);overflow:hidden;display:flex;
             flex-direction:column;align-items:center;--tw:600px}
 .a-top{flex:1;position:relative;width:100%;min-height:0}
@@ -938,12 +934,22 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   <div class="wrap turn-grid">
     <div class="turn-txt">
       <h2>Почали з&nbsp;нуля: шаблон, суцільний текст і&nbsp;біла презентація</h2>
-      <p>
-        Стилю в&nbsp;компанії не&nbsp;було. Сайт&nbsp;— шаблонний конструктор:
-        тексти суцільними полотнами, без структури, акцентів і&nbsp;анімації.
-        Презентація&nbsp;— білий шаблон. Я&nbsp;перебудувала структуру сайту
-        й&nbsp;придумала стиль, який потім переїхав у&nbsp;кожен канал.
-      </p>
+      <div class="turn-mid">
+        <p>
+          Стилю не&nbsp;було: шаблонний конструктор, полотна тексту, біла
+          презентація. Я&nbsp;перебудувала структуру й&nbsp;придумала стиль для&nbsp;всіх каналів.
+        </p>
+        <div class="turn-hint">
+          <small>Сайт із&nbsp;телефона</small>
+          <span class="live"><i></i>Клікабельний прототип</span>
+          <svg class="turn-arrow" viewBox="0 0 240 130" fill="none" aria-hidden="true">
+            <path d="M6 4C22 34 44 62 76 74C104 84 132 72 132 48C132 28 108 22 96 38C84 56 104 86 140 100C174 112 206 112 232 106"
+                  stroke="url(#ga)" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M214 92L234 106L214 120" stroke="url(#ga)" stroke-width="3.2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
       <div class="three">
         <div><b>Структура</b><span>Суцільний текст розібраний на&nbsp;блоки, кроки, картки й&nbsp;питання</span></div>
         <div><b>Стиль</b><span>Бірюза й&nbsp;золото, шрифти, власні 3D-ілюстрації</span></div>
@@ -952,15 +958,6 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     </div>
 
     <figure class="phone">
-      <div class="point turn-hint">
-      <span class="live"><i></i>Сторінка авіаперевезень&nbsp;— гортайте</span>
-      <svg class="curl" viewBox="0 0 150 82" fill="none" aria-hidden="true">
-          <path d="M6 76C32 72 56 64 74 50C90 38 86 20 72 22C60 24 62 40 80 46C102 54 124 40 137 16"
-                stroke="url(#ga)" stroke-width="3.2" stroke-linecap="round"/>
-          <path d="M119 20L139 13L137 34" stroke="url(#ga)" stroke-width="3.2"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
       <div class="screen"><div class="holder">
         <img src="images/clg/site-home-mobile.webp" alt="Сайт CLG на телефоні" width="390" height="844" loading="lazy">
         <iframe data-src="https://clg-site-three.vercel.app/posluhy-aviaperevezennia-vantazhiv" hidden
@@ -1045,7 +1042,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <div class="acc-pic wide zoombox"><img src="images/clg/acc-avia-hero.webp" alt="Бірюзовий літак на злітній смузі — перший екран сторінки авіаперевезень" width="1000" height="552" loading="lazy"></div>
         <h3>Фото з&nbsp;нейромережі</h3>
         <p>Замість стокових фото, які є&nbsp;в&nbsp;кожного конкурента,&nbsp;—
-          яскраві, соковиті кадри, згенеровані в&nbsp;нейромережі: бірюзовий літак,
+          яскраві кадри з&nbsp;нейромережі: бірюзовий літак,
           вантажівка, контейнеровоз, чисте небо. Вони тримають атмосферу
           й&nbsp;збігаються з&nbsp;кольорами бренду.</p>
       </div>
@@ -1473,7 +1470,10 @@ document.documentElement.classList.add('js');
   const seg = (p, a, b) => ease(clamp((p - a) / (b - a)));
   const target = () => {
     const r = sec.getBoundingClientRect();
-    return clamp(-r.top / (r.height - innerHeight));
+    /* Нижній відступ секції — темне поле під кнопкою; анімація
+       закінчується до нього, поки сцена ще закріплена. */
+    const pad = parseFloat(getComputedStyle(sec).paddingBottom) || 0;
+    return clamp(-r.top / (r.height - pad - innerHeight));
   };
   /* Ширина текстового блоку — щоб літак і вантажівка зупинялись біля нього. */
   const stage = sec.querySelector('.anim-stage');
