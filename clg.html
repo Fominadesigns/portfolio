@@ -73,7 +73,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .hero{padding-top:0;padding-bottom:40px}
 /* Перший екран — рівно висота вікна мінус шапка; вміст по центру.
    Білі картки під ним починаються вже за краєм екрана. */
-.hero-grid{min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);
+.hero-grid{min-height:calc(100svh - 64px);min-height:calc(100svh - 64px);
            padding:32px 0}
 .tagline{font-family:var(--head);font-weight:700;text-transform:uppercase;
          font-size:14px;letter-spacing:.14em;opacity:.8}
@@ -162,11 +162,11 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .turn-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,3.4vw,46px);
            align-items:center;min-height:calc(100svh - var(--barh,72px) - 24px)}
 .turn-txt{min-width:0}
-.turn h2{font-size:clamp(26px,min(4.2vw,8vh),62px);max-width:24ch}
+.turn h2{font-size:clamp(26px,min(4.2vw,8svh),62px);max-width:24ch}
 /* Текст ліворуч, праворуч від нього — підпис і плашка; стрілка від плашки
    йде вниз і заходить на телефон. */
-.turn-mid{display:flex;align-items:flex-start;gap:clamp(16px,2vw,32px);margin-top:clamp(12px,2.6vh,22px)}
-.turn p{flex:1;min-width:0;max-width:46ch;font-size:clamp(16px,min(1.9vw,3.4vh),21px);line-height:1.45}
+.turn-mid{display:flex;align-items:flex-start;gap:clamp(16px,2vw,32px);margin-top:clamp(12px,2.6svh,22px)}
+.turn p{flex:1;min-width:0;max-width:46ch;font-size:clamp(16px,min(1.9vw,3.4svh),21px);line-height:1.45}
 .turn-hint{position:relative;flex:none;margin:clamp(-8px,-.5vw,0px) 0 0 auto;display:flex;flex-direction:column;
            align-items:flex-start;gap:10px;z-index:2}
 .turn-hint small{font-weight:600;font-size:clamp(14px,1.2vw,17px);opacity:.9}
@@ -180,12 +180,12 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
   .turn-hint{margin:0}
   .turn-arrow{display:none}
 }
-.turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:clamp(16px,3.6vh,34px)}
-.turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:clamp(12px,2.2vh,20px) clamp(14px,1.6vw,22px);
+.turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:clamp(16px,3.6svh,34px)}
+.turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:clamp(12px,2.2svh,20px) clamp(14px,1.6vw,22px);
                  min-width:0}
-.turn .three b{display:block;font-family:var(--head);font-size:clamp(20px,min(2.4vw,4.4vh),32px);
+.turn .three b{display:block;font-family:var(--head);font-size:clamp(20px,min(2.4vw,4.4svh),32px);
                text-transform:uppercase;line-height:.95}
-.turn .three span{display:block;margin-top:7px;font-size:clamp(14px,2.4vh,15.5px);line-height:1.4}
+.turn .three span{display:block;margin-top:7px;font-size:clamp(14px,2.4svh,15.5px);line-height:1.4}
 .turn .three s{opacity:.7}
 
 /* ── розділи ───────────────────────────────────────────────────────── */
@@ -365,10 +365,10 @@ section[id]{scroll-margin-top:64px}
 
 /* ── перегляд картинки на весь екран ───────────────────────────────── */
 .lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;
-    width:100vw;height:100vh;margin:0}
+    width:100vw;height:100svh;margin:0}
 .lb::backdrop{background:rgba(20,20,20,.9)}
 .lb[open]{display:grid;place-items:center}
-.lb img{max-width:min(94vw,1600px);max-height:86vh;width:auto;height:auto;border-radius:var(--r)}
+.lb img{max-width:min(94vw,1600px);max-height:86svh;width:auto;height:auto;border-radius:var(--r)}
 .lb .x,.lb .pv,.lb .nx{position:fixed;width:48px;height:48px;border-radius:var(--r);
        border:1px solid rgba(255,255,255,.5);background:rgba(33,33,33,.6);color:#fff;
        cursor:pointer;display:grid;place-items:center;font-size:22px}
@@ -383,12 +383,12 @@ section[id]{scroll-margin-top:64px}
 /* Сцена — колонка: зверху вільне місце, де висить контейнер, знизу текст.
    Контейнер прив'язаний до низу верхньої частини, тож завжди зупиняється
    трохи вище заголовка, яким би не був екран. */
-.anim{position:relative;height:340vh;background:var(--dark) var(--grid-l);color:#fff;padding:0 0 clamp(44px,5vw,80px)}
-.anim-stage{position:sticky;top:64px;height:calc(100vh - 64px);overflow:hidden;display:flex;
+.anim{position:relative;height:340svh;background:var(--dark) var(--grid-l);color:#fff;padding:0 0 clamp(44px,5vw,80px)}
+.anim-stage{position:sticky;top:64px;height:calc(100svh - 64px);overflow:hidden;display:flex;
             flex-direction:column;align-items:center;--tw:600px}
 .a-top{flex:1;position:relative;width:100%;min-height:0}
 .anim-txt{position:relative;z-index:2;text-shadow:0 2px 18px rgba(33,33,33,.85);text-align:center;max-width:1100px;
-          padding:0 20px clamp(24px,4vh,48px)}
+          padding:0 20px clamp(24px,4svh,48px)}
 .anim-txt h2{font-size:clamp(32px,4.1vw,72px)}
 /* Рівно два рядки на широкому екрані; на телефоні — як вийде. */
 @media (min-width:761px){ .anim-txt h2{white-space:nowrap} }
@@ -396,15 +396,15 @@ section[id]{scroll-margin-top:64px}
 .anim-txt .tagline{margin:0 0 8px;opacity:.7}
 .anim-txt .btn{margin-top:22px}
 .anim-stage img{position:absolute;z-index:1;height:auto;will-change:transform;pointer-events:none}
-.a-box{bottom:clamp(14px,3vh,34px);left:50%;width:clamp(180px,20vw,360px);
+.a-box{bottom:clamp(14px,3svh,34px);left:50%;width:clamp(180px,20vw,360px);
        margin-left:calc(clamp(180px,20vw,360px) / -2);transform-origin:50% 0}
 /* Літак справа: великий, нахилений носом угору, частково за краєм
    і трохи заходить на текст. Вантажівка зліва: кабіна трохи на тексті,
    причіп за краєм екрана — її ширину й місце рахує
    скрипт (--tw — ширина тексту). */
-.a-plane{right:-4vw;bottom:17vh;width:clamp(340px,36vw,700px);rotate:7deg}
+.a-plane{right:-4vw;bottom:17svh;width:clamp(340px,36vw,700px);rotate:7deg}
 /* Вантажівка в оригіналі дивиться ліворуч: віддзеркалюємо, щоб їхала зліва. */
-.a-truck{right:calc(50% + var(--tw) / 2 - 40px);bottom:3vh;
+.a-truck{right:calc(50% + var(--tw) / 2 - 40px);bottom:3svh;
          width:var(--trw,clamp(300px,30vw,560px));scale:-1 1}
 .a-box.swing{animation:swing 5s ease-in-out infinite}
 @keyframes swing{0%,100%{rotate:-1deg}50%{rotate:1deg}}
@@ -463,10 +463,10 @@ section[id]{scroll-margin-top:64px}
 
 
 /* ── 01. стиль у бенто ─────────────────────────────────────────────── */
-.kit{padding-top:clamp(28px,4vh,52px);padding-bottom:clamp(28px,4vh,52px)}
+.kit{padding-top:clamp(28px,4svh,52px);padding-bottom:clamp(28px,4svh,52px)}
 .kit-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap);
           grid-template-rows:repeat(4,minmax(0,1fr));
-          height:clamp(620px,calc(100vh - 64px - 2 * clamp(28px,4vh,52px)),900px)}
+          height:clamp(620px,calc(100svh - 64px - 2 * clamp(28px,4svh,52px)),900px)}
 .k{border-radius:var(--r);padding:clamp(16px,1.8vw,26px);min-width:0;min-height:0;
    overflow:hidden;position:relative;display:flex;flex-direction:column;border:1px solid var(--blue)}
 .k h3{font-size:clamp(18px,1.7vw,24px)}
@@ -551,7 +551,7 @@ section[id]{scroll-margin-top:64px}
 /* Зі скриптом стрічка стає сценою: слайди лежать один на одному,
    а місце кожного рахує скрипт (зсув, підйом по дузі, поворот, масштаб). */
 .js .cf-track{display:block;position:relative;overflow:visible;padding:0;
-              height:clamp(380px,62vh,640px);touch-action:pan-y;cursor:grab}
+              height:clamp(380px,62svh,640px);touch-action:pan-y;cursor:grab}
 .js .cf-track.drag{cursor:grabbing}
 .js .cf-slide{position:absolute;left:50%;top:0;height:100%;aspect-ratio:9/16;width:auto;
               transform-origin:50% 50%;will-change:transform;
@@ -629,8 +629,15 @@ section[id]{scroll-margin-top:64px}
 @media (max-width:760px){
   .acc{flex-direction:column;height:auto}
   .acc-i{flex:none;height:92px;transition:height .5s cubic-bezier(.22,.8,.24,1)}
-  .acc-i.open{height:auto}
+  .acc-i.open{height:auto;flex:none}
   .acc-i.open .acc-body{position:relative}
+  .acc-i{scroll-margin-top:calc(var(--barh,64px) + 12px)}
+  /* Кольори: плашки нормальної висоти, а не стиснуті. */
+  .acc-pic.swatches{height:auto;max-height:none}
+  .swatches span{min-height:150px}
+  .swatches{gap:5px}
+  .swatches b{font-size:10.5px}
+  .swatches em{font-size:9.5px;padding:6px 5px 7px;overflow-wrap:normal}
   .acc-label{right:auto}
   .acc-vert{display:none}
   .acc-pic{max-height:220px}
@@ -667,8 +674,8 @@ section[id]{scroll-margin-top:64px}
 .mail-sec{display:grid;gap:clamp(16px,2.4vw,36px);max-width:1640px;margin:0 auto;padding:var(--sec) clamp(16px,3.4vw,48px);
           /* Колонку з листом рахуємо від висоти екрана: лист якомога вищий,
              може трохи виходити за низ екрана. */
-          grid-template-columns:min(calc((100vh - 30px) * .7),46%) minmax(0,1fr)}
-.mail-art{position:sticky;top:72px;align-self:start;height:calc(100vh - 40px);display:flex;min-width:0}
+          grid-template-columns:min(calc((100svh - 30px) * .7),46%) minmax(0,1fr)}
+.mail-art{position:sticky;top:72px;align-self:start;height:calc(100svh - 40px);display:flex;min-width:0}
 .mail-right{display:flex;flex-direction:column;gap:var(--gap);min-width:0}
 .mcard{background:#fff;border:1px solid var(--blue);border-radius:var(--r);overflow:hidden}
 .mcard__head{display:grid;grid-template-columns:minmax(0,1fr) auto;border-bottom:1px solid var(--blue)}
@@ -691,8 +698,8 @@ section[id]{scroll-margin-top:64px}
 .mcorner{width:80px;height:80px;border:1px solid var(--blue);display:flex;align-items:flex-end;padding:0 0 4px 5px;
          background:linear-gradient(to top right,transparent calc(50% - .6px),var(--blue) 50%,transparent calc(50% + .6px));
          font:800 28px/1 var(--head);color:var(--blue)}
-.mgoals{list-style:none;margin:0;padding:clamp(110px,22vh,220px) clamp(20px,3vw,48px) clamp(140px,34vh,320px) clamp(16px,2.4vw,34px);
-        display:grid;gap:clamp(40px,9vh,90px)}
+.mgoals{list-style:none;margin:0;padding:clamp(110px,22svh,220px) clamp(20px,3vw,48px) clamp(140px,34svh,320px) clamp(16px,2.4vw,34px);
+        display:grid;gap:clamp(40px,9svh,90px)}
 .mgoal{display:grid;grid-template-columns:32px minmax(0,1fr);gap:clamp(14px,2.6vw,34px);align-items:start}
 .mnum{width:32px;height:32px;border:1px solid currentColor;display:grid;place-items:center;margin-top:.3em;
       font:800 14px var(--head);color:#D6D6D6;transition:color .5s}
@@ -721,7 +728,7 @@ section[id]{scroll-margin-top:64px}
 .deck2__head{position:sticky;top:96px;align-self:start}
 .deck2__head h2{font-size:clamp(40px,4.8vw,84px);line-height:.9}
 .deck2__head p{margin:24px 0 0;font-size:clamp(16px,1.4vw,18px);max-width:30em}
-.dslide{position:sticky;top:calc(96px + var(--i) * 14px);margin-bottom:9vh;background:#fff;
+.dslide{position:sticky;top:calc(96px + var(--i) * 14px);margin-bottom:9svh;background:#fff;
         border:1px solid var(--blue);border-radius:var(--r);padding:clamp(10px,1.2vw,16px);
         transform-origin:50% 0;will-change:transform;box-shadow:0 -10px 30px rgba(33,33,33,.08)}
 .dslide:last-child{margin-bottom:0}
@@ -733,7 +740,7 @@ section[id]{scroll-margin-top:64px}
 @media (max-width:900px){
   .deck2{grid-template-columns:1fr}
   .deck2__head{position:static}
-  .dslide{top:calc(76px + var(--i) * 8px);margin-bottom:5vh}
+  .dslide{top:calc(76px + var(--i) * 8px);margin-bottom:5svh}
 }
 
 
@@ -751,7 +758,7 @@ section[id]{scroll-margin-top:64px}
   background:linear-gradient(to top right,transparent calc(50% - .6px),#fff 50%,transparent calc(50% + .6px))}
 .deck3__view{container-type:inline-size;min-width:0;justify-self:end;width:100%;
              /* Вікно має вміститися в екран: ширину обмежуємо висотою. */
-             max-width:calc((100vh - 180px) / .5625)}
+             max-width:calc((100svh - 180px) / .5625)}
 /* Висота вікна = слайд 16:9 + місце під краї слайдів, що лишились позаду. */
 /* Без overscroll-behavior:contain: дійшли до першого чи останнього слайда —
    колесо далі гортає сайт. */
@@ -784,6 +791,7 @@ section[id]{scroll-margin-top:64px}
   .hint-desk{display:none}
 }
 @media (min-width:901px){ .hint-mob{display:none} }
+@media (max-width:900px){ .hint-desk{display:none} }
 
 
 /* Шрифти: літери-трафарети, що перебираються. */
@@ -1020,8 +1028,8 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <span class="sq"><b>01</b></span>
     <h2>Стиль з&nbsp;нуля</h2>
   </div>
-  <p class="sec-lead">Подано так само, як&nbsp;послуги на&nbsp;сайті CLG: наведіть
-    на&nbsp;картку&nbsp;— вона розкриється.</p>
+  <p class="sec-lead">Подано так само, як&nbsp;послуги на&nbsp;сайті CLG: <span class="hint-desk">наведіть
+    на&nbsp;картку</span><span class="hint-mob">натисніть на&nbsp;картку</span>&nbsp;— вона розкриється.</p>
 
   <div class="acc">
     <article class="acc-i" tabindex="0">
@@ -1676,11 +1684,24 @@ document.documentElement.classList.add('js');
   if (!acc) return;
   const items = [...acc.querySelectorAll('.acc-i')];
   const open = (el) => items.forEach((i) => i.classList.toggle('open', i === el));
+  const hover = matchMedia('(hover: hover)');
+  const narrow = matchMedia('(max-width: 760px)');
+  let tapping = false;
   items.forEach((el) => {
-    el.addEventListener('click', () => open(el.classList.contains('open') && !matchMedia('(hover: hover)').matches ? null : el));
-    el.addEventListener('focus', () => open(el));
+    /* На дотик фокус приходить разом із тапом — його не рахуємо,
+       інакше тап одразу ж закривав щойно відкриту картку. */
+    el.addEventListener('pointerdown', () => { tapping = true; setTimeout(() => { tapping = false; }, 400); });
+    el.addEventListener('click', () => {
+      const was = el.classList.contains('open');
+      if (hover.matches && !narrow.matches) { open(el); return; }
+      open(was ? null : el);
+      /* Телефон: попередня картка згорнулась і сторінка зсунулась —
+         підтягуємо відкриту картку під шапку, щоб нічого не стрибало. */
+      if (!was && narrow.matches) requestAnimationFrame(() => el.scrollIntoView({ block: 'start', behavior: 'smooth' }));
+    });
+    el.addEventListener('focus', () => { if (!tapping) open(el); });
   });
-  acc.addEventListener('mouseleave', () => open(null));
+  acc.addEventListener('mouseleave', () => { if (hover.matches && !narrow.matches) open(null); });
 })();
 
 /* Розсилка: активний лист — той, чия назва ближче до середини екрана;
