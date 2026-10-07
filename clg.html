@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Чернетка портфоліо: не показувати в пошуку, як і головну. -->
 <meta name="robots" content="noindex, nofollow">
-<title>CLG Logistic&nbsp;— сайт, таргет, розсилка й&nbsp;презентація для&nbsp;логістики | Fomina.Designs</title>
-<meta name="description" content="Кейс: міжнародний логістичний оператор із Києва. Сайт із 3D і анімаціями, 33 креативи для таргету, 8 листів розсилки й презентація для продажів — в одному стилі.">
+<title>Customs Logistics Group&nbsp;— редизайн і&nbsp;стиль з&nbsp;нуля для&nbsp;логістики | Fomina.Designs</title>
+<meta name="description" content="Кейс: міжнародний логістичний оператор із Києва. Стиль з нуля, новий сайт із 3D і анімаціями, 33 креативи для таргету, 8 листів розсилки й презентація для продажів — в одному стилі.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +41,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 /* ── шапка ─────────────────────────────────────────────────────────── */
 .bar{position:sticky;top:0;z-index:20;background:rgba(211,211,211,.86);
      backdrop-filter:blur(8px);border-bottom:1px solid rgba(51,70,196,.25)}
-.bar-in{display:flex;align-items:center;gap:var(--gap);padding:11px 0}
+.bar-in{display:flex;align-items:center;gap:var(--gap);padding-top:11px;padding-bottom:11px}
 .logo{font-family:var(--head);font-weight:800;font-size:19px;text-transform:uppercase;
       text-decoration:none;letter-spacing:-.01em}
 .bar .sp{flex:1}
@@ -62,8 +62,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .hero{padding-top:62px;padding-bottom:40px}
 .tagline{font-family:var(--head);font-weight:700;text-transform:uppercase;
          font-size:14px;letter-spacing:.14em;opacity:.8}
-.hero h1{font-size:clamp(60px,15vw,210px);margin-top:12px}
-.hero h1 small{display:block;font-size:.3em;letter-spacing:.02em;margin-top:.15em}
+.hero h1{font-size:clamp(44px,6vw,92px);margin-top:12px}
 .hero .say{max-width:46ch;margin-top:20px;font-size:clamp(18px,2.2vw,25px);font-weight:500}
 .hero-cta{display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:28px}
 .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:40px}
@@ -73,7 +72,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
          letter-spacing:.1em;opacity:.65;margin:0}
 .meta dd{margin:5px 0 0;font-weight:600;font-size:16px}
 
-.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(20px,3.4vw,46px);
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(20px,3.4vw,46px);
            align-items:center}
 .hero-txt,.hero-site{min-width:0}
 /* Ноутбук: кришка, екран і підставка. Усередині — справжній сайт. */
@@ -92,7 +91,11 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
              width:16%;height:4px;background:#141414;border-radius:0 0 6px 6px}
 .frame-cap{margin-top:10px;text-align:center;font-size:13.5px;opacity:.65}
 
-@media (max-width:980px){ .hero-grid,.turn-grid{grid-template-columns:1fr} }
+@media (max-width:980px){
+  .hero-grid,.turn-grid{grid-template-columns:1fr}
+  /* На вузькому екрані спершу слова, потім сайт. */
+  .hero-txt{order:-1}
+}
 
 /* ── 2. біжучий рядок: що всередині ────────────────────────────────── */
 .pains{background:var(--dark) var(--grid-l);color:#fff;padding:40px 0 46px;overflow:hidden}
@@ -123,7 +126,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 .turn .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:34px}
 .turn .three div{border:1px solid rgba(255,255,255,.45);border-radius:var(--r);padding:20px 22px;
                  min-width:0}
-.turn .three b{display:block;font-family:var(--head);font-size:clamp(34px,4.6vw,60px);
+.turn .three b{display:block;font-family:var(--head);font-size:clamp(22px,2.4vw,32px);
                text-transform:uppercase;line-height:.95}
 .turn .three span{display:block;margin-top:7px;font-size:15.5px}
 .turn .three s{opacity:.7}
@@ -172,7 +175,38 @@ section[id]{scroll-margin-top:64px}
                transition:transform .5s}
 .browser a:hover img{transform:scale(1.03)}
 
-/* Було / стало: справжні числа з Lighthouse, нічого не округлено. */
+/* Швидкість: справжні числа з Lighthouse, нічого не округлено. */
+.kpi{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap)}
+.kpi div{border-left:1px dashed rgba(51,70,196,.4);padding:4px 0 4px 16px;min-width:0}
+.kpi div:first-child{border-left:0;padding-left:0}
+.kpi b{display:block;font-family:var(--head);font-weight:800;font-size:clamp(34px,4.4vw,62px);
+       line-height:.95;color:var(--orange)}
+.kpi span{display:block;margin-top:6px;font-size:14.5px;line-height:1.35}
+.kpi-note{margin:18px 0 0;font-size:14px;opacity:.7}
+@media (max-width:900px){
+  .kpi{grid-template-columns:repeat(2,1fr);row-gap:22px}
+  .kpi div{border-left:0;padding-left:0}
+}
+
+/* ── 01. стиль з нуля ── */
+.style-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--gap);margin-top:26px}
+.style-grid h3,.set h3{font-size:clamp(20px,2.2vw,28px)}
+.sw{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.sw li{display:flex;gap:14px;align-items:center}
+.sw i{width:58px;height:58px;flex:none;border-radius:var(--r);border:1px solid rgba(51,70,196,.25)}
+.sw span{font-weight:600;font-size:16px;line-height:1.3}
+.sw small{display:block;font-weight:400;font-size:14px;opacity:.75}
+.type .type-big{margin:20px 0 16px;width:100%;max-width:364px;height:auto;
+                border:1px solid rgba(51,70,196,.25);border-radius:var(--r)}
+.type p{margin:0;font-size:15.5px}
+.set-row{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--gap);margin-top:18px;
+         align-items:center}
+.set-row img{width:100%;height:clamp(90px,11vw,150px);object-fit:contain}
+.set p{margin:18px 0 0;max-width:60ch;font-size:15.5px;opacity:.85}
+@media (max-width:900px){
+  .style-grid{grid-template-columns:1fr}
+  .set-row{grid-template-columns:repeat(3,1fr)}
+}
 .speed{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(18px,3vw,40px);align-items:start}
 .speed table{width:100%;border-collapse:collapse;font-size:16px}
 .speed th,.speed td{text-align:left;padding:11px 8px;border-bottom:1px dashed rgba(51,70,196,.35)}
@@ -313,7 +347,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 }
 @media (max-width:900px){
   .meta{grid-template-columns:repeat(2,1fr)}
-  .cards,.turn .three,.shots,.rules{grid-template-columns:1fr}
+  .cards,.turn .three,.shots,.rules,.turn-grid{grid-template-columns:1fr}
   .sq{width:56px;height:56px}
   .sq b{font-size:14px;left:7px;bottom:4px}
 }
@@ -342,32 +376,16 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 
 <main>
 
-<!-- ── 1. герой ──────────────────────────────────────────────────── -->
+<!-- ── 1. герой: ліворуч сайт, праворуч слова ────────────────────── -->
 <div class="wrap hero">
   <div class="hero-grid">
-    <div class="hero-txt">
-      <p class="tagline">Кейс · 2026 · міжнародна логістика</p>
-      <h1>CLG<small>Customs Logistics Group</small></h1>
-      <p class="say">
-        Сайт, реклама, розсилка й&nbsp;презентація для&nbsp;логістичного
-        оператора&nbsp;— в&nbsp;одному стилі. Не&nbsp;«зробила сайт»,
-        а&nbsp;маркетингова система для&nbsp;B2B.
-      </p>
-      <div class="hero-cta">
-        <a class="btn o" href="https://clg-site-three.vercel.app/" target="_blank" rel="noopener">
-          Живий сайт
-        </a>
-        <a class="btn" href="#site">Що всередині</a>
-      </div>
-    </div>
-
-    <!-- Праворуч справжній сайт: гортається просто в рамці. Поки скрипт
-         не підставив сайт, видно скрин першого екрана. -->
+    <!-- Сайт у ноутбуці гортається просто тут. Поки скрипт не підставив
+         живий сайт, видно скрин першого екрана. -->
     <div class="hero-site">
       <div class="lid">
         <span class="cam"></span>
         <div class="pane">
-          <img src="images/clg/site-home-desktop.webp" alt="Перший екран сайту CLG" width="1440" height="900">
+          <img src="images/clg/site-home-desktop.webp" alt="Перший екран сайту Customs Logistics Group" width="1440" height="900">
           <iframe data-src="https://clg-site-three.vercel.app/" hidden
                   title="Сайт CLG — гортайте й натискайте"></iframe>
         </div>
@@ -375,11 +393,28 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       <div class="base"></div>
       <p class="frame-cap">Справжній сайт: гортайте й&nbsp;натискайте просто тут</p>
     </div>
+
+    <div class="hero-txt">
+      <p class="tagline">Кейс · 2026 · редизайн і&nbsp;стиль з&nbsp;нуля</p>
+      <h1>Customs Logistics Group</h1>
+      <p class="say">
+        Міжнародному логістичному оператору я&nbsp;зробила новий сайт
+        і&nbsp;весь візуальний стиль з&nbsp;нуля: кольори, шрифти,
+        3D-ілюстрації&nbsp;— а&nbsp;потім рекламу, розсилку й&nbsp;презентацію
+        в&nbsp;тому&nbsp;ж стилі.
+      </p>
+      <div class="hero-cta">
+        <a class="btn o" href="https://clg-site-three.vercel.app/" target="_blank" rel="noopener">
+          Живий сайт
+        </a>
+        <a class="btn" href="#style">Що всередині</a>
+      </div>
+    </div>
   </div>
 
   <dl class="meta">
     <div><dt>Клієнт</dt><dd>міжнародний логістичний оператор, Київ</dd></div>
-    <div><dt>Що зробила</dt><dd>дизайн, 3D, анімації, код</dd></div>
+    <div><dt>Що зробила</dt><dd>стиль, дизайн, 3D, анімації, код</dd></div>
     <div><dt>Складові</dt><dd>сайт · таргет · email · презентація</dd></div>
     <div><dt>Стан</dt><dd>сайт працює, UA&nbsp;/&nbsp;EN</dd></div>
   </dl>
@@ -410,21 +445,21 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 </section>
 
-<!-- ── 3. поворот ────────────────────────────────────────────────── -->
+<!-- ── 3. звідки почали ──────────────────────────────────────────── -->
 <section class="turn">
   <div class="wrap turn-grid">
     <div class="turn-txt">
-      <h2>Сайт утричі легший і&nbsp;зʼявляється за&nbsp;1,4&nbsp;секунди</h2>
+      <h2>Почали з&nbsp;нуля: шаблон, суцільний текст і&nbsp;біла презентація</h2>
       <p>
-        Старий сайт компанії застарів, а&nbsp;новий я&nbsp;спершу зібрала
-        у&nbsp;Webflow. Потім перенесла його у&nbsp;власний код на&nbsp;Vercel:
-        без щомісячної плати за&nbsp;конструктор, з&nbsp;двома новими сторінками,
-        англійською версією й&nbsp;заявками просто на&nbsp;пошту компанії.
+        Стилю в&nbsp;компанії не&nbsp;було. Сайт&nbsp;— шаблонний конструктор:
+        тексти суцільними полотнами, без структури, акцентів і&nbsp;анімації.
+        Презентація&nbsp;— білий шаблон. Я&nbsp;перебудувала структуру сайту
+        й&nbsp;придумала стиль, який потім переїхав у&nbsp;кожен канал.
       </p>
       <div class="three">
-        <div><b>1,5&nbsp;МБ</b><span>важить головна. Було <s>4,9&nbsp;МБ</s></span></div>
-        <div><b>1,4&nbsp;с</b><span>до першого контенту на&nbsp;телефоні. Було <s>3,7&nbsp;с</s></span></div>
-        <div><b>97</b><span>доступність у&nbsp;Google Lighthouse. Було <s>86</s></span></div>
+        <div><b>Структура</b><span>Суцільний текст розібраний на&nbsp;блоки, кроки, картки й&nbsp;питання</span></div>
+        <div><b>Стиль</b><span>Бірюза й&nbsp;золото, шрифти, власні 3D-ілюстрації</span></div>
+        <div><b>Рух</b><span>Анімації показують сам процес перевезення</span></div>
       </div>
     </div>
 
@@ -439,17 +474,67 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 </section>
 
+<!-- ── 01. стиль з нуля ──────────────────────────────────────────── -->
+<section class="wrap" id="style">
+  <div class="sec-head">
+    <span class="sq"><b>01</b></span>
+    <h2>Стиль з&nbsp;нуля</h2>
+  </div>
+  <p class="sec-lead">
+    Логістика зазвичай виглядає однаково: синій, стокове фото порту
+    й&nbsp;вантажівка на&nbsp;трасі. Я&nbsp;пішла від&nbsp;цього: глибокий
+    бірюзовий, теплий жовтий для&nbsp;дій і&nbsp;золото для&nbsp;реклами,
+    вузькі високі заголовки й&nbsp;набір 3D-ілюстрацій, де&nbsp;кожен
+    вид транспорту зроблено в&nbsp;одній гамі.
+  </p>
+
+  <div class="style-grid">
+    <div class="panel palette" style="margin-top:0">
+      <h3>Кольори</h3>
+      <ul class="sw">
+        <li><i style="background:#001D1C"></i><span>Глибокий петроль<small>фон реклами й&nbsp;презентації</small></span></li>
+        <li><i style="background:#347C7D"></i><span>Бірюза<small>головний колір бренду</small></span></li>
+        <li><i style="background:#E4E4E4"></i><span>Світло-сірий<small>фон сайту</small></span></li>
+        <li><i style="background:#FCC55E"></i><span>Теплий жовтий<small>кнопки на&nbsp;сайті</small></span></li>
+        <li><i style="background:linear-gradient(135deg,#F2D58A,#C99A45 55%,#8E6526)"></i><span>Золото<small>преміальна серія реклами</small></span></li>
+      </ul>
+    </div>
+    <div class="panel type" style="margin-top:0">
+      <h3>Шрифти</h3>
+      <img class="type-big" src="images/clg/type-heading.webp" alt="Заголовок сайту шрифтом Bebas Neue: Доставка вантажів по всьому світу" width="364" height="106" loading="lazy">
+      <p>Заголовки&nbsp;— вузький високий гротеск <b>Bebas Neue</b> з&nbsp;кирилицею:
+        багато слів у&nbsp;рядку, але читається з&nbsp;першого погляду.
+        Текст&nbsp;— спокійний гротеск без&nbsp;прикрас.</p>
+    </div>
+  </div>
+
+  <div class="panel dark set">
+    <h3>3D-ілюстрації: один набір на&nbsp;всі канали</h3>
+    <div class="set-row">
+      <img src="images/clg/3d-plane.webp" alt="3D-літак" width="800" height="450" loading="lazy">
+      <img src="images/clg/3d-truck.webp" alt="3D-вантажівка" width="800" height="450" loading="lazy">
+      <img src="images/clg/3d-train.webp" alt="3D-потяг" width="800" height="450" loading="lazy">
+      <img src="images/clg/3d-hook.webp" alt="3D-контейнер на тросах" width="800" height="1493" loading="lazy">
+      <img src="images/clg/3d-hands.webp" alt="3D-контейнер у руках" width="500" height="548" loading="lazy">
+      <img src="images/clg/3d-docs.webp" alt="3D-документи з митними печатками" width="600" height="418" loading="lazy">
+    </div>
+    <p>Ті самі предмети живуть на&nbsp;сайті, у&nbsp;рекламі, у&nbsp;листах
+      і&nbsp;в&nbsp;презентації&nbsp;— тому компанію впізнають у&nbsp;будь-якому
+      каналі.</p>
+  </div>
+</section>
+
 <!-- ── 01. сайт ──────────────────────────────────────────────────── -->
 <section class="wrap" id="site">
   <div class="sec-head">
-    <span class="sq"><b>01</b></span>
+    <span class="sq"><b>02</b></span>
     <h2>Сайт, який показує перевезення</h2>
   </div>
   <p class="sec-lead">
-    Задача&nbsp;— переробити застарілий сайт так, щоб він продавав послуги
-    бізнесу й&nbsp;показував сам процес перевезення, а&nbsp;не&nbsp;стокові
-    фото з&nbsp;портом. Дизайн і&nbsp;анімації я&nbsp;зробила у&nbsp;Webflow,
-    потім переписала сайт у&nbsp;власний код і&nbsp;доробила.
+    Задача&nbsp;— сайт, який продає послуги бізнесу й&nbsp;показує сам
+    процес перевезення. Я&nbsp;перебудувала структуру: кожна послуга отримала
+    свою сторінку, текст&nbsp;— кроки, картки й&nbsp;відповіді на&nbsp;питання,
+    а&nbsp;головне виділено так, щоб його було видно з&nbsp;першого погляду.
   </p>
 
   <div class="shots">
@@ -469,11 +554,11 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     <article class="shot">
       <div class="browser">
         <div class="bbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">clg-site-three.vercel.app/posluhy-morski-perevezennia</span></div>
-        <a href="images/clg/site-sea-desktop.webp" data-zoom="site" data-cap="Нова сторінка «Морські перевезення (FCL/LCL)»">
+        <a href="images/clg/site-sea-desktop.webp" data-zoom="site" data-cap="Сторінка «Морські перевезення (FCL/LCL)»">
           <img src="images/clg/site-sea-desktop.webp" alt="Сторінка морських перевезень, перший екран" width="1440" height="900" loading="lazy">
         </a>
       </div>
-      <h3>Нова сторінка: море</h3>
+      <h3>Сторінка послуги: море</h3>
       <p>Морські перевезення FCL і&nbsp;LCL&nbsp;— окремою сторінкою: повний
         контейнер або місце у&nbsp;збірному, з&nbsp;митним оформленням
         і&nbsp;доставкою до&nbsp;складу.</p>
@@ -486,9 +571,9 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
           <img src="images/clg/site-broker-docs.webp" alt="Кроки митного оформлення й 3D-документи з печатками" width="1440" height="900" loading="lazy">
         </a>
       </div>
-      <h3>Нова сторінка: брокерські послуги</h3>
-      <p>Митне оформлення по&nbsp;кроках. Для&nbsp;неї я&nbsp;згенерувала
-        3D-ілюстрацію документів із&nbsp;митними печатками&nbsp;— у&nbsp;тій&nbsp;ж
+      <h3>Сторінка послуги: брокерські</h3>
+      <p>Митне оформлення&nbsp;— пʼятьма кроками замість абзацу тексту.
+        Поруч 3D-документи з&nbsp;митними печатками в&nbsp;тій&nbsp;самій
         гамі, що&nbsp;й&nbsp;увесь сайт.</p>
     </article>
 
@@ -506,33 +591,24 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
     </article>
   </div>
 
-  <h3 class="sub">Швидкість: було й&nbsp;стало</h3>
-  <div class="panel speed" style="margin-top:14px">
-    <table>
-      <caption class="sr" style="position:absolute;left:-9999px">Google Lighthouse, головна сторінка, телефон</caption>
-      <thead><tr><th>Lighthouse, телефон</th><th>Було</th><th>Стало</th></tr></thead>
-      <tbody>
-        <tr><td>Вага сторінки</td><td>4,9&nbsp;МБ</td><td class="up">1,5&nbsp;МБ</td></tr>
-        <tr><td>Перший контент на&nbsp;екрані</td><td>3,7&nbsp;с</td><td class="up">1,4&nbsp;с</td></tr>
-        <tr><td>Продуктивність</td><td>65</td><td class="up">81–86</td></tr>
-        <tr><td>Доступність</td><td>86</td><td class="up">97</td></tr>
-        <tr><td>SEO</td><td>100</td><td>100</td></tr>
-      </tbody>
-    </table>
-    <div>
-      <p class="note"><b>На&nbsp;компʼютері</b> продуктивність 88, головний блок
-        зʼявляється за&nbsp;0,9&nbsp;с.</p>
-      <p class="note">Заміри&nbsp;— Google Lighthouse, головна сторінка.
-        Продуктивність на&nbsp;телефоні подано діапазоном: від&nbsp;заміру
-        до&nbsp;заміру вона трохи гуляє.</p>
+  <h3 class="sub">Швидкість</h3>
+  <div class="panel" style="margin-top:14px">
+    <div class="kpi">
+      <div><b>1,4&nbsp;с</b><span>до першого контенту на&nbsp;телефоні</span></div>
+      <div><b>0,9&nbsp;с</b><span>до головного блоку на&nbsp;компʼютері</span></div>
+      <div><b>1,5&nbsp;МБ</b><span>важить головна разом з&nbsp;3D й&nbsp;анімаціями</span></div>
+      <div><b>97</b><span>доступність</span></div>
+      <div><b>100</b><span>SEO</span></div>
     </div>
+    <p class="kpi-note">Google Lighthouse, головна сторінка. Продуктивність: 81–86
+      на&nbsp;телефоні, 88&nbsp;на&nbsp;компʼютері.</p>
   </div>
 
   <h3 class="sub">Що ще під&nbsp;капотом</h3>
   <div class="panel dark" style="margin-top:14px">
     <div class="cards" style="margin-top:0">
-      <div class="card"><h3>Свій код замість Webflow</h3>
-        <p>Сайт живе на&nbsp;Vercel. Компанія не&nbsp;платить щомісяця
+      <div class="card"><h3>Без абонплати</h3>
+        <p>Власний код на&nbsp;Vercel: компанія не&nbsp;платить щомісяця
           за&nbsp;конструктор.</p></div>
       <div class="card"><h3>UA&nbsp;/&nbsp;EN</h3>
         <p>Англійська версія всіх сторінок і&nbsp;перемикач мови. Google знає,
@@ -555,7 +631,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <!-- ── 02. креативи ──────────────────────────────────────────────── -->
 <section class="wrap" id="ads">
   <div class="sec-head">
-    <span class="sq"><b>02</b></span>
+    <span class="sq"><b>03</b></span>
     <h2>Креативи для таргету</h2>
   </div>
   <p class="sec-lead">
@@ -706,7 +782,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <!-- ── 03. розсилка ──────────────────────────────────────────────── -->
 <section class="wrap" id="email">
   <div class="sec-head">
-    <span class="sq"><b>03</b></span>
+    <span class="sq"><b>04</b></span>
     <h2>Email-розсилка</h2>
   </div>
   <p class="sec-lead">
@@ -766,13 +842,13 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <!-- ── 04. презентація ───────────────────────────────────────────── -->
 <section class="wrap" id="deck">
   <div class="sec-head">
-    <span class="sq"><b>04</b></span>
+    <span class="sq"><b>05</b></span>
     <h2>Презентація для продажів</h2>
   </div>
   <p class="sec-lead">
-    Десять слайдів 16:9 у&nbsp;тому&nbsp;ж стилі: компанія, послуги
-    й&nbsp;кожен вид перевезень окремо&nbsp;— авіа, море, LCL, FTL, LTL,
-    брокерські послуги.
+    Замість білого шаблону&nbsp;— десять слайдів 16:9 у&nbsp;стилі сайту:
+    компанія, послуги й&nbsp;кожен вид перевезень окремо&nbsp;— авіа, море,
+    LCL, FTL, LTL, брокерські послуги.
   </p>
 
   <div class="deck">
@@ -802,23 +878,23 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 <!-- ── 05. підсумок і заклик ─────────────────────────────────────── -->
 <section class="wrap">
   <div class="sec-head">
-    <span class="sq"><b>05</b></span>
+    <span class="sq"><b>06</b></span>
     <h2>Що отримала компанія</h2>
   </div>
 
   <ol class="rules">
     <li><span class="num">1</span>
       <div><b>Один стиль у&nbsp;кожному каналі</b>
-        <p>Реклама, сайт, лист і&nbsp;презентація говорять однією мовою:
-          та сама бірюза, той самий 3D, той самий тон.</p></div></li>
+        <p>Стиль, якого раніше не&nbsp;було: реклама, сайт, лист
+          і&nbsp;презентація говорять однією мовою.</p></div></li>
     <li><span class="num">2</span>
-      <div><b>Сайт без&nbsp;абонплати</b>
-        <p>Власний код на&nbsp;Vercel замість конструктора з&nbsp;щомісячною
-          оплатою.</p></div></li>
+      <div><b>Сайт, який читають</b>
+        <p>Замість суцільного тексту&nbsp;— структура, акценти й&nbsp;анімації,
+          які показують, як&nbsp;їде вантаж.</p></div></li>
     <li><span class="num">3</span>
       <div><b>Швидкий на&nbsp;телефоні</b>
-        <p>Головна втричі легша й&nbsp;показує перший контент за&nbsp;1,4&nbsp;с
-          замість 3,7.</p></div></li>
+        <p>Перший контент зʼявляється за&nbsp;1,4&nbsp;с, хоча на&nbsp;сторінці
+          3D й&nbsp;анімації.</p></div></li>
     <li><span class="num">4</span>
       <div><b>Готовий до&nbsp;пошуку</b>
         <p>Дві мови, розмітка для&nbsp;Google і&nbsp;довідка для&nbsp;нейромереж.</p></div></li>
@@ -865,6 +941,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
       </div>
       <div>
         <h4>У кейсі</h4>
+        <a href="#style">Стиль</a>
         <a href="#site">Сайт</a>
         <a href="#ads">Креативи для&nbsp;таргету</a>
         <a href="#email">Email-розсилка</a>
