@@ -145,6 +145,8 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
    а на широкому переїжджає в порожнє місце ліворуч і показує на екран
    великою кривою з петлею. Крива схована, доки місця для неї немає. */
 .curl{display:none}
+.curl.flat{display:block;flex:none;width:150px;height:82px;margin-bottom:-18px}
+@media (max-width:420px){ .curl.flat{width:104px;height:57px;margin-bottom:-12px} }
 @media (min-width:981px){
   .turn .phone.light{position:relative}
   .turn .phone.light figcaption{position:absolute;right:calc(100% + 26px);top:24%;
@@ -154,8 +156,8 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
   .turn .phone.light figcaption .point{margin:0}
   .turn .phone.light figcaption .live{font-size:13px;padding:11px 16px}
   .turn .phone.light figcaption .arrow{display:none}
-  .curl{display:block;position:absolute;top:calc(100% - 4px);right:-22px;
-        width:164px;height:130px;pointer-events:none}
+  .turn .curl{display:block;position:absolute;top:calc(100% - 4px);right:-22px;
+              width:164px;height:130px;pointer-events:none}
 }
 
 /* ── 2. біль, що біжить ────────────────────────────────────────────── */
@@ -499,10 +501,10 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <div class="base"></div>
       </div>
       <div class="point">
-        <svg class="arrow" width="52" height="38" viewBox="0 0 52 38"
-             fill="none" aria-hidden="true">
-          <path d="M50 35C45 24 38 13 20 9" stroke="url(#ga)" stroke-width="2.8" stroke-linecap="round"/>
-          <path d="M14 8l11 1.4M14 8l2 10.5" stroke="url(#ga)" stroke-width="2.8"
+        <svg class="curl flat" viewBox="0 0 150 82" fill="none" aria-hidden="true">
+          <path d="M6 76C32 72 56 64 74 50C90 38 86 20 72 22C60 24 62 40 80 46C102 54 124 40 137 16"
+                stroke="url(#ga)" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M119 20L139 13L137 34" stroke="url(#ga)" stroke-width="3.2"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span class="live"><i></i>Живий сайт — гортайте просто тут</span>
@@ -578,7 +580,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         </svg>
           <span class="live"><i></i>Клікабельний прототип</span>
         </span>
-        <span class="cap">CRM станції — гортайте й&nbsp;перемикайте вкладки</span>
+        <span class="cap">CRM станції&nbsp;—<br>гортайте й&nbsp;перемикайте вкладки</span>
       </figcaption>
     </figure>
   </div>
