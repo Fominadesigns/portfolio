@@ -195,11 +195,44 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
              align-content:center}
 .sstep__shot figcaption{margin-top:11px;font-size:12.5px;text-align:center;opacity:.75}
 
+@media (max-width:620px){
+  /* Три числа лишаються в ряд: вони про порівняння, а поодинці
+     на всю ширину порівнювати нема з чим. */
+  .turn .three{grid-template-columns:repeat(3,1fr);gap:8px}
+  .turn .three div{padding:13px 10px}
+  .turn .three b{font-size:clamp(24px,7.4vw,36px)}
+  .turn .three span{font-size:11.5px;line-height:1.34;margin-top:6px}
+}
+
 @media (max-width:860px){
-  .steps__deck{padding-right:clamp(60px,14vw,120px)}
-  .sstep{grid-template-columns:1fr;gap:20px}
-  .sstep__shot{border-left:0;border-top:1px solid var(--blue);padding-left:0;padding-top:20px}
-  .steps__nav{position:static;margin-bottom:16px;justify-content:flex-end}
+  /* Звичайний слайдер: одна картка на екран, без стосу й зсувів.
+     Краї сусідніх карток на телефоні лізли з-за головної. */
+  .steps__deck{padding:0 0 34px}
+  .sstep{grid-template-columns:1fr;gap:16px;transform:none !important;
+         padding:clamp(14px,3.4vw,20px)}
+  .sstep:not(.is-front){display:none}
+  .sstep.is-gone{opacity:1}
+  .sstep__shot{border-left:0;border-top:1px solid var(--blue);padding-left:0;padding-top:16px}
+
+  /* Плашка «клієнт / станція» підіймається до номера: так картка
+     коротшає на цілий рядок і вміщається в екран разом зі стрілками. */
+  .sstep__quote{display:grid;grid-template-columns:auto minmax(0,1fr);
+                gap:10px 12px;align-items:center;
+                grid-template-areas:'no who' 'title title' 'text text'}
+  .sstep .no{grid-area:no;width:38px;height:38px;font-size:17px}
+  .sstep .who{grid-area:who;justify-self:start;margin:0;font-size:11px;padding:5px 11px}
+  .sstep h3{grid-area:title;margin-top:2px;font-size:clamp(21px,5.6vw,28px)}
+  .sstep p{grid-area:text;margin-top:0;font-size:15px}
+
+  /* Прототип трохи менший — інакше картка не влазить в один екран. */
+  .phone.sm{width:172px}
+  .phone.sm .holder{width:158px;height:316px}
+  .phone.sm iframe{transform:scale(.4051)}
+
+  /* Стрілки заходять на картку знизу праворуч. */
+  .steps__nav{position:absolute;top:auto;bottom:-14px;right:10px;gap:10px;z-index:25}
+  .rv-btn{width:46px;height:46px}
+  .rv-btn svg{width:21px;height:21px}
 }
 
 /* ── рамки пристроїв ───────────────────────────────────────────────── */
@@ -268,7 +301,12 @@ section{padding-top:clamp(26px,3.5vw,48px);padding-bottom:clamp(26px,3.5vw,48px)
 @media (max-width:760px){
   .statecard{grid-template-columns:1fr}
   .statecard__cover{min-height:200px}
-  .statecard__head{padding:14px 14px 0}
+  /* Квадратик і заголовок в один рядок: три рядки «Де / воно / зараз»
+     потрібні широкому екрану, на вузькому вони лише женуть картку вниз. */
+  .statecard__head{padding:16px 14px 0;display:flex;align-items:center;gap:13px}
+  .statecard__head h2{margin-top:0;font-size:clamp(23px,6.2vw,32px)}
+  .statecard__head h2 br{display:none}
+  .statecard__head .sq{width:58px;height:58px;font-size:20px}
   .statecard__txt{padding:12px 14px 16px}
 }
 
@@ -305,7 +343,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
 }
 @media (max-width:900px){
   .meta{grid-template-columns:repeat(2,1fr)}
-  .cards,.turn .three{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
   .sq{width:62px;height:62px;font-size:22px}
 }
 @media (max-width:560px){ .fcols,.rules{grid-template-columns:1fr} }
@@ -767,7 +805,9 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   const fit = () => panes.forEach((p) => {
     const f = p.querySelector('iframe');
     if (!f) return;
-    const s = p.clientWidth / 1280;
+    const w = p.clientWidth;
+    if (!w) return;            // ще не на екрані — перерахуємо згодом
+    const s = w / 1280;
     /* Саме transform, а не zoom: zoom на iPhone міняє ширину, яку бачить
        сторінка всередині, і в ноутбуці замість десктопної версії
        показувалась мобільна. */
