@@ -60,7 +60,11 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 @media (max-width:520px){ .bar .btn.g{display:none} }
 
 /* ── 1. герой ──────────────────────────────────────────────────────── */
-.hero{padding-top:48px;padding-bottom:40px}
+.hero{padding-top:0;padding-bottom:40px}
+/* Перший екран — рівно висота вікна мінус шапка; вміст по центру.
+   Білі картки під ним починаються вже за краєм екрана. */
+.hero-grid{min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);
+           padding:32px 0}
 .tagline{font-family:var(--head);font-weight:700;text-transform:uppercase;
          font-size:14px;letter-spacing:.14em;opacity:.8}
 /* Плашка героя — як у Skipper: той самий градієнт, що над головною. */
@@ -70,6 +74,10 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
 /* Назва довга, тож заголовок менший, ніж у Skipper: уся перша колонка
    — плашка, назва, текст і кнопки — має вміститись в один екран. */
 .hero h1{font-size:clamp(40px,4.7vw,78px);margin-top:16px}
+/* На широкому екрані назва — в один рядок: розмір рахуємо від ширини
+   самої колонки (cqi), тож рядок завжди вміщається. */
+.hero-txt{container-type:inline-size}
+@media (min-width:981px){ .hero h1{white-space:nowrap;font-size:7.9cqi} }
 .hero .say{max-width:40ch;margin-top:18px;font-size:clamp(17px,1.65vw,22px);font-weight:500}
 .hero-cta{display:flex;gap:var(--gap);flex-wrap:wrap;margin-top:28px}
 .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-top:40px}
@@ -79,7 +87,7 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
          letter-spacing:.1em;opacity:.65;margin:0}
 .meta dd{margin:5px 0 0;font-weight:600;font-size:16px}
 
-.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(20px,3.4vw,46px);
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,3.4vw,46px);
            align-items:center}
 .hero-txt,.hero-site{min-width:0}
 /* Ноутбук: кришка, екран і підставка. Усередині — справжній сайт. */
