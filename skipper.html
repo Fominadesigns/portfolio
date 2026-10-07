@@ -141,6 +141,23 @@ h1,h2,h3,.h{font-family:var(--head);font-weight:800;text-transform:uppercase;
   .hero-grid,.turn-grid{grid-template-columns:1fr}
 }
 
+/* Підпис до прототипа CRM на вузькому екрані стоїть під телефоном,
+   а на широкому переїжджає в порожнє місце ліворуч і показує на екран
+   великою кривою з петлею. Крива схована, доки місця для неї немає. */
+.curl{display:none}
+@media (min-width:981px){
+  .turn .phone.light{position:relative}
+  .turn .phone.light figcaption{position:absolute;right:calc(100% + 26px);top:24%;
+         width:min(300px,25vw);margin:0;display:grid;justify-items:end;
+         text-align:right;gap:12px;opacity:1}
+  .turn .phone.light figcaption .cap{order:-1;line-height:1.35}
+  .turn .phone.light figcaption .point{margin:0}
+  .turn .phone.light figcaption .live{font-size:13px;padding:11px 16px}
+  .turn .phone.light figcaption .arrow{display:none}
+  .curl{display:block;position:absolute;top:calc(100% - 4px);right:-22px;
+        width:164px;height:130px;pointer-events:none}
+}
+
 /* ── 2. біль, що біжить ────────────────────────────────────────────── */
 .pains{background:var(--dark) var(--grid-l);color:#fff;padding:40px 0 46px;overflow:hidden}
 .pains h2{font-size:clamp(40px,8vw,110px);padding:0 clamp(16px,3.4vw,48px);max-width:1240px;margin:0 auto}
@@ -546,6 +563,12 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         <iframe src="demo/admin.html" loading="lazy" title="CRM станції — гортайте"></iframe>
       </div></div>
       <figcaption>
+        <svg class="curl" viewBox="0 0 190 150" fill="none" aria-hidden="true">
+          <path d="M8 6C30 44 48 66 86 74C118 80 128 48 110 42C94 37 90 62 108 76C128 94 152 104 176 108"
+                stroke="url(#ga)" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M154 96L178 108L156 124" stroke="url(#ga)" stroke-width="3.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         <span class="point sm">
           <svg class="arrow" width="42" height="31" viewBox="0 0 52 38"
              fill="none" aria-hidden="true">
@@ -555,7 +578,7 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
         </svg>
           <span class="live"><i></i>Клікабельний прототип</span>
         </span>
-        CRM станції — гортайте й&nbsp;перемикайте вкладки
+        <span class="cap">CRM станції — гортайте й&nbsp;перемикайте вкладки</span>
       </figcaption>
     </figure>
   </div>
