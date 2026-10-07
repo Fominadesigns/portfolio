@@ -1607,7 +1607,10 @@ document.documentElement.classList.add('js');
      що ще за краєм, теж «бачимо». */
   const reveal = () => {
     if (!mq.matches) return;
-    const top = sec.getBoundingClientRect().top;
+    const r = sec.getBoundingClientRect(), top = r.top;
+    /* Пішли з екрана — предмети ховаються назад, щоб наступного разу
+       виїхати знову. */
+    if (r.bottom < 0 || r.top > innerHeight) { [box, plane, truck].forEach((el) => el.classList.remove('in')); return; }
     [box, plane, truck].forEach((el) => {
       if (top + el.offsetTop + el.offsetHeight * .3 < innerHeight * .92) el.classList.add('in');
     });
