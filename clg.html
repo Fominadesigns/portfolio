@@ -514,6 +514,54 @@ section[id]{scroll-margin-top:64px}
 .js .cf-nav{display:flex}
 @media (prefers-reduced-motion:reduce){ .js .cf-slide{transition:none} }
 
+
+/* ── 01. стиль: картки-гармошка ────────────────────────────────────── */
+.acc{display:flex;gap:var(--gap);margin-top:24px;height:clamp(460px,64vh,640px)}
+.acc-i{flex:1 1 0;min-width:0;position:relative;border-radius:18px;overflow:hidden;cursor:pointer;
+       background:#fff;border:1px solid rgba(51,70,196,.25);outline-offset:3px;
+       box-shadow:0 14px 32px rgba(33,33,33,.12);
+       transition:flex-grow .7s cubic-bezier(.22,.8,.24,1)}
+.acc-i.open{flex-grow:4.6;cursor:default}
+.acc-face{position:absolute;inset:0;background-size:cover;background-position:center;
+          transition:opacity .4s ease}
+.acc-label{position:absolute;left:10px;right:10px;bottom:10px;background:#fff;color:var(--blue);
+           border-radius:12px;padding:12px 14px;font-family:var(--head);font-weight:800;
+           text-transform:uppercase;font-size:clamp(13px,1.1vw,16px);line-height:1.05}
+.acc-grad{background:linear-gradient(160deg,#001D1C 0%,#347C7D 35%,#E4E4E4 58%,#FCC55E 78%,#C99A45 100%)}
+.acc-white{background:#fff}
+.acc-vert{position:absolute;left:50%;top:42%;width:min(420px,300%);max-width:none;height:auto;
+          transform:translate(-50%,-50%) rotate(-90deg)}
+.acc-body{position:absolute;inset:0;padding:clamp(14px,1.5vw,22px);display:flex;flex-direction:column;
+          gap:10px;background:#fff;opacity:0;visibility:hidden;overflow:auto;
+          transition:opacity .35s ease,visibility 0s .35s}
+.acc-i.open .acc-face{opacity:0}
+.acc-i.open .acc-body{opacity:1;visibility:visible;transition:opacity .45s ease .25s,visibility 0s}
+.acc-pic{width:100%;flex:1 1 auto;min-height:120px;max-height:52%;object-fit:cover;border-radius:12px;
+         display:block}
+.acc-fonts{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px;
+           background:var(--light);padding:16px 20px;flex:0 0 auto;max-height:none}
+.acc-fonts img{height:auto;max-width:100%}
+.acc-fonts img:first-child{width:min(300px,70%)}
+.acc-fonts img:last-child{width:min(300px,70%)}
+.acc-body h3{font-size:clamp(20px,1.9vw,28px);margin-top:4px}
+.acc-body p{margin:0;font-size:15.5px;line-height:1.5;max-width:60ch}
+.sw-list,.why{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14.5px;line-height:1.4}
+.sw-list li{display:flex;gap:10px;align-items:center}
+.sw-list i{width:26px;height:26px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.12)}
+.why li{padding-left:14px;border-left:3px solid var(--orange)}
+@media (prefers-reduced-motion:reduce){ .acc-i,.acc-face,.acc-body{transition:none} }
+
+/* На телефоні — стовпчик: закриті картки стають смужками з підписом. */
+@media (max-width:760px){
+  .acc{flex-direction:column;height:auto}
+  .acc-i{flex:none;height:92px;transition:height .5s cubic-bezier(.22,.8,.24,1)}
+  .acc-i.open{height:auto}
+  .acc-i.open .acc-body{position:relative}
+  .acc-label{right:auto}
+  .acc-vert{display:none}
+  .acc-pic{max-height:220px}
+}
+
 /* ── великий підвал ────────────────────────────────────────────────── */
 footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margin-top:40px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(18px,3vw,40px)}
@@ -681,64 +729,113 @@ footer{background:var(--dark) var(--grid-l);color:#fff;padding:52px 0 28px;margi
   </div>
 </section>
 
-<!-- ── 01. стиль з нуля — бенто ──────────────────────────────────────
-     Екран сам зібраний бенто-сіткою, як сайт CLG, але в картках не
-     логістика, а стиль кейсу. Картки — у моїх кольорах: синій, білий,
-     помаранчевий, темний. Плашки кольорів виїжджають справа наліво,
-     як картки переваг на сайті CLG. -->
-<section class="wrap kit" id="style">
-  <div class="kit-grid">
-    <div class="k k-intro">
-      <span class="sq light"><b>01</b></span>
-      <h2>Стиль з&nbsp;нуля в&nbsp;бенто-сітці</h2>
-      <p>Бенто&nbsp;— сітка з&nbsp;карток, де кожна картка&nbsp;— одна думка.
-        Так на&nbsp;сайті CLG розкладено послуги: людина бачить усе
-        одразу й&nbsp;читає лише потрібне. Цей екран зібраний так само,
-        тільки в&nbsp;картках&nbsp;— сам стиль.</p>
-    </div>
+<!-- ── 01. стиль з нуля: картки-гармошка ─────────────────────────────
+     Повторює прийом із сайту CLG: ряд вузьких карток із картинкою
+     й підписом, одна розкрита. Наведення (чи дотик) розкриває іншу.
+     Без скрипта перша картка розкрита, решту видно вузькими. -->
+<section class="wrap acc-sec" id="style">
+  <div class="sec-head">
+    <span class="sq"><b>01</b></span>
+    <h2>Стиль з&nbsp;нуля</h2>
+  </div>
+  <p class="sec-lead">Подано так само, як&nbsp;послуги на&nbsp;сайті CLG: наведіть
+    на&nbsp;картку&nbsp;— вона розкриється.</p>
 
-    <div class="k k-colors">
-      <h3>Кольори</h3>
-      <ul class="pills" data-slide>
-        <li style="--d:0s"><i style="background:#001D1C"></i><span>Глибокий петроль<small>фон реклами й&nbsp;презентації</small></span></li>
-        <li style="--d:.12s"><i style="background:#347C7D"></i><span>Бірюза<small>головний колір бренду</small></span></li>
-        <li style="--d:.24s"><i style="background:#E4E4E4"></i><span>Світло-сірий<small>фон сайту</small></span></li>
-        <li style="--d:.36s"><i style="background:#FCC55E"></i><span>Теплий жовтий<small>кнопки на&nbsp;сайті</small></span></li>
-        <li style="--d:.48s"><i style="background:linear-gradient(135deg,#F2D58A,#C99A45 55%,#8E6526)"></i><span>Золото<small>преміальна реклама</small></span></li>
-      </ul>
-    </div>
-
-    <div class="k k-type">
-      <h3>Шрифт</h3>
-      <img src="images/clg/type-heading.webp" alt="Заголовок сайту шрифтом Bebas Neue: Доставка вантажів по всьому світу" width="364" height="106" loading="lazy">
-      <p><b>Bebas Neue</b>&nbsp;— вузький високий гротеск для&nbsp;заголовків:
-        багато слів у&nbsp;рядку, а&nbsp;читається з&nbsp;першого погляду.</p>
-    </div>
-
-    <div class="k k-3d">
-      <h3>3D-ілюстрації</h3>
-      <div class="objs">
-        <img style="--d:0s" src="images/clg/3d-plane.webp" alt="3D-літак" width="1022" height="281" loading="lazy">
-        <img style="--d:.6s" src="images/clg/3d-truck.webp" alt="3D-вантажівка" width="796" height="473" loading="lazy">
-        <img style="--d:1.2s" src="images/clg/3d-train.webp" alt="3D-потяг" width="678" height="293" loading="lazy">
-        <img style="--d:.3s" src="images/clg/3d-hook.webp" alt="3D-контейнер на тросах" width="630" height="1050" loading="lazy">
-        <img style="--d:.9s" src="images/clg/3d-hands.webp" alt="3D-контейнер у руках" width="500" height="548" loading="lazy">
-        <img style="--d:1.5s" src="images/clg/3d-docs.webp" alt="3D-документи з митними печатками" width="600" height="418" loading="lazy">
+  <div class="acc">
+    <article class="acc-i open" tabindex="0">
+      <div class="acc-face" style="background-image:url(images/clg/acc-bento.webp);background-position:62% center">
+        <span class="acc-label">Бенто-<br>сітка</span>
       </div>
-      <p>Один набір на&nbsp;сайт, рекламу, листи й&nbsp;презентацію.</p>
-    </div>
+      <div class="acc-body">
+        <img class="acc-pic" src="images/clg/acc-bento.webp" alt="Перший екран морських перевезень: головне, фото й переваги — окремими картками" width="1290" height="540" loading="lazy">
+        <h3>Бенто-сітка</h3>
+        <p>Сторінка розкладена на&nbsp;картки, кожна&nbsp;— одна думка: що
+          це за&nbsp;послуга, фото, переваги, кнопка. Людина бачить усе одразу
+          й&nbsp;читає лише потрібне, замість суцільного полотна тексту.</p>
+      </div>
+    </article>
 
-    <div class="k k-site">
-      <h3>Так бенто на&nbsp;сайті</h3>
-      <a class="k-shot" href="images/clg/site-sea-desktop.webp" data-zoom="site" data-cap="Морські перевезення: головне, фото й переваги — окремими картками">
-        <img src="images/clg/site-sea-desktop.webp" alt="Перший екран сторінки морських перевезень" width="1440" height="900" loading="lazy">
-      </a>
-      <ul class="pills sm" data-slide>
-        <li style="--d:0s">головне&nbsp;— карткою</li>
-        <li style="--d:.12s">фото&nbsp;— плиткою</li>
-        <li style="--d:.24s">переваги&nbsp;— плашками</li>
-      </ul>
-    </div>
+    <article class="acc-i" tabindex="0">
+      <div class="acc-face acc-grad">
+        <span class="acc-label">Кольори</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-pic acc-grad" role="img" aria-label="Градієнт із кольорів бренду"></div>
+        <h3>Кольори</h3>
+        <ul class="sw-list">
+          <li><i style="background:#001D1C"></i><span><b>Глибокий петроль</b>&nbsp;— фон реклами й&nbsp;презентації, дає глибину й&nbsp;преміальність</span></li>
+          <li><i style="background:#347C7D"></i><span><b>Бірюза</b>&nbsp;— головний колір: море, техніка, кнопки й&nbsp;плашки</span></li>
+          <li><i style="background:#E4E4E4"></i><span><b>Світло-сірий</b>&nbsp;— спокійний фон сайту, на&nbsp;якому видно картки</span></li>
+          <li><i style="background:#FCC55E"></i><span><b>Теплий жовтий</b>&nbsp;— лише для дій: коло-стрілка на&nbsp;кожній кнопці</span></li>
+          <li><i style="background:linear-gradient(135deg,#F2D58A,#C99A45 55%,#8E6526)"></i><span><b>Золото</b>&nbsp;— преміальна серія реклами</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="acc-i" tabindex="0">
+      <div class="acc-face acc-white">
+        <img class="acc-vert" src="images/clg/fnt-title.webp" alt="" width="736" height="202">
+        <span class="acc-label">Шрифти</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-pic acc-fonts">
+          <img src="images/clg/fnt-title.webp" alt="Шрифти — написано шрифтом Bebas Neue" width="736" height="202">
+          <img src="images/clg/fnt-sample.webp" alt="" width="846" height="192">
+        </div>
+        <h3>Шрифти</h3>
+        <ul class="why">
+          <li><b>Bebas Neue&nbsp;— заголовки.</b> Вузький і&nbsp;високий: у&nbsp;рядок
+            влазить «Морські контейнерні перевезення», і&nbsp;читається з&nbsp;першого погляду.</li>
+          <li><b>Arial&nbsp;— текст.</b> <span style="font-family:Arial,Helvetica,sans-serif">Спокійний
+            і&nbsp;звичний</span>, уже є&nbsp;в&nbsp;кожному пристрої&nbsp;— сторінка
+            не&nbsp;чекає на&nbsp;завантаження шрифту.</li>
+          <li><b>Разом.</b> Виразний заголовок і&nbsp;нейтральний текст не&nbsp;сперечаються:
+            акцент там, де&nbsp;треба.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="acc-i" tabindex="0">
+      <div class="acc-face" style="background-image:url(images/clg/acc-ship.webp)">
+        <span class="acc-label">Нейро-<br>фото</span>
+      </div>
+      <div class="acc-body">
+        <img class="acc-pic" src="images/clg/acc-ship.webp" alt="Бірюзовий контейнеровоз у тропічній воді" width="600" height="1058" loading="lazy" style="object-position:center 62%">
+        <h3>Фото з&nbsp;нейромережі</h3>
+        <p>Замість стокових портів, які є&nbsp;в&nbsp;кожного конкурента,&nbsp;—
+          яскраві, соковиті кадри, згенеровані в&nbsp;нейромережі: бірюзова техніка,
+          тропічна вода, чисте небо. Вони тримають атмосферу й&nbsp;збігаються
+          з&nbsp;кольорами бренду.</p>
+      </div>
+    </article>
+
+    <article class="acc-i" tabindex="0">
+      <div class="acc-face" style="background-image:url(images/clg/acc-rail.webp)">
+        <span class="acc-label">Картки-<br>гармошка</span>
+      </div>
+      <div class="acc-body">
+        <img class="acc-pic" src="images/clg/site-service-cards.webp" alt="Послуги на сайті CLG: вузькі картки, одна розкрита" width="1440" height="900" loading="lazy" style="object-position:center 45%">
+        <h3>Нестандартна сітка</h3>
+        <p>Шість послуг&nbsp;— не&nbsp;списком на&nbsp;пів сторінки,
+          а&nbsp;«гармошкою» на&nbsp;один екран: вузькі картки з&nbsp;фото,
+          і&nbsp;та, на&nbsp;яку навели, плавно розкривається з&nbsp;описом
+          і&nbsp;кнопкою. Ця секція зроблена так само.</p>
+      </div>
+    </article>
+
+    <article class="acc-i" tabindex="0">
+      <div class="acc-face" style="background-image:url(images/clg/acc-avia.webp)">
+        <span class="acc-label">Рух<br>у&nbsp;деталях</span>
+      </div>
+      <div class="acc-body">
+        <img class="acc-pic" src="images/clg/acc-avia.webp" alt="Бірюзовий літак у небі" width="600" height="1058" loading="lazy" style="object-position:center 30%">
+        <h3>Рух у&nbsp;деталях</h3>
+        <p>Кнопки відгукуються на&nbsp;курсор: відблиск, інверсія кольору,
+          коло зі&nbsp;стрілкою стискається. Бігучі рядки з&nbsp;типами
+          вантажів, FAQ виїжджає збоку. Дрібниці, через які сайт відчувається
+          живим.</p>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -1264,6 +1361,20 @@ document.documentElement.classList.add('js');
   }, true);
   addEventListener('resize', render);
   render();
+})();
+
+/* Картки-гармошка: на компʼютері розкриваються наведенням, на телефоні
+   й з клавіатури — дотиком чи фокусом. */
+(function () {
+  const items = [...document.querySelectorAll('.acc-i')];
+  if (!items.length) return;
+  const open = (el) => items.forEach((i) => i.classList.toggle('open', i === el));
+  const hover = matchMedia('(hover: hover) and (min-width: 761px)');
+  items.forEach((el) => {
+    el.addEventListener('mouseenter', () => { if (hover.matches) open(el); });
+    el.addEventListener('click', () => open(el));
+    el.addEventListener('focus', () => open(el));
+  });
 })();
 
 /* Стрілки й лічильник для слайдів. */
